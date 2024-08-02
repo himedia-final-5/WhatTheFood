@@ -19,10 +19,9 @@ public class Inquiry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String email; // 유저 이메일
-    private String password; // 문의사항 글 비밀번호
     private String title; // 문의사항 제목
     private String content; //문의사항 내용
     private String answer; // 관리자 답변
