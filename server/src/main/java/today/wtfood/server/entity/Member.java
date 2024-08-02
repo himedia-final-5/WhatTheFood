@@ -20,10 +20,13 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -34,9 +37,6 @@ public class Member {
 
     @Column(name = "introduce")
     private String introduce;
-
-    @Column(name = "email", nullable = false)
-    private String email;
 
     @Column(name = "profile_img")
     private String profileImg;
