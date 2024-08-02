@@ -1,6 +1,6 @@
 package today.wtfood.server.service;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.entity.Event;
 import today.wtfood.server.repositiory.EventRepository;
@@ -22,9 +22,19 @@ public class EventService {
         return er.save(event);
     }
 
+    //이벤트 리스트 조회(키워드)
+    public List<Event> getEventList(String keyword) {
+        if (keyword == null || keyword.isEmpty()) {
+            return er.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        } else {
+            return er.findByTitleContaining(keyword);
+            // 키워드로 필터링하는 메소드 호출
+        }
+    }
+
     // 모든 이벤트 조회
-    public List<Event> getAllEvents() {
-        return er.findAll();
+    public List<Event> geteventlist() {
+        return er.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     // ID로 이벤트 조회
@@ -35,9 +45,12 @@ public class EventService {
     // 이벤트 수정
     public Event updateEvent(int id, Event event) {
         if (er.existsById(id)) {
-            event.setId(id);
+            event.setId(id);  // 이벤트의 ID를 설정합니다.
+            return er.save(event);  // 이벤트를 저장하고 반환합니다.
+        } else {
+            throw new RuntimeException("Event not found with id " + id);
+            // ID가 없으면 예외를 발생시킵니다.
         }
-        return er.save(event);
     }
 
     // 이벤트 삭제
