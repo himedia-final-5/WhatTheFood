@@ -1,0 +1,11 @@
+# 외래키 제약조건을 임시로 비활성화
+SET SESSION FOREIGN_KEY_CHECKS = 0;
+
+# INSERT 쿼리를 작성
+INSERT INTO example_table (column1, column2, column3)
+VALUES ('value1-1', 'value1-2', 'value1-3'),
+       ('value2-1', 'value2-2', 'value2-3'),
+       ('value3-1', 'value3-2', 'value3-3');
+
+# 외래키 제약조건을 다시 활성화
+SET SESSION FOREIGN_KEY_CHECKS = 1;
