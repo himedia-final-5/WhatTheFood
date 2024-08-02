@@ -36,10 +36,13 @@ public class MemberController {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public Page<MemberSummary> getMembers(
-            @Validated
-            PageRequest pageable
+            @RequestParam(defaultValue = "0")
+            int pageNumber,
+            @RequestParam(defaultValue = "10")
+            int pageSize
     ) {
-        return memberService.getMembers(pageable);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return memberService.getMembers(pageRequest);
     }
 
     @GetMapping("/{memberId}")
