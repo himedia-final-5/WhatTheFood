@@ -8,7 +8,7 @@ import today.wtfood.server.dao.InquiryRepository;
 @Transactional
 public class InquiryService {
 
-    InquiryRepository ir;
+    private final InquiryRepository ir;
 
     public InquiryService(InquiryRepository ir) {
         this.ir = ir;

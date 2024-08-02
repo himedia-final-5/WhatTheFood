@@ -8,7 +8,7 @@ import today.wtfood.server.service.InquiryService;
 @RequestMapping("/inquiry")
 public class InquiryController {
 
-    InquiryService is;
+    private final InquiryService is;
 
     public InquiryController(InquiryService is) {
         this.is = is;
