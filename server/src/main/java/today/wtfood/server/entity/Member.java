@@ -1,0 +1,66 @@
+package today.wtfood.server.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.List;
+
+@Entity
+@Table(name = "member")
+@DynamicInsert
+@DynamicUpdate
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Member {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "nickname")
+    private String nickname;
+
+    @Column(name="introduce")
+    private String introduce;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "profile_img")
+    private String profileImg;
+
+    @Column(name = "banner_img")
+    private String bannerImg;
+
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
+    @JoinColumn(name = "following_id")
+    private List<Member> followings;
+
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
+    @JoinColumn(name = "social_url")
+    private List<SocialUrl> socialUrls;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private List<Role> roles = List.of(Role.ROLE_USER);
+
+    public record SocialUrl(String name, String url) {}
+
+    public enum Role {
+        ROLE_USER, ROLE_CHEF, ROLE_BRAND, ROLE_ADMIN
+    }
+
+}
