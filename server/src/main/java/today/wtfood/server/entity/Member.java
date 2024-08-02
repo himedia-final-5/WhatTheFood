@@ -19,7 +19,7 @@ import java.util.List;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -32,7 +32,7 @@ public class Member {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name="introduce")
+    @Column(name = "introduce")
     private String introduce;
 
     @Column(name = "email", nullable = false)
@@ -45,11 +45,19 @@ public class Member {
     private String bannerImg;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
-    @JoinColumn(name = "following_id")
+    @JoinTable(
+            name = "member_followings",
+            joinColumns = @JoinColumn(name = "from_member_id"),
+            inverseJoinColumns = @JoinColumn(name = "to_member_id")
+    )
     private List<Member> followings;
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
-    @JoinColumn(name = "social_url")
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
+    @JoinTable(
+            name = "member_social_urls",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "social_url")
+    )
     private List<SocialUrl> socialUrls;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -57,7 +65,8 @@ public class Member {
     @Builder.Default
     private List<Role> roles = List.of(Role.ROLE_USER);
 
-    public record SocialUrl(String name, String url) {}
+    public record SocialUrl(String name, String url) {
+    }
 
     public enum Role {
         ROLE_USER, ROLE_CHEF, ROLE_BRAND, ROLE_ADMIN
