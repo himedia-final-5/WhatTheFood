@@ -1,6 +1,7 @@
 package today.wtfood.server.controller;
 
 import org.springframework.web.bind.annotation.*;
+import today.wtfood.server.dto.Paging;
 import today.wtfood.server.dto.inquiry.InquiryDto;
 import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.service.InquiryService;
@@ -19,24 +20,38 @@ public class InquiryController {
 
     @PostMapping("")
     public HashMap<String, Object> insertInquiry(@RequestBody InquiryDto inquiry) {
+
         HashMap<String, Object> result = new HashMap<String, Object>();
+
         Inquiry i = is.insertinquiries(inquiry.toEntity());
+
         result.put("inquiryId", i.getEmail());
+
         return result;
     }
 
     @GetMapping("/{id}")
-    public HashMap<String, Object> getInquiryDetail(@RequestParam("id") int id) {
+    public HashMap<String, Object> getMyInquiryView(@RequestParam("id") int id) {
         HashMap<String, Object> result = new HashMap<>();
 
+        result.put("inquiry", is.getMyInquiryView(id));
 
         return result;
     }
 
     @GetMapping("/{email}")
-    public HashMap<String, Object> getInquiryList(@RequestParam("page") int page, @PathVariable("email") String email) {
+    public HashMap<String, Object> getMyInquiryList(@RequestParam("page") int page,
+                                                  @PathVariable("email") String email) {
         HashMap<String, Object> result = new HashMap<>();
 
+        Paging paging = new Paging();
+        paging.setPage( page );
+        int count = is.getAllCount();
+        paging.setTotalCount( count );
+        paging.calPaing();
+
+        result.put( "myinquirylist", is.getMyInquiryList(paging, email));
+        result.put( "paging", paging);
 
         return result;
     }
@@ -44,13 +59,13 @@ public class InquiryController {
 
     @GetMapping("/{id}")
     public void deleteInquiry(@PathVariable("id") int id) {
-
+        is.deleteInquiry(id);
     }
 
 
     @PostMapping("")
     public void inquiryAnswer(@RequestParam("id") int id, @RequestBody Inquiry answer) {
-
+        is.inquiryAnswer(id, answer);
     }
 
 //    @Autowired
@@ -72,4 +87,7 @@ public class InquiryController {
 //        } catch (IllegalStateException | IOException e) {e.printStackTrace();}
 //        return result;
 //    }
+
+
+
 }
