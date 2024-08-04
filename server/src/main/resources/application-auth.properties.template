@@ -1,0 +1,14 @@
+# Database Configuration
+spring.datasource.username=username
+spring.datasource.password=password
+spring.datasource.url=jdbc:mysql://localhost:3306/whatthefood
+#
+# Mail configuration
+spring.mail.username=username@example.com
+spring.mail.password=password4email
+#
+# Security configuration
+## secret key for JWT token (TIP: use https://jwtsecret.com/generate)
+jwt.secret=SECRET_KEY_FOR_JWT_TOKEN
+## expiration time of JWT token in milliseconds
+jwt.expiration=86400000
