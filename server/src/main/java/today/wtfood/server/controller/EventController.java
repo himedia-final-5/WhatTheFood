@@ -6,13 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.event.EventDetail;
 import today.wtfood.server.dto.event.EventDto;
 import today.wtfood.server.dto.event.EventSummary;
-import today.wtfood.server.entity.Event;
 import today.wtfood.server.service.EventService;
-
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/events")
@@ -69,17 +67,8 @@ public class EventController {
 
     // 새로운 이벤트 생성 //수정생성용 Dto사용
     @PostMapping("/")
-    public HashMap<String, Object> createEvent(@RequestBody EventDto event) {
-        HashMap<String, Object> result = new HashMap<>();
-        try {
-            Event createdEvent = es.createEvent(event);
-            result.put("status", "success");
-            result.put("createdEvent", createdEvent);
-        } catch (RuntimeException e) {
-            result.put("status", "error");
-            result.put("message", e.getMessage());
-        }
-        return result;
+    public GeneratedId<Long> createEvent(@RequestBody EventDto event) {
+        return new GeneratedId<>(es.createEvent(event).getId());
     }
 }
 
