@@ -23,14 +23,23 @@ public class Member {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "kakao_oauth_id", unique = true)
+    private String kakaoOauthId;
+
+    @Column(name = "naver_oauth_id", unique = true)
+    private String naverOauthId;
+
+    @Column(name = "google_oauth_id", unique = true)
+    private String googleOauthId;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email", unique = true)
+    private String email;
 
     @Column(name = "nickname")
     private String nickname;
