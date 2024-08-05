@@ -4,13 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.inquiry.InquiryDetail;
 import today.wtfood.server.dto.inquiry.InquiryDto;
 import today.wtfood.server.dto.inquiry.InquirySummary;
-import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.service.InquiryService;
-
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/inquiries")
@@ -23,15 +21,8 @@ public class InquiryController {
     }
 
     @PostMapping("")
-    public HashMap<String, Object> insertInquiry(@RequestBody InquiryDto inquiry) {
-
-        HashMap<String, Object> result = new HashMap<String, Object>();
-
-        Inquiry i = is.insertInquiry(inquiry.toEntity());
-
-        result.put("inquiryId", i.getEmail());
-
-        return result;
+    public GeneratedId<Long> insertInquiry(@RequestBody InquiryDto inquiry) {
+        return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
     }
 
     @GetMapping("/{id}")
@@ -44,7 +35,7 @@ public class InquiryController {
                                                  @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
                                                  @RequestParam(name = "pageCount", defaultValue = "10") int pageSize
     ) {
-        
+
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         pageRequest.withSort(Sort.Direction.DESC, "id");
         return is.getMyInquiryList(email, pageRequest);
