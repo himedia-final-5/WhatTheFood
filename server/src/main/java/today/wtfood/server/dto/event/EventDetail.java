@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 //디테일
 public interface EventDetail {
-    int getId();
+    long getId();
 
     String getTitle();
 

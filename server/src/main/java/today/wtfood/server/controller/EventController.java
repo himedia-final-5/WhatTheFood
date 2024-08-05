@@ -26,7 +26,7 @@ public class EventController {
 
     // 이벤트 리스트 //이벤트번호(id)
     @GetMapping("/{id}")
-    public EventDetail getEvent(@PathVariable("id") int id) {
+    public EventDetail getEvent(@PathVariable("id") long id) {
         return es.getEventById(id);
     }
 
@@ -46,7 +46,7 @@ public class EventController {
     //이벤트 수정 //수정생성용 Dto사용
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateEvent(@PathVariable("id") int id, @RequestBody EventDto event) {
+    public void updateEvent(@PathVariable("id") long id, @RequestBody EventDto event) {
         try {
             es.updateEvent(id, event); //성공
             return;
@@ -58,7 +58,7 @@ public class EventController {
     // 이벤트 삭제
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEvent(@PathVariable("id") int id) {
+    public void deleteEvent(@PathVariable("id") long id) {
         try {
             es.deleteEvent(id); //삭제
             return;

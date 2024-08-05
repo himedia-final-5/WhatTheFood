@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  */
 //요약정보
 public interface EventSummary {
-    int getId();
+    long getId();
 
     String getTitle();
 

@@ -11,10 +11,10 @@ import today.wtfood.server.entity.Event;
 import java.util.Optional;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Integer> {
+public interface EventRepository extends JpaRepository<Event, Long> {
 
     Page<EventSummary> findAllBy(Pageable pageable);
 
-    Optional<EventDetail> findDetailById(int id);
+    Optional<EventDetail> findDetailById(long id);
 
 }
