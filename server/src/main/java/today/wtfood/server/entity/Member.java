@@ -2,6 +2,7 @@ package today.wtfood.server.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -69,10 +70,11 @@ public class Member {
     )
     private List<SocialUrl> socialUrls;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "role")
+    @ColumnDefault("'ROLE_USER'")
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private List<Role> roles = List.of(Role.ROLE_USER);
+    private Role role = Role.ROLE_USER;
 
     public record SocialUrl(String name, String url) {
     }
