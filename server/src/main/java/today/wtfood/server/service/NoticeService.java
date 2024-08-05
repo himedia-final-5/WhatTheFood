@@ -40,7 +40,8 @@ public class NoticeService {
 
     // 작성 후
     public NoticeDetail getNotice(long id) {
-        return nr.findById(id);
+        return nr.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 공지사항이 존재하지 않습니다."));
     }
 
 

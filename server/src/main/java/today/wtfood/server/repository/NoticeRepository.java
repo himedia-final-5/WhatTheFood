@@ -9,12 +9,14 @@ import today.wtfood.server.dto.noticedto.NoticeDetail;
 import today.wtfood.server.dto.noticedto.NoticeSummary;
 import today.wtfood.server.entity.Notice;
 
+import java.util.Optional;
+
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
     @Query("select n from Notice n")
     Page<NoticeSummary> getNotices(Pageable pageable);
 
-    NoticeDetail findById(long id);
+    Optional<NoticeDetail> findById(long id);
 
 }
