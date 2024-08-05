@@ -1,15 +1,18 @@
 package today.wtfood.server.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import today.wtfood.server.dto.event.EventDetail;
+import today.wtfood.server.dto.event.EventDto;
+import today.wtfood.server.dto.event.EventSummary;
 import today.wtfood.server.entity.Event;
-import today.wtfood.server.repositiory.EventRepository;
 import today.wtfood.server.service.EventService;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/events")
@@ -21,67 +24,52 @@ public class EventController {
         this.es = es;
     }
 
-    // 이벤트 리스트
+    // 이벤트 리스트 //이벤트번호(id)
     @GetMapping("/{id}")
-    public HashMap<String, Object> getEvent(@PathVariable("id") int id) {
-        HashMap<String, Object> result = new HashMap<>();
-        Optional<Event> event = es.getEventById(id);
-        if (event.isPresent()) {
-            Event eventData = event.get();
-            HashMap<String, Object> eventDetails = new HashMap<>();
-            eventDetails.put("title", eventData.getTitle());
-            eventDetails.put("content", eventData.getContent());
-            eventDetails.put("startDate", eventData.getStartDate());
-            eventDetails.put("endDate", eventData.getEndDate());
-            eventDetails.put("imageUrl", eventData.getImageUrl());
-            result.put("event", eventDetails);
-        }
-        return result;
+    public EventDetail getEvent(@PathVariable("id") int id) {
+        return es.getEventById(id);
     }
-
 
     // 키워드별 이벤트
     @GetMapping("/")
-    public HashMap<String, Object> getEventList(@RequestParam(value = "keyword", required = false) String keyword) {
-        HashMap<String, Object> result = new HashMap<>();
-        List<Event> events = es.getEventList(keyword);
-        result.put("eventList", events);
-        return result;
+    public Page<EventSummary> getEventList(
+            @RequestParam(value = "pageNumber", defaultValue = "0")
+            int pageNumber,
+
+            @RequestParam(value = "pageSize", defaultValue = "0")
+            int pageSize
+    ) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return es.getEventList(pageRequest);
     }
 
-    //이벤트 수정
+    //이벤트 수정 //성공 실패 void 반환식으로
     @PostMapping("/{id}")
-    public HashMap<String, Object> updateEvent(@PathVariable("id") int id, @RequestBody Event event) {
-        HashMap<String, Object> result = new HashMap<>();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateEvent(@PathVariable("id") int id, @RequestBody EventDto event) {
         try {
-            Event updatedEvent = es.updateEvent(id, event);
-            result.put("status", "success");
-            result.put("updatedEvent", updatedEvent);
+            es.updateEvent(id, event);
+            return;
         } catch (RuntimeException e) {
-            result.put("status", "error");
-            result.put("message", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-        return result;
     }
 
-    // 이벤트 삭제
+    // 이벤트 삭제 //성공 실패 void 반환식으로
     @DeleteMapping("/{id}")
-    public HashMap<String, Object> deleteEvent(@PathVariable("id") int id) {
-        HashMap<String, Object> result = new HashMap<>();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEvent(@PathVariable("id") int id) {
         try {
             es.deleteEvent(id);
-            result.put("status", "success");
-            result.put("message", "삭제 성공");
+            return;
         } catch (RuntimeException e) {
-            result.put("status", "error");
-            result.put("message", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-        return result;
     }
 
     // 새로운 이벤트 생성
     @PostMapping("/")
-    public HashMap<String, Object> createEvent(@RequestBody Event event) {
+    public HashMap<String, Object> createEvent(@RequestBody EventDto event) {
         HashMap<String, Object> result = new HashMap<>();
         try {
             Event createdEvent = es.createEvent(event);
