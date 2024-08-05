@@ -25,6 +25,7 @@ public class InquiryController {
         return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
     }
 
+
     @GetMapping("/{id}")
     public InquiryDetail getMyInquiryView(@PathVariable("id") long id) {
         return is.getMyInquiryView(id);
@@ -33,7 +34,7 @@ public class InquiryController {
     @GetMapping("/email/{email}")
     public Page<InquirySummary> getMyInquiryList(@PathVariable("email") String email,
                                                  @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-                                                 @RequestParam(name = "pageCount", defaultValue = "10") int pageSize
+                                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
     ) {
 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
@@ -46,8 +47,8 @@ public class InquiryController {
         is.deleteInquiry(id);
     }
 
-    @PostMapping("{id}/answer")
-    public void inquiryAnswer(@RequestParam("id") long id, @RequestBody String answer) {
+    @PutMapping("/{id}/answer")
+    public void inquiryAnswer(@PathVariable("id") long id, @RequestParam("answer") String answer) {
         is.inquiryAnswer(id, answer);
     }
 
