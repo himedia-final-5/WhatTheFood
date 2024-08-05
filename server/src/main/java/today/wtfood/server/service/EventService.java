@@ -30,7 +30,7 @@ public class EventService {
 
     //이벤트 리스트 조회(키워드)
     public Page<EventSummary> getEventList(Pageable pageable) {
-        return er.findAllSummary(pageable);
+        return er.findAllBy(pageable);
     }
 
     // 모든 이벤트 조회
@@ -40,7 +40,7 @@ public class EventService {
 
     // ID로 이벤트 조회
     public EventDetail getEventById(int id) {
-        return er.findEventDetailById(id)
+        return er.findDetailById(id)
                 .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found"));
     }
 
