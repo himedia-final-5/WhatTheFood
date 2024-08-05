@@ -30,7 +30,7 @@ public class EventController {
         return es.getEventById(id);
     }
 
-    // 키워드별 이벤트
+    // 이벤트리스트(페이징)
     @GetMapping("/")
     public Page<EventSummary> getEventList(
             @RequestParam(value = "pageNumber", defaultValue = "0")
@@ -43,31 +43,31 @@ public class EventController {
         return es.getEventList(pageRequest);
     }
 
-    //이벤트 수정 //성공 실패 void 반환식으로
+    //이벤트 수정 //수정생성용 Dto사용
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateEvent(@PathVariable("id") int id, @RequestBody EventDto event) {
         try {
-            es.updateEvent(id, event);
+            es.updateEvent(id, event); //성공
             return;
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e) { //에러
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
-    // 이벤트 삭제 //성공 실패 void 반환식으로
+    // 이벤트 삭제
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEvent(@PathVariable("id") int id) {
         try {
-            es.deleteEvent(id);
+            es.deleteEvent(id); //삭제
             return;
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
-    // 새로운 이벤트 생성
+    // 새로운 이벤트 생성 //수정생성용 Dto사용
     @PostMapping("/")
     public HashMap<String, Object> createEvent(@RequestBody EventDto event) {
         HashMap<String, Object> result = new HashMap<>();
