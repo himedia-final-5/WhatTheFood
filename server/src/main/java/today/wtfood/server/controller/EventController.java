@@ -21,6 +21,7 @@ public class EventController {
         this.es = es;
     }
 
+    // 이벤트 리스트
     @GetMapping("/{id}")
     public HashMap<String, Object> getEvent(@PathVariable("id") int id) {
         HashMap<String, Object> result = new HashMap<>();
@@ -38,6 +39,8 @@ public class EventController {
         return result;
     }
 
+
+    // 키워드별 이벤트
     @GetMapping("/")
     public HashMap<String, Object> getEventList(@RequestParam(value = "keyword", required = false) String keyword) {
         HashMap<String, Object> result = new HashMap<>();
@@ -46,6 +49,7 @@ public class EventController {
         return result;
     }
 
+    //이벤트 수정
     @PostMapping("/{id}")
     public HashMap<String, Object> updateEvent(@PathVariable("id") int id, @RequestBody Event event) {
         HashMap<String, Object> result = new HashMap<>();
@@ -60,6 +64,7 @@ public class EventController {
         return result;
     }
 
+    // 이벤트 삭제
     @DeleteMapping("/{id}")
     public HashMap<String, Object> deleteEvent(@PathVariable("id") int id) {
         HashMap<String, Object> result = new HashMap<>();
