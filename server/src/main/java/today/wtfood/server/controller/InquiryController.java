@@ -1,8 +1,12 @@
 package today.wtfood.server.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-import today.wtfood.server.dto.Paging;
+import today.wtfood.server.dto.inquiry.InquiryDetail;
 import today.wtfood.server.dto.inquiry.InquiryDto;
+import today.wtfood.server.dto.inquiry.InquirySummary;
 import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.service.InquiryService;
 
@@ -23,7 +27,7 @@ public class InquiryController {
 
         HashMap<String, Object> result = new HashMap<String, Object>();
 
-        Inquiry i = is.insertinquiries(inquiry.toEntity());
+        Inquiry i = is.insertInquiry(inquiry.toEntity());
 
         result.put("inquiryId", i.getEmail());
 
@@ -31,40 +35,29 @@ public class InquiryController {
     }
 
     @GetMapping("/{id}")
-    public HashMap<String, Object> getMyInquiryView(@RequestParam("id") int id) {
-        HashMap<String, Object> result = new HashMap<>();
-
-        result.put("inquiry", is.getMyInquiryView(id));
-
-        return result;
+    public InquiryDetail getMyInquiryView(@PathVariable("id") long id) {
+        return is.getMyInquiryView(id);
     }
 
     @GetMapping("/{email}")
-    public HashMap<String, Object> getMyInquiryList(@RequestParam("page") int page,
-                                                  @PathVariable("email") String email) {
-        HashMap<String, Object> result = new HashMap<>();
-
-        Paging paging = new Paging();
-        paging.setPage( page );
-        int count = is.getAllCount();
-        paging.setTotalCount( count );
-        paging.calPaing();
-
-        result.put( "myinquirylist", is.getMyInquiryList(paging, email));
-        result.put( "paging", paging);
-
-        return result;
+    public Page<InquirySummary> getMyInquiryList(@PathVariable("email") String email,
+                                                 @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+                                                 @RequestParam(name = "pageCount", defaultValue = "10") int pageCount
+    ) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageCount);
+        pageRequest.withSort(Sort.Direction.DESC, "id");
+        return is.getMyInquiryList(email, pageRequest);
     }
 
 
     @GetMapping("/{id}")
-    public void deleteInquiry(@PathVariable("id") int id) {
+    public void deleteInquiry(@PathVariable("id") long id) {
         is.deleteInquiry(id);
     }
 
 
     @PostMapping("")
-    public void inquiryAnswer(@RequestParam("id") int id, @RequestBody Inquiry answer) {
+    public void inquiryAnswer(@RequestParam("id") long id, @RequestBody String answer) {
         is.inquiryAnswer(id, answer);
     }
 
@@ -87,7 +80,6 @@ public class InquiryController {
 //        } catch (IllegalStateException | IOException e) {e.printStackTrace();}
 //        return result;
 //    }
-
 
 
 }
