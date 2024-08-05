@@ -8,14 +8,14 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { Provider } from 'react-redux';  // 설정된 store 를 index.js 에 등록하는 주체
-import store from "./Store/index";
+import Store from "./Store/index";
 
-export let persistor = persistStore(store);
+export let persistor = persistStore(Store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-        <Provider store={store} >
+        <Provider store={Store} >
             <PersistGate loading={null} persistor={persistor}>
                 <App />
             </PersistGate>

@@ -1,0 +1,14 @@
+.body { display: flex; flex-direction: column; justify-content: center;}
+
+.logo { font-weight: bold; font-size: 50px; height: 65px; 
+    border: 1px solid red; width: 100%; text-align: center; cursor: pointer; }
+
+.login { text-align: center;  font-size: 40px; }
+
+.otherlogin { width:100%; border: 1px solid red; display: flex; flex-direction: column; align-items: center; justify-content: center;}
+
+.google {  border:1px solid blue ; width:400px; height: 50px; padding-top: 10px; text-align: center; cursor: pointer;}
+
+.naver { border:1px solid blue ; width:400px; height: 50px; padding-top: 10px; text-align: center; cursor: pointer; }
+
+.kakao { border:1px solid blue ; width:400px; height: 50px; padding-top: 10px; text-align: center; cursor: pointer; }

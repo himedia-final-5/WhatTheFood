@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+//import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
+import '../Style/Main.css'
 
 import { useSelector, useDispatch } from 'react-redux';
 //import { getCookie } from '../util/cookieUtil';
@@ -21,13 +22,14 @@ function Main() {
   return (
     <div>
       <Header setWord={setWord} />
-      
-      <div>
-
+      <div className="Container">
+        <div  className='Center'>
+          메인이다
+        </div>
       </div>
-
       <Footer/>
     </div>
+    
   )
 }
 
