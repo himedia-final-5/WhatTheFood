@@ -24,7 +24,7 @@ public class Member {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username", length = 45, unique = true)
     private String username;
 
     @Column(name = "kakao_oauth_id", unique = true)
@@ -39,13 +39,13 @@ public class Member {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", length = 45, unique = true)
     private String email;
 
-    @Column(name = "nickname")
+    @Column(name = "nickname", length = 15)
     private String nickname;
 
-    @Column(name = "introduce")
+    @Column(name = "introduce", length = 200)
     private String introduce;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
