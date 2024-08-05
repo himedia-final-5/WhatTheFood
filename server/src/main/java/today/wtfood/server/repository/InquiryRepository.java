@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
-    Page<InquirySummary> findByEmail(String email, Pageable pageable);
+    Page<InquirySummary> findAllByEmail(String email, Pageable pageable);
 
-    Optional<InquiryDetail> findInquiryDetailById(Long id);
+    Optional<InquiryDetail> findDetailById(Long id);
 
 }

@@ -9,7 +9,7 @@ import today.wtfood.server.dto.event.EventDetail;
 import today.wtfood.server.dto.event.EventDto;
 import today.wtfood.server.dto.event.EventSummary;
 import today.wtfood.server.entity.Event;
-import today.wtfood.server.repositiory.EventRepository;
+import today.wtfood.server.repository.EventRepository;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class EventService {
 
     //이벤트 리스트 조회(키워드)
     public Page<EventSummary> getEventList(Pageable pageable) {
-        return er.findAllSummary(pageable);
+        return er.findAllBy(pageable);
     }
 
     // 모든 이벤트 조회
@@ -39,14 +39,14 @@ public class EventService {
     }
 
     // ID로 이벤트 조회
-    public EventDetail getEventById(int id) {
-        return er.findEventDetailById(id)
+    public EventDetail getEventById(long id) {
+        return er.findDetailById(id)
                 .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found"));
     }
 
     // 이벤트 수정
     @Transactional
-    public void updateEvent(int id, EventDto dto) {
+    public void updateEvent(long id, EventDto dto) {
         Event event = er.findById(id)
                 .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found"));
         event.setTitle(dto.getTitle());
@@ -57,7 +57,7 @@ public class EventService {
     }
 
     // 이벤트 삭제
-    public void deleteEvent(int id) {
+    public void deleteEvent(long id) {
         if (er.existsById(id)) {
             er.deleteById(id);
         } else {
