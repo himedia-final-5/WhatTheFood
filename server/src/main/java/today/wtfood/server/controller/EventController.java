@@ -4,6 +4,7 @@ package today.wtfood.server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.entity.Event;
+import today.wtfood.server.repositiory.EventRepository;
 import today.wtfood.server.service.EventService;
 
 import java.util.HashMap;
@@ -14,12 +15,13 @@ import java.util.Optional;
 @RequestMapping("/events")
 public class EventController {
 
-    @Autowired
-    private EventService es;
+    private final EventService es;
 
+    public EventController(EventService es) {
+        this.es = es;
+    }
 
-    //이벤트 생성
-    @GetMapping("/getevent/{id}")
+    @GetMapping("/{id}")
     public HashMap<String, Object> getEvent(@PathVariable("id") int id) {
         HashMap<String, Object> result = new HashMap<>();
         Optional<Event> event = es.getEventById(id);
@@ -36,8 +38,7 @@ public class EventController {
         return result;
     }
 
-    //키워드별
-    @GetMapping("/geteventlist")
+    @GetMapping("/")
     public HashMap<String, Object> getEventList(@RequestParam(value = "keyword", required = false) String keyword) {
         HashMap<String, Object> result = new HashMap<>();
         List<Event> events = es.getEventList(keyword);
@@ -45,13 +46,10 @@ public class EventController {
         return result;
     }
 
-
-    //이벤트 수정
-    @PutMapping("/updateevent/{id}")
+    @PostMapping("/{id}")
     public HashMap<String, Object> updateEvent(@PathVariable("id") int id, @RequestBody Event event) {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            // 이벤트를 업데이트 시도
             Event updatedEvent = es.updateEvent(id, event);
             result.put("status", "success");
             result.put("updatedEvent", updatedEvent);
@@ -62,9 +60,7 @@ public class EventController {
         return result;
     }
 
-
-    //이벤트 삭제
-    @DeleteMapping("/deleteevent/{id}")
+    @DeleteMapping("/{id}")
     public HashMap<String, Object> deleteEvent(@PathVariable("id") int id) {
         HashMap<String, Object> result = new HashMap<>();
         try {
@@ -78,4 +74,20 @@ public class EventController {
         return result;
     }
 
+    // 새로운 이벤트 생성
+    @PostMapping("/")
+    public HashMap<String, Object> createEvent(@RequestBody Event event) {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            Event createdEvent = es.createEvent(event);
+            result.put("status", "success");
+            result.put("createdEvent", createdEvent);
+        } catch (RuntimeException e) {
+            result.put("status", "error");
+            result.put("message", e.getMessage());
+        }
+        return result;
+    }
 }
+
+

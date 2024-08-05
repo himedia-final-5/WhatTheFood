@@ -17,8 +17,13 @@ public class EventService {
         this.er = er;
     }
 
+    // 이벤트 저장
+    public Event saveEvent(Event event) {
+        return er.save(event);
+    }
+
     // 이벤트 생성
-    public Event getEvent(Event event) {
+    public Event createEvent(Event event) {
         return er.save(event);
     }
 
@@ -33,7 +38,7 @@ public class EventService {
     }
 
     // 모든 이벤트 조회
-    public List<Event> geteventlist() {
+    public List<Event> getEventList() {
         return er.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
@@ -57,6 +62,9 @@ public class EventService {
     public void deleteEvent(int id) {
         if (er.existsById(id)) {
             er.deleteById(id);
+        } else {
+            throw new RuntimeException("Event not found with id " + id);
         }
     }
 }
+
