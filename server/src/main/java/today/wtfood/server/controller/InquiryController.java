@@ -39,23 +39,23 @@ public class InquiryController {
         return is.getMyInquiryView(id);
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public Page<InquirySummary> getMyInquiryList(@PathVariable("email") String email,
                                                  @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
                                                  @RequestParam(name = "pageCount", defaultValue = "10") int pageSize
     ) {
-        
+
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         pageRequest.withSort(Sort.Direction.DESC, "id");
         return is.getMyInquiryList(email, pageRequest);
     }
 
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void deleteInquiry(@PathVariable("id") long id) {
         is.deleteInquiry(id);
     }
 
-    @PostMapping("")
+    @PostMapping("{id}/answer")
     public void inquiryAnswer(@RequestParam("id") long id, @RequestBody String answer) {
         is.inquiryAnswer(id, answer);
     }

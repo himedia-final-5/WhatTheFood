@@ -1,4 +1,4 @@
-package today.wtfood.server.repositiory;
+package today.wtfood.server.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,13 +8,13 @@ import today.wtfood.server.dto.event.EventDetail;
 import today.wtfood.server.dto.event.EventSummary;
 import today.wtfood.server.entity.Event;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Integer> {
+public interface EventRepository extends JpaRepository<Event, Long> {
 
-    Optional<EventDetail> findEventDetailById(int id);
+    Page<EventSummary> findAllBy(Pageable pageable);
 
-    Page<EventSummary> findAllSummary(Pageable pageable);
+    Optional<EventDetail> findDetailById(long id);
+
 }

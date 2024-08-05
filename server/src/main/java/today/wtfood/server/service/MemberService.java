@@ -38,7 +38,7 @@ public class MemberService {
      * 회원 목록 조회
      */
     public Page<MemberSummary> getMembers(Pageable pageable) {
-        return memberRepository.findAll(pageable, MemberSummary.class);
+        return memberRepository.findAllBy(pageable, MemberSummary.class);
     }
 
     /**
@@ -48,7 +48,7 @@ public class MemberService {
      * @return 조회된 회원 정보
      */
     public MemberDetail getMember(long memberId) {
-        return memberRepository.findById(memberId, MemberDetail.class)
+        return memberRepository.findGenericById(memberId, MemberDetail.class)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
     }
 

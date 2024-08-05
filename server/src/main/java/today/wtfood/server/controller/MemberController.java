@@ -54,7 +54,7 @@ public class MemberController {
         return memberService.getMember(memberId);
     }
 
-    @PutMapping("/{memberId}")
+    @PostMapping("/{memberId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateMember(
             @PathVariable
