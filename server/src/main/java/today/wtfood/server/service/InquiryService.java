@@ -25,10 +25,9 @@ public class InquiryService {
 
     public InquiryDetail getMyInquiryView(long id) {
         return ir.findInquiryDetailById(id)
-                .orElseThrow(() -> new RuntimeException("문의글을 찾을 수 없습니다"));
+                .orElseThrow(() -> new RuntimeException("문의글을 찾을 수 없습니다."));
     }
-
-
+    
     public Page<InquirySummary> getMyInquiryList(String email, Pageable pageable) {
         return ir.findByEmail(email, pageable);
     }
