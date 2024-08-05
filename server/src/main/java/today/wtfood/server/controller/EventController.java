@@ -70,6 +70,7 @@ public class EventController {
     public GeneratedId<Long> createEvent(@RequestBody EventDto event) {
         return new GeneratedId<>(es.createEvent(event).getId());
     }
+
 }
 
 
