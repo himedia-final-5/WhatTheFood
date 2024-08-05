@@ -27,10 +27,10 @@ public record MemberCreateRequest(
         String email
 ) {
 
-    public Member toEntity() {
+    public Member toEntity(String encodedPassword) {
         return Member.builder()
                 .username(username)
-                .password(password)
+                .password(encodedPassword)
                 .nickname(nickname)
                 .email(email)
                 .build();

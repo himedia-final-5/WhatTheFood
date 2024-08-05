@@ -2,6 +2,7 @@ package today.wtfood.server.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.member.MemberCreateRequest;
@@ -15,9 +16,11 @@ import today.wtfood.server.repository.MemberRepository;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -28,8 +31,7 @@ public class MemberService {
      */
     @Transactional(rollbackFor = Exception.class)
     public long createMember(MemberCreateRequest requestData) {
-        // TODO: 비밀번호 암호화 처리
-        return memberRepository.save(requestData.toEntity()).getId();
+        return memberRepository.save(requestData.toEntity(passwordEncoder.encode(requestData.password()))).getId();
     }
 
     /**
@@ -62,7 +64,7 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
 
         member.setNickname(requestData.nickname());
-        member.setPassword(requestData.password()); // TODO: 비밀번호 암호화 처리
+        member.setPassword(passwordEncoder.encode(requestData.password()));
         member.setEmail(requestData.email());
         member.setIntroduce(requestData.introduce());
     }
