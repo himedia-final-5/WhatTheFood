@@ -9,7 +9,7 @@ import today.wtfood.server.dto.event.EventDetail;
 import today.wtfood.server.dto.event.EventDto;
 import today.wtfood.server.dto.event.EventSummary;
 import today.wtfood.server.entity.Event;
-import today.wtfood.server.repositiory.EventRepository;
+import today.wtfood.server.repository.EventRepository;
 
 import java.util.List;
 

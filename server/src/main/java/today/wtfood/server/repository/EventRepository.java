@@ -1,4 +1,4 @@
-package today.wtfood.server.repositiory;
+package today.wtfood.server.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
