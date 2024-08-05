@@ -56,12 +56,7 @@ public class Member {
     )
     private List<Member> followings;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
-    @JoinTable(
-            name = "member_social_urls",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "social_url")
-    )
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SocialUrl> socialUrls;
 
     @Column(name = "role")
@@ -70,7 +65,21 @@ public class Member {
     @Builder.Default
     private Role role = Role.ROLE_USER;
 
-    public record SocialUrl(String name, String url) {
+    @Entity
+    @Table(name = "member_social_urls")
+    public record SocialUrl(
+            @Id
+            @ManyToOne
+            @JoinColumn(name = "member_id", nullable = false)
+            Member member,
+
+            @Id
+            @Column(name = "name", length = 45, nullable = false)
+            String name,
+
+            @Column(name = "url", length = 200, nullable = false)
+            String url
+    ) {
     }
 
     public enum Role {
