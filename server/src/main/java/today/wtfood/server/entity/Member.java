@@ -48,12 +48,6 @@ public class Member {
     @Column(name = "introduce")
     private String introduce;
 
-    @Column(name = "profile_img")
-    private String profileImg;
-
-    @Column(name = "banner_img")
-    private String bannerImg;
-
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
     @JoinTable(
             name = "member_followings",

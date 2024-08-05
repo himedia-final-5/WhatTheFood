@@ -9,20 +9,14 @@ import java.util.List;
  *
  * @implNote Projection for {@link today.wtfood.server.entity.Member}
  */
-public interface MemberDetail {
-
-    Long getId();
-
-    String getNickname();
+public interface MemberDetail extends MemberSummary {
 
     String getIntroduce();
 
-    String getProfileImg();
-
-    String getBannerImg();
-
     List<List<Member.SocialUrl>> getSocialUrls();
 
-    List<MemberSummary> getFollowings();
+    default String getBannerImg() {
+        return "/banner/" + getId();
+    }
 
 }

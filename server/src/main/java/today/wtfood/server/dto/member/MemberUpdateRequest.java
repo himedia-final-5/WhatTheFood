@@ -13,10 +13,6 @@ public record MemberUpdateRequest(
 
         String email,
 
-        String introduce,
-
-        String profileImg,
-
-        String bannerImg
+        String introduce
 ) {
 }

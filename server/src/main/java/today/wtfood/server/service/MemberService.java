@@ -65,8 +65,6 @@ public class MemberService {
         member.setPassword(requestData.password()); // TODO: 비밀번호 암호화 처리
         member.setEmail(requestData.email());
         member.setIntroduce(requestData.introduce());
-        member.setProfileImg(requestData.profileImg());
-        member.setBannerImg(requestData.bannerImg());
     }
 
     /**

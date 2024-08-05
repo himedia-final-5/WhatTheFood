@@ -15,9 +15,7 @@ public record MemberCreateRequest(
 
         String nickname,
 
-        String email,
-
-        String profileImg
+        String email
 ) {
 
     public Member toEntity() {
@@ -26,7 +24,6 @@ public record MemberCreateRequest(
                 .password(password)
                 .nickname(nickname)
                 .email(email)
-                .profileImg(profileImg)
                 .build();
     }
 

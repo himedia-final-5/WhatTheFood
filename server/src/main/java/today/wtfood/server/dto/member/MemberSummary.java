@@ -13,8 +13,10 @@ public interface MemberSummary {
 
     String getNickname();
 
-    String getProfileImg();
-
     List<MemberSummary> getFollowings();
+
+    default String getProfileImg() {
+        return "/profile/" + getId();
+    }
 
 }
