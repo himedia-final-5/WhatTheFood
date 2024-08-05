@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 //수정생성용 dto
 @Value
 public class EventDto implements Serializable {
+
     String title;
     String content;
     Timestamp startDate;

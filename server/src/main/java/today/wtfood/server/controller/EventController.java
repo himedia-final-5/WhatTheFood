@@ -29,12 +29,12 @@ public class EventController {
     }
 
     // 이벤트리스트(페이징)
-    @GetMapping("/")
+    @GetMapping("")
     public Page<EventSummary> getEventList(
             @RequestParam(value = "pageNumber", defaultValue = "0")
             int pageNumber,
 
-            @RequestParam(value = "pageSize", defaultValue = "0")
+            @RequestParam(value = "pageSize", defaultValue = "10")
             int pageSize
     ) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
