@@ -58,17 +58,15 @@ public class JwtTokenProvider {
                 .setId(UUID.randomUUID().toString());
 
         // 토큰 생성
-        String accessToken = Jwts.builder()
+        JwtBuilder jwtBuilder = Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(currentDate)
+                .signWith(secretKey);
+        String accessToken = jwtBuilder
                 .setExpiration(accessTokenExpireDate)
-                .signWith(secretKey)
                 .compact();
-        String refreshToken = Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(currentDate)
+        String refreshToken = jwtBuilder
                 .setExpiration(refreshTokenExpireDate)
-                .signWith(secretKey)
                 .compact();
 
         // 재발급 토큰을 DB에 저장
