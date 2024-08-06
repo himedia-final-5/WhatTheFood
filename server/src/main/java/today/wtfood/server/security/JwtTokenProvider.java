@@ -3,8 +3,12 @@ package today.wtfood.server.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import today.wtfood.server.exception.BadRequestException;
+import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.entity.RefreshToken;
 import today.wtfood.server.security.repository.RefreshTokenRepository;
@@ -17,6 +21,7 @@ import java.util.UUID;
 @Component
 public class JwtTokenProvider {
 
+    private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
     public final String JWT_ISSUER = "wtfood.today";
 
     private final SecretKey secretKey;
@@ -31,13 +36,9 @@ public class JwtTokenProvider {
             @Value("${jwt.refresh_token_expiration}") long refreshTokenExpiration,
             RefreshTokenRepository refreshTokenRepository
     ) {
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.accessTokenExpiration = accessTokenExpiration;
         this.refreshTokenExpiration = refreshTokenExpiration;
-        try {
-            secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
 
         this.refreshTokenRepository = refreshTokenRepository;
     }
@@ -100,11 +101,12 @@ public class JwtTokenProvider {
         try {
             return parseClaims(token);
         } catch (ExpiredJwtException expiredJwtException) {
-            throw new JwtException("Expired JWT Token");
+            throw new UnauthorizedException("JWT Token Expired");
         } catch (InvalidClaimException invalidClaimException) {
-            throw new JwtException("Invalid JWT Token");
+            throw new UnauthorizedException("Invalid JWT Token");
         } catch (io.jsonwebtoken.JwtException jwtException) {
-            throw new JwtException("JWT Error on JWT Token Validation : " + jwtException.getMessage());
+            log.error("JWT Error on JWT Token Validation : {}", jwtException.getMessage());
+            throw new BadRequestException("JWT Error on JWT Token Validation");
         } catch (Exception e) {
             throw new JwtException("Uncaught Error on JWT Token Validation : " + e.getMessage());
         }
@@ -116,11 +118,11 @@ public class JwtTokenProvider {
 
         // 데이터베이스에서 저장된 토큰을 가져옴
         RefreshToken token = refreshTokenRepository.findByUsername(claims.getSubject())
-                .orElseThrow(() -> new JwtException("Invalid Refresh Token"));
+                .orElseThrow(() -> new UnauthorizedException("Invalid JWT Token"));
 
         // 토큰 일치 검사
         if (!token.getTokenUuid().equals(claims.getId())) {
-            throw new JwtException("Invalid Refresh Token");
+            throw new UnauthorizedException("Invalid JWT Token");
         }
 
         // 토큰 반환
@@ -138,7 +140,7 @@ public class JwtTokenProvider {
     public String resolveAccessToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if (token == null || !token.startsWith("Bearer ")) {
-            return null;
+            throw new BadRequestException("Bearer Access Token required in request header");
         }
 
         return token.substring(7);
