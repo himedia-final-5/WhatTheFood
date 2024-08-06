@@ -37,9 +37,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 공개 api
             "/error",
+
+            // 인증 API
             "/auth/login",
-            "/auth/logout",
-            "/auth/reissue"
+            "/auth/reissue",
+
+            // 회원 API
+            "/members",
+            "/members/*",
+
+            // 레시피 API
+            "/recipes",
+            "/recipes/*",
+
+            // 공지사항 API
+            "/notices",
+            "/notices/*",
+
+            // 이벤트 API
+            "/events",
+            "/events/*",
+
+            // 문의 API
+            "/inquiries",
+            "/inquiries/*"
     );
 
     @Override
