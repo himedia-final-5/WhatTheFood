@@ -1,46 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import '../../style/Event.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import '../../style/EventDetail.css';
 import jaxios from '../../util/jwtUtil';
 
-const EventDetail = () => {
-  const { id } = useParams();
-  const [event, setEvent] = useState(null);
-  const navigate = useNavigate();
+function EventDetail(){
+    const navigate = useNavigate();
+    const [content, setContent] = useState("");
+    const [events, setEvents] = useState([]);
+    const {id} = useParams();
 
-  useEffect(() => {
-      jaxios.get(`/api/events/${id}`)
-          .then(response => setEvent(response.data))
-          .catch(error => console.error('Error fetching event:', error));
-  }, [id]);
-
-  const handleDelete = async () => {
-      try {
-          await jaxios.delete(`/api/events/${id}`);
-          navigate('/events');
-      } catch (error) {
-          console.error('Error deleting event:', error);
-      }
-  };
-
-  return (
-      <div className="container">
-          {event && (
-              <>
-                  <div className="actions">
-                      <button className="edit" onClick={() => navigate(`/events/edit/${id}`)}>Edit</button>
-                      <button className="delete" onClick={handleDelete}>Delete</button>
-                  </div>
-                  <div className="event-detail">
-                      <h2>{event.title}</h2>
-                      <p>{event.description}</p>
-                      <p>Date: {new Date(event.date).toLocaleDateString()}</p>
-                  </div>
-              </>
+    return (
+        <div className="event_wrap">
+          {events.length > 0 ? (
+            events.map((event, index) => (
+              <div key={index} className="event_state_wrap">
+                <div className="event_text_wrap">
+                  <span className="event_state_name">{event.title}</span>
+                  <span className="event_date">
+                    {event.startDate.slice(0, 10)}&nbsp;&nbsp;
+                    {event.endDate.slice(0, 10)}
+                  </span>
+                </div>
+    
+                <div className="event_imageUrl">
+                  <img src={event.imageUrl}></img>
+                </div>
+                <span className="event_content">{event.content}</span>
+              </div>
+            ))
+          ) : (
+            <div>No events found.</div>
           )}
-      </div>
-  );
-};
+        </div>
+      );
+}
+
 
 export default EventDetail;
