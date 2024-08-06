@@ -144,13 +144,4 @@ public class JwtTokenProvider {
         return token.substring(7);
     }
 
-    public String resolveRefreshToken(HttpServletRequest request) {
-        String token = request.getHeader("Refresh");
-        if (token == null || token.isBlank()) {
-            return null;
-        }
-
-        return token;
-    }
-
 }

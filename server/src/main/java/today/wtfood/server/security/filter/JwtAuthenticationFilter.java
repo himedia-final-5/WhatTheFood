@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 인증 API
             "/auth/login",
-            "/auth/reissue",
+            "/auth/reissue/**",
 
             // 회원 API
             "/members",
