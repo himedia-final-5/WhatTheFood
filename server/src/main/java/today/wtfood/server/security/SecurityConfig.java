@@ -21,7 +21,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
 
-import java.io.IOException;
 import java.util.List;
 
 @Log4j2
@@ -53,19 +52,6 @@ public class SecurityConfig {
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
         );
-
-        // 로그아웃 설정
-        http.logout(config -> config.logoutUrl("/auth/logout").addLogoutHandler(
-                (request, response, authentication) -> {
-                    response.setStatus(200);
-                    response.setContentType("application/json");
-                    try {
-                        response.getWriter().write("{\"message\":\"Logout Success\"}");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        ));
 
         // JWT 엑세스 토큰 검증 필터 설정
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
