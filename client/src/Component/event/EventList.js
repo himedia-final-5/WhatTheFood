@@ -8,8 +8,7 @@ import { useDispatch } from "react-redux";
 
 function EventList() {
   const [events, setEvents] = useState([]);
-  const [paging, setPaging] = useState({});
-  const [beginend, setBeginend] = useState([]);
+  const [pageable, setPageable] = useState({number:0, last:false});//page시작과 끝
   const dispath = useDispatch();
   const navigate = useNavigate();
 
@@ -17,17 +16,8 @@ function EventList() {
     jaxios
       .get(`/api/events`)
       .then((result) => {
-        setEvents(result.data.content);
-        setPaging(result.data.paging);
-        const pageArr = [];
-        for (
-          let i = result.data.paging.beginPage;
-          i <= result.data.paging.endPage;
-          i++
-        ) {
-          pageArr.push(i);
-        }
-        setBeginend([...pageArr]);
+        setEvents(result.data.content);//content를 가져와서 저장
+        setPageable(result.data);
       })
       .catch((err) => {
         console.error(err);
@@ -47,9 +37,9 @@ function EventList() {
       const scrollHeight = document.documentElement.scrollHeight - 10; // 스크롤이 가능한 크기
       const scrollTop = document.documentElement.scrollTop;  // 현재 위치
       const clientHeight = document.documentElement.clientHeight; // 내용물의 크기
-      console.log(Number(paging.page) + 1)
+      console.log(Number(pageable.number) + 1)
       if( scrollTop + clientHeight >= scrollHeight ) {
-          onPageMove( Number(paging.page) + 1 );
+          onPageMove( Number(pageable.number) + 1 );
       }
   }
 
@@ -64,17 +54,14 @@ function EventList() {
       });
   }
 
+  //무한스크롤
   function onPageMove(page) {
-    //무한스크롤
     console.log("onPageMove(", page, ")");
     axios
-      .get(`/api/getEventList/${page}`)
+      .get(`/api/events`,{params:{pageNumber: page}})
       .then((result) => {
-        setPaging(result.data.paging);
-        let ev = [];
-        ev = [...events];
-        ev = [...ev, ...result.data.events];
-        setEvents([...ev]);
+        setEvents([...events, ...result.data.content]);
+        setPageable(result.data);
       })
       .catch((err) => {
         console.error(err);
@@ -108,51 +95,6 @@ function EventList() {
       ) : (
         <div>No events found.</div>
       )}
-
-      <div id="paging" style={{ textAlign: "center", padding: "10px" }}>
-        {paging.prev ? (
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              onPageMove(paging.beginPage - 1);
-            }}
-          >
-            {" "}
-            ◀{" "}
-          </span>
-        ) : (
-          <span></span>
-        )}
-        {beginend ? (
-          beginend.map((page, idx) => {
-            return (
-              <span
-                style={{ cursor: "pointer" }}
-                key={idx}
-                onClick={() => {
-                  onPageMove(page);
-                }}
-              >
-                &nbsp;{page}&nbsp;
-              </span>
-            );
-          })
-        ) : (
-          <></>
-        )}
-        {paging.next ? (
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              onPageMove(paging.endPage + 1);
-            }}
-          >
-            &nbsp;▶&nbsp;
-          </span>
-        ) : (
-          <></>
-        )}
-      </div>
     </div>
   );
 }
