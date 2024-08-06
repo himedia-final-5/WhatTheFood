@@ -53,6 +53,17 @@ public class MemberService {
                 .orElseThrow(() -> new NotFoundException("Invalid member ID"));
     }
 
+
+    /**
+     * username 중복 체크
+     *
+     * @param username 중복 체크할 username
+     * @return 중복 여부
+     */
+    public boolean checkUsernameExists(String username) {
+        return !memberRepository.existsByUsername(username);
+    }
+
     /**
      * 회원 정보 변경
      *
