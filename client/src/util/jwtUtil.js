@@ -15,7 +15,7 @@ const beforeReq=async (config)=>{
     config.headers.Authorization = `Bearer ${accessToken}`
     return config;
 }
-const requestFail=(err)=>{ }
+const requestFail=(err)=>{ console.log(err)}
 
 const beforeRes=async (res)=>{ 
 
@@ -32,7 +32,7 @@ const beforeRes=async (res)=>{
     return res;
 }
 
-const responseFail=(err)=>{ }
+const responseFail=(err)=>{ console.log(err)}
 
 jaxios.interceptors.request.use( beforeReq, requestFail );
 jaxios.interceptors.response.use( beforeRes, responseFail)
