@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 
 function EventList() {
   const [id, setId] = useState();
+  const [events, setEvents] = useState({ title: "", startDate: "", endDate: "", imageUrl: "", content: "" });
   const [imageUrl, setImageUrl] = useState([]);
   const [content, setContent] = useState([]);
 
@@ -16,11 +17,11 @@ function EventList() {
 
   useEffect(
     ()=>{
-        jaxios.get(`/api/events/get/${events.id}`)
+        jaxios.get(`/api/events/get/${id}`)
         .then((result)=>{setId(result.data);})
         .catch((err)=>{console.error(err)})
-    }
-  )
+    },[id]
+  );
 
   return (
     <div className="event_wrap">
