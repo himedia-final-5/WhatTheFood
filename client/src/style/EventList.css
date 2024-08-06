@@ -1,58 +1,10 @@
-/* reset.css */
-* {margin: 0; padding: 0; box-sizing:border-box;}
-
-
-body{
-  font-family: 'Nanum Gothic', sans-serif;
-  font-size: 16px;
-  line-height: 1;
-}
-button {border: none; background: none; cursor: pointer;}
-
-a{
-  text-decoration: none;
-  color: #000;
-}
-li{
-  list-style: none;
-}
-.clearfix::after{
-  content: " ";
-  display: block;
-  clear: both;
-}
-.ir_pm{
-  text-indent: -9999em;
-  white-space: nowrap;
-  overflow: hidden;
-}
-fieldset{
-  border: none;
-}
-.screen_out{
-  position: absolute;
-  top: -9999em;
-}
-
-ul, ol {list-style-type: none;}
-
-.modal{
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;height: 100%;
-  background: rgba(0,0,0,0.7);
-  z-index: 99;
-  display: none;
-}
-
 /* Events.css */
 .event_wrap {
   width: 100%;
   margin: 0 auto;
   padding: 0 20px; /* 패딩 추가로 여백 확보 */
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
-  gap: 30px; /* 그리드 아이템 사이의 간격 */
+  gap: 20px; /* 그리드 아이템 사이의 간격 */
 }
 
 .event_imageUrl {
@@ -64,14 +16,14 @@ ul, ol {list-style-type: none;}
   width: 100%;
   padding: 15px;
   box-sizing: border-box; /* 패딩과 마진을 포함한 너비 설정 */
-  border: 1px solid #ddd; /* 테두리 추가 */
+  border: 1px solid #f3f3f3; /* 테두리 추가 */
   border-radius: 8px; /* 테두리 둥글게 */
-  background-color: #f9f9f9; /* 배경색 추가 */
+  background-color: #fff; /* 배경색 추가 */
 }
 
 .event_text_wrap {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column; /* 모바일에서 세로 정렬 */
 }
@@ -103,29 +55,37 @@ ul, ol {list-style-type: none;}
 }
 
 /* 반응형 디자인 */
-@media (max-width: 1200px) {
-  .event_wrap {
-    grid-template-columns: repeat(2, 1fr); /* 중간 크기 화면에서 두 개씩 나열 */
-  }
-}
-
-@media (max-width: 768px) {
+/* Mobile */
+@media screen and (max-width: 767px) {
   .event_wrap {
     grid-template-columns: 1fr; /* 작은 화면에서 한 개씩 나열 */
   }
 }
 
-@media (max-width: 599px) {
-  .event_state_name {
-    font-size: 1rem; /* 모바일 화면에서 글자 크기 조정 */
-  }
-
-  .event_date {
-    font-size: 0.8rem; /* 모바일 화면에서 글자 크기 조정 */
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .event_wrap {
+    grid-template-columns: repeat(2, 1fr); /* 중간 크기 화면에서 두 개씩 나열 */
   }
 }
 
+/* Small Desktop */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .event_wrap {
+    grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
+  }
+}
 
-/*----------------------------------------------*/
+/* Desktop */
+@media screen and (min-width: 1280px) and (max-width: 1799px) {
+  .event_wrap {
+    grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
+  }
+}
 
-
+/* Large Desktop */
+@media screen and (min-width: 1800px) {
+  .event_wrap {
+    grid-template-columns: repeat(3, 1fr); /* 큰 화면에서 세 개씩 나열 */
+  }
+}
