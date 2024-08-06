@@ -10,6 +10,7 @@ import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
 import today.wtfood.server.entity.Member;
+import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.repository.MemberRepository;
 
 @Service
@@ -49,7 +50,7 @@ public class MemberService {
      */
     public MemberDetail getMember(long memberId) {
         return memberRepository.findGenericById(memberId, MemberDetail.class)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("Invalid member ID"));
     }
 
     /**
@@ -61,7 +62,7 @@ public class MemberService {
     @Transactional(rollbackFor = Exception.class)
     public void updateMember(long memberId, MemberUpdateRequest requestData) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("Invalid member ID"));
 
         member.setNickname(requestData.nickname());
         member.setPassword(passwordEncoder.encode(requestData.password()));
@@ -76,6 +77,10 @@ public class MemberService {
      */
     @Transactional(rollbackFor = Exception.class)
     public void deleteMember(long memberId) {
+        if (!memberRepository.existsById(memberId)) {
+            throw new NotFoundException("Invalid member ID");
+        }
+
         memberRepository.deleteById(memberId);
     }
 
