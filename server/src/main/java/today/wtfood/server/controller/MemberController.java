@@ -1,12 +1,12 @@
 package today.wtfood.server.controller;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageableRequest;
 import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
@@ -36,13 +36,10 @@ public class MemberController {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public Page<MemberSummary> getMembers(
-            @RequestParam(defaultValue = "0")
-            int pageNumber,
-            @RequestParam(defaultValue = "10")
-            int pageSize
+            @Validated
+            PageableRequest pageable
     ) {
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        return memberService.getMembers(pageRequest);
+        return memberService.getMembers(pageable);
     }
 
     @GetMapping("/{memberId}")
