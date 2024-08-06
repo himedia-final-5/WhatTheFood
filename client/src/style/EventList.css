@@ -74,7 +74,7 @@
 /* Small Desktop */
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
   .event_wrap {
-    width: 800px;
+    width: 1000px;
     grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
   }
 }
@@ -82,7 +82,7 @@
 /* Desktop */
 @media screen and (min-width: 1280px) and (max-width: 1799px) {
   .event_wrap {
-    width: 800px;
+    width: 1000px;
     grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
   }
 }
