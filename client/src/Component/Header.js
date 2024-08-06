@@ -12,19 +12,24 @@ import { useNavigate } from "react-router-dom";
 
 
 function Header() {
+    const navigate=useNavigate();
 
     useEffect(()=>{
 
     })
-    const navigate=useNavigate();
+    
   return (
     <div className='Header'>
+        
         <div className="top">
-            <div className="toptop" onClick={()=>{navigate('/')}}>오늘 뭐 먹지?</div>
-            <div className="toptop"><input type='text'/><img src="돋보기"/></div>
-            <div className="toptop"><img src="카트(장바구니)"/></div>
-            <div className="toptop" onClick={()=>{navigate('/login')}}><img src="로그인&마이페이지&서브페이지"/></div>
+            <div className="toptoplogo" onClick={()=>{navigate('/')}}>오늘 뭐 먹지?</div>
+            <div className="toptopsearch"><input type='text' placeholder='레시피 검색' style={{fontSize:"30px"}}/>&nbsp;<img id='img' src="/images/search.png"/></div>
+            <div className='toptop'>              
+              <div className="toptopcart"><img  id='img' src="/images/cart.png"/></div>
+              <div className="toptopprofile" onClick={()=>{navigate('/login')}}><img id='img' src="/images/profile.png"/></div>
+            </div>
         </div>
+
         <div className='submenu'>
           <div>마이페이지</div>
           <div>찜레시피</div>
@@ -34,11 +39,11 @@ function Header() {
         </div>
 
         <div className="menu">
-            <div className='topMenu'>레시피</div>
-            <div className='topMenu'>랭킹</div>
-            <div className='topMenu'>스토어</div>
-            <div className='topMenu'>공지사항</div>
-            <div className='topMenu'>이벤트</div>            
+            <div className='topMenu' onClick={()=>{ navigate('/recipe') }}>레시피</div>
+            <div className='topMenu' onClick={()=>{ navigate('/ranking') }}>랭킹</div>
+            <div className='topMenu' onClick={()=>{ navigate('/store') }}>스토어</div>
+            <div className='topMenu' onClick={()=>{ navigate('/notice') }}>공지사항</div>
+            <div className='topMenu' onClick={()=>{ navigate('/event') }}>이벤트</div>            
         </div>
     </div>
   )

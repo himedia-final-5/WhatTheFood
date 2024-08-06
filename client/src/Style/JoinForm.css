@@ -1,3 +1,15 @@
-.body {display: flex; flex-direction: column; justify-content: center; }
+.body {display: flex; flex-direction: column; justify-content: center; align-items: center; width:100%; }
 
-.memberInfo { display: flex; flex-direction: column; justify-content: center;}
+.joinjoin {font-size: 40px;}
+
+.memberInfo {display: flex; flex-direction: column; justify-content: center; align-items: center; width:100%; border: 1px solid black;}
+
+.Info { display: flex;  justify-content: space-between;  width: 400px; height: 40px;  border:1px solid black; font-size: 20px; }
+.Info input { font-size: 20px;}
+#idcheck {size: 5; font-size: 20px; }
+
+.join { display: flex; justify-content: space-around; width: 400px; }
+#join { font-size: 25px; cursor: pointer; border: 1px solid black;}
+
+
+

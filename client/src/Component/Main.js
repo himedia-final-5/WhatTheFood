@@ -30,14 +30,8 @@ function Main() {
   return (
     <div>
       <Header setWord={setWord} />
-      <div className="Container">
-        <div  className='Center'>
-          <div className='itemList'>
-                {/* {inquiryList.id}
-                {inquiryList.email}
-                {inquiryList.title}
-                {inquiryList.content}
-                {inquiryList.date} */}
+      <div className="Container">        
+          <div className='Center'>
 
                         {
                             (inquiryList)?(
@@ -54,8 +48,7 @@ function Main() {
                                 })
                             ):(null)
                         }
-                    </div>
-        </div>
+          </div>       
       </div>
       <Footer/>
     </div>

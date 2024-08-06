@@ -1,12 +1,41 @@
-import React from 'react'
+import React , {useState, useEffect} from 'react'
+import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../Store/userSlice';
 import '../Style/Login.css'
-
-
+import Footer from './Footer';
 
 
 function Login() {
-  const navigate=useNavigate();
+  const [username, setUserid] = useState('');
+    const [password, setPwd] = useState('');
+    const [message, setMessage] = useState('');
+
+    const dispatch = useDispatch();
+    const navigate=useNavigate();
+
+  useEffect(()=>{})
+
+  async function onLogin(){
+    if( !username ){ return alert('아이디를 입력하세요.') }
+        if( !password ){ return alert('패스워드를 입력하세요.') }
+        try{
+            let result = await axios.post('/api/auth/login', {username, password}, { headers:{"Content-Type": "application/x-www-form-urlencoded"}});
+            console.log(result);
+            if( result.data.msg=='ok'){
+                alert('정상 로그인 되었습니다.');
+                result = await axios.get( '/api/members' );
+                dispatch( loginAction( result.data.loginUser ) );
+                navigate('/');
+            }else{
+                alert(result.data.msg);
+                //setMessage(result.data.msg);
+            }
+        }catch(err){console.error(err)}    
+  }
+
+  
   return (
     <div className="body">
       <div className="logo" onClick={()=>{navigate('/')}}>오늘 뭐 먹지?</div>
@@ -15,13 +44,16 @@ function Login() {
       <div className="login">로그인/회원가입</div>
       <br/>
       <div className='loginInput'>
-        <input type="text" placeholder='아이디' />&nbsp;&nbsp;
-        <input type="password" placeholder='비밀번호' />
+        <input type="text" value={username} onChange={(e)=>{
+                            setUserid( e.currentTarget.value )}} placeholder='아이디' />&nbsp;&nbsp;
+        <input type="password" value={password} onChange={(e)=>{
+                            setPwd( e.currentTarget.value )}} placeholder='비밀번호' />
       </div>
       <br>
       </br>
       <div className='loginButton'>
-        <div className='loginButtonChild'>로그인</div>
+        <div className='loginButtonChild' onClick={()=>{
+                            onLogin();}}>로그인</div>
       </div>
       <br>
       </br>
@@ -32,20 +64,21 @@ function Login() {
       </div>
       <div className="otherlogin">
         <div className="google">
-          <img src="http://localhost:8070/images/google.png"/>&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src='/images/google.png'/>&nbsp;&nbsp;&nbsp;&nbsp;
           <div>Google  계정으로 로그인</div>
         </div>
         <br/>
         <div className="kakao">
-          <img src="http://localhost:8070/images/kakao.png"/>&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="/images/kakao.png"/>&nbsp;&nbsp;&nbsp;&nbsp;
           <div>카카오 계정으로 로그인</div>
         </div>
         <br/>
         <div className="naver">
-          <img src="http://localhost:8070/images/naver.png"/>&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="/images/naver.png"/>&nbsp;&nbsp;&nbsp;&nbsp;
           <div>naver 계정으로 로그인</div>
         </div>
       </div>
+      <Footer/> 
     </div>
   )
 }
