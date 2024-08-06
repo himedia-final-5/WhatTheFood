@@ -1,4 +1,4 @@
-package today.wtfood.server.security;
+package today.wtfood.server.security.service;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
@@ -18,10 +18,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
-@Component
-public class JwtTokenProvider {
+@Service
+public class JwtService {
 
-    private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(JwtService.class);
     public final String JWT_ISSUER = "wtfood.today";
 
     private final SecretKey secretKey;
@@ -30,7 +30,7 @@ public class JwtTokenProvider {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public JwtTokenProvider(
+    public JwtService(
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.access_token_expiration}") long accessTokenExpiration,
             @Value("${jwt.refresh_token_expiration}") long refreshTokenExpiration,

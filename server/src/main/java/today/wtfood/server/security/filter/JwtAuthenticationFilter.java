@@ -19,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.exception.GlobalExceptionHandler;
-import today.wtfood.server.security.JwtTokenProvider;
+import today.wtfood.server.security.service.JwtService;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final GlobalExceptionHandler globalExceptionHandler;
 
@@ -73,9 +73,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws IOException, ServletException {
         try {
-            String accessToken = jwtTokenProvider.resolveAccessToken(request);
+            String accessToken = jwtService.resolveAccessToken(request);
 
-            Claims claims = jwtTokenProvider.validateToken(accessToken);
+            Claims claims = jwtService.validateToken(accessToken);
             Member member = (Member) userDetailsService.loadUserByUsername(claims.getSubject());
 
             // 인증 객체 생성 후 SecurityContext 에 저장
