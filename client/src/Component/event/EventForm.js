@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import jaxios from '../../util/jwtUtil';
-import '../../style/Event.css';
+import '../../style/EventList.css';
 
 const EventForm = () => {
   const { id } = useParams();

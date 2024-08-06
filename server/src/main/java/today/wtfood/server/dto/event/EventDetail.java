@@ -1,6 +1,7 @@
 package today.wtfood.server.dto.event;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Projection for {@link today.wtfood.server.entity.Event}
@@ -12,11 +13,11 @@ public interface EventDetail {
 
     String getTitle();
 
-    String getContent();
+    List<String> getContentImages();
 
     Timestamp getStartDate();
 
     Timestamp getEndDate();
 
-    String getImageUrl();
+    String getBannerImage();
 }

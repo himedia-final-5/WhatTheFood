@@ -50,10 +50,10 @@ public class EventService {
         Event event = er.findById(id)
                 .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found"));
         event.setTitle(dto.getTitle());
-        event.setContent(dto.getContent());
+        event.setContentImages(dto.getContentImages());
         event.setStartDate(dto.getStartDate());
         event.setEndDate(dto.getEndDate());
-        event.setImageUrl(dto.getImageUrl());
+        event.setBannerImage(dto.getBannerImage());
     }
 
     // 이벤트 삭제

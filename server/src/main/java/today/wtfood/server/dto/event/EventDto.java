@@ -5,6 +5,7 @@ import today.wtfood.server.entity.Event;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * DTO for {@link today.wtfood.server.entity.Event}
@@ -15,18 +16,18 @@ import java.sql.Timestamp;
 public class EventDto implements Serializable {
 
     String title;
-    String content;
+    List<String> contentImages;
     Timestamp startDate;
     Timestamp endDate;
-    String imageUrl;
+    String bannerImage;
 
     public Event toEntity() {
         Event event = new Event();
         event.setTitle(this.title);
-        event.setContent(this.content);
+        event.setContentImages(this.contentImages);
         event.setStartDate(this.startDate);
         event.setEndDate(this.endDate);
-        event.setImageUrl(this.imageUrl);
+        event.setBannerImage(this.bannerImage);
         return event;
     }
 }

@@ -1,0 +1,53 @@
+/* eventdetail.css */
+.eventdetail_wrap {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px; /* 패딩 추가로 여백 확보 */
+}
+
+.eventdetail_content {
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 20px; /* 이미지 아래 여백 조정 */
+}
+
+.eventdetail_state_wrap {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box; /* 패딩과 마진을 포함한 너비 설정 */
+  border: 1px solid #ddd; /* 테두리 추가 */
+  border-radius: 8px; /* 테두리 둥글게 */
+  background-color: #f9f9f9; /* 배경색 추가 */
+}
+
+.eventdetail_text_wrap {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column; /* 모바일에서 세로 정렬 */
+}
+
+.eventdetail_state_name {
+  display: block; /* 블록으로 변경하여 전체 너비 사용 */
+  font-size: 1.2rem; /* 글자 크기 조정 */
+  font-weight: bold; /* 글자 두께 조정 */
+  margin-bottom: 10px; /* 아래 여백 추가 */
+}
+
+.eventdetail_date {
+  font-size: 0.9rem; /* 글자 크기 조정 */
+  color: #666; /* 색상 조정 */
+  text-align: left; /* 왼쪽 정렬 */
+  margin-bottom: 40px;
+}
+
+.eventdetail_content img {
+  width: 100%;
+  height: auto; /* 이미지 비율 유지 */
+  border-radius: 8px; /* 이미지 둥글게 */
+}
+
+
+
+/*----------------------------------------------*/
+
