@@ -22,13 +22,6 @@ public class GlobalExceptionHandler {
         ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public void handleRuntimeException(RuntimeException exception, HttpServletResponse response) throws IOException {
-        log.error("RuntimeException: ", exception);
-
-        ResponseHelper.writeError(response, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
-    }
-
     @ExceptionHandler(IllegalArgumentException.class)
     public void handleIllegalArgumentException(IllegalArgumentException exception, HttpServletResponse response) throws IOException {
         log.error("IllegalArgumentException: ", exception);
@@ -42,6 +35,13 @@ public class GlobalExceptionHandler {
 
         String errorMessage = exception.getReason() == null ? exception.getMessage() : exception.getReason();
         ResponseHelper.writeError(response, exception.getStatusCode(), errorMessage);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public void handleException(Exception exception, HttpServletResponse response) throws IOException {
+        log.error("Exception: ", exception);
+
+        ResponseHelper.writeError(response, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
 }

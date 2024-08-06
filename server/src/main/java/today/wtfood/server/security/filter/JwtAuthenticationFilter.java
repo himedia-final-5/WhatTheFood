@@ -94,6 +94,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             globalExceptionHandler.handleJwtException(jwtException, response);
         } catch (ResponseStatusException responseStatusException) {
             globalExceptionHandler.handleResponseStatusException(responseStatusException, response);
+        } catch (Exception exception) {
+            globalExceptionHandler.handleException(exception, response);
         }
     }
 
