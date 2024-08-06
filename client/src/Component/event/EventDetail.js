@@ -27,13 +27,6 @@ function EventDetail() {
 
   return (
     <div className="eventdetail_wrap">
-      <div className="eventdetail_state_wrap">
-        <div className="eventdetail_text_wrap">
-          <span className="eventdetail_state_name">{event.title}</span>
-          <span className="eventdetail_date">
-            {event.startDate.slice(0, 10)}&nbsp;&nbsp;
-            {event.endDate.slice(0, 10)}
-          </span>
           <div className="eventdetail_content">
             {event.contentImages && event.contentImages.length > 0 ? (
               event.contentImages.map((image, index) => (
@@ -46,8 +39,6 @@ function EventDetail() {
             )}
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 
