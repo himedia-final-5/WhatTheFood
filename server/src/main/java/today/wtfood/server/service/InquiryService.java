@@ -40,4 +40,5 @@ public class InquiryService {
         Inquiry inquiry = ir.findById(id).get();
         inquiry.setAnswer(answer);
     }
+
 }
