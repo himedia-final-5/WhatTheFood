@@ -20,18 +20,25 @@ function Header() {
   return (
     <div className='Header'>
         <div className="top">
-            <div onClick={()=>{navigate('/')}}><img src="로고"/>로고</div>
-            <div><input type='text'/><img src="돋보기"/>검색</div>
-            <div><img src="카트(장바구니)"/>카트</div>
-            <div onClick={()=>{navigate('/login')}}><img src="로그인&마이페이지&서브페이지"/>로그인</div>
+            <div className="toptop" onClick={()=>{navigate('/')}}>오늘 뭐 먹지?</div>
+            <div className="toptop"><input type='text'/><img src="돋보기"/></div>
+            <div className="toptop"><img src="카트(장바구니)"/></div>
+            <div className="toptop" onClick={()=>{navigate('/login')}}><img src="로그인&마이페이지&서브페이지"/></div>
+        </div>
+        <div className='submenu'>
+          <div>마이페이지</div>
+          <div>찜레시피</div>
+          <div>장바구니</div>
+          <div>문의하기</div>
+          <div>로그아웃</div>
         </div>
 
         <div className="menu">
-            <div>레시피</div>
-            <div>랭킹</div>
-            <div>스토어</div>
-            <div>공지사항</div>
-            <div>이벤트</div>            
+            <div className='topMenu'>레시피</div>
+            <div className='topMenu'>랭킹</div>
+            <div className='topMenu'>스토어</div>
+            <div className='topMenu'>공지사항</div>
+            <div className='topMenu'>이벤트</div>            
         </div>
     </div>
   )

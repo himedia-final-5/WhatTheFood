@@ -8,7 +8,10 @@ import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.inquiry.InquiryDetail;
 import today.wtfood.server.dto.inquiry.InquiryDto;
 import today.wtfood.server.dto.inquiry.InquirySummary;
+import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.service.InquiryService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/inquiries")
@@ -25,6 +28,10 @@ public class InquiryController {
         return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
     }
 
+    @GetMapping("/allinquiry")
+    public List<Inquiry> allInquiry() {
+        return is.getAllInquiry();
+    }
 
     @GetMapping("/{id}")
     public InquiryDetail getMyInquiryView(@PathVariable("id") long id) {

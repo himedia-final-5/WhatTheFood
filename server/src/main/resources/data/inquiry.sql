@@ -18,7 +18,8 @@ VALUES ( '답변했다', '아아기오오', 'user01@wtfood.today','test1'),
        ( '답변했다', '아아기오오', 'user02@wtfood.today','test2'),
        ( '답변했다', '아아기오오', 'user02@wtfood.today','test2'),
        ( '답변했다', '아아기오오', 'user02@wtfood.today','test2'),
-       ( '답변했다', '아아기오오', 'user02@wtfood.today','test2');
+       ( '답변했다', '아아기오오', 'user02@wtfood.today','test2'),
+        ( '답변했다', '아dididid', 'asdf','test3');
 
 
 

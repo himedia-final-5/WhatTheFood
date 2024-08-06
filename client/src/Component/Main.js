@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
-//import axios from 'axios';
+import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 import '../Style/Main.css'
@@ -12,11 +12,19 @@ function Main() {
     const lUser = useSelector( state=>state.user );
     const [word, setWord] = useState(null);
 
+    const [inquiryList, setInquiryList] = useState([]);
+
+
+
     const navigate = useNavigate();
 
-    useEffect(()=>{
-
-    })
+    useEffect(
+      ()=>{
+            axios.get(`/api/inquiries/allinquiry`)
+            .then((result)=>{ setInquiryList( result.data );})
+            .catch((err)=>{console.error(err)})
+    },[]
+  )
 
 
   return (
@@ -24,7 +32,29 @@ function Main() {
       <Header setWord={setWord} />
       <div className="Container">
         <div  className='Center'>
-          메인이다
+          <div className='itemList'>
+                {/* {inquiryList.id}
+                {inquiryList.email}
+                {inquiryList.title}
+                {inquiryList.content}
+                {inquiryList.date} */}
+
+                        {
+                            (inquiryList)?(
+                              inquiryList.map((inquirylist, idx)=>{
+                                    return (
+                                        <div className='item' key={idx} onClick={()=>{ navigate(`/productDetail/${inquirylist.id}`) }}>
+                                            <div className='name'>{inquirylist.id}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div className='name'>{inquirylist.email}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div className='name'>{inquirylist.title}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div className='name'>{inquirylist.content}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div className='name'>{inquirylist.date.substring(0,10)}</div>
+                                        </div>
+                                    )
+                                })
+                            ):(null)
+                        }
+                    </div>
         </div>
       </div>
       <Footer/>
