@@ -74,7 +74,7 @@ public class JwtTokenProvider {
         // 재발급 토큰을 DB에 저장
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .refreshToken(refreshToken)
+                        .tokenUuid(claims.getId())
                         .expireTime(refreshTokenExpireDate.getTime())
                         .username(username)
                         .build()
@@ -105,16 +105,25 @@ public class JwtTokenProvider {
     }
 
     public Claims validateRefreshToken(String refreshToken) throws JwtException {
+        // 토큰 검증 및 파싱
+        Claims claims = parseClaims(refreshToken);
+
         // 데이터베이스에서 저장된 토큰을 가져옴
-        RefreshToken token = refreshTokenRepository.findById(refreshToken)
+        RefreshToken token = refreshTokenRepository.findByUsername(claims.getSubject())
                 .orElseThrow(() -> new JwtException("Invalid Refresh Token"));
 
-        // 토큰 만료 여부 확인
-        if (token.getExpireTime() < System.currentTimeMillis()) {
-            throw new ExpiredJwtException(null, null, "Expired Refresh Token");
+        // 토큰 일치 검사
+        if (!token.getTokenUuid().equals(claims.getId())) {
+            throw new JwtException("Invalid Refresh Token");
         }
 
-        return parseClaims(refreshToken);
+        // 만료 시간 검사
+        if (token.getExpireTime() < System.currentTimeMillis()) {
+            throw new JwtException("Expired Refresh Token");
+        }
+
+        // 토큰 반환
+        return claims;
     }
 
     public Claims parseClaims(String token) {

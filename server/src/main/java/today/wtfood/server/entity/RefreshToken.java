@@ -19,9 +19,8 @@ public class RefreshToken {
     @Column(length = 45, nullable = false)
     private String username;
 
-    @Column(length = 500, nullable = false, unique = true)
-    private String refreshToken;
-
+    @Column(length = 36, nullable = false, unique = true)
+    private String tokenUuid;
 
     @Column(nullable = false)
     private Long expireTime;
