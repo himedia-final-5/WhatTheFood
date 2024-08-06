@@ -10,5 +10,7 @@ spring.mail.password=password4email
 # Security configuration
 ## secret key for JWT token (TIP: use https://jwtsecret.com/generate)
 jwt.secret=SECRET_KEY_FOR_JWT_TOKEN
-## expiration time of JWT token in milliseconds
-jwt.expiration=86400000
+## expiration time of JWT access token in milliseconds (default 30 minutes)
+jwt.access_token_expiration=1800000
+## expiration time of JWT refresh token in milliseconds (default 7 day)
+jwt.refresh_token_expiration=604800000
