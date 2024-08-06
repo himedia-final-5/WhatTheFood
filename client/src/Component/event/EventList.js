@@ -1,32 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import jaxios from '../../util/jwtUtil';
-import '../../style/Event.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-    const EventList = () => {
-      const [events, setEvents] = useState([]);
-      const navigate = useNavigate();
-  
-      useEffect(() => {
-          jaxios.get('/api/events')
-              .then(response => setEvents(response.data.content))
-              .catch(error => console.error('Error fetching events:', error));
-      }, []);
-  
-      return (
-          <div className="container">
-              <h2>Event List</h2>
-              <ul className="event-list">
-                  {events.map(event => (
-                      <li key={event.id} className="event-list-item" onClick={() => navigate(`/events/${event.id}`)}>
-                          {event.title}
-                      </li>
-                  ))}
-              </ul>
-          </div>
-      );
-  };
+import jaxios from "../../util/jwtUtil";
+import "../../style/Event.css";
+import { useDispatch } from "react-redux";
 
+function EventList() {
+  const [id, setId] = useState();
+  const [imageUrl, setImageUrl] = useState([]);
+  const [content, setContent] = useState([]);
+
+  const dispath = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(
+    ()=>{
+        jaxios.get(`/api/events/get/${events.id}`)
+        .then((result)=>{setId(result.data);})
+        .catch((err)=>{console.error(err)})
+    }
+  )
+
+  return (
+    <div className="event_wrap">
+      <div className="event_state_wrap">
+        <span className="event_state_name">{events.title}</span>
+        <span className="event_date">
+          {events.startDate}&nbsp;&nbsp;{events.endDate}
+        </span>
+      </div>
+      <div className="event_imageUrl">{events.imageUrl}</div>
+      <span className="event_content">{events.content}</span>
+    </div>
+  );
+}
 
 export default EventList;
