@@ -16,13 +16,14 @@ import lombok.*;
 public class RefreshToken {
 
     @Id
+    @Column(length = 45, nullable = false)
+    private String username;
+
     @Column(length = 500, nullable = false, unique = true)
     private String refreshToken;
 
+
     @Column(nullable = false)
     private Long expireTime;
-
-    @Column(length = 45, nullable = false)
-    private String username;
 
 }
