@@ -87,6 +87,14 @@ public class JwtTokenProvider {
         );
     }
 
+    public JwtAuthResponse reissueToken(String refreshToken) throws JwtException {
+        // 재발급 토큰으로부터 사용자 정보 추출
+        Claims claims = validateRefreshToken(refreshToken);
+        String username = claims.getSubject();
+
+        // 접근 토큰 재발급
+        return generateToken(username);
+    }
 
     public Claims validateToken(String token) throws JwtException {
         try {
