@@ -5,13 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "member")
@@ -22,7 +17,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Member implements UserDetails {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +27,6 @@ public class Member implements UserDetails {
     @Column(name = "username", length = 45, unique = true)
     private String username;
 
-    @Column(name = "password")
-    private String password;
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of((GrantedAuthority) () -> role.name());
-    }
-
     @Column(name = "kakao_oauth_id", unique = true)
     private String kakaoOauthId;
 
@@ -47,6 +35,9 @@ public class Member implements UserDetails {
 
     @Column(name = "google_oauth_id", unique = true)
     private String googleOauthId;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "email", length = 45, unique = true)
     private String email;
@@ -93,12 +84,6 @@ public class Member implements UserDetails {
 
     public enum Role {
         ROLE_USER, ROLE_CHEF, ROLE_BRAND, ROLE_ADMIN
-    }
-
-    public Map<String, Object> getClaims() {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username);
-        return claims;
     }
 
 }
