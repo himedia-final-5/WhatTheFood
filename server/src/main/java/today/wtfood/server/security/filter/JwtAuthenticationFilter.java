@@ -1,6 +1,7 @@
 package today.wtfood.server.security.filter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -50,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String accessToken = jwtTokenProvider.resolveAccessToken(request);
             if (accessToken == null) {
-                throw new Exception("Access Token is null");
+                throw new JwtException("Bearer Access Token Not Provided");
             }
 
             Claims claims = jwtTokenProvider.validateToken(accessToken);
@@ -70,12 +71,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (Exception e) {
-            log.error("JWT Check Error..............");
-            log.error(e.getMessage());
+            log.error("JWT Authentication Failed : {}", e.getMessage());
 
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.setContentType("application/json");
-            response.getWriter().write("{\"error\":\"ERROR_ACCESS_TOKEN\"}");
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), "JWT Authentication Failed : " + e.getMessage());
         }
     }
 

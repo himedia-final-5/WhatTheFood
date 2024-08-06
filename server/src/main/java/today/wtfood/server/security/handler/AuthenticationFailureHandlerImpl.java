@@ -25,7 +25,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
     ) throws IOException {
         log.error("Authentication Failed : {}", exception.getMessage());
 
-        response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid username or password");
+        response.sendError(HttpStatus.UNAUTHORIZED.value(), "Authentication Failed : " + exception.getMessage());
     }
 
 }

@@ -94,13 +94,13 @@ public class JwtTokenProvider {
         try {
             return parseClaims(token);
         } catch (ExpiredJwtException expiredJwtException) {
-            throw new JwtException("Expired");
+            throw new JwtException("Expired JWT Token");
         } catch (InvalidClaimException invalidClaimException) {
-            throw new JwtException("Invalid");
+            throw new JwtException("Invalid JWT Token");
         } catch (io.jsonwebtoken.JwtException jwtException) {
-            throw new JwtException("JWTError");
+            throw new JwtException("JWT Error on JWT Token Validation : " + jwtException.getMessage());
         } catch (Exception e) {
-            throw new JwtException("Error");
+            throw new JwtException("Uncaught Error on JWT Token Validation : " + e.getMessage());
         }
     }
 
@@ -117,11 +117,6 @@ public class JwtTokenProvider {
             throw new JwtException("Invalid Refresh Token");
         }
 
-        // 만료 시간 검사
-        if (token.getExpireTime() < System.currentTimeMillis()) {
-            throw new JwtException("Expired Refresh Token");
-        }
-
         // 토큰 반환
         return claims;
     }
@@ -135,19 +130,21 @@ public class JwtTokenProvider {
     }
 
     public String resolveAccessToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+        String token = request.getHeader("Authorization");
+        if (token == null || !token.startsWith("Bearer ")) {
+            return null;
         }
-        return bearerToken;
+
+        return token.substring(7);
     }
 
     public String resolveRefreshToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Refresh");
-        if (bearerToken != null && !bearerToken.isBlank()) {
-            return bearerToken;
+        String token = request.getHeader("Refresh");
+        if (token == null || token.isBlank()) {
+            return null;
         }
-        return null;
+
+        return token;
     }
 
 }

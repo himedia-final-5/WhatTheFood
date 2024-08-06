@@ -3,6 +3,7 @@ package today.wtfood.server.security.handler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,8 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
             AccessDeniedException exception
     ) throws IOException {
         log.error("Access Denied : {}", exception.getMessage());
-        response.sendError(HttpServletResponse.SC_FORBIDDEN, exception.getMessage());
+
+        response.sendError(HttpStatus.FORBIDDEN.value(), "Access Denied : " + exception.getMessage());
     }
 
 }
