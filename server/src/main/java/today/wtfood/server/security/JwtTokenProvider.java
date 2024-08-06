@@ -5,9 +5,9 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import today.wtfood.server.entity.RefreshToken;
-import today.wtfood.server.repository.RefreshTokenRepository;
 import today.wtfood.server.security.dto.JwtAuthResponse;
+import today.wtfood.server.security.entity.RefreshToken;
+import today.wtfood.server.security.repository.RefreshTokenRepository;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;

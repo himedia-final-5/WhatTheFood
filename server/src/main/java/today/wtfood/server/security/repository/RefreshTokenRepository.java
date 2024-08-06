@@ -1,8 +1,8 @@
-package today.wtfood.server.repository;
+package today.wtfood.server.security.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import today.wtfood.server.entity.RefreshToken;
+import today.wtfood.server.security.entity.RefreshToken;
 
 import java.util.Optional;
 
