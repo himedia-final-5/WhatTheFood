@@ -3,9 +3,9 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import jaxios from '../../util/jwtUtil';
+import jaxios from '../../utils/jwtUtil';
 
-import '../../style/notice.css'
+import '../../styles/notice.css'
 
 
 function Notice() {

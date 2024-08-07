@@ -1,6 +1,6 @@
 import {  Routes, Route } from "react-router-dom";
-import WriteNotice from './Component/notice/WriteNotice';
-import NoticeList from './Component/notice/NoticeList';
+import WriteNotice from './pages/notice/WriteNotice';
+import NoticeList from './pages/notice/NoticeList';
 // import Login from './Component/Login';
 // import Main from './Component/Main';
 // import Join from './Component/member/Join';
