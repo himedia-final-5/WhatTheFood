@@ -76,7 +76,7 @@ function EventList() {
   }
 
   return (
-    <div className="event_wrap">
+    <div className="event_banner_wrap">
       <button
         onClick={() => {
           navigate("/createEventBanner");

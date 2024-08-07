@@ -47,11 +47,14 @@ function EventDetail() {
 
   return (
     <div className="eventdetail_wrap">
-      <button onClick={() => navigate(`/updateEvent/${events.id}`)}>
-        수정
-      </button>
-      <button onClick={() => deleteEvent(events.id)}>삭제</button>
-      <button onClick={() => navigate("/events")}>돌아가기</button>
+      <div className="eventdetail_btn_wrap">
+        <button onClick={() => navigate(`/updateEvent/${events.id}`)}>
+          수정
+        </button>
+        <button onClick={() => deleteEvent(events.id)}>삭제</button>
+        <button onClick={() => navigate("/events")}>돌아가기</button>
+      </div>
+
       <div className="eventdetail_content">
         {events.contentImages && events.contentImages.length > 0 ? (
           events.contentImages.map((image, index) => (
