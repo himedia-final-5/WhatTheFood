@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import '../../Style/JoinForm.css'
-import Footer from '../Footer';
+import './JoinForm.css'
+import Footer from '../../components/Footer';
 import { useNavigate } from "react-router-dom";
 
 

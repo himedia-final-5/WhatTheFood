@@ -2,9 +2,9 @@ import React , {useState, useEffect} from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '../Store/userSlice';
-import '../Style/Login.css'
-import Footer from './Footer';
+import { loginAction } from '../../stores/userSlice';
+import './Login.css'
+import Footer from '../../components/Footer';
 
 
 function Login() {

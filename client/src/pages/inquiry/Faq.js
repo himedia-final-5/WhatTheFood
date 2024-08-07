@@ -1,12 +1,12 @@
 // import React, {useState, useEffect} from 'react'
 import { useEffect, useState } from 'react';
-import '../../style/Qna.css'
-import Header from '../Header';
-import Footer from '../Footer';
+import './Faq.css'
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 // import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-function Qna() {
+function Faq() {
     const navigate=useNavigate();
     const [word, setWord] = useState(null);
     const [qnaList, setQnaList] = useState([]);
@@ -18,17 +18,17 @@ function Qna() {
   return (
     <div >
     <Header setWord={setWord} />
-        <div className='qnaBody'>
-            <div className='qnaCenter'>
+        <div className='faqBody'>
+            <div className='faqCenter'>
                     <br></br>
-                    <div id="qna1">|QnA|</div>
+                    <div id="faq1">|FAQ|</div>
                     <br/>
-                    <div id="qna2">자주받는질문</div>
+                    <div id="faq2">자주 받는 질문</div>
                     <br></br>
                 {
                     qnaList.map((qnalist, idx)=>{
                         return (
-                            <div className='qnalist' key={idx} >
+                            <div className='faqlist' key={idx} >
                                 
                             </div>
                         )
@@ -68,4 +68,4 @@ function Qna() {
   )
 }
 
-export default Qna
+export default Faq

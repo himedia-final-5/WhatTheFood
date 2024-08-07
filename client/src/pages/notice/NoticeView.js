@@ -1,18 +1,18 @@
 import React from 'react'
-import Footer from '../Footer';
-import Header from '../Header';
-import '../../Style/Event.css'
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import './Notice.css'
 
-function EventView() {
+function NoticeView() {
   return (
     <div>
         <Header setWord={setWord} />
-        <div className='eventBody'>
-            <div className='eventCenter'>
+        <div className='noticeBody'>
+            <div className='noticeCenter'>
                     <br></br>
-                    <div id="event1">|event|</div>
+                    <div id="notice1">|Notice|</div>
                     <br/>
-                    <div id="event2">이벤트</div>
+                    <div id="notice2">공지사항</div>
                     <br></br>
                     <hr></hr>
                     <div>
@@ -28,4 +28,4 @@ function EventView() {
   )
 }
 
-export default EventView
+export default NoticeView

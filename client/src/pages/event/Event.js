@@ -1,15 +1,15 @@
 // import React, {useState, useEffect} from 'react'
 import { useEffect, useState } from 'react';
-import '../../Style/Notice.css'
-import Header from '../Header';
-import Footer from '../Footer';
+import './Event.css'
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 // import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-function Notice() {
+function Event() {
     const navigate=useNavigate();
     const [word, setWord] = useState(null);
-    const [noticeList, setNoticeList] = useState([]);
+    const [eventList, setEventList] = useState([]);
 
     useEffect(()=>{
 
@@ -18,17 +18,17 @@ function Notice() {
   return (
     <div >
     <Header setWord={setWord} />
-        <div className='noticeBody'>
-            <div className='noticeCenter'>
+        <div className='eventBody'>
+            <div className='eventCenter'>
                     <br></br>
-                    <div id="notice1">|Notice|</div>
+                    <div id="event1">|Event|</div>
                     <br/>
-                    <div id="notice2">공지사항</div>
+                    <div id="event2">이벤트</div>
                     <br></br>
                 {
-                    noticeList.map((noticelist, idx)=>{
+                    eventList.map((eventlist, idx)=>{
                         return (
-                            <div className='noticelist' key={idx} >
+                            <div className='eventlist' key={idx} >
                                 
                             </div>
                         )
@@ -68,4 +68,4 @@ function Notice() {
   )
 }
 
-export default Notice
+export default Event

@@ -1,8 +1,0 @@
-.qnaBody { width: 100%; display: flex; justify-content: center; }
-
-.qnaCenter { width:64%;  text-align: center; border:1px solid red; }
-
-.qnalist { cursor: pointer;}
-
-#qna1 { font-size: 50px; }
-#qna2 { font-size: 40px;}

@@ -1,10 +1,11 @@
 import {  Routes, Route } from "react-router-dom";
-import Login from './Component/Login';
-import Main from './Component/Main';
-import JoinForm from './Component/Member/JoinForm';
-import UpdateForm from './Component/Member/UpdateForm';
-import Notice from './Component/Notice/Notice';
-import Event from './Component/Event/Event';
+import Login from './pages/member/Login';
+import Main from './pages/Main';
+import JoinForm from './pages/member/JoinForm';
+import UpdateForm from './pages/member/UpdateForm';
+import Notice from './pages/notice/Notice';
+import Event from './pages/event/Event';
+import Faq from './pages/inquiry/Faq';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/updateForm" element={<UpdateForm />}/>
       <Route path="/notice" element={<Notice/>}/>
       <Route path="/event" element={<Event />}/>
+      <Route path="/faq" element={<Faq />}/>
 
       
 
