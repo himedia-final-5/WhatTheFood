@@ -1,0 +1,8 @@
+.noticeBody { width: 100%; display: flex; justify-content: center; }
+
+.noticeCenter { width:60%;  text-align: center; border:1px solid red; }
+
+.noticelist { cursor: pointer;}
+
+#notice1 { font-size: 50px; }
+#notice2 { font-size: 40px;}

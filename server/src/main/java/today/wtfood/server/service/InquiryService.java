@@ -9,6 +9,8 @@ import today.wtfood.server.dto.inquiry.InquirySummary;
 import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.repository.InquiryRepository;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class InquiryService {
@@ -17,6 +19,10 @@ public class InquiryService {
 
     public InquiryService(InquiryRepository ir) {
         this.ir = ir;
+    }
+
+    public List<Inquiry> getAllInquiry() {
+        return ir.findAll();
     }
 
     public Inquiry insertInquiry(Inquiry entity) {
@@ -40,4 +46,6 @@ public class InquiryService {
         Inquiry inquiry = ir.findById(id).get();
         inquiry.setAnswer(answer);
     }
+
+
 }

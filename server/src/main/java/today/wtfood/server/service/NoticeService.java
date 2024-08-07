@@ -5,8 +5,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.dto.noticedto.NoticeDetail;
-import today.wtfood.server.dto.noticedto.NoticeSummary;
+import today.wtfood.server.dto.notice.NoticeDetail;
+import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
 import today.wtfood.server.repository.NoticeRepository;
 
@@ -31,8 +31,8 @@ public class NoticeService {
     }
 
     // 공지사항 작성
-    public void writeNotice(Notice notice) {
-        nr.save(notice);
+    public long writeNotice(Notice notice) {
+        return nr.save(notice).getId();
 
         // save : Spring Data JPA 에서 데이터베이스에 엔티티를 저장하거나 업데이트하는 데 사용(Create 또는 Update 담당)
 

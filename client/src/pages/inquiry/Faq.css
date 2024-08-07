@@ -1,0 +1,8 @@
+.faqBody { width: 100%; display: flex; justify-content: center; }
+
+.faqCenter { width:64%;  text-align: center; border:1px solid red; }
+
+.faqlist { cursor: pointer;}
+
+#faq1 { font-size: 50px; }
+#faq2 { font-size: 40px;}

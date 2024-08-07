@@ -1,4 +1,4 @@
-package today.wtfood.server.dto.noticedto;
+package today.wtfood.server.dto.notice;
 
 import java.sql.Timestamp;
 

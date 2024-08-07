@@ -4,13 +4,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.inquiry.InquiryDetail;
 import today.wtfood.server.dto.inquiry.InquiryDto;
 import today.wtfood.server.dto.inquiry.InquirySummary;
 import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.service.InquiryService;
 
-import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/inquiries")
@@ -23,15 +24,13 @@ public class InquiryController {
     }
 
     @PostMapping("")
-    public HashMap<String, Object> insertInquiry(@RequestBody InquiryDto inquiry) {
+    public GeneratedId<Long> insertInquiry(@RequestBody InquiryDto inquiry) {
+        return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
+    }
 
-        HashMap<String, Object> result = new HashMap<String, Object>();
-
-        Inquiry i = is.insertInquiry(inquiry.toEntity());
-
-        result.put("inquiryId", i.getEmail());
-
-        return result;
+    @GetMapping("")
+    public List<Inquiry> allInquiry() {
+        return is.getAllInquiry();
     }
 
     @GetMapping("/{id}")
@@ -42,7 +41,7 @@ public class InquiryController {
     @GetMapping("/email/{email}")
     public Page<InquirySummary> getMyInquiryList(@PathVariable("email") String email,
                                                  @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-                                                 @RequestParam(name = "pageCount", defaultValue = "10") int pageSize
+                                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
     ) {
 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
@@ -55,8 +54,8 @@ public class InquiryController {
         is.deleteInquiry(id);
     }
 
-    @PostMapping("{id}/answer")
-    public void inquiryAnswer(@RequestParam("id") long id, @RequestBody String answer) {
+    @PutMapping("/{id}/answer")
+    public void inquiryAnswer(@PathVariable("id") long id, @RequestParam("answer") String answer) {
         is.inquiryAnswer(id, answer);
     }
 
