@@ -1,12 +1,8 @@
 package today.wtfood.server.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -20,7 +16,7 @@ public class Notice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @CreationTimestamp
-    @ColumnDefault("current_timestamp")
+    @Column(name = "write_date")
     private Timestamp writeDate;
     private String title;
     private String content;
