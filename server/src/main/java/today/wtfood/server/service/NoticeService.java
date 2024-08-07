@@ -23,7 +23,7 @@ public class NoticeService {
 
     // 공지사항 조회
     public Page<NoticeSummary> getNotices(Pageable pageable) {
-        return nr.findAllBy(pageable);
+        return nr.findAllBy(pageable, NoticeSummary.class);
         // Pageable : JPA 에서 페이지네이션(pagination)을 지원하기 위한 인터페이스
         // 페이지 번호와 페이지 크기 등 페이지네이션 관련 정보를 담고 있는 인터페이스이며 이 인터페이스를 사용하여 원하는 페이지의 데이터를 요청
         // JpaRepository 인터페이스에 저장되어 있음(NoticeRepository nr 에 상속자로 들어있음)
