@@ -11,6 +11,8 @@ public interface MemberAuth {
 
     Long getId();
 
+    String getUsername();
+
     String getNickname();
 
     Member.Role getRole();
