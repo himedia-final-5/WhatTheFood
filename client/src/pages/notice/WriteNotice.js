@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import jaxios from '../../utils/jwtUtil';
-
-import '../../styles/notice.css'
+import axios from 'axios';
+import './Notice.css'
 
 
 function Notice() {
@@ -17,9 +17,9 @@ function Notice() {
     const [notice,setNotice] = useState({});
     
     function onSubmit(){
-        jaxios.post('/api/notices/writeNotice', {title, content})
+        axios.post('/api/notices', {title, content})
         .then(()=>{
-            navigate('/')
+            navigate('/notice')
         })
         .catch((err)=>{
             console.error(err);
