@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { Provider } from 'react-redux';  // 설정된 store 를 index.js 에 등록하는 주체
-import store from "./store/index";
+import store from "./stores/index";
 
 export let persistor = persistStore(store);
 

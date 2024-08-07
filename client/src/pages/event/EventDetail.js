@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./EventDetail.css";
-import "../../style/Reset.css";
-import jaxios from "../../util/jwtUtil";
+import "../../styles/Reset.css";
+import jaxios from "../../utils/jwtUtil";
 
 function EventDetail() {
   const navigate = useNavigate();

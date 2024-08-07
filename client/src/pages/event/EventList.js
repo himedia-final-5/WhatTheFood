@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import jaxios from "../../util/jwtUtil";
+import jaxios from "../../utils/jwtUtil";
 import "./EventList.css";
-import "../../style/Reset.css";
+import "../../styles/Reset.css";
 
 
 function EventList() {
