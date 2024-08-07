@@ -124,6 +124,11 @@ public class JwtService {
         // 토큰 검증 및 파싱
         Claims claims = parseClaims(refreshToken);
 
+        // 토큰 발행자 검사
+        if (!JWT_ISSUER.equals(claims.getIssuer())) {
+            throw new UnauthorizedException("Invalid JWT Token");
+        }
+
         // 데이터베이스에서 저장된 토큰을 가져옴
         RefreshToken token = refreshTokenRepository.findByUsername(claims.getSubject())
                 .orElseThrow(() -> new UnauthorizedException("Invalid JWT Token"));
