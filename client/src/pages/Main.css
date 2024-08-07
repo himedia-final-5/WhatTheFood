@@ -1,5 +1,16 @@
-.Container {width: 100%; display: flex; justify-content: center;}
+.Container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-.Center { width:84%;  text-align: center; border:1px solid red;}
+.Center {
+  width: 84%;
+  text-align: center;
+  border: 1px solid red;
+}
 
-.item { display: flex; justify-content: center;}
+.item {
+  display: flex;
+  justify-content: center;
+}

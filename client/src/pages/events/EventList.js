@@ -108,6 +108,7 @@ function EventList() {
       ) : (
         <div>No events found.</div>
       )}
+      
     </div>
   );
 }
