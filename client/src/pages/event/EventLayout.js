@@ -1,6 +1,6 @@
 // import React, {useState, useEffect} from 'react'
 import { useEffect, useState } from 'react';
-import './Event.css'
+import './EventTop.css'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 // import axios from 'axios';
@@ -36,31 +36,7 @@ function Event() {
 
                 }
             </div>    
-            <div id="paging" style={{textAlign:"center", padding:"10px"}}>
-            {/* {
-                (paging.prev)?(
-                    <span style={{cursor:"pointer"}} onClick={ ()=>{ onPageMove( paging.beginPage-1 ) } } > ◀ </span>
-                ):(<span></span>)
-            }
-            {
-                (beginend)?(
-                    beginend.map((page, idx)=>{
-                        return (
-                            <span style={{cursor:"pointer"}} key={idx} onClick={
-                                ()=>{ onPageMove( page ) }
-                            }>&nbsp;{page}&nbsp;</span>
-                        )
-                    })
-                ):(<></>)
-            }
-            {
-                (paging.next)?(
-                    <span style={{cursor:"pointer"}} onClick={
-                        ()=>{ onPageMove( paging.endPage+1 ) }
-                    }>&nbsp;▶&nbsp;</span>
-                ):(<></>)
-            } */}
-            </div>
+
             
         </div>
     <Footer/> 

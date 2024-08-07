@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import './Event.css'
+import './EventTop.css'
 
 function EventView() {
   return (

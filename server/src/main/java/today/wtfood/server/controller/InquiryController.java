@@ -28,7 +28,7 @@ public class InquiryController {
         return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
     }
 
-    @GetMapping("/allinquiry")
+    @GetMapping("")
     public List<Inquiry> allInquiry() {
         return is.getAllInquiry();
     }

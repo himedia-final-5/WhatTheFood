@@ -4,7 +4,7 @@ import Main from './pages/Main';
 import JoinForm from './pages/member/JoinForm';
 import UpdateForm from './pages/member/UpdateForm';
 import Notice from './pages/notice/Notice';
-import Event from './pages/event/Event';
+import Event from './pages/event/EventLayout';
 import Faq from './pages/inquiry/Faq';
 
 

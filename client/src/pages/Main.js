@@ -20,7 +20,7 @@ function Main() {
 
     useEffect(
       ()=>{
-            axios.get(`/api/inquiries/allinquiry`)
+            axios.get(`/api/inquiries`)
             .then((result)=>{ setInquiryList( result.data );})
             .catch((err)=>{console.error(err)})
     },[]
