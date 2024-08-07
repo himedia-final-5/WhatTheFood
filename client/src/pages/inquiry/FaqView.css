@@ -1,0 +1,12 @@
+
+#qvbody {width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+#qvcontainer { display: flex; flex-direction: column;   width:64%; border:1px solid red; }
+
+#head {width: 100%; height: 100px; display: flex; flex-direction: column; border:1px solid blue;}
+#title { font-size: 50px;   }
+#date {font-size: 25px; }
+
+#content {font-size: 30px; }
+
+#back { cursor: pointer; font-size: 25px; border : 1px solid black;}

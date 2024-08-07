@@ -59,6 +59,7 @@ public class InquiryController {
         is.inquiryAnswer(id, answer);
     }
 
+
 //    @Autowired
 //    ServletContext context;
 //    @PostMapping("/imgup")

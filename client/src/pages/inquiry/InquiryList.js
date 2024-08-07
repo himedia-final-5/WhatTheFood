@@ -1,36 +1,47 @@
-// import React, {useState, useEffect} from 'react'
-import { useEffect, useState } from 'react';
-import './Notice.css'
+import React, {useState, useEffect} from 'react'
+
+import './InquiryList.css'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-// import axios from 'axios';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-function Notice() {
+function InquiryList() {
     const navigate=useNavigate();
     const [word, setWord] = useState(null);
-    const [noticeList, setNoticeList] = useState([]);
+    const [qnaList, setQnaList] = useState([]);
+    const [inquiryList, setInquiryList] = useState([]);
 
-    useEffect(()=>{
-
-    })
+    useEffect(
+        ()=>{
+            axios.get(`/api/inquiries`)
+            .then((result)=>{ setInquiryList( result.data );})
+            .catch((err)=>{console.error(err)})
+    },[]
+    )
 
   return (
     <div >
     <Header setWord={setWord} />
-        <div className='noticeBody'>
-            <div className='noticeCenter'>
+        <div className='iqBody'>
+                
+            <div className='iqCenter'>
+                
                     <br></br>
-                    <div id="notice1">|Notice|</div>
-                    <br/>
-                    <div id="notice2">공지사항</div>
                     <br></br>
-                    <hr></hr>
+                    <div id="iq1">
+                        <div>내 문의 내역</div>
+                        <div id="inquiryWrite" onClick={()=>{navigate(`/inquiryWriteForm/`)}}><img src="/images/inquirywrite.png"/>문의하기</div>
+                    </div>
+                    <br></br>
+                
+                  
                 {
-                    noticeList.map((noticelist, idx)=>{
+                    inquiryList.map((inquirylist, idx)=>{
                         return (
-                            <div className='noticelist' key={idx} >
-                                
+                            <div className='item' key={idx} onClick={()=>{navigate(`/InquiryView/${inquirylist.id}`) }} >
+                                <div className='name'>{inquirylist.title}</div>
+                                <div className='name'>{inquirylist.date.substring(0,10)}</div>
                             </div>
                         )
                     })
@@ -64,9 +75,10 @@ function Notice() {
             </div>
             
         </div>
+        <br></br>
     <Footer/> 
     </div>
   )
 }
 
-export default Notice
+export default InquiryList

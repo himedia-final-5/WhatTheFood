@@ -37,6 +37,7 @@ function Login() {
 
   
   return (
+    <div>
     <div className="body">
       <div className="logo" onClick={()=>{navigate('/')}}>오늘 뭐 먹지?</div>
       <br/>
@@ -78,7 +79,9 @@ function Login() {
           <div>naver 계정으로 로그인</div>
         </div>
       </div>
-      <Footer/> 
+      <br></br>    
+    </div>
+    <Footer/> 
     </div>
   )
 }

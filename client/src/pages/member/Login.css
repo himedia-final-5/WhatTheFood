@@ -1,4 +1,4 @@
-.body { display: flex; flex-direction: column; justify-content: center;}
+.body { display: flex; flex-direction: column; justify-content: center; align-items: center}
 
 @import url('https://fonts.googleapis.com/css2?family=Gugi&family=Nanum+Pen+Script&display=swap');
 .logo { font-weight: bold; font-size: 50px; height: 65px; 

@@ -13,6 +13,7 @@ function JoinForm() {
   })
 
   return (
+    <div>
     <div className='body'>
       <div className="logo" onClick={()=>{navigate('/')}}>오늘 뭐 먹지?</div>
       <br>
@@ -73,7 +74,9 @@ function JoinForm() {
       </br>
       <br>
       </br>
-      <Footer/>  
+      
+    </div>
+    <Footer/>  
     </div>
     
   )

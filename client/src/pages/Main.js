@@ -33,23 +33,10 @@ function Main() {
       <div className="Container">        
           <div className='Center'>
 
-                        {
-                            (inquiryList)?(
-                              inquiryList.map((inquirylist, idx)=>{
-                                    return (
-                                        <div className='item' key={idx} onClick={()=>{ navigate(`/productDetail/${inquirylist.id}`) }}>
-                                            <div className='name'>{inquirylist.id}</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <div className='name'>{inquirylist.email}</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <div className='name'>{inquirylist.title}</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <div className='name'>{inquirylist.content}</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <div className='name'>{inquirylist.date.substring(0,10)}</div>
-                                        </div>
-                                    )
-                                })
-                            ):(null)
-                        }
+                       
           </div>       
       </div>
+      <br></br>
       <Footer/>
     </div>
     

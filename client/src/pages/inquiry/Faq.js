@@ -1,19 +1,24 @@
-// import React, {useState, useEffect} from 'react'
-import { useEffect, useState } from 'react';
+import React, {useState, useEffect} from 'react'
+
 import './Faq.css'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-// import axios from 'axios';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function Faq() {
     const navigate=useNavigate();
     const [word, setWord] = useState(null);
     const [qnaList, setQnaList] = useState([]);
+    const [inquiryList, setInquiryList] = useState([]);
 
-    useEffect(()=>{
-
-    })
+    useEffect(
+        ()=>{
+            axios.get(`/api/inquiries`)
+            .then((result)=>{ setInquiryList( result.data );})
+            .catch((err)=>{console.error(err)})
+    },[]
+    )
 
   return (
     <div >
@@ -22,14 +27,16 @@ function Faq() {
             <div className='faqCenter'>
                     <br></br>
                     <div id="faq1">|FAQ|</div>
-                    <br/>
-                    <div id="faq2">자주 받는 질문</div>
+                    <br></br>
+                    <br></br>
+                    <div id="faq2">자주 묻는 질문</div>
                     <br></br>
                 {
-                    qnaList.map((qnalist, idx)=>{
+                    inquiryList.map((inquirylist, idx)=>{
                         return (
-                            <div className='faqlist' key={idx} >
-                                
+                            <div className='item' key={idx} onClick={()=>{navigate(`/faqView/${inquirylist.id}`) }} >
+                                <div className='name'>{inquirylist.title}</div>
+                                <div className='name'>{inquirylist.date.substring(0,10)}</div>
                             </div>
                         )
                     })
@@ -63,6 +70,7 @@ function Faq() {
             </div>
             
         </div>
+        <br></br>
     <Footer/> 
     </div>
   )

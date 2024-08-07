@@ -8,6 +8,9 @@ import NoticeList from './pages/notice/NoticeList';
 import EventList from './pages/event/EventList';
 import EventDetail from './pages/event/EventDetail';
 import Faq from './pages/inquiry/Faq';
+import FaqView from './pages/inquiry/FaqView';
+import InquiryList from './pages/inquiry/InquiryList';
+import InquiryWriteForm from './pages/inquiry/InquiryWriteForm';
 
 
 function App() {
@@ -23,10 +26,14 @@ function App() {
       <Route path="/events" element={<EventList />} />
       <Route path="/events/:id" element={<EventDetail />} />
       <Route path="/faq" element={<Faq />}/>
+      <Route path="/faqView/:id" element={<FaqView/>}/>
+      <Route path="/inquiryList" element={<InquiryList/>}/>
+      <Route path="/inquiryWriteForm" element={<InquiryWriteForm/>}/>
+
 
       
 
-      {/* <Route path="/" element={<Login />}/> */}
+      
 
       </Routes>
     </div>
