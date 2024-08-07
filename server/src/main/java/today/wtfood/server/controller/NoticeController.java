@@ -22,7 +22,7 @@ public class NoticeController {
     }
 
     @GetMapping("")
-    public Page<NoticeSummary> getMembers(
+    public Page<NoticeSummary> getNotices(
             @RequestParam(defaultValue = "0")
             int pageNumber,
             @RequestParam(defaultValue = "10")
