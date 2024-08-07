@@ -1,24 +1,18 @@
-import React, {useState, useEffect} from 'react'
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import React, { useState, useEffect } from "react";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 import { useNavigate } from "react-router-dom";
 
 function InquiryView() {
-
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
     <div>
-        <Header setWord={setWord} />   
+      <Header setWord={setWord} />
 
-
-
-
-
-
-        <Footer/>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default InquiryView
+export default InquiryView;

@@ -62,7 +62,6 @@ function EventDetail() {
           <p>No content images available.</p>
         )}
       </div>
-      
     </div>
   );
 }
