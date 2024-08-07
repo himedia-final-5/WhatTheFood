@@ -153,7 +153,7 @@ public class JwtService {
     public String resolveAccessToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if (token == null || !token.startsWith("Bearer ")) {
-            throw new BadRequestException("Bearer Access Token required in request header");
+            throw new UnauthorizedException("Bearer Access Token required in request header");
         }
 
         return token.substring(7);
