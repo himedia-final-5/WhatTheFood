@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import today.wtfood.server.entity.Member;
-import today.wtfood.server.security.JwtTokenProvider;
 import today.wtfood.server.security.dto.JwtAuthResponse;
+import today.wtfood.server.security.service.JwtService;
 import today.wtfood.server.util.ResponseHelper;
 
 import java.io.IOException;
@@ -21,10 +21,10 @@ import java.io.IOException;
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtService jwtService;
 
-    public AuthenticationSuccessHandlerImpl(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+    public AuthenticationSuccessHandlerImpl(JwtService jwtService) {
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         Member member = (Member) authentication.getPrincipal();
 
         // JWT 토큰 생성
-        JwtAuthResponse jwtAuthResponse = jwtTokenProvider.generateToken(member.getUsername());
+        JwtAuthResponse jwtAuthResponse = jwtService.generateToken(member.getUsername());
 
         ResponseHelper.write(response, ResponseEntity.ok(jwtAuthResponse));
     }

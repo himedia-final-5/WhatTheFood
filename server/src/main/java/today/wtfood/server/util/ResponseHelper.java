@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import today.wtfood.server.dto.ErrorResponse;
 
 import java.io.IOException;
 
@@ -14,6 +15,10 @@ public class ResponseHelper {
 
     public void write(HttpServletResponse response, ResponseEntity<?> responseEntity) throws IOException {
         write(response, responseEntity.getStatusCode(), responseEntity.getBody());
+    }
+
+    public void writeError(HttpServletResponse response, HttpStatusCode status, String errorMessage) throws IOException {
+        write(response, status, new ErrorResponse(status.value(), errorMessage));
     }
 
     public void write(HttpServletResponse response, HttpStatusCode status, Object jsonObject) throws IOException {

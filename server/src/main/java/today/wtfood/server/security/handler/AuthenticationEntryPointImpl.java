@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+import today.wtfood.server.util.ResponseHelper;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     ) throws IOException {
         log.error("Authentication Failed : {}", exception.getMessage());
 
-        response.sendError(HttpStatus.UNAUTHORIZED.value(), "Authentication Failed : " + exception.getMessage());
+        ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, "Request is not authorized");
     }
 
 }

@@ -3,11 +3,11 @@ package today.wtfood.server.security.filter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -16,8 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.entity.Member;
-import today.wtfood.server.security.JwtTokenProvider;
+import today.wtfood.server.exception.GlobalExceptionHandler;
+import today.wtfood.server.security.service.JwtService;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,8 +29,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final GlobalExceptionHandler globalExceptionHandler;
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
     private static final List<String> WHITE_LIST = List.of(
@@ -37,9 +40,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 공개 api
             "/error",
+
+            // 인증 API
             "/auth/login",
-            "/auth/logout",
-            "/auth/reissue"
+            "/auth/reissue/**",
+
+            // 회원 API
+            "/members",
+            "/members/*",
+
+            // 레시피 API
+            "/recipes",
+            "/recipes/*",
+
+            // 공지사항 API
+            "/notices",
+            "/notices/*",
+
+            // 이벤트 API
+            "/events",
+            "/events/*",
+
+            // 문의 API
+            "/inquiries",
+            "/inquiries/*"
     );
 
     @Override
@@ -47,14 +71,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
-    ) throws IOException {
+    ) throws IOException, ServletException {
         try {
-            String accessToken = jwtTokenProvider.resolveAccessToken(request);
-            if (accessToken == null) {
-                throw new JwtException("Bearer Access Token Not Provided");
-            }
+            String accessToken = jwtService.resolveAccessToken(request);
 
-            Claims claims = jwtTokenProvider.validateToken(accessToken);
+            Claims claims = jwtService.validateToken(accessToken);
             Member member = (Member) userDetailsService.loadUserByUsername(claims.getSubject());
 
             // 인증 객체 생성 후 SecurityContext 에 저장
@@ -69,11 +90,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 다음 필터로 이동
             filterChain.doFilter(request, response);
-
-        } catch (Exception e) {
-            log.error("JWT Authentication Failed : {}", e.getMessage());
-
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), "JWT Authentication Failed : " + e.getMessage());
+        } catch (JwtException jwtException) {
+            globalExceptionHandler.handleJwtException(jwtException, response);
+        } catch (ResponseStatusException responseStatusException) {
+            globalExceptionHandler.handleResponseStatusException(responseStatusException, response);
+        } catch (Exception exception) {
+            globalExceptionHandler.handleException(exception, response);
         }
     }
 

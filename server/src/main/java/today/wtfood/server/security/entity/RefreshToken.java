@@ -1,4 +1,4 @@
-package today.wtfood.server.entity;
+package today.wtfood.server.security.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
