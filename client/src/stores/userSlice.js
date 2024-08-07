@@ -5,16 +5,15 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
     email:'',
     nickname:'',
-    phone:'',
-    profileimg:'',
-    profilemsg:'',
-    provider:'',
-    pwd:'',
-    snsid:'',
-    Followings:[],
-    Followers:[],
+    username:'',
+    introduce:'',
+    password:'',
     accessToken:'',
     refreshToken:'',
+    role:'',
+    google_oauth_id:'',
+    kakao_oauth_id:'',
+    naver_oauth_id:'',
 }
 
 const userSlice = createSlice(
@@ -28,26 +27,28 @@ const userSlice = createSlice(
                 // 'user'객체는 state 라고 부릅니다.
                 state.email = action.payload.email;
                 state.nickname = action.payload.nickname;
-                state.provider = action.payload.provider;
-                state.snsid = action.payload.snsid;
-                state.profileimg = action.payload.profileimg;
-                state.profilemsg = action.payload.profilemsg;
-                state.pwd = action.payload.pwd;
-                state.phone = action.payload.phone;
+                state.username = action.payload.username;
+                state.introduce = action.payload.introduce;
+                state.google_oauth_id = action.payload.google_oauth_id;
+                state.kakao_oauth_id = action.payload.kakao_oauth_id;
+                state.naver_oauth_id = action.payload.naver_oauth_id;
+                state.password = action.payload.password;
                 state.accessToken = action.payload.accessToken;
                 state.refreshToken = action.payload.refreshToken;
+                state.role = action.payload.role;
             },
             logoutAction:(state)=>{
-                state.email = '';
-                state.nickname = '';
-                state.provider = '';
-                state.snsid = '';
-                state.profileimg = '';
-                state.profilemsg = '';
-                state.pwd = '';
-                state.phone = '';
-                state.accessToken='';
-                state.refreshToken='';
+                state.email='';
+                state.nickname='';
+                state.username='';
+                 state.introduce='';
+                 state.password='';
+                 state.accessToken='';
+                 state.refreshToken='';
+                 state.role='';
+                 state.google_oauth_id='';
+                 state.kakao_oauth_id='';
+                 state.naver_oauth_id='';
             },
             setFollowings : (state, action)=>{
                 state.Followings = action.payload.followings;
