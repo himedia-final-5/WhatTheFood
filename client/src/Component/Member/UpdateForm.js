@@ -1,18 +1,17 @@
-import React , {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import '../../Style/JoinForm.css'
 import Footer from '../Footer';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
 
 
 function UpdateForm() {
-    const [userid, setUserid] = useState("");
-    const [email, setEmail] = useState("");
-    const navigate = useNavigate();
-
-
+  const [userid, setUserid] = useState("");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
   
- 
+  useEffect(()=>{
+    
+  })
 
   return (
     <div className='body'>
@@ -31,31 +30,34 @@ function UpdateForm() {
       
       <div className='memberInfo'>
         <div className='Info'><label>아이디</label><input value={userid} readOnly/></div>
-        <br/>    
         <br>
         </br>
         <br>
         </br>                                               
-        <div className='Info'><label>비밀번호</label><input/></div>        
+        <div className='Info'><label>비밀번호</label><input/></div>
+        <div>{}</div>
+
         <br/>
         <div className='Info'><label>비밀번호 확인</label><input/></div>
+        <div>{}</div>
+
         <br>
         </br>
         <br>
         </br>
         <br/>
         <div className='Info'><label>닉네임</label><input/></div>
-        <br/>
-        <button id="idcheck">닉네임 중복확인</button> 
-        <div></div>
+        <div id="idcheck">ID 중복확인</div> 
+        <div>{}</div>
+
         <br>
         </br>
         <br>
         </br>
         <br/>
-        <div className='Info'><label>이메일</label><input value={email} readOnly/></div>
-   
+        <div className='Info'><label>이메일</label><input value={email} readOnly/></div>   
         <br/>
+        <br></br> 
       </div>
       <br>
       </br>

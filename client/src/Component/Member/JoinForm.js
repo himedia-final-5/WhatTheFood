@@ -1,14 +1,16 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import '../../Style/JoinForm.css'
 import Footer from '../Footer';
 import { useNavigate } from "react-router-dom";
 
 
-function LoginForm() {
+function JoinForm() {
 
   const navigate = useNavigate();
   
- 
+  useEffect(()=>{
+    
+  })
 
   return (
     <div className='body'>
@@ -27,25 +29,29 @@ function LoginForm() {
       
       <div className='memberInfo'>
         <div className='Info'><label>아이디</label><input/></div>
-        <br/>
-        <button id="idcheck">ID 중복확인</button> 
-        <div></div>
+        <div id="idcheck">ID 중복확인</div>
+        <div>{}</div>
+
         <br>
         </br>
         <br>
         </br>                                               
-        <div className='Info'><label>비밀번호</label><input/></div>        
+        <div className='Info'><label>비밀번호</label><input/></div>
+        <div>{}</div>
+
         <br/>
         <div className='Info'><label>비밀번호 확인</label><input/></div>
+        <div>{}</div>
+
         <br>
         </br>
         <br>
         </br>
         <br/>
         <div className='Info'><label>닉네임</label><input/></div>
-        <br/>
-        <button id="idcheck">ID 중복확인</button> 
-        <div></div>
+        <div id="idcheck">ID 중복확인</div> 
+        <div>{}</div>
+
         <br>
         </br>
         <br>
@@ -55,7 +61,10 @@ function LoginForm() {
    
         <br/>
         
-        <div className='Info'><label>이메일 인증코드</label><input/></div> 
+        <div className='Info'><label>이메일 인증코드</label><input/></div>
+        <div>{}</div>
+
+        <br></br> 
       </div>
       <br>
       </br>
@@ -70,4 +79,4 @@ function LoginForm() {
   )
 }
 
-export default LoginForm
+export default JoinForm
