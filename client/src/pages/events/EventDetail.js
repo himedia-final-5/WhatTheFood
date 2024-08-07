@@ -8,10 +8,11 @@ import jaxios from "../../utils/jwtUtil";
 
 function EventDetail() {
   const navigate = useNavigate();
-  const [event, setEvents] = useState({
+  const [events, setEvents] = useState({
     startDate: "",
     endDate: "",
   });
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -26,11 +27,22 @@ function EventDetail() {
       });
   }, []);
 
+  function deleteEvent( id ){
+    const pass = window.prompt('삭제할 패스워드를 입력하세요');
+    if(events.pass != pass){return alert('패스워드가 일치하지 않습니다')}
+    axios.delete(`/api/events/deleteEvent/${events.id}`)
+    .then(()=>{ navigate('/events') })
+    .catch((err)=>{console.error(err)})
+}
+
   return (
     <div className="eventdetail_wrap">
+        <button onClick={()=>{ navigate(`/updateEvent/${events.id}`) }}>수정</button>
+        <button onClick={()=>{ deleteEvent( events.id ) }}>삭제</button>
+        <button onClick={()=>{ navigate('/events') }}>돌아가기</button>
           <div className="eventdetail_content">
-            {event.contentImages && event.contentImages.length > 0 ? (
-              event.contentImages.map((image, index) => (
+            {events.contentImages && events.contentImages.length > 0 ? (
+              events.contentImages.map((image, index) => (
                 <div key={index} className="eventdetail_contentdetail">
                   <img src={image} alt={`Content Image ${index}`} />
                 </div>

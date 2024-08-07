@@ -7,7 +7,8 @@ import WriteNotice from './pages/notice/WriteNotice';
 import NoticeList from './pages/notice/NoticeList';
 import EventList from './pages/events/EventList';
 import EventDetail from './pages/events/EventDetail';
-import EventCreate from './pages/events/EventCreate';
+import EventCreateBanner from './pages/events/EventCreate';
+import UpdateEvent from './pages/events/UpdateEvent';
 import Faq from './pages/inquiry/Faq';
 
 
@@ -23,7 +24,8 @@ function App() {
       <Route path="/writeNotice" element={<WriteNotice />} />
       <Route path="/events" element={<EventList />} />
       <Route path="/events/:id" element={<EventDetail />} />
-      <Route path="/createEvent" element={<EventCreate />}/>
+      <Route path="/createEventBanner" element={<EventCreateBanner />}/>
+      <Route path="/updateEvent/:id" element={<UpdateEvent />}/>
       <Route path="/faq" element={<Faq />}/>
 
       
