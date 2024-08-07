@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import jaxios from "../../util/jwtUtil";
-import "../../style/EventList.css";
-import { useDispatch } from "react-redux";
+import "./EventList.css";
+import "../../style/Reset.css";
+
 
 function EventList() {
   const [events, setEvents] = useState([]);
   const [pageable, setPageable] = useState({number:0, last:false});//page시작과 끝
-  const dispath = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,7 +88,7 @@ function EventList() {
             </div>
 
             <div className="event_imageUrl">
-              <img src={event.bannerImage}></img>
+              <img src={event.bannerImage} alt="event_bannerImage"></img>
             </div>
           </div>
         ))
