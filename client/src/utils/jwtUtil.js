@@ -1,45 +1,75 @@
 import axios from 'axios';
-import { setCookie, getCookie } from "./cookieUtil";
+import { setCookie, getCookie, removeCookie } from "./cookieUtil";
 
+const AUTH_COOKIE_NAME = 'auth';
 const jaxios = axios.create();
 
-const beforeReq = async(config) => {
-    const loginUser = getCookie('user');
+/** axios 요청 전송을 가로채 요청 정보를 변경하는 인터셉터 */
+const requestInterceptor = (config) => {
+    // 인증 정보를 쿠키로부터 가져오기
+    const auth = getCookie(AUTH_COOKIE_NAME);
 
-    // accessToken은 header에 refreshToken은 pathvariable에 실어서 전송
-    const Header = {headers:{'Authorization' : `Bearer ${loginUser.accessToken}`}}
-    const res = await axios.get(`/api/auth/reissue/${loginUser.refreshToken}`, Header)
+    // 인증 정보가 없으면 바로 반환
+    if(auth === undefined){
+        return config;
+    }
 
-    loginUser.accessToken = res.data.accessToken;
-    loginUser.refreshToken = res.data.refreshToken;
+    // 인증 정보가 있으면 요청 헤더의 Authorization 값으로 지정
+    config.headers.Authorization = `Bearer ${auth.accessToken}`;
 
-    setCookie('user', JSON.stringify(loginUser), 1);;
-
-    const { accessToken } = loginUser;
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    // 요청 정보 반환
     return config;
 }
+jaxios.interceptors.request.use( requestInterceptor, console.log);
 
-const requestFail = (err)=>{}
+/** axios 실패 응답을 가로채 토큰 갱신을 시도하는 인터셉터 */
+const responseInterceptor = async (error) => {
+    // 인증 정보를 쿠키로부터 가져오기
+    const auth = getCookie(AUTH_COOKIE_NAME);
 
-const beforeRes = async(res)=>{
-    if( res.data.error == 'ERROR_ACCESS_TOKEN'){
-        const loginUser = getCookie('user');
-        const Header = { headers:{'Authorization' : `Bearer ${loginUser.accessToken}`}}
-        const res = await axios.get(`/api/member/refresh/${loginUser.refreshToken}`, Header);
-        loginUser.accessToken = res.data.accessToken
-        loginUser.refreshToken = res.data.refreshToken
-        setCookie('user', JSON.stringify(loginUser), 1);
+    // 인증 정보가 없으면 바로 반환
+    if(auth === undefined){
+        return Promise.reject(error);
     }
-        
-    
-    return res;
+
+    // 응답이 401(인증 실패)가 아니면 바로 반환
+    if(error.response.status !== 401){
+        return Promise.reject(error);
+    }
+
+    // 요청 정보를 가져오기
+    const requestConfig = error.config;
+
+    // 요청 정보에 _retry 속성이 있으면 바로 반환
+    if(requestConfig._retry){
+        return Promise.reject(error);
+    }
+
+    try{
+        // 토큰 갱신 요청
+        const response = await axios.post('/api/auth/reissue', null, {
+            headers:{
+                "Refresh": auth.refreshToken
+            }
+        });
+
+        // 토큰 갱신 성공 시 쿠키에 저장
+        setCookie(AUTH_COOKIE_NAME, response.data, 7);
+
+        // 요청 정보에 _retry 속성 추가
+        requestConfig._retry = true;
+
+        // 요청 재시도 후 반환
+        return jaxios(requestConfig);
+    } catch (refreshError) {
+        // 토큰 갱신 실패 시 콘솔에 로그 출력
+        console.error('Token refresh failed:', refreshError);
+
+        // 인증 정보 삭제
+        removeCookie(AUTH_COOKIE_NAME);
+        return Promise.reject(error);
+    }
 }
-
-const responseFail = (err)=>{}
-
-
-jaxios.interceptors.request.use( beforeReq, requestFail );
-jaxios.interceptors.response.use( beforeRes, responseFail );
+jaxios.interceptors.response.use((response) => response, responseInterceptor);
 
 export default jaxios;

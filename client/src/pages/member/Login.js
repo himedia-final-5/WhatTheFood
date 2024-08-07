@@ -2,6 +2,7 @@ import React , {useState, useEffect} from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { setCookie } from "../../utils/cookieUtil";
 import { loginAction } from '../../stores/userSlice';
 import './Login.css'
 import Footer from '../../components/Footer';
@@ -22,17 +23,13 @@ function Login() {
         if( !password ){ return alert('패스워드를 입력하세요.') }
         try{
             let result = await axios.post('/api/auth/login', {username, password}, { headers:{"Content-Type": "application/x-www-form-urlencoded"}});
-            console.log(result);
-            if( result.data.msg=='ok'){
-                alert('정상 로그인 되었습니다.');
-                result = await axios.get( '/api/members' );
-                dispatch( loginAction( result.data.loginUser ) );
-                navigate('/');
-            }else{
-                alert(result.data.msg);
-                //setMessage(result.data.msg);
-            }
-        }catch(err){console.error(err)}    
+            console.log(result.data);
+            setCookie('auth', result.data, 7);
+            dispatch( loginAction( result.data.member ) );
+        }catch(err){
+          console.error(err);
+          alert("로그인에 실패했습니다");
+        }
   }
 
   
