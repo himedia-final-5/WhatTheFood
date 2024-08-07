@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import "./EventDetail.css";
 import "../../styles/Reset.css";
 import jaxios from "../../utils/jwtUtil";

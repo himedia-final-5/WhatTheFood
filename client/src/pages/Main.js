@@ -26,16 +26,6 @@ function Main() {
       });
   }, []);
 
-  return (
-    <div>
-      <Header setWord={setWord} />
-      <div className="flex w-full justify-center">
-        <div className="w-5/6 text-center border border-red-500"></div>
-      </div>
-      <br></br>
-      <Footer />
-    </div>
-  );
 }
 
 export default Main;
