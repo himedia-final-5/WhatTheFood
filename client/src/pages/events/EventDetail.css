@@ -13,12 +13,19 @@
   overflow-x: hidden; /* 수평 스크롤 제거 */
 }
 
+.eventdetail_wrap button {
+  width: 50%;
+  height: 30px;
+  border: 1px solid #f3f3f3; /* 테두리 추가 */
+  border-radius: 8px; /* 테두리 둥글게 */
+  background-color: #fff; /* 배경색 추가 */
+}
+
 .eventdetail_content {
   margin: 0 auto;
   margin-bottom: 20px; /* 이미지 아래 여백 조정 */
   width: 100%;
 }
-
 
 .eventdetail_content img {
   width: 100%; /* 이미지 너비 조정 */

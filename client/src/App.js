@@ -5,8 +5,10 @@ import JoinForm from './pages/member/JoinForm';
 import UpdateForm from './pages/member/UpdateForm';
 import WriteNotice from './pages/notice/WriteNotice';
 import NoticeList from './pages/notice/NoticeList';
-import EventList from './pages/event/EventList';
-import EventDetail from './pages/event/EventDetail';
+import EventList from './pages/events/EventList';
+import EventDetail from './pages/events/EventDetail';
+import EventCreateBanner from './pages/events/EventCreate';
+import UpdateEvent from './pages/events/UpdateEvent';
 import Faq from './pages/inquiry/Faq';
 import FaqView from './pages/inquiry/FaqView';
 import InquiryList from './pages/inquiry/InquiryList';
@@ -25,6 +27,8 @@ function App() {
       <Route path="/writeNotice" element={<WriteNotice />} />
       <Route path="/events" element={<EventList />} />
       <Route path="/events/:id" element={<EventDetail />} />
+      <Route path="/createEventBanner" element={<EventCreateBanner />}/>
+      <Route path="/updateEvent/:id" element={<UpdateEvent />}/>
       <Route path="/faq" element={<Faq />}/>
       <Route path="/faqView/:id" element={<FaqView/>}/>
       <Route path="/inquiryList" element={<InquiryList/>}/>

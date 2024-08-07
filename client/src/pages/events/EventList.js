@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import axios from "axios";
 import jaxios from "../../utils/jwtUtil";
 import "./EventList.css";
@@ -7,9 +8,11 @@ import "../../styles/Reset.css";
 
 
 function EventList() {
+  const loginUser = useSelector( state=>state.user );
   const [events, setEvents] = useState([]);
   const [pageable, setPageable] = useState({number:0, last:false});//page시작과 끝
   const navigate = useNavigate();
+
 
   useEffect(() => {
     jaxios
@@ -53,10 +56,18 @@ function EventList() {
       });
   }
 
+  function deleteEvent( id ){
+    const pass = window.prompt('삭제할 패스워드를 입력하세요');
+    if(events.pass != pass){return alert('패스워드가 일치하지 않습니다')}
+    axios.delete(`/api/events/deleteEvent/${events.id}`)
+    .then(()=>{ navigate('/events') })
+    .catch((err)=>{console.error(err)})
+}
+
   //무한스크롤
   function onPageMove(page) {
     console.log("onPageMove(", page, ")");
-    axios
+    jaxios
       .get(`/api/events`,{params:{pageNumber: page}})
       .then((result) => {
         //서버로 부터 페이지에 이어서 필요한 데이터를 전달 받고 기존 event 리스트에 추가함
@@ -70,7 +81,7 @@ function EventList() {
 
   return (
     <div className="event_wrap">
-      <button onClick={()=>{navigate('/createEvent');}}>게시글쓰기</button>
+        <button onClick={()=>{navigate('/createEventBanner');}}>게시글쓰기</button>
       &nbsp;&nbsp;&nbsp;
       {events.length > 0 ? (
         events.map((event, index) => (
@@ -97,6 +108,7 @@ function EventList() {
       ) : (
         <div>No events found.</div>
       )}
+      
     </div>
   );
 }

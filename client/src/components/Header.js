@@ -43,7 +43,7 @@ function Header() {
             <div className='topMenu' onClick={()=>{ navigate('/ranking') }}>랭킹</div>
             <div className='topMenu' onClick={()=>{ navigate('/store') }}>스토어</div>
             <div className='topMenu' onClick={()=>{ navigate('/notice') }}>공지사항</div>
-            <div className='topMenu' onClick={()=>{ navigate('/event') }}>이벤트</div>            
+            <div className='topMenu' onClick={()=>{ navigate('/events') }}>이벤트</div>            
         </div>
     </div>
   )
