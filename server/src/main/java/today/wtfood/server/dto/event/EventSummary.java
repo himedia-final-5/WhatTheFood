@@ -15,5 +15,5 @@ public interface EventSummary {
 
     Timestamp getEndDate();
 
-    String getImageUrl();
+    String getBannerImage();
 }

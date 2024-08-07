@@ -5,7 +5,8 @@ import JoinForm from './pages/member/JoinForm';
 import UpdateForm from './pages/member/UpdateForm';
 import WriteNotice from './pages/notice/WriteNotice';
 import NoticeList from './pages/notice/NoticeList';
-import Event from './pages/event/EventLayout';
+import EventList from './pages/event/EventList';
+import EventDetail from './pages/event/EventDetail';
 import Faq from './pages/inquiry/Faq';
 
 
@@ -19,7 +20,8 @@ function App() {
       <Route path="/updateForm" element={<UpdateForm />}/>
       <Route path="/noticeList" element={<NoticeList />} />
       <Route path="/writeNotice" element={<WriteNotice />} />
-      <Route path="/event" element={<Event />}/>
+      <Route path="/events" element={<EventList />} />
+      <Route path="/events/:id" element={<EventDetail />} />
       <Route path="/faq" element={<Faq />}/>
 
       

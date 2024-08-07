@@ -8,7 +8,7 @@ const beforeReq = async(config) => {
 
     // accessToken은 header에 refreshToken은 pathvariable에 실어서 전송
     const Header = {headers:{'Authorization' : `Bearer ${loginUser.accessToken}`}}
-    const res = await axios.get(`/api/member/refresh/${loginUser.refreshToken}`, Header)
+    const res = await axios.get(`/api/auth/reissue/${loginUser.refreshToken}`, Header)
 
     loginUser.accessToken = res.data.accessToken;
     loginUser.refreshToken = res.data.refreshToken;
