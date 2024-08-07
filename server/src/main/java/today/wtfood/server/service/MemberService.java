@@ -6,8 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.member.MemberCreateRequest;
-import today.wtfood.server.dto.member.MemberDetail;
-import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.exception.NotFoundException;
@@ -38,19 +36,32 @@ public class MemberService {
     /**
      * 회원 목록 조회
      */
-    public Page<MemberSummary> getMembers(Pageable pageable) {
-        return memberRepository.findAllBy(pageable, MemberSummary.class);
+    public <T> Page<T> getMembers(Pageable pageable, Class<T> projectionType) {
+        return memberRepository.findAllBy(pageable, projectionType);
     }
 
     /**
-     * 회원 상세 조회
+     * 회원 조회
      *
-     * @param memberId 조회할 회원의 ID
+     * @param id 조회할 회원의 ID
      * @return 조회된 회원 정보
+     * @throws NotFoundException 회원이 존재하지 않을 때 발생
      */
-    public MemberDetail getMember(long memberId) {
-        return memberRepository.findGenericById(memberId, MemberDetail.class)
+    public <T> T getMemberById(long id, Class<T> projectionType) {
+        return memberRepository.findGenericById(id, projectionType)
                 .orElseThrow(() -> new NotFoundException("Invalid member ID"));
+    }
+
+    /**
+     * 회원 조회
+     *
+     * @param username 조회할 회원의 username
+     * @return 조회된 회원 정보
+     * @throws NotFoundException 회원이 존재하지 않을 때 발생
+     */
+    public <T> T getMemberByUsername(String username, Class<T> projectionType) {
+        return memberRepository.findByUsername(username, projectionType)
+                .orElseThrow(() -> new NotFoundException("Invalid member username"));
     }
 
 

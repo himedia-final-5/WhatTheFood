@@ -12,7 +12,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
     <T> Page<T> findAllBy(Pageable pageable, Class<T> projectionType);
 
-    Optional<Member> findByUsername(String username);
+    <T> Optional<T> findByUsername(String username, Class<T> projectionType);
 
     boolean existsByUsername(String username);
 
