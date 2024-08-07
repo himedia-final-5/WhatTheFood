@@ -7,11 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import today.wtfood.server.dto.member.MemberAuth;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.entity.RefreshToken;
 import today.wtfood.server.security.repository.RefreshTokenRepository;
+import today.wtfood.server.service.MemberService;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -28,22 +30,27 @@ public class JwtService {
     private final long accessTokenExpiration;
     private final long refreshTokenExpiration;
 
+    private final MemberService memberService;
     private final RefreshTokenRepository refreshTokenRepository;
 
     public JwtService(
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.access_token_expiration}") long accessTokenExpiration,
             @Value("${jwt.refresh_token_expiration}") long refreshTokenExpiration,
+            MemberService memberService,
             RefreshTokenRepository refreshTokenRepository
     ) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.accessTokenExpiration = accessTokenExpiration;
         this.refreshTokenExpiration = refreshTokenExpiration;
 
+        this.memberService = memberService;
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
     public JwtAuthResponse generateToken(String username) {
+        MemberAuth member = memberService.getMemberByUsername(username, MemberAuth.class);
+
         // 토큰 생성 및 만료 시간 설정
         Date currentDate = new Date();
         Date accessTokenExpireDate = new Date(currentDate.getTime() + accessTokenExpiration);
@@ -84,7 +91,8 @@ public class JwtService {
                 accessToken,
                 refreshToken,
                 accessTokenExpireDate.getTime(),
-                refreshTokenExpireDate.getTime()
+                refreshTokenExpireDate.getTime(),
+                member
         );
     }
 
@@ -116,6 +124,11 @@ public class JwtService {
         // 토큰 검증 및 파싱
         Claims claims = parseClaims(refreshToken);
 
+        // 토큰 발행자 검사
+        if (!JWT_ISSUER.equals(claims.getIssuer())) {
+            throw new UnauthorizedException("Invalid JWT Token");
+        }
+
         // 데이터베이스에서 저장된 토큰을 가져옴
         RefreshToken token = refreshTokenRepository.findByUsername(claims.getSubject())
                 .orElseThrow(() -> new UnauthorizedException("Invalid JWT Token"));
@@ -140,7 +153,7 @@ public class JwtService {
     public String resolveAccessToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if (token == null || !token.startsWith("Bearer ")) {
-            throw new BadRequestException("Bearer Access Token required in request header");
+            throw new UnauthorizedException("Bearer Access Token required in request header");
         }
 
         return token.substring(7);

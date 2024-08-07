@@ -40,7 +40,7 @@ public class MemberController {
             @Validated
             PageableRequest pageable
     ) {
-        return memberService.getMembers(pageable);
+        return memberService.getMembers(pageable, MemberSummary.class);
     }
 
     @GetMapping("/{memberId}")
@@ -49,7 +49,7 @@ public class MemberController {
             @PathVariable
             long memberId
     ) {
-        return memberService.getMember(memberId);
+        return memberService.getMemberById(memberId, MemberDetail.class);
     }
 
     @GetMapping("/check-username")

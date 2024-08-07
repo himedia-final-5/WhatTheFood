@@ -6,7 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.entity.Member;
-import today.wtfood.server.repository.MemberRepository;
+import today.wtfood.server.exception.NotFoundException;
+import today.wtfood.server.service.MemberService;
 
 /**
  * 사용자 이름을 받아 데이터베이스에서 사용자 정보를 조회하고, UserDetails 객체로 반환하는 클래스
@@ -16,7 +17,7 @@ import today.wtfood.server.repository.MemberRepository;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     /**
      * 사용자 이름을 받아 데이터베이스에서 사용자 정보를 조회하고, UserDetails 객체로 반환
@@ -27,8 +28,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return memberRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username + " - User Not found"));
+        try {
+            return memberService.getMemberByUsername(username, Member.class);
+        } catch (NotFoundException e) {
+            throw new UsernameNotFoundException(username + " - User Not found");
+        }
     }
 
 }
