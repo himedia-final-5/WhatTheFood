@@ -14,25 +14,28 @@ function Notice() {
     const [content, setContent] = useState("");
     const [write_date , setWrite_date] = useState("");
     const navigate = useNavigate();
-
+    const [notice,setNotice] = useState({});
+    
     function onSubmit(){
-        jaxios.post('/api/notice/writeNotice', {nickname:loginUser.nickname, email:loginUser.email,  title, content })
+        jaxios.post('/api/notices/writeNotice', {title, content})
         .then(()=>{
-            navigate('/main')
+            navigate('/')
         })
         .catch((err)=>{
             console.error(err);
         })
+    
+
     }
 
-   
+
 
   return (
     <div className='writeBoard'>
     <h2>Board Write Form</h2>
-    <div className='field'>
-        <label>작성자</label><input type="text" value={loginUser.nickname} />
-    </div>
+    {/* <div className='field'>
+        <label>작성자</label><input type="text"  />
+    </div> */}
     
     <div className='field'>
         <label>제목</label>

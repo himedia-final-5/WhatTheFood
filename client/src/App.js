@@ -1,5 +1,6 @@
 import {  Routes, Route } from "react-router-dom";
-import Notice from './Component/notice/Notice';
+import WriteNotice from './Component/notice/WriteNotice';
+import NoticeList from './Component/notice/NoticeList';
 // import Login from './Component/Login';
 // import Main from './Component/Main';
 // import Join from './Component/member/Join';
@@ -17,7 +18,8 @@ function App() {
     return (
         <div className="App" style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
             <Routes>
-            <Route path="/notice" element={<Notice />} />
+            <Route path="/noticeList" element={<NoticeList />} />
+            <Route path="/writeNotice" element={<WriteNotice />} />
                 {/* <Route path="/" element={<Login />} />
                 <Route path="/join" element={<Join />} />
                 <Route path="/main" element={<Main />} />
