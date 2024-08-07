@@ -81,13 +81,7 @@ function EventList() {
 
   return (
     <div className="event_wrap">
-      
-      <div className='btns'>
         <button onClick={()=>{navigate('/createEventBanner');}}>게시글쓰기</button>
-        <button onClick={()=>{ navigate(`/updateEvent/${events.id}`) }}>수정</button>
-        <button onClick={()=>{ deleteEvent( events.id ) }}>삭제</button>
-        <button onClick={()=>{ navigate('/events') }}>돌아가기</button>
-      </div>
       &nbsp;&nbsp;&nbsp;
       {events.length > 0 ? (
         events.map((event, index) => (

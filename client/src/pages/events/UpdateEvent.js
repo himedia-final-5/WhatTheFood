@@ -13,12 +13,21 @@ function UpdateEvent() {
     const [oldPass, setOldPass] = useState("");
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
-    const [contentImages, setContentImages] = useState("");
-    const [savefilename, setSaveFileName] = useState("");
 
-    const [oldImgSrc, setOldImgSrc] = useState('');
+    const [bannerImage, setBannerImage] = useState("");
+    const [contentImages, setContentImages] = useState("");
+
+    const [bannersavefilename, setBannerSaveFileName] = useState("");
+    const [contentsavefilename, setContentSaveFileName] = useState("");
+
+    const [bannerOldImgSrc, setBannerOldImgSrc] = useState("");
+    const [contentOldImgSrc, setContentOldImgSrc] = useState("");
+
     const [imgStyle, setImgStyle] = useState({display:'none'});
-    const [imgSrc, setImgSrc] = useState('http://via.placeholder.com/800x2000')
+
+    const [bannerimgSrc, setBannerImgSrc] = useState('http://via.placeholder.com/800x213')
+    const [contentimgSrc, setContentImgSrc] = useState('http://via.placeholder.com/800x2000')
+
     const navigate = useNavigate();
     const {id} = useParams();
 
@@ -28,10 +37,22 @@ function UpdateEvent() {
         axios.get(`/api/events/getEvent/${id}`)
         .then((result)=>{
           setTitle(result.data.title);
-          setContentImages(result.data.contentImages);
-          setSaveFileName(result.data.savefilename);
           setOldPass(result.data.pass);
-          setOldImgSrc(`http://localhost:8070/image/${result.data.board.savefilename}`)
+          setDate(result.data.data);
+
+          setBannerOldImgSrc(`http://localhost:8070/image/${result.data.board.bannersavefilename}`)
+          setBannerSaveFileName(result.data.bannersavefilename);
+          
+          setContentOldImgSrc(`http://localhost:8070/image/${result.data.board.contentsavefilename}`)
+          setContentSaveFileName(result.data.contentsavefilename);
+
+          setBannerImage(result.data.bannerImage);
+          setContentImages(result.data.contentImages);
+  
+          setBannerImgSrc( `http://localhost:8070/images/${result.data.bannersavefilename}` );
+          setContentImgSrc( `http://localhost:8070/images/${result.data.contentsavefilename}` );
+
+          setImgStyle({width:"800px", display:"block"});
         })
         .catch((err)=>{console.log(err)})
       },[]
@@ -39,7 +60,7 @@ function UpdateEvent() {
 
     function onSubmit(){
         if( oldPass != pass){return alert('수정 패스워드가 일치하지 않습니다')}
-        axios.post('/api/events/updateEvent', {id,title,contentImages,savefilename})
+        axios.post('/api/events/updateEvent', {id,title,date,bannerImage,contentImages,bannersavefilename,contentsavefilename})
         .then(()=>{
             navigate(`/events/${id}`);
         })
@@ -50,16 +71,20 @@ function UpdateEvent() {
 
     //FileUpload 수정해야됨!!
     async function onFileUpload(e){
-        const formData = new FormData();
-        formData.append('contentImages', e.target.files[0]);
-        const result = await axios.post('/api/events/fileupload', formData);
-        setSaveFileName(result.data.savefilename);
-        setContentImages(result.data.contentImages);
+      const formData = new FormData();
+      formData.append('bannerImage', e.target.files[0]);
+      formData.append('contentImages', e.target.files[0]);
+      const result = await axios.post('/api/events/fileupload', formData);
+      setBannerSaveFileName(result.data.bannersavefilename);
+      setContentSaveFileName(result.data.contentsavefilename);
+      setBannerImage(result.data.bannerImage);
+      setContentImages(result.data.contentImages);
 
-        setImgSrc( `http://localhost:8070/images/${result.data.savefilename}` );
-        setImgStyle({width:"800px", display:"block"});
-    }
-
+      setBannerImgSrc( `http://localhost:8070/images/${result.data.bannersavefilename}` );
+      setContentImgSrc( `http://localhost:8070/images/${result.data.contentsavefilename}` );
+      setImgStyle({width:"800px", display:"block"});
+  }
+    
 
     return (
         <div className='createEvent'>
@@ -87,16 +112,28 @@ function UpdateEvent() {
                 }/>
             </div>
             <div className='createEvent_field'>
-                <label>원래 이미지</label>
-                <div><img src={oldImgSrc} style={{width:"800px"}} alt='oldimage'/></div>
+                <label>배너 원래 이미지</label>
+                <div><img src={bannerOldImgSrc} style={{width:"800px"}} alt='banneroldImgSrc'/></div>
             </div>
             <div className='createEvent_field'>
-                <label>수정 이미지</label>
+                <label>배너 수정 이미지</label>
                 <input type="file" onChange={(e)=>{ onFileUpload(e); }  }/>
                 {/* e 를 전달인수로 전달해야 해당함수에서 방금 선택한 이미지를 인식할 수 있습니다. */}
             </div>
             <div className='createEvent_field'>
-                <div><img src={imgSrc} style={imgStyle} alt="previewImg"/></div>
+                <div><img src={bannerimgSrc} style={imgStyle} alt="previewImg"/></div>
+            </div>
+            <div className='createEvent_field'>
+                <label>내용 원래 이미지</label>
+                <div><img src={contentOldImgSrc} style={{width:"800px"}} alt='contentoldImgSrc'/></div>
+            </div>
+            <div className='createEvent_field'>
+                <label>내용 수정 이미지</label>
+                <input type="file" onChange={(e)=>{ onFileUpload(e); }  }/>
+                {/* e 를 전달인수로 전달해야 해당함수에서 방금 선택한 이미지를 인식할 수 있습니다. */}
+            </div>
+            <div className='createEvent_field'>
+                <div><img src={contentimgSrc} style={imgStyle} alt="previewImg"/></div>
             </div>
             <div className='createEvent_btns'>
                 <button onClick={ ()=>{ onSubmit() } }>작성완료</button>
