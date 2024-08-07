@@ -67,7 +67,7 @@ function EventList() {
   //무한스크롤
   function onPageMove(page) {
     console.log("onPageMove(", page, ")");
-    axios
+    jaxios
       .get(`/api/events`,{params:{pageNumber: page}})
       .then((result) => {
         //서버로 부터 페이지에 이어서 필요한 데이터를 전달 받고 기존 event 리스트에 추가함
