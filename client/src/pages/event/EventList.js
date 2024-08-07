@@ -70,6 +70,8 @@ function EventList() {
 
   return (
     <div className="event_wrap">
+      <button onClick={()=>{navigate('/createEvent');}}>게시글쓰기</button>
+      &nbsp;&nbsp;&nbsp;
       {events.length > 0 ? (
         events.map((event, index) => (
           <div
