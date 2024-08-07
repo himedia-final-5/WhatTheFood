@@ -5,8 +5,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.dto.noticedto.NoticeDetail;
-import today.wtfood.server.dto.noticedto.NoticeSummary;
+import today.wtfood.server.dto.notice.NoticeDetail;
+import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
 import today.wtfood.server.repository.NoticeRepository;
 

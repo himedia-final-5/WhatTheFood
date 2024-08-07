@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import today.wtfood.server.dto.noticedto.NoticeDetail;
-import today.wtfood.server.dto.noticedto.NoticeSummary;
+import today.wtfood.server.dto.notice.NoticeDetail;
+import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
 
 import java.util.Optional;

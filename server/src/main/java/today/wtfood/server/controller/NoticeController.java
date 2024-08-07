@@ -4,8 +4,8 @@ package today.wtfood.server.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import today.wtfood.server.dto.noticedto.NoticeDetail;
-import today.wtfood.server.dto.noticedto.NoticeSummary;
+import today.wtfood.server.dto.notice.NoticeDetail;
+import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
 import today.wtfood.server.service.NoticeService;
 
