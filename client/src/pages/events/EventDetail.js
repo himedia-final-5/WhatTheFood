@@ -150,7 +150,7 @@ function EventDetail() {
               strokeLinejoin="round"
             />
           </svg>
-          이벤트 공유하기
+          카카오톡 공유하기
         </button>
       </div>
     </div>

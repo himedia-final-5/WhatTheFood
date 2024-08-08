@@ -40,20 +40,6 @@ function EventList() {
     navigate(`/events/${id}`);
   }
 
-  function deleteEvent(id) {
-    const pass = window.prompt("삭제할 패스워드를 입력하세요");
-    if (events.pass != pass) {
-      return alert("패스워드가 일치하지 않습니다");
-    }
-    axios
-      .delete(`/api/events/deleteEvent/${events.id}`)
-      .then(() => {
-        navigate("/events");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
 
   //무한스크롤
   function onPageMove(page) {
