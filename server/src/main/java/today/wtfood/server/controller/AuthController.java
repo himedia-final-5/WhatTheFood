@@ -12,6 +12,7 @@ import today.wtfood.server.security.service.JwtService;
 @RestController
 @RequestMapping(path = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+// @PreAuthorize("permitAll()") - 시큐리티 설정에서 이미 permitAll()로 설정되어 있어 주석 처리
 public class AuthController {
 
     private final JwtService jwtService;

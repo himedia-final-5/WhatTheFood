@@ -3,6 +3,7 @@ package today.wtfood.server.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.notice.NoticeDetail;
@@ -22,6 +23,7 @@ public class NoticeController {
     }
 
     @GetMapping("")
+    @PreAuthorize("permitAll()")
     public Page<NoticeSummary> getNotices(
             @RequestParam(defaultValue = "0")
             int pageNumber,
@@ -39,18 +41,20 @@ public class NoticeController {
 
     }
 
-
     @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     GeneratedId<Long> writeNotice(@RequestBody Notice notice) {
         return new GeneratedId<>(ns.writeNotice(notice));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("permitAll()")
     public NoticeDetail getNotice(@PathVariable("id") long id) {
         return ns.getNotice(id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteNotice(@PathVariable("id") long id) {
         ns.deleteNotice(id);
     }
