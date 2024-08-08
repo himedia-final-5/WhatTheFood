@@ -18,7 +18,15 @@ function Footer() {
     <div>
       <hr></hr>
       <div className="footer">
-        로그인&nbsp;&nbsp;&nbsp;&nbsp;
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/faqWriteForm");
+          }}
+        >
+          로그인
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <div
           style={{ cursor: "pointer" }}
           onClick={() => {

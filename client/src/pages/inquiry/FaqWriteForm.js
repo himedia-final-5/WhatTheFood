@@ -31,11 +31,6 @@ function InquiryWriteForm() {
 
   return (
     <div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
       <div className="faqBody">
         <div id="faqWriteCeter">
           <div id="faqwf1">FAQ 작성</div>
