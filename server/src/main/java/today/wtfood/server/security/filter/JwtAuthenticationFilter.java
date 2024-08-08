@@ -62,7 +62,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 문의 API
             "/inquiries",
-            "/inquiries/*"
+            "/inquiries/*",
+
+            // QnA API
+            "/faqs",
+            "/faqs/*"
     );
 
     @Override

@@ -3,8 +3,7 @@ package today.wtfood.server.controller;
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import today.wtfood.server.dto.GeneratedId;
@@ -46,14 +45,12 @@ public class InquiryController {
     }
 
     @GetMapping("/email/{email}")
-    public Page<InquirySummary> getMyInquiryList(@PathVariable("email") String email,
-                                                 @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-                                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+    public Page<InquirySummary> getMyInquiryList(
+            @PathVariable("email")
+            String email,
+            Pageable pageable
     ) {
-
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        pageRequest.withSort(Sort.Direction.DESC, "id");
-        return is.getMyInquiryList(email, pageRequest);
+        return is.getMyInquiryList(email, pageable);
     }
 
     @DeleteMapping("/{id}")

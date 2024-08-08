@@ -25,7 +25,7 @@ public class FaqController {
         return new GeneratedId<>(fs.insertFaq(faq.toEntity()).getId());
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public Page<Faq> getFaqList(
 
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,

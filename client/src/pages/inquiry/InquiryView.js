@@ -36,9 +36,10 @@ function InquiryView() {
             <div id="iqvanswer">답변여부</div>
             <div id="iqvtitle">{qnaView.title}</div>
             <hr></hr>
-            <div id="iqvdate">{qnaView.date}</div>
+            <div id="iqvdate">{(qnaView.date + "").substring(0, 10)}</div>
             <hr></hr>
           </div>
+          <br></br>
           <div id="iqvcontent">{qnaView.content}</div>
         </div>
         <br></br>

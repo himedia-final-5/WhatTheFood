@@ -14,7 +14,7 @@ function Faq() {
     axios
       .get(`/api/faqs`)
       .then((result) => {
-        setInquiryList(result.data);
+        setInquiryList(result.data.content);
       })
       .catch((err) => {
         console.error(err);
@@ -45,6 +45,7 @@ function Faq() {
                 }}
               >
                 <div className="qnaname">{inquirylist.title}</div>
+                <br></br>
                 <div className="qnadate">
                   {inquirylist.date.substring(0, 10)}
                 </div>
