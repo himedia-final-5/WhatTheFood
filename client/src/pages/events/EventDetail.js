@@ -56,12 +56,12 @@ function EventDetail() {
       return;
     }
 
-    if (!window.Kakao.Link || !window.Kakao.Link.sendDefault) {
+    if (!window.Kakao.Share || !window.Kakao.Share.sendDefault) {
       console.error("Kakao.Link.sendDefault is not available");
       return;
     }
 
-    window.Kakao.Link.sendDefault({
+    window.Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
         title: events.title,
