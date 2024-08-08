@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import "./InquiryView.css";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -27,7 +25,6 @@ function InquiryView() {
 
   return (
     <div>
-      <Header setWord={setWord} />
       <br></br>
       <br></br>
       <br></br>
@@ -55,8 +52,6 @@ function InquiryView() {
         </div>
         <br></br>
       </div>
-
-      <Footer />
     </div>
   );
 }

@@ -5,25 +5,21 @@ import "./Notice.css";
 
 function NoticeView() {
   return (
-    <div>
-      <Header setWord={setWord} />
-      <div className="noticeBody">
-        <div className="noticeCenter">
-          <br></br>
-          <div id="notice1">|Notice|</div>
-          <br />
-          <div id="notice2">공지사항</div>
-          <br></br>
-          <hr></hr>
-          <div>
-            <div>{}</div>
-            <div>{}</div>
-            <div>{}</div>
-          </div>
-          <div>목록으로</div>
+    <div className="noticeBody">
+      <div className="noticeCenter">
+        <br></br>
+        <div id="notice1">|Notice|</div>
+        <br />
+        <div id="notice2">공지사항</div>
+        <br></br>
+        <hr></hr>
+        <div>
+          <div>{}</div>
+          <div>{}</div>
+          <div>{}</div>
         </div>
+        <div>목록으로</div>
       </div>
-      <Footer />
     </div>
   );
 }

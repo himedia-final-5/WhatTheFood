@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import "./FaqView.css";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -26,7 +24,6 @@ function FaqView() {
   }, []);
   return (
     <div>
-      <Header setWord={setWord} />
       <br></br>
       <br></br>
       <br></br>
@@ -53,7 +50,6 @@ function FaqView() {
         </div>
         <br></br>
       </div>
-      <Footer />
     </div>
   );
 }

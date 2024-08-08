@@ -5,6 +5,8 @@ import JoinForm from "./pages/member/JoinForm";
 import UpdateForm from "./pages/member/UpdateForm";
 import WriteNotice from "./pages/notice/WriteNotice";
 import Notice from "./pages/notice/Notice";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import EventList from "./pages/events/EventList";
 import EventDetail from "./pages/events/EventDetail";
 import EventCreateBanner from "./pages/events/EventCreate";
@@ -18,6 +20,7 @@ import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm";
 function App() {
   return (
     <div className="App">
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
@@ -35,6 +38,7 @@ function App() {
         <Route path="/inquiryView/:id" element={<InquiryView />} />
         <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

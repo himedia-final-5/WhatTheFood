@@ -13,15 +13,10 @@ function EventList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    jaxios
-      .get(`/api/events`)
-      .then((result) => {
-        setEvents(result.data.content); //content를 가져와서 저장
-        setPageable(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    // 이벤트 목록이 비어있으면 첫번째 페이지 데이터 요청
+    if (events.length === 0) {
+      onPageMove(0);
+    }
   }, []);
 
   useEffect(() => {
@@ -42,14 +37,7 @@ function EventList() {
   };
 
   function onEventView(id) {
-    jaxios
-      .get(`/api/events/getEvent/${id}`)
-      .then(() => {
-        navigate(`/events/${id}`);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    navigate(`/events/${id}`);
   }
 
   function deleteEvent(id) {
@@ -69,7 +57,15 @@ function EventList() {
 
   //무한스크롤
   function onPageMove(page) {
+    // 마지막 페이지거나, 이미 다음 페이지 요청이 시작된 경우 무시
+    if (pageable.last || pageable.fecthed) {
+      return;
+    }
+
     console.log("onPageMove(", page, ")");
+
+    // 페이지 요청이 시작 되었다는 플래그 설정
+    pageable.fecthed = true;
     jaxios
       .get(`/api/events`, { params: { pageNumber: page } })
       .then((result) => {
@@ -83,7 +79,7 @@ function EventList() {
   }
 
   return (
-    <div className="event_wrap">
+    <div className="event_banner_wrap">
       <button
         onClick={() => {
           navigate("/createEventBanner");
@@ -105,7 +101,7 @@ function EventList() {
               <span className="event_state_name">{event.title}</span>
               <span className="event_date">
                 {event.startDate.slice(0, 10)}&nbsp;&nbsp;
-                {event.endDate.slice(0, 10)}
+                {event.endDate && event.endDate.slice(0, 10)}
               </span>
             </div>
 
