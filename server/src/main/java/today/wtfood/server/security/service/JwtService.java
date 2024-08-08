@@ -11,8 +11,8 @@ import today.wtfood.server.dto.member.MemberAuth;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
-import today.wtfood.server.security.entity.RefreshToken;
-import today.wtfood.server.security.repository.RefreshTokenRepository;
+import today.wtfood.server.security.entity.BlockedToken;
+import today.wtfood.server.security.repository.BlockTokenRepository;
 import today.wtfood.server.service.MemberService;
 
 import javax.crypto.SecretKey;
@@ -31,21 +31,21 @@ public class JwtService {
     private final long refreshTokenExpiration;
 
     private final MemberService memberService;
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final BlockTokenRepository blockTokenRepository;
 
     public JwtService(
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.access_token_expiration}") long accessTokenExpiration,
             @Value("${jwt.refresh_token_expiration}") long refreshTokenExpiration,
             MemberService memberService,
-            RefreshTokenRepository refreshTokenRepository
+            BlockTokenRepository blockTokenRepository
     ) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.accessTokenExpiration = accessTokenExpiration;
         this.refreshTokenExpiration = refreshTokenExpiration;
 
         this.memberService = memberService;
-        this.refreshTokenRepository = refreshTokenRepository;
+        this.blockTokenRepository = blockTokenRepository;
     }
 
     public JwtAuthResponse generateToken(String username) {
@@ -77,31 +77,46 @@ public class JwtService {
                 .setExpiration(refreshTokenExpireDate)
                 .compact();
 
-        // 재발급 토큰을 DB에 저장
-        refreshTokenRepository.save(
-                RefreshToken.builder()
-                        .tokenUuid(claims.getId())
-                        .expireTime(refreshTokenExpireDate.getTime())
-                        .username(username)
-                        .build()
-        );
-
         // 응답 객체 생성 및 반환
         return new JwtAuthResponse(member, accessToken, refreshToken);
     }
 
     public JwtAuthResponse reissueToken(String refreshToken) throws JwtException {
         // 재발급 토큰으로부터 사용자 정보 추출
-        Claims claims = validateRefreshToken(refreshToken);
+        Claims claims = validateToken(refreshToken);
         String username = claims.getSubject();
 
         // 접근 토큰 재발급
         return generateToken(username);
     }
 
+    public void blockToken(String token) {
+        // 토큰 검증 및 파싱
+        Claims claims = validateToken(token);
+
+        // 데이터베이스에 토큰 저장
+        blockTokenRepository.save(BlockedToken.builder()
+                .tokenUuid(claims.getId())
+                .expireTime(claims.getExpiration().getTime())
+                .build());
+    }
+
+    public boolean isBlockedToken(String tokenId) {
+        return blockTokenRepository.existsById(tokenId);
+    }
+
     public Claims validateToken(String token) throws JwtException {
         try {
-            return parseClaims(token);
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            if (isBlockedToken(claims.getId())) {
+                throw new UnauthorizedException("Blocked JWT Token");
+            }
+            return claims;
         } catch (ExpiredJwtException expiredJwtException) {
             throw new UnauthorizedException("JWT Token Expired");
         } catch (InvalidClaimException invalidClaimException) {
@@ -109,39 +124,11 @@ public class JwtService {
         } catch (io.jsonwebtoken.JwtException jwtException) {
             log.error("JWT Error on JWT Token Validation : {}", jwtException.getMessage());
             throw new BadRequestException("JWT Error on JWT Token Validation");
+        } catch (UnauthorizedException unauthorizedException) {
+            throw unauthorizedException;
         } catch (Exception e) {
             throw new JwtException("Uncaught Error on JWT Token Validation : " + e.getMessage());
         }
-    }
-
-    public Claims validateRefreshToken(String refreshToken) throws JwtException {
-        // 토큰 검증 및 파싱
-        Claims claims = parseClaims(refreshToken);
-
-        // 토큰 발행자 검사
-        if (!JWT_ISSUER.equals(claims.getIssuer())) {
-            throw new UnauthorizedException("Invalid JWT Token");
-        }
-
-        // 데이터베이스에서 저장된 토큰을 가져옴
-        RefreshToken token = refreshTokenRepository.findByUsername(claims.getSubject())
-                .orElseThrow(() -> new UnauthorizedException("Invalid JWT Token"));
-
-        // 토큰 일치 검사
-        if (!token.getTokenUuid().equals(claims.getId())) {
-            throw new UnauthorizedException("Invalid JWT Token");
-        }
-
-        // 토큰 반환
-        return claims;
-    }
-
-    public Claims parseClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
     }
 
     public String resolveAccessToken(HttpServletRequest request) {

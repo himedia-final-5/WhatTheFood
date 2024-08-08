@@ -23,11 +23,11 @@ public class AuthController {
         return jwtService.reissueToken(refreshToken);
     }
 
-    @PostMapping("reissue/{refreshToken}")
-    @ResponseStatus(HttpStatus.OK)
-    public JwtAuthResponse reissueFromPathVariable(@PathVariable("refreshToken") String refreshToken) {
-        // 접근 토큰 재발급
-        return jwtService.reissueToken(refreshToken);
+    @PostMapping("logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void logout(@RequestHeader("Authorization") String accessToken) {
+        // 접근 토큰 블록
+        jwtService.blockToken(accessToken);
     }
 
 }

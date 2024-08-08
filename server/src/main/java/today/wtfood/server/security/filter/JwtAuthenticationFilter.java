@@ -42,7 +42,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 인증 API
             "/auth/login",
-            "/auth/reissue/**",
+            "/auth/logout",
+            "/auth/reissue",
 
             // 회원 API
             "/members",
@@ -56,9 +57,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/notices",
             "/notices/*",
 
-            // 이벤트 API
-            "/events",
-            "/events/*",
 
             // 문의 API
             "/inquiries",
