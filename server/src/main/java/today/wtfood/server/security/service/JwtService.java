@@ -2,7 +2,6 @@ package today.wtfood.server.security.service;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -129,15 +128,6 @@ public class JwtService {
         } catch (Exception e) {
             throw new JwtException("Uncaught Error on JWT Token Validation : " + e.getMessage());
         }
-    }
-
-    public String resolveAccessToken(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        if (token == null || !token.startsWith("Bearer ")) {
-            throw new UnauthorizedException("Bearer Access Token required in request header");
-        }
-
-        return token.substring(7);
     }
 
 }

@@ -4,13 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,7 +26,7 @@ import java.util.List;
 
 @Log4j2
 @Configuration
-@EnableWebSecurity
+@EnableMethodSecurity(proxyTargetClass = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -60,6 +63,13 @@ public class SecurityConfig {
                 .authenticationEntryPoint(authenticationEntryPoint)
         );
 
+        // URL 별 권한 설정
+        // noinspection deprecation (시큐리티 7.0 에서 제거될 예정인 메서드 사용)
+        http.authorizeRequests()
+                .requestMatchers("/auth/**").permitAll(); // 인증 관련 URL은 누구나 접근 가능
+        // TODO: 나머지 경로도 세부적으로 권한 설정
+
+
         return http.build();
     }
 
@@ -73,6 +83,21 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        return RoleHierarchyImpl.fromHierarchy("""
+                ROLE_ADMIN > ROLE_STAFF
+                ROLE_STAFF > ROLE_USER
+                """);
+    }
+
+    @Bean
+    public DefaultWebSecurityExpressionHandler roleHierarchyWebSecurityExpressionHandler() {
+        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
+        expressionHandler.setRoleHierarchy(roleHierarchy());
+        return expressionHandler;
     }
 
 }
