@@ -14,6 +14,7 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const loginUser = useSelector((state) => state.user);
 
   async function onLogin() {
     if (!username) {
@@ -37,7 +38,22 @@ function Login() {
     }
   }
 
-  return (
+  return loginUser ? (
+    <div>
+      <div className="body">
+        <div
+          className="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          오늘 뭐 먹지?
+        </div>
+        <span>이미 로그인 중이십니다 {loginUser.nickname}님</span>
+      </div>
+      <Footer />
+    </div>
+  ) : (
     <div>
       <div className="body">
         <div
