@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./Header.css";
 // import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutAction } from "../stores/userSlice";
 
 // import { useSelector, useDispatch } from 'react-redux';
 // import { loginAction, logoutAction } from '../Store/userSlice';
@@ -9,9 +11,9 @@ import { useNavigate } from "react-router-dom";
 // import { setCookie, getCookie, removeCookie } from '../Util/cookieUtil';
 
 function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {});
+  const loginUser = useSelector((state) => state.user);
 
   return (
     <div className="Header">
@@ -40,7 +42,12 @@ function Header() {
           <div
             className="toptopprofile"
             onClick={() => {
-              navigate("/login");
+              if (loginUser) {
+                dispatch(logoutAction());
+                alert("로그아웃 되었습니다");
+              } else {
+                navigate("/login");
+              }
             }}
           >
             <img id="img" src="/images/profile.png" />

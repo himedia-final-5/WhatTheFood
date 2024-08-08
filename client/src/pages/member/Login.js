@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +10,11 @@ import Footer from "../../components/Footer";
 function Login() {
   const [username, setUserid] = useState("");
   const [password, setPwd] = useState("");
-  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {});
+  const loginUser = useSelector((state) => state.user);
 
   async function onLogin() {
     if (!username) {
@@ -30,16 +29,31 @@ function Login() {
         { username, password },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
-      console.log(result.data);
       setCookie("auth", result.data, 7);
       dispatch(loginAction(result.data.member));
+      navigate("/");
     } catch (err) {
       console.error(err);
       alert("로그인에 실패했습니다");
     }
   }
 
-  return (
+  return loginUser ? (
+    <div>
+      <div className="body">
+        <div
+          className="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          오늘 뭐 먹지?
+        </div>
+        <span>이미 로그인 중이십니다 {loginUser.nickname}님</span>
+      </div>
+      <Footer />
+    </div>
+  ) : (
     <div>
       <div className="body">
         <div
