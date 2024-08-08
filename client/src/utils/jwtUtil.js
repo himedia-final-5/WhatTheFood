@@ -51,23 +51,18 @@ const responseInterceptor = async (error) => {
     return Promise.reject(error);
   }
 
-  // 토큰 갱신 중이면 대기열에 추가
+  // 이미 토큰 갱신 중이면 토큰 갱신 대기열에 추가
   if (refreshingToken) {
     return new Promise((resolve) => {
-      subscribers.push(() => {
-        // 로그인 정보를 저장소로부터 가져오기
-        const user = getUser();
-
-        // 로그인 정보가 없으면 바로 반환
-        if (!user) {
-          return Promise.reject(error);
-        }
-
-        // 토큰 갱신 후 요청 정보에 Authorization 헤더 추가
-        requestConfig.headers.Authorization = `Bearer ${user.refreshToken}`;
-        requestConfig._retry = true;
-        resolve(jaxios(requestConfig));
-      });
+      subscribers.push([
+        (user) => {
+          // 토큰 갱신 후 요청 정보에 Authorization 헤더 추가
+          requestConfig.headers.Authorization = `Bearer ${user.refreshToken}`;
+          requestConfig._retry = true;
+          resolve(jaxios(requestConfig));
+        },
+        (reject) => reject(error),
+      ]);
     });
   }
 
@@ -80,9 +75,9 @@ const responseInterceptor = async (error) => {
       },
     });
 
-    // 토큰 갱신 성공 시 저장소에 저장 후 토큰 갱신 완료 함수 호출
+    // 토큰 갱신 성공 시 로그인 처리 후 토큰 갱신 대기열 처리
     store.dispatch(loginAction(response.data));
-    subscribers.forEach((callback) => callback());
+    subscribers.forEach(([resolve]) => resolve(response.data));
     subscribers = [];
     refreshingToken = false;
 
@@ -92,12 +87,15 @@ const responseInterceptor = async (error) => {
     // 요청 재시도 후 반환
     return jaxios(requestConfig);
   } catch (refreshError) {
-    // 토큰 갱신 실패 시 콘솔에 로그 출력
-    console.error("Token refresh failed:", refreshError);
-
-    // 로그인 정보 삭제
+    // 토큰 갱신 실패 시 로그아웃 처리 후 토큰 갱신 대기열 처리
     store.dispatch(logoutAction());
-    return Promise.reject(error);
+    subscribers.forEach(([, reject]) => reject(refreshError));
+    subscribers = [];
+    refreshingToken = false;
+
+    // 요청 실패 오류 객체 콘솔 출력 후 반환
+    console.error("Token refresh failed:", refreshError);
+    return Promise.reject(refreshError);
   }
 };
 jaxios.interceptors.response.use((response) => response, responseInterceptor);
