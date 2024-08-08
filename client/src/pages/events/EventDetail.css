@@ -13,7 +13,7 @@
   overflow-x: hidden; /* 수평 스크롤 제거 */
 }
 
-.eventdetail_btn_wrap{
+.eventdetail_btn_wrap {
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -29,7 +29,7 @@
   margin-bottom: 20px;
   margin-right: 20px;
 }
-.eventdetail_wrap button:last-child{
+.eventdetail_wrap button:last-child {
   margin-right: 0px;
 }
 
@@ -43,6 +43,40 @@
   width: 100%; /* 이미지 너비 조정 */
   height: auto; /* 이미지 비율 유지 */
   border-radius: 8px; /* 이미지 둥글게 */
+}
+
+.event_custom-button_wrap {
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event_custom-button {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-button svg {
+  margin-right: 8px; /* Space between icon and text */
+  stroke: #333; /* Icon color */
+  width: 18px;
+  height: 18px;
+}
+
+.custom-button:hover {
+  background-color: #f9f9f9; /* Slightly darker background on hover */
+  border-color: #d0d0d0; /* Slightly darker border on hover */
+}
+
+.custom-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Blue focus outline */
 }
 
 /* 반응형 디자인 */

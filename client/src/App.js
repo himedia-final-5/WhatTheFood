@@ -15,6 +15,7 @@ import Faq from "./pages/inquiry/Faq";
 import FaqView from "./pages/inquiry/FaqView";
 import InquiryList from "./pages/inquiry/InquiryList";
 import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm";
+import EventKakao from "./pages/events/EventKakao";
 
 function App() {
   return (
@@ -35,7 +36,8 @@ function App() {
             <Route path="/faq" element={<Faq />} />
             <Route path="/faqView/:id" element={<FaqView />} />
             <Route path="/inquiryList" element={<InquiryList />} />
-            <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
+          <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
+          <Route path="/eventKakao" element={ <EventKakao/>}/>
           </Routes>
         <Footer />
       </div>

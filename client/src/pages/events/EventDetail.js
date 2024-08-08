@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import "./EventDetail.css";
 import "../../styles/Reset.css";
 import jaxios from "../../utils/jwtUtil";
-
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>;
 
 function EventDetail() {
   const navigate = useNavigate();
@@ -65,6 +61,35 @@ function EventDetail() {
         ) : (
           <p>No content images available.</p>
         )}
+      </div>
+
+
+      {/* <a id="kakaotalk-sharing-btn" href="javascript:shareMessage()">
+        <img
+          src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+          alt="카카오톡 공유 보내기 버튼"
+        />
+      </a> */}
+
+      <div className="event_custom-button_wrap">
+        <button class="event_custom-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 22 24"
+          >
+            <rect width="24" height="24" fill="white" />
+            <path
+              d="M7 14.5L12 9.5L17 14.5"
+              stroke="#000000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          이벤트 공유하기
+        </button>
       </div>
     </div>
   );
