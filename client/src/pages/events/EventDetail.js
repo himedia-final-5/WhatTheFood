@@ -11,6 +11,9 @@ function EventDetail() {
   const [events, setEvents] = useState({
     startDate: "",
     endDate: "",
+    title: "",
+    contentImages: [],
+    pass: "",
   });
 
   useEffect(() => {
@@ -24,15 +27,39 @@ function EventDetail() {
         console.error(err);
       });
 
-    // Kakao SDK 초기화
-    if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init("1cd0714fe86698514fb7dcd40504e5bf");
-    }
+    const loadKakaoSDK = () => {
+      if (!window.Kakao) {
+        console.error("Kakao SDK is not loaded");
+        return;
+      }
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init("1cd0714fe86698514fb7dcd40504e5bf");
+      }
+    };
+
+    const script = document.createElement("script");
+    script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+    script.integrity =
+      "sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4";
+    script.crossOrigin = "anonymous";
+    script.onload = loadKakaoSDK;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
   }, [id]);
 
   const sendLinkKakaoShare = () => {
-    if (!window.Kakao) return;
-    if (!window.Kakao.isInitialized()) return;
+    if (!window.Kakao || !window.Kakao.isInitialized()) {
+      console.error("Kakao SDK is not initialized");
+      return;
+    }
+
+    if (!window.Kakao.Link || !window.Kakao.Link.sendDefault) {
+      console.error("Kakao.Link.sendDefault is not available");
+      return;
+    }
 
     window.Kakao.Link.sendDefault({
       objectType: "feed",
@@ -123,7 +150,7 @@ function EventDetail() {
               strokeLinejoin="round"
             />
           </svg>
-          카카오톡 이벤트 공유하기
+          카카오톡 공유하기
         </button>
       </div>
     </div>

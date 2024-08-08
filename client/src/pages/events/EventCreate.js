@@ -6,8 +6,14 @@ import "./EventUpCreate.css";
 import { useSelector } from "react-redux";
 
 function EventCreateBanner() {
-  //const [ loginUser, setLoginUser ] = useState({});
+  const navigate = useNavigate();
   const loginUser = useSelector((state) => state.user);
+  useEffect(() => {
+    if (!loginUser) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+    }
+  }, [loginUser]);
 
   const [pass, setPass] = useState("");
   const [title, setTitle] = useState("");
@@ -23,7 +29,6 @@ function EventCreateBanner() {
   const [contentimgSrc, setContentImgSrc] = useState(
     "http://via.placeholder.com/800x2000"
   );
-  const navigate = useNavigate();
 
   function onSubmit() {
     axios
@@ -70,7 +75,7 @@ function EventCreateBanner() {
     <div className="createEvent">
       <div className="createEvent_field">
         <label>작성자</label>
-        <input type="text" value={loginUser.userid} readOnly />
+        <input type="text" value={loginUser && loginUser.userid} readOnly />
       </div>
       {/* <div className='createEvent_field'>
                 <label>이메일</label><input type="text"  value={loginUser.email} readOnly/>
