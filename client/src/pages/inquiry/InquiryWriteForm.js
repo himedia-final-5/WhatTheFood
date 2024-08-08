@@ -54,7 +54,7 @@ function InquiryWriteForm() {
       <br></br>
       <br></br>
       <div className="iqBody">
-        <div id="iqWriteCeter">
+        <div id="iqWriteCenter">
           <div id="iqwf1">문의 작성</div>
           <br></br>
           <div id="iqwrite">

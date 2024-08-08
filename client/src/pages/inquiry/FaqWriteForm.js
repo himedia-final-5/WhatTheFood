@@ -22,7 +22,7 @@ function InquiryWriteForm() {
         content,
       })
       .then(() => {
-        navigate("/inquiryList");
+        navigate("/idk");
       })
       .catch((err) => {
         console.error(err);
@@ -32,15 +32,17 @@ function InquiryWriteForm() {
   return (
     <div>
       <div className="faqBody">
-        <div id="faqWriteCeter">
+        <div id="faqWriteCenter">
           <div id="faqwf1">FAQ 작성</div>
           <br></br>
           <div id="faqwrite">
             <div className="faqField">
-              <label>제목</label>
+              {/* <label>제목</label> */}
               <br />
               <input
                 type="text"
+                placeholder="제목"
+                style={{ fontSize: "30px" }}
                 onChange={(e) => {
                   setTitle(e.currentTarget.value);
                 }}
@@ -49,10 +51,12 @@ function InquiryWriteForm() {
             <br></br>
             <br></br>
             <div className="faqField">
-              <label>FAQ 내용</label>
+              {/* <label>FAQ 내용</label> */}
               <br />
               <textarea
                 rows="20"
+                placeholder="FAQ 내용 작성"
+                style={{ fontSize: "30px" }}
                 onChange={(e) => {
                   setContent(e.currentTarget.value);
                 }}
@@ -74,7 +78,7 @@ function InquiryWriteForm() {
             <div
               className="faq2"
               onClick={() => {
-                navigate("/idk");
+                navigate("");
               }}
             >
               돌아가기
