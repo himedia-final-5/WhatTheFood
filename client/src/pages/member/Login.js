@@ -30,6 +30,7 @@ function Login() {
       );
       setCookie("auth", result.data, 7);
       dispatch(loginAction(result.data.member));
+      navigate("/");
     } catch (err) {
       console.error(err);
       alert("로그인에 실패했습니다");
