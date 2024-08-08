@@ -108,7 +108,7 @@ function EventList() {
               <span className="event_state_name">{event.title}</span>
               <span className="event_date">
                 {event.startDate.slice(0, 10)}&nbsp;&nbsp;
-                {event.endDate.slice(0, 10)}
+                {event.endDate && event.endDate.slice(0, 10)}
               </span>
             </div>
 
