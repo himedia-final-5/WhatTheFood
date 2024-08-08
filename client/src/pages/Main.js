@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 import { useSelector, useDispatch } from "react-redux";
 //import { getCookie } from '../utils/cookieUtil';
@@ -25,7 +23,6 @@ function Main() {
         console.error(err);
       });
   }, []);
-
 }
 
 export default Main;

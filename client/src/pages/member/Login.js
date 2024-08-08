@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCookie } from "../../utils/cookieUtil";
 import { loginAction } from "../../stores/userSlice";
 import "./Login.css";
-import Footer from "../../components/Footer";
 
 function Login() {
   const [username, setUserid] = useState("");
@@ -39,101 +38,77 @@ function Login() {
   }
 
   return loginUser ? (
-    <div>
-      <div className="body">
-        <div
-          className="logo"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          오늘 뭐 먹지?
-        </div>
-        <span>이미 로그인 중이십니다 {loginUser.nickname}님</span>
-      </div>
-      <Footer />
+    <div className="body">
+      <span>이미 로그인 중이십니다 {loginUser.nickname}님</span>
     </div>
   ) : (
-    <div>
-      <div className="body">
+    <div className="body">
+      <div className="login">로그인/회원가입</div>
+      <br />
+      <div className="loginInput">
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => {
+            setUserid(e.currentTarget.value);
+          }}
+          placeholder="아이디"
+        />
+        &nbsp;&nbsp;
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPwd(e.currentTarget.value);
+          }}
+          placeholder="비밀번호"
+        />
+      </div>
+      <br></br>
+      <div className="loginButton">
         <div
-          className="logo"
+          className="loginButtonChild"
           onClick={() => {
-            navigate("/");
+            onLogin();
           }}
         >
-          오늘 뭐 먹지?
+          로그인
         </div>
-        <br />
-        <br />
-        <div className="login">로그인/회원가입</div>
-        <br />
-        <div className="loginInput">
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => {
-              setUserid(e.currentTarget.value);
-            }}
-            placeholder="아이디"
-          />
-          &nbsp;&nbsp;
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPwd(e.currentTarget.value);
-            }}
-            placeholder="비밀번호"
-          />
-        </div>
-        <br></br>
-        <div className="loginButton">
-          <div
-            className="loginButtonChild"
-            onClick={() => {
-              onLogin();
-            }}
-          >
-            로그인
-          </div>
-        </div>
-        <br></br>
-        <div className="searching">
-          <div
-            onClick={() => {
-              navigate("/joinForm");
-            }}
-          >
-            회원가입
-          </div>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <div>아이디 찾기</div>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <div>비밀번호 찾기</div>
-        </div>
-        <div className="otherlogin">
-          <div className="google">
-            <img src="/images/google.png" />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <div>Google 계정으로 로그인</div>
-          </div>
-          <br />
-          <div className="kakao">
-            <img src="/images/kakao.png" />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <div>카카오 계정으로 로그인</div>
-          </div>
-          <br />
-          <div className="naver">
-            <img src="/images/naver.png" />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <div>naver 계정으로 로그인</div>
-          </div>
-        </div>
-        <br></br>
       </div>
-      <Footer />
+      <br></br>
+      <div className="searching">
+        <div
+          onClick={() => {
+            navigate("/joinForm");
+          }}
+        >
+          회원가입
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div>아이디 찾기</div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div>비밀번호 찾기</div>
+      </div>
+      <div className="otherlogin">
+        <div className="google">
+          <img src="/images/google.png" />
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <div>Google 계정으로 로그인</div>
+        </div>
+        <br />
+        <div className="kakao">
+          <img src="/images/kakao.png" />
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <div>카카오 계정으로 로그인</div>
+        </div>
+        <br />
+        <div className="naver">
+          <img src="/images/naver.png" />
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <div>naver 계정으로 로그인</div>
+        </div>
+      </div>
+      <br></br>
     </div>
   );
 }

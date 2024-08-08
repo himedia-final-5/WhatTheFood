@@ -1,8 +1,6 @@
 // import React, {useState, useEffect} from 'react'
 import { useEffect, useState } from "react";
 import "./Notice.css";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -60,7 +58,6 @@ function Notice() {
 
   return (
     <div class="notice_container">
-      <Header setWord={setWord} />
       <br />
       <br />
       <br />
@@ -154,7 +151,6 @@ function Notice() {
       <br />
       <br />
       <br />
-      <Footer />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./JoinForm.css";
-import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 function UpdateForm() {
@@ -12,16 +11,6 @@ function UpdateForm() {
 
   return (
     <div className="body">
-      <div
-        className="logo"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        오늘 뭐 먹지?
-      </div>
-      <br></br>
-      <br />
       <div className="joinjoin">
         <label>회원정보 수정</label>
       </div>
@@ -83,7 +72,6 @@ function UpdateForm() {
       </div>
       <br></br>
       <br></br>
-      <Footer />
     </div>
   );
 }
