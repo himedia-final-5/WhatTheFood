@@ -41,11 +41,9 @@ function InquiryWriteForm() {
     formData.append("appendImage", e.target.files[0]);
 
     const result = await axios.post("/api/inquiries/fileupload", formData);
-    setAppendImage(result.data.appendImage);
+    setAppendImage(result.data.image);
 
-    setAppendImageSrc(
-      `http://localhost:8070/images/${result.data.appendImage}`
-    );
+    setAppendImageSrc(`http://localhost:8070/images/${result.data.image}`);
     setAppendImageStyle({ width: "200px", height: "200px", display: "block" });
     // setImgStyle({ width: "800px", display: "block" });
   }
