@@ -14,7 +14,7 @@ function Faq() {
 
   useEffect(() => {
     axios
-      .get(`/api/inquiries`)
+      .get(`/api/faqs`)
       .then((result) => {
         setInquiryList(result.data);
       })
@@ -26,9 +26,13 @@ function Faq() {
   return (
     <div>
       <Header setWord={setWord} />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <div className="faqBody">
         <div className="faqCenter">
-          <br></br>
           <div id="faq1">|FAQ|</div>
           <br></br>
           <br></br>
@@ -37,14 +41,16 @@ function Faq() {
           {inquiryList.map((inquirylist, idx) => {
             return (
               <div
-                className="item"
+                className="faqitem"
                 key={idx}
                 onClick={() => {
                   navigate(`/faqView/${inquirylist.id}`);
                 }}
               >
-                <div className="name">{inquirylist.title}</div>
-                <div className="name">{inquirylist.date.substring(0, 10)}</div>
+                <div className="qnaname">{inquirylist.title}</div>
+                <div className="qnadate">
+                  {inquirylist.date.substring(0, 10)}
+                </div>
               </div>
             );
           })}
