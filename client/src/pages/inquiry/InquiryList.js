@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from "react";
-
 import "./InquiryList.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Pagination from "../../components/Pagination";
+import axios from "../../utils/jwtUtil";
+import { useNavigate, useParams } from "react-router-dom";
 
 function InquiryList() {
   const navigate = useNavigate();
-  const [word, setWord] = useState(null);
-  const [qnaList, setQnaList] = useState([]);
-  const [inquiryList, setInquiryList] = useState([]);
+  const [pageData, setPageData] = useState({
+    content: [],
+    number: 0,
+    totalPages: 1,
+    first: true,
+    last: true,
+  });
+
+  const setPage = (page) => {
+    axios
+      .get(`/api/inquiries/email/user01@wtfood.today`, {
+        params: { pageNumber: page },
+      })
+      .then((result) => setPageData(result.data))
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
-    axios
-      .get(`/api/inquiries`)
-      .then((result) => {
-        setInquiryList(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (pageData.content.length === 0) {
+      setPage(pageData.number);
+    }
   }, []);
 
   return (
@@ -45,7 +53,7 @@ function InquiryList() {
           </div>
           <br></br>
 
-          {inquiryList.map((inquirylist, idx) => {
+          {pageData.content.map((inquirylist, idx) => {
             return (
               <div
                 className="iqitem"
@@ -68,31 +76,9 @@ function InquiryList() {
               </div>
             );
           })}
-        </div>
-        <div id="paging" style={{ textAlign: "center", padding: "10px" }}>
-          {/* {
-                (paging.prev)?(
-                    <span style={{cursor:"pointer"}} onClick={ ()=>{ onPageMove( paging.beginPage-1 ) } } > ◀ </span>
-                ):(<span></span>)
-            }
-            {
-                (beginend)?(
-                    beginend.map((page, idx)=>{
-                        return (
-                            <span style={{cursor:"pointer"}} key={idx} onClick={
-                                ()=>{ onPageMove( page ) }
-                            }>&nbsp;{page}&nbsp;</span>
-                        )
-                    })
-                ):(<></>)
-            }
-            {
-                (paging.next)?(
-                    <span style={{cursor:"pointer"}} onClick={
-                        ()=>{ onPageMove( paging.endPage+1 ) }
-                    }>&nbsp;▶&nbsp;</span>
-                ):(<></>)
-            } */}
+          <br></br>
+          <Pagination pageData={pageData} setPage={setPage} />
+          <br></br>
         </div>
       </div>
       <br></br>
