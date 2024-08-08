@@ -69,7 +69,15 @@ function EventList() {
 
   //무한스크롤
   function onPageMove(page) {
+    // 마지막 페이지거나, 이미 다음 페이지 요청이 시작된 경우 무시
+    if (pageable.last || pageable.fecthed) {
+      return;
+    }
+
     console.log("onPageMove(", page, ")");
+
+    // 페이지 요청이 시작 되었다는 플래그 설정
+    pageable.fecthed = true;
     jaxios
       .get(`/api/events`, { params: { pageNumber: page } })
       .then((result) => {
