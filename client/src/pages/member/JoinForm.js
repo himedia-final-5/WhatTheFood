@@ -21,7 +21,7 @@ function JoinForm() {
 
       <div className="memberInfo">
         <div className="Info">
-          <label>아이디</label>
+          {/* <label>아이디</label> */}
           <input placeholder="아이디" />
         </div>
         <div id="idcheck">ID 중복확인</div>
@@ -30,23 +30,23 @@ function JoinForm() {
         <br></br>
         <br></br>
         <div className="Info">
-          <label>비밀번호</label>
+          {/* <label>비밀번호</label> */}
           <input type="password" placeholder="비밀번호" />
         </div>
         <div>비밀번호 메시지</div>
 
         <br />
         <div className="Info">
-          <label>비밀번호 확인</label>
+          {/* <label>비밀번호 확인</label> */}
           <input type="password" placeholder="비밀번호 확인" />
         </div>
-        <div>비번 확인여부</div>
+        <div>비번 확인여부 메시지</div>
 
         <br></br>
         <br></br>
         <br />
         <div className="Info">
-          <label>닉네임</label>
+          {/* <label>닉네임</label> */}
           <input placeholder="닉네임" />
         </div>
         <div id="idcheck">닉네임 중복확인</div>
@@ -56,17 +56,17 @@ function JoinForm() {
         <br></br>
         <br />
         <div className="Info">
-          <label>이메일</label>
+          {/* <label>이메일</label> */}
           <input placeholder="이메일" />
         </div>
 
         <br />
 
         <div className="Info">
-          <label>이메일 인증코드</label>
+          {/* <label>이메일 인증코드</label> */}
           <input placeholder="인증코드" />
         </div>
-        <div>인증코드 확인 여부</div>
+        <div>인증코드 확인 여부 메시지</div>
 
         <br></br>
       </div>

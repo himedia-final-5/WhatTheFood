@@ -32,7 +32,7 @@ public class FaqService {
 
 
     public FaqDetail getFaqView(long id) {
-        return (FaqDetail) fr.findDetailById(id)
+        return fr.findDetailById(id)
                 .orElseThrow(() -> new RuntimeException("FAQ 없다 이것들아."));
     }
 }

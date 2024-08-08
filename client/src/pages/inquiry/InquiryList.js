@@ -54,7 +54,13 @@ function InquiryList() {
                   navigate(`/inquiryView/${inquirylist.id}`);
                 }}
               >
-                <div className="iqanswer">답변여부</div>
+                <div className="iqanswer">
+                  {inquirylist.answer ? (
+                    <div style={{ color: "green" }}>답변완료</div>
+                  ) : (
+                    <div style={{ color: "grey" }}>답변처리중</div>
+                  )}
+                </div>
                 <div className="iqname">{inquirylist.title}</div>
                 <div className="iqdate">
                   {inquirylist.date.substring(0, 10)}

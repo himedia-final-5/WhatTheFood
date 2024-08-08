@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function FaqView() {
   const [word, setWord] = useState(null);
-  const [qnaView, setQnaView] = useState({});
+  const [faqiew, setFaqView] = useState({});
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -15,7 +15,7 @@ function FaqView() {
     axios
       .get(`/api/faqs/${id}`)
       .then((result) => {
-        setQnaView(result.data);
+        setFaqView(result.data);
       })
 
       .catch((err) => {
@@ -32,12 +32,13 @@ function FaqView() {
       <div id="qvbody">
         <div id="qvcontainer">
           <div id="head">
-            <div id="title">{qnaView.title}</div>
+            <div id="title">{faqiew.title}</div>
             <hr></hr>
-            <div id="date">{qnaView.date}</div>
+            <div id="date">{(faqiew.date + "").substring(0, 10)}</div>
             <hr></hr>
           </div>
-          <div id="content">{qnaView.content}</div>
+          <br></br>
+          <div id="content">{faqiew.content}</div>
         </div>
         <br></br>
         <div
