@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../stores";
 import axios from "axios";
 import jaxios from "../../utils/jwtUtil";
 import "./EventList.css";
@@ -39,7 +39,6 @@ function EventList() {
   function onEventView(id) {
     navigate(`/events/${id}`);
   }
-
 
   //무한스크롤
   function onPageMove(page) {

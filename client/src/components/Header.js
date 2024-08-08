@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-// import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../stores";
 import { logoutAction } from "../stores/userSlice";
-
-// import { useSelector, useDispatch } from 'react-redux';
-// import { loginAction, logoutAction } from '../Store/userSlice';
 
 function Header() {
   const dispatch = useDispatch();
@@ -41,7 +37,7 @@ function Header() {
           <div
             className="toptopprofile"
             onClick={() => {
-              if (loginUser) {
+              if (loginUser !== null) {
                 dispatch(logoutAction());
                 alert("로그아웃 되었습니다");
               } else {
