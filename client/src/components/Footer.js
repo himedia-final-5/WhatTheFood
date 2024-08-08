@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "./Footer.css";
 
 import { useSelector, useDispatch } from "react-redux";
-//import { getCookie } from '../utils/cookieUtil';
 
 function Footer() {
   const lUser = useSelector((state) => state.user);

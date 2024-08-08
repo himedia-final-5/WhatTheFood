@@ -8,8 +8,6 @@ import { logoutAction } from "../stores/userSlice";
 // import { useSelector, useDispatch } from 'react-redux';
 // import { loginAction, logoutAction } from '../Store/userSlice';
 
-// import { setCookie, getCookie, removeCookie } from '../Util/cookieUtil';
-
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
