@@ -61,12 +61,36 @@ function EventDetail() {
       return;
     }
 
+    //   const templateId = 110915;
+    //   // 이벤트별 첫 번째 이미지 선택 (혹은 다른 로직으로 이미지 선택 가능)
+
+    //   const templateArgs = {
+    //     title: events.title,
+    //     description: "이벤트 설명을 여기에 추가하세요",
+    //     imageUrl:
+    //       events.contentImages.length > 0
+    //         ? events.contentImages[0]
+    //         : "기본 이미지 URL",
+    //     webUrl: `http://localhost:3000/events/${events.id}`,
+    //     mobileWebUrl: `http://localhost:3000/events/${events.id}`,
+    //   };
+
+    //   window.Kakao.Share.sendCustom({
+    //     templateId: templateId,
+    //     templateArgs: templateArgs,
+    //   });
+    // };
+
+    const imageUrl =
+      events.contentImages.length > 0
+        ? events.contentImages[0]
+        : "기본 이미지 URL";
+
     window.Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
         title: events.title,
-        description: "내용",
-        imageUrl: "원하는 이미지",
+        imageUrl: imageUrl,
         link: {
           mobileWebUrl: `http://localhost:3000/events/${events.id}`,
           webUrl: `http://localhost:3000/events/${events.id}`,
