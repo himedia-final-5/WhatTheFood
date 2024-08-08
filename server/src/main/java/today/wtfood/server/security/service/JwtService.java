@@ -87,13 +87,7 @@ public class JwtService {
         );
 
         // 응답 객체 생성 및 반환
-        return new JwtAuthResponse(
-                accessToken,
-                refreshToken,
-                accessTokenExpireDate.getTime(),
-                refreshTokenExpireDate.getTime(),
-                member
-        );
+        return new JwtAuthResponse(member, accessToken, refreshToken);
     }
 
     public JwtAuthResponse reissueToken(String refreshToken) throws JwtException {
