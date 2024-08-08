@@ -42,14 +42,7 @@ function EventList() {
   };
 
   function onEventView(id) {
-    jaxios
-      .get(`/api/events/getEvent/${id}`)
-      .then(() => {
-        navigate(`/events/${id}`);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    navigate(`/events/${id}`);
   }
 
   function deleteEvent(id) {
@@ -83,7 +76,7 @@ function EventList() {
   }
 
   return (
-    <div className="event_wrap">
+    <div className="event_banner_wrap">
       <button
         onClick={() => {
           navigate("/createEventBanner");

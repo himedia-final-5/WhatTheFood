@@ -1,13 +1,14 @@
 /* Events.css */
-.event_wrap {
+.event_banner_wrap {
   width: 100%;
   margin: 0 auto;
   padding: 0 20px; /* 패딩 추가로 여백 확보 */
   display: grid;
   gap: 20px; /* 그리드 아이템 사이의 간격 */
+  margin-bottom: 100px;
 }
 
-.event_wrap button {
+.event_banner_wrap button {
   width: 50%;
   height: 30px;
   border: 1px solid #f3f3f3; /* 테두리 추가 */
@@ -65,7 +66,7 @@
 /* 반응형 디자인 */
 /* Mobile */
 @media screen and (max-width: 767px) {
-  .event_wrap {
+  .event_banner_wrap {
     width: 500px;
     grid-template-columns: 1fr; /* 작은 화면에서 한 개씩 나열 */
   }
@@ -73,7 +74,7 @@
 
 /* Tablet */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-  .event_wrap {
+  .event_banner_wrap {
     width: 800px;
     grid-template-columns: repeat(2, 1fr); /* 중간 크기 화면에서 두 개씩 나열 */
   }
@@ -81,7 +82,7 @@
 
 /* Small Desktop */
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
-  .event_wrap {
+  .event_banner_wrap {
     width: 1000px;
     grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
   }
@@ -89,7 +90,7 @@
 
 /* Desktop */
 @media screen and (min-width: 1280px) and (max-width: 1799px) {
-  .event_wrap {
+  .event_banner_wrap {
     width: 1000px;
     grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
   }
@@ -97,7 +98,7 @@
 
 /* Large Desktop */
 @media screen and (min-width: 1800px) {
-  .event_wrap {
+  .event_banner_wrap {
     width: 800px;
     grid-template-columns: repeat(3, 1fr); /* 큰 화면에서 세 개씩 나열 */
     margin: 0px auto;
