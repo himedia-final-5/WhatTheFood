@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import "./InquiryList.css";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -25,12 +23,15 @@ function InquiryList() {
 
   return (
     <div>
-      <Header setWord={setWord} />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <div className="iqBody">
         <div className="iqCenter">
-          <br></br>
-          <br></br>
           <div id="iq1">
+            <div id="blank"></div>
             <div>내 문의 내역</div>
             <div
               id="inquiryWrite"
@@ -47,14 +48,17 @@ function InquiryList() {
           {inquiryList.map((inquirylist, idx) => {
             return (
               <div
-                className="item"
+                className="iqitem"
                 key={idx}
                 onClick={() => {
-                  navigate(`/InquiryView/${inquirylist.id}`);
+                  navigate(`/inquiryView/${inquirylist.id}`);
                 }}
               >
-                <div className="name">{inquirylist.title}</div>
-                <div className="name">{inquirylist.date.substring(0, 10)}</div>
+                <div className="iqanswer">답변여부</div>
+                <div className="iqname">{inquirylist.title}</div>
+                <div className="iqdate">
+                  {inquirylist.date.substring(0, 10)}
+                </div>
               </div>
             );
           })}
@@ -86,7 +90,6 @@ function InquiryList() {
         </div>
       </div>
       <br></br>
-      <Footer />
     </div>
   );
 }

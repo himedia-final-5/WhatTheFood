@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import "./FaqView.css";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -15,7 +13,7 @@ function FaqView() {
 
   useEffect(() => {
     axios
-      .get(`/api/inquiries/${id}`)
+      .get(`/api/faqs/${id}`)
       .then((result) => {
         setQnaView(result.data);
       })
@@ -26,15 +24,18 @@ function FaqView() {
   }, []);
   return (
     <div>
-      <Header setWord={setWord} />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <div id="qvbody">
-        <br></br>
-        <br></br>
         <div id="qvcontainer">
           <div id="head">
             <div id="title">{qnaView.title}</div>
-            <br></br>
+            <hr></hr>
             <div id="date">{qnaView.date}</div>
+            <hr></hr>
           </div>
           <div id="content">{qnaView.content}</div>
         </div>
@@ -49,7 +50,6 @@ function FaqView() {
         </div>
         <br></br>
       </div>
-      <Footer />
     </div>
   );
 }

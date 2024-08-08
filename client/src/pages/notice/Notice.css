@@ -1,22 +1,96 @@
-.noticeBody {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+
+/* Container */
+.notice_container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.noticeCenter {
-  width: 60%;
+/* Header */
+.notice_header {
   text-align: center;
-  border: 1px solid red;
+  margin-bottom: 0px;
 }
 
-.noticelist {
-  cursor: pointer;
+.notice_title {
+  font-size: 1.8em;
+  font-weight: bold;
+  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
+  letter-spacing: 5.85px;
 }
 
-#notice1 {
-  font-size: 50px;
+.notice_title::before, .notice_title::after {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  content: "";
+  background-color: rgb(0, 0, 0);
 }
-#notice2 {
-  font-size: 40px;
+
+
+.notice_col {
+  margin-top: 2px;
+  font-weight: normal;
+  font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.5px;
+}
+
+
+.notice_subtitle {
+  font-weight: normal;
+  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0px;
+  text-align: center;
+  margin-top: 16px;
+  white-space: pre-line;
+}
+
+.notice_line {
+  border-bottom:2px solid rgb(147, 112, 98);
+  padding:50px;
+}
+
+/* Notices */
+.notices {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.notice {
+ width:100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(241, 231, 225);;
+  padding: 30px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.notice-icon {
+  margin-right: 20px;
+}
+
+.notice-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.notice-details {
+  flex: 1;
+}
+
+.notice-date {
+  font-size: 16px;
+  color: #888;
+}
+
+.notice-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #000;
 }

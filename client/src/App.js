@@ -14,31 +14,31 @@ import UpdateEvent from "./pages/events/UpdateEvent";
 import Faq from "./pages/inquiry/Faq";
 import FaqView from "./pages/inquiry/FaqView";
 import InquiryList from "./pages/inquiry/InquiryList";
+import InquiryView from "./pages/inquiry/InquiryView";
 import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm";
 
 function App() {
   return (
     <div className="App">
-      <div>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/joinForm" element={<JoinForm />} />
-          <Route path="/updateForm" element={<UpdateForm />} />
-          <Route path="/notice" element={<Notice />} />
-          <Route path="/writeNotice" element={<WriteNotice />} />
-          <Route path="/events" element={<EventList />} />
-          <Route path="/events/:id" element={<EventDetail />} />
-          <Route path="/createEventBanner" element={<EventCreateBanner />} />
-          <Route path="/updateEvent/:id" element={<UpdateEvent />} />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/faqView/:id" element={<FaqView />} />
-          <Route path="/inquiryList" element={<InquiryList />} />
-          <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
-        </Routes>
-        <Footer />
-      </div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/joinForm" element={<JoinForm />} />
+        <Route path="/updateForm" element={<UpdateForm />} />
+        <Route path="/notice" element={<Notice />} />
+        <Route path="/writeNotice" element={<WriteNotice />} />
+        <Route path="/events" element={<EventList />} />
+        <Route path="/events/:id" element={<EventDetail />} />
+        <Route path="/createEventBanner" element={<EventCreateBanner />} />
+        <Route path="/updateEvent/:id" element={<UpdateEvent />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/faqView/:id" element={<FaqView />} />
+        <Route path="/inquiryList" element={<InquiryList />} />
+        <Route path="/inquiryView/:id" element={<InquiryView />} />
+        <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
