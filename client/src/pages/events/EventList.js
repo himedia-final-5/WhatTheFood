@@ -13,15 +13,10 @@ function EventList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    jaxios
-      .get(`/api/events`)
-      .then((result) => {
-        setEvents(result.data.content); //content를 가져와서 저장
-        setPageable(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    // 이벤트 목록이 비어있으면 첫번째 페이지 데이터 요청
+    if (events.length === 0) {
+      onPageMove(0);
+    }
   }, []);
 
   useEffect(() => {
