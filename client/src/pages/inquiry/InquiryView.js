@@ -33,7 +33,13 @@ function InquiryView() {
       <div id="iqvbody">
         <div id="iqvcontainer">
           <div id="iqvhead">
-            <div id="iqvanswer">답변여부</div>
+            <div id="iqvanswer">
+              {qnaView.answer ? (
+                <div style={{ color: "green" }}>답변완료</div>
+              ) : (
+                <div style={{ color: "grey" }}>답변처리중</div>
+              )}
+            </div>
             <div id="iqvtitle">{qnaView.title}</div>
             <hr></hr>
             <div id="iqvdate">{(qnaView.date + "").substring(0, 10)}</div>

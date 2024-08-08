@@ -59,10 +59,10 @@ function InquiryWriteForm() {
           <br></br>
           <div id="iqwrite">
             <div className="iqwfField">
-              <label>제목</label>
-              <br />
               <input
                 type="text"
+                placeholder="제목"
+                style={{ fontSize: "30px" }}
                 onChange={(e) => {
                   setTitle(e.currentTarget.value);
                 }}
@@ -71,10 +71,10 @@ function InquiryWriteForm() {
             <br></br>
             <br></br>
             <div className="iqwfField">
-              <label>문의 내용</label>
-              <br />
               <textarea
                 rows="20"
+                placeholder="문의내용을 작성해주세요."
+                style={{ fontSize: "30px" }}
                 onChange={(e) => {
                   setContent(e.currentTarget.value);
                 }}
@@ -87,6 +87,7 @@ function InquiryWriteForm() {
               <br />
               <input
                 type="file"
+                style={{ fontSize: "20px" }}
                 onChange={(e) => {
                   onFileUpload(e);
                 }}

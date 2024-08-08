@@ -32,16 +32,8 @@
   border: 1px solid black;
 }
 
-.iqwfField input {
-  font-size: 30px;
-}
-
 .iqwfField label {
-  font-size: 30px;
-}
-
-.iqwfField textarea {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .inquiryinquiry {
