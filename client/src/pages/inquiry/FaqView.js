@@ -15,7 +15,7 @@ function FaqView() {
 
   useEffect(() => {
     axios
-      .get(`/api/inquiries/${id}`)
+      .get(`/api/faqs/${id}`)
       .then((result) => {
         setQnaView(result.data);
       })
@@ -27,14 +27,18 @@ function FaqView() {
   return (
     <div>
       <Header setWord={setWord} />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <div id="qvbody">
-        <br></br>
-        <br></br>
         <div id="qvcontainer">
           <div id="head">
             <div id="title">{qnaView.title}</div>
-            <br></br>
+            <hr></hr>
             <div id="date">{qnaView.date}</div>
+            <hr></hr>
           </div>
           <div id="content">{qnaView.content}</div>
         </div>

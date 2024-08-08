@@ -12,6 +12,7 @@ import UpdateEvent from "./pages/events/UpdateEvent";
 import Faq from "./pages/inquiry/Faq";
 import FaqView from "./pages/inquiry/FaqView";
 import InquiryList from "./pages/inquiry/InquiryList";
+import InquiryView from "./pages/inquiry/InquiryView";
 import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="/faqView/:id" element={<FaqView />} />
         <Route path="/inquiryList" element={<InquiryList />} />
+        <Route path="/inquiryView/:id" element={<InquiryView />} />
         <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
       </Routes>
     </div>
