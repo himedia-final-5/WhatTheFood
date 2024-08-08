@@ -24,18 +24,19 @@ function Header() {
             navigate("/");
           }}
         >
-          오늘 뭐 먹지?
-        </div>
-        <div className="toptopsearch">
-          <input
-            type="text"
-            placeholder="레시피 검색"
-            style={{ fontSize: "30px" }}
-          />
-          &nbsp;
-          <img id="img" src="/images/search.png" />
+          <img src="/images/logo.png" />
         </div>
         <div className="toptop">
+          <div className="toptopsearch">
+            <input
+              type="text"
+              placeholder="레시피 검색"
+              style={{ fontSize: "30px" }}
+            />
+            &nbsp;
+            <img id="img" src="/images/search.png" />
+          </div>
+
           <div className="toptopcart">
             <img id="img" src="/images/cart.png" />
           </div>
