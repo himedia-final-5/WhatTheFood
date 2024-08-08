@@ -7,12 +7,11 @@ import jaxios from "../../utils/jwtUtil";
 
 function EventDetail() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [events, setEvents] = useState({
     startDate: "",
     endDate: "",
   });
-
-  const { id } = useParams();
 
   useEffect(() => {
     jaxios
@@ -24,11 +23,55 @@ function EventDetail() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
 
-  function deleteEvent(id) {
+    // Kakao SDK 초기화
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init("1cd0714fe86698514fb7dcd40504e5bf");
+    }
+  }, [id]);
+
+  const sendLinkKakaoShare = () => {
+    if (!window.Kakao) return;
+    if (!window.Kakao.isInitialized()) return;
+
+    window.Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: events.title,
+        description: "내용",
+        imageUrl: "원하는 이미지",
+        link: {
+          mobileWebUrl: `http://localhost:3000/events/${events.id}`,
+          webUrl: `http://localhost:3000/events/${events.id}`,
+        },
+      },
+      social: {
+        likeCount: 777,
+        commentCount: 77,
+        sharedCount: 777,
+      },
+      buttons: [
+        {
+          title: "웹으로 보기",
+          link: {
+            mobileWebUrl: `http://localhost:3000/events/${events.id}`,
+            webUrl: `http://localhost:3000/events/${events.id}`,
+          },
+        },
+        {
+          title: "앱으로 보기",
+          link: {
+            mobileWebUrl: `http://localhost:3000/events/${events.id}`,
+            webUrl: `http://localhost:3000/events/${events.id}`,
+          },
+        },
+      ],
+    });
+  };
+
+  const deleteEvent = (id) => {
     const pass = window.prompt("삭제할 패스워드를 입력하세요");
-    if (events.pass != pass) {
+    if (events.pass !== pass) {
       return alert("패스워드가 일치하지 않습니다");
     }
     axios
@@ -39,7 +82,7 @@ function EventDetail() {
       .catch((err) => {
         console.error(err);
       });
-  }
+  };
 
   return (
     <div className="eventdetail_wrap">
@@ -63,16 +106,8 @@ function EventDetail() {
         )}
       </div>
 
-
-      {/* <a id="kakaotalk-sharing-btn" href="javascript:shareMessage()">
-        <img
-          src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-          alt="카카오톡 공유 보내기 버튼"
-        />
-      </a> */}
-
       <div className="event_custom-button_wrap">
-        <button class="event_custom-button">
+        <button className="event_custom-button" onClick={sendLinkKakaoShare}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -84,11 +119,11 @@ function EventDetail() {
             <path
               d="M7 14.5L12 9.5L17 14.5"
               stroke="#000000"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
-          이벤트 공유하기
+          카카오톡 이벤트 공유하기
         </button>
       </div>
     </div>
