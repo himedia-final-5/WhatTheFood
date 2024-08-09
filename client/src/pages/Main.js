@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "../stores";
 
 function Main() {
-  const lUser = useSelector((state) => state.user);
+  const loginUser = useSelector((state) => state.user);
   const [word, setWord] = useState(null);
 
   const [inquiryList, setInquiryList] = useState([]);

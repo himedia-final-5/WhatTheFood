@@ -56,10 +56,7 @@ function Header() {
         </div>
         <div className="toptop">
           <div className="toptopsearch">
-            <input
-              type="text"
-              placeholder="레시피 검색"
-            />
+            <input type="text" placeholder="레시피 검색" />
             &nbsp;
             <img id="img" src="/images/search.png" />
           </div>

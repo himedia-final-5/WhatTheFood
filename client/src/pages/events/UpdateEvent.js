@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/Reset.css";
 import "./EventUpCreate.css";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../stores";
 
 function UpdateEvent() {
   const loginUser = useSelector((state) => state.user);
