@@ -12,6 +12,7 @@
     "clsx": "^2.1.1",
     "http-proxy-middleware": "^3.0.0",
     "postcss": "^8.4.41",
+    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.3.1",
@@ -28,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css}'"
   },
   "eslintConfig": {
     "extends": [
