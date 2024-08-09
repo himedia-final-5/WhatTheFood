@@ -3,8 +3,10 @@ import axios from "axios";
 import "./InquiryView.css";
 
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function InquiryView() {
+  const loginUser = useSelector((state) => state.user);
   const [word, setWord] = useState(null);
   const [qnaView, setQnaView] = useState({});
 
@@ -21,7 +23,7 @@ function InquiryView() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [word]);
 
   return (
     <div>

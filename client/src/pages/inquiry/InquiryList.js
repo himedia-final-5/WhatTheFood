@@ -3,8 +3,10 @@ import "./InquiryList.css";
 import Pagination from "../../components/Pagination";
 import axios from "../../utils/jwtUtil";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function InquiryList() {
+  const loginUser = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [pageData, setPageData] = useState({
     content: [],
@@ -16,7 +18,7 @@ function InquiryList() {
 
   const setPage = (page) => {
     axios
-      .get(`/api/inquiries/email/user01@wtfood.today`, {
+      .get(`/api/inquiries/email/user01`, {
         params: { pageNumber: page },
       })
       .then((result) => setPageData(result.data))

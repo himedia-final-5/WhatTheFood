@@ -18,7 +18,7 @@ function Footer() {
               <li onClick={() => navigate("/terms")}>Terms of Service</li>
               <li onClick={() => navigate("/privacy")}>Privacy Policy</li>
               <li onClick={() => navigate("/contact")}>Contact Us</li>
-              <li onClick={() => navigate("/faqWriteForm")}>문의 작성</li>
+              {/* <li onClick={() => navigate("/inquiryWriteForm")}>문의 작성</li> */}
               <li onClick={() => navigate("/faq")}>FAQ</li>
             </ul>
           </div>

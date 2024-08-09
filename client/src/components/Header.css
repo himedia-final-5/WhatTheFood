@@ -1,6 +1,7 @@
 .Header {
   width: 100%;
   display: flex;
+  /* position: absolute; */
   flex-direction: column;
   margin-bottom: 100px;
 }
@@ -53,13 +54,32 @@
   align-items: center;
 }
 
-.toptopcart img, .toptopprofile img {
+.toptopcart img,
+.toptopprofile img {
   height: 40px; /* 장바구니와 프로필 아이콘 크기 조절 */
   cursor: pointer;
   margin-left: 20px; /* 아이콘 사이 여백 추가 */
 }
-.submenu {
-  display: none;
+
+#submenu {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  width: 200px;
+  height: 300px;
+  border: 1px solid blue;
+  top: 70px;
+  right: 45px;
+  background-color: #f9f9f9;
+}
+
+.sm {
+  display: flex;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .menu {

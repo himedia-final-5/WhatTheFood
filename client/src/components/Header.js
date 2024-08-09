@@ -1,17 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Header.css";
-// import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../stores/userSlice";
-
-// import { useSelector, useDispatch } from 'react-redux';
-// import { loginAction, logoutAction } from '../Store/userSlice';
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginUser = useSelector((state) => state.user);
+  const [show, setShow] = useState(false);
+
+  function submenu(a) {
+    if (a == true) {
+      a = false;
+      document.getElementById("submenu").style.visibility = "hidden";
+    } else {
+      a = true;
+      document.getElementById("submenu").style.visibility = "visible";
+    }
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var submenuElement = document.getElementById("submenu");
+    if (submenuElement) {
+      submenuElement.style.visibility = "hidden";
+    }
+  });
+
+  function logout() {
+    dispatch(logoutAction());
+    alert("로그아웃 되었습니다");
+    navigate("/login");
+  }
 
   return (
     <div className="Header">
@@ -42,8 +62,7 @@ function Header() {
             className="toptopprofile"
             onClick={() => {
               if (loginUser) {
-                dispatch(logoutAction());
-                alert("로그아웃 되었습니다");
+                submenu(false);
               } else {
                 navigate("/login");
               }
@@ -54,12 +73,21 @@ function Header() {
         </div>
       </div>
 
-      <div className="submenu">
-        <div>마이페이지</div>
-        <div>찜레시피</div>
-        <div>장바구니</div>
-        <div>문의하기</div>
-        <div>로그아웃</div>
+      <div id="submenu">
+        <div className="sm">마이페이지</div>
+        <div className="sm">찜레시피</div>
+        <div className="sm">뭘로하지</div>
+        <div className="sm" onClick={() => navigate("/inquiryList")}>
+          고객문의
+        </div>
+        <div
+          className="sm"
+          onClick={() => {
+            logout();
+          }}
+        >
+          로그아웃
+        </div>
       </div>
 
       <div className="menu">

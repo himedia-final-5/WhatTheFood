@@ -48,14 +48,14 @@ public class InquiryController {
         return is.getMyInquiryView(id);
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/email/{loginUser}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Page<InquirySummary> getMyInquiryList(
-            @PathVariable("email")
-            String email,
+            @PathVariable("loginUser")
+            String loginUser,
             Pageable pageable
     ) {
-        return is.getMyInquiryList(email, pageable);
+        return is.getMyInquiryList(loginUser, pageable);
     }
 
     @DeleteMapping("/{id}")
