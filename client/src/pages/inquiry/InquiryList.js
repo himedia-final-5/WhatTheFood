@@ -36,7 +36,7 @@ function InquiryList() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [loginUser, page]);
 
   function onPageMove(page) {
     // 페이지 표시방식

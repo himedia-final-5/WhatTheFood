@@ -12,7 +12,7 @@ function EventCreateBanner() {
       alert("로그인이 필요합니다.");
       navigate("/login");
     }
-  }, [loginUser]);
+  }, [loginUser, navigate]);
 
   const [pass, setPass] = useState("");
   const [title, setTitle] = useState("");

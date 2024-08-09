@@ -8,20 +8,6 @@ function EventList() {
   const [pageable, setPageable] = useState({ number: 0, last: false }); //page시작과 끝
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // 이벤트 목록이 비어있으면 첫번째 페이지 데이터 요청
-    if (events.length === 0) {
-      onPageMove(0);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
-
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight - 10; // 스크롤이 가능한 크기
     const scrollTop = document.documentElement.scrollTop; // 현재 위치
@@ -58,6 +44,20 @@ function EventList() {
         console.error(err);
       });
   }
+
+  useEffect(() => {
+    // 이벤트 목록이 비어있으면 첫번째 페이지 데이터 요청
+    if (events.length === 0) {
+      onPageMove(0);
+    }
+  });
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   return (
     <div className="event_banner_wrap">

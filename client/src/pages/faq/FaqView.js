@@ -20,7 +20,8 @@ function FaqView() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [id]);
+
   return (
     <div>
       <br></br>
