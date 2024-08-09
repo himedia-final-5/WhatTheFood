@@ -161,17 +161,17 @@ function EventDetail() {
       </div>
 
       <div className="event_custom-button_wrap">
-        <a className="event_custom_button" onClick={sendLinkKakaoShare}>
+        <button className="event_custom_button" onClick={sendLinkKakaoShare}>
           <img src="/images/kakao.png" alt="KakaoShare" />
-        </a>
+        </button>
         <CopyToClipboard text={currentUrl}>
-          <a
+          <button
             type="submit"
             className="event_custom_button"
             onClick={() => setButtonPopup(true)}
           >
             <img src="/images/share_copy.png" alt="linkShare" />
-          </a>
+          </button>
         </CopyToClipboard>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
           <h3>링크 복사 완료</h3>
