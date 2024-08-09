@@ -5,6 +5,10 @@ import { CSSTransition } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../stores/userSlice";
 import { useLocation } from "react-router-dom";
+import cn from "../utils/cn";
+import Modal from "./util/Modal";
+import UndrawEatingTogether from "./vector/UndrawEatingTogether";
+import X from "./vector/X";
 
 function Header() {
   const dispatch = useDispatch();
@@ -32,19 +36,37 @@ function Header() {
       document.getElementById("submenu").style.visibility = "visible";
     }
   }
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   var submenuElement = document.getElementById("submenu");
-  //   if (submenuElement) {
-  //     submenuElement.style.visibility = "hidden";
-  //   }
+
   function logout() {
     dispatch(logoutAction());
     alert("로그아웃 되었습니다");
     navigate("/login");
   }
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   return (
     <div className="Header">
+      <Modal visible={showAuthModal} onOverlayClick={setShowAuthModal}>
+        <div
+          className={cn(
+            "flex w-full h-full m-auto",
+            "bg-white rounded-sm shadow-md shadow-neutral-400",
+            "md:w-[640px] md:h-[520px] md:flex-col-reverse"
+          )}
+        >
+          <X
+            className={cn(
+              "fixed cursor-pointer",
+              "top-0 right-0 m-2 p-2 h-12",
+              "md:hidden",
+              "text-2xl text-neutral-500"
+            )}
+            onClick={() => setShowAuthModal(false)}
+          />
+          <UndrawEatingTogether width="12rem" />
+          <div className="login">로그인/회원가입</div>
+        </div>
+      </Modal>
       <div className="top">
         <div
           className="toptoplogo"
@@ -71,6 +93,7 @@ function Header() {
                 submenu();
               } else {
                 navigate("/login");
+                setShowAuthModal(true);
               }
             }}
           >
