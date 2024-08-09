@@ -49,6 +49,7 @@ public class InquiryController {
         return is.getMyInquiryView(id);
     }
 
+
     @GetMapping("/username/{username}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Page<InquirySummary> getMyInquiryList(
