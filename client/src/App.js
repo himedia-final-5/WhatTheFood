@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/member/Login";
-import Main from "./pages/Main";
+import Main from "./pages/main/Main";
 import JoinForm from "./pages/member/JoinForm";
 import UpdateForm from "./pages/member/UpdateForm";
 import WriteNotice from "./pages/notice/WriteNotice";

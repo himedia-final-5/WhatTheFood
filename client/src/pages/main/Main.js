@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { useSelector } from "../stores";
+import { useSelector } from "../../stores";
 
 function Main() {
   const loginUser = useSelector((state) => state.user);
