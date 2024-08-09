@@ -29,7 +29,6 @@ function Header() {
             <input
               type="text"
               placeholder="레시피 검색"
-              style={{ fontSize: "30px" }}
             />
             &nbsp;
             <img id="img" src="/images/search.png" />
