@@ -3,7 +3,7 @@ package today.wtfood.server.controller;
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,14 +48,19 @@ public class InquiryController {
         return is.getMyInquiryView(id);
     }
 
-    @GetMapping("/email/{loginUser}")
+    @GetMapping("/email/{email}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Page<InquirySummary> getMyInquiryList(
-            @PathVariable("loginUser")
-            String loginUser,
-            Pageable pageable
+            @PathVariable("email")
+            String email,
+            @RequestParam(defaultValue = "0")
+            int pageNumber,
+            @RequestParam(defaultValue = "10")
+            int pageSize
+
     ) {
-        return is.getMyInquiryList(loginUser, pageable);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return is.getMyInquiryList(email, pageRequest);
     }
 
     @DeleteMapping("/{id}")

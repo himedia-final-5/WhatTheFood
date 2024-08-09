@@ -9,10 +9,10 @@ public record InquiryDto(
 
         String title,
         String content,
-        String username) {
+        String email) {
     public Inquiry toEntity() {
         return Inquiry.builder()
-                .username(username)
+                .email(email)
                 .title(title)
                 .content(content)
                 .build();

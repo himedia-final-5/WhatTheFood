@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../utils/jwtUtil";
 import { useSelector } from "react-redux";
 import "./InquiryWriteForm.css";
 
@@ -11,7 +11,7 @@ function InquiryWriteForm() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [appendImage, setAppendImage] = useState("");
+  const [image, setAppendImage] = useState("");
   const [appendImageSrc, setAppendImageSrc] = useState("");
   const [appendImageStyle, setAppendImageStyle] = useState({ display: "none" });
 
@@ -21,10 +21,10 @@ function InquiryWriteForm() {
     axios
       .post("/api/inquiries", {
         userid: loginUser.userid,
-        email: loginUser.email,
+        username: loginUser.username,
         title,
         content,
-        appendImage,
+        image,
       })
       .then(() => {
         navigate("/inquiryList");
@@ -39,7 +39,7 @@ function InquiryWriteForm() {
     formData.append("appendImage", e.target.files[0]);
 
     const result = await axios.post("/api/inquiries/fileupload", formData);
-    setAppendImage(result.data.image);
+    setAppendImage(result.data.appendImage);
 
     setAppendImageSrc(`http://localhost:8070/images/${result.data.image}`);
     setAppendImageStyle({ width: "200px", height: "200px", display: "block" });

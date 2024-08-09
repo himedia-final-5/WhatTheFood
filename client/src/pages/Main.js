@@ -12,16 +12,16 @@ function Main() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get(`/api/inquiries`)
-      .then((result) => {
-        setInquiryList(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`/api/inquiries`)
+  //     .then((result) => {
+  //       setInquiryList(result.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }, []);
 }
 
 export default Main;

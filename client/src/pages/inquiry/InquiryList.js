@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./InquiryList.css";
-import Pagination from "../../components/Pagination";
+//import Pagination from "../../components/Pagination";
 import axios from "../../utils/jwtUtil";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,29 +8,51 @@ import { useDispatch, useSelector } from "react-redux";
 function InquiryList() {
   const loginUser = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const [pageData, setPageData] = useState({
-    content: [],
-    number: 0,
-    totalPages: 1,
-    first: true,
-    last: true,
-  });
 
-  const setPage = (page) => {
-    axios
-      .get(`/api/inquiries/email/user01`, {
-        params: { pageNumber: page },
-      })
-      .then((result) => setPageData(result.data))
-      .catch((err) => console.error(err));
-  };
+  const [inquiryList, setInquiryList] = useState([]);
+  const [paging, setPaging] = useState({});
+  const [pageNumbers, setPageNumbers] = useState([]);
+  const [page, setPage] = useState("");
+  function updatePage(data) {
+    setInquiryList(data.content);
+    setPaging({
+      number: data.number,
+      totalPages: data.totalPages,
+      first: data.first,
+      last: data.last,
+    });
+  }
 
   useEffect(() => {
-    if (pageData.content.length === 0) {
-      setPage(pageData.number);
-    }
+    axios
+      .get(`/api/inquiries/email/user01@wtfood.today`, {
+        params: {
+          pageNumber: page,
+        },
+      })
+      .then((result) => {
+        updatePage(result.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
+  function onPageMove(page) {
+    // 페이지 표시방식
+    axios
+      .get(`/api/inquiries/email/user01@wtfood.today`, {
+        params: {
+          pageNumber: page,
+        },
+      })
+      .then((result) => {
+        updatePage(result.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
   return (
     <div>
       <br></br>
@@ -55,7 +77,7 @@ function InquiryList() {
           </div>
           <br></br>
 
-          {pageData.content.map((inquirylist, idx) => {
+          {inquiryList.map((inquirylist, idx) => {
             return (
               <div
                 className="iqitem"
@@ -79,7 +101,49 @@ function InquiryList() {
             );
           })}
           <br></br>
-          <Pagination pageData={pageData} setPage={setPage} />
+          <div id="paging" style={{ textAlign: "center", padding: "10px" }}>
+            {!paging.first ? (
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  onPageMove(paging.number - 1);
+                }}
+              >
+                {" "}
+                ◀{" "}
+              </span>
+            ) : (
+              <span></span>
+            )}
+            {pageNumbers.map((page, idx) => (
+              <span
+                key={idx}
+                style={{
+                  cursor: "pointer",
+                  fontWeight: paging.number === page ? "bold" : "normal",
+                  margin: "0 5px",
+                }}
+                onClick={() => {
+                  onPageMove(page);
+                }}
+              >
+                {page}
+              </span>
+            ))}
+            {!paging.last ? (
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  onPageMove(paging.number + 1);
+                }}
+              >
+                &nbsp;▶&nbsp;
+              </span>
+            ) : (
+              <></>
+            )}
+          </div>
+          <br></br>
           <br></br>
         </div>
       </div>

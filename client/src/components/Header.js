@@ -87,7 +87,7 @@ function Header() {
         <div className="sm">마이페이지</div>
         <div className="sm">찜레시피</div>
         <div className="sm">뭘로하지</div>
-        <div className="sm" onClick={() => navigate("/inquiryList")}>
+        <div className="sm" onClick={() => navigate(`/inquiryList`)}>
           고객문의
         </div>
         <div
