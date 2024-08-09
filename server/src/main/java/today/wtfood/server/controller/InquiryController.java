@@ -3,8 +3,9 @@ package today.wtfood.server.controller;
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,15 +56,10 @@ public class InquiryController {
     public Page<InquirySummary> getMyInquiryList(
             @PathVariable("username")
             String username,
-            @RequestParam(defaultValue = "0")
-            int pageNumber,
-            @RequestParam(defaultValue = "10")
-            int pageSize
-
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
     ) {
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        pageRequest.withSort(Sort.Direction.DESC, "id");
-        return is.getMyInquiryList(username, pageRequest);
+        return is.getMyInquiryList(username, pageable);
     }
 
     @DeleteMapping("/{id}")

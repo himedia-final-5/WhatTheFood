@@ -2,7 +2,9 @@ package today.wtfood.server.controller;
 
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
@@ -25,20 +27,10 @@ public class NoticeController {
     @GetMapping("")
     @PreAuthorize("permitAll()")
     public Page<NoticeSummary> getNotices(
-            @RequestParam(defaultValue = "0")
-            int pageNumber,
-            @RequestParam(defaultValue = "10")
-            int pageSize
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
     ) {
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        return ns.getNotices(pageRequest);
-
-        // PageRequest.of(pageNumber, pageSize) : Spring Data JPA 에서 페이지네이션(pagination)을 구현할 때 사용하는 메서드
-        // 데이터의 큰 집합을 여러 페이지로 나누어 관리할 수 있게 해줍니다.
-        // 이 객체는 데이터를 조회할 때 어떤 페이지를 가져올지, 그리고 각 페이지에 얼마나 많은 데이터를 포함할지를 정의
-        // pageNumber : 조회하고자 하는 페이지 번호를 지정
-        // pageSize: 각 페이지에 포함될 데이터의 개수를 지정
-
+        return ns.getNotices(pageable);
     }
 
     @PostMapping("")

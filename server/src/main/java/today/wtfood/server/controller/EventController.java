@@ -2,7 +2,7 @@ package today.wtfood.server.controller;
 
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -34,14 +34,9 @@ public class EventController {
     @GetMapping("")
     @PreAuthorize("permitAll()")
     public Page<EventSummary> getEventList(
-            @RequestParam(value = "pageNumber", defaultValue = "0")
-            int pageNumber,
-
-            @RequestParam(value = "pageSize", defaultValue = "10")
-            int pageSize
+            Pageable pageable
     ) {
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        return es.getEventList(pageRequest);
+        return es.getEventList(pageable);
     }
 
     //이벤트 수정 //수정생성용 Dto사용

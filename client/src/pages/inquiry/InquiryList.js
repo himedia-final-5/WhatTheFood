@@ -27,9 +27,7 @@ function InquiryList() {
   useEffect(() => {
     axios
       .get(`/api/inquiries/username/${loginUser.username}`, {
-        params: {
-          pageNumber: page,
-        },
+        params: { page },
       })
       .then((result) => {
         updatePage(result.data);
@@ -43,9 +41,7 @@ function InquiryList() {
     // 페이지 표시방식
     axios
       .get(`/api/inquiries/username/${loginUser.username}`, {
-        params: {
-          pageNumber: page,
-        },
+        params: { page },
       })
       .then((result) => {
         updatePage(result.data);

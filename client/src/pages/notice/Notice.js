@@ -32,11 +32,7 @@ function Notice() {
   function onPageMove(page) {
     // 페이지 표시방식
     axios
-      .get(`/api/notices`, {
-        params: {
-          pageNumber: page,
-        },
-      })
+      .get(`/api/notices`, { params: { page } })
       .then((result) => {
         updatePage(result.data);
       })
