@@ -1,27 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { UndrawEatingTogether } from "components/asset";
 
-import { useSelector } from "../../stores";
-
-function Main() {
-  const loginUser = useSelector((state) => state.user);
-  const [word, setWord] = useState(null);
-
-  const [inquiryList, setInquiryList] = useState([]);
-
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/inquiries`)
-  //     .then((result) => {
-  //       setInquiryList(result.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, []);
+export default function Main() {
+  return (
+    <div className="flex w-full h-full items-center justify-center">
+      <UndrawEatingTogether className="max-w-full max-h-full h-56 md:h-72" />
+    </div>
+  );
 }
-
-export default Main;
