@@ -7,34 +7,15 @@ import { logoutAction } from "../../stores/userSlice";
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loginUser = useSelector((state) => state.user);
   const location = useLocation();
-  let a = false;
+  const loginUser = useSelector((state) => state.user);
+  const [submenuVisible, setSubmenuVisible] = useState(false);
 
+  console.log("subMenuVisible", submenuVisible);
   useEffect(() => {
-    if (a == false) {
-      a = true;
-      document.getElementById("submenu").style.visibility = "hidden";
-    } else {
-      a = false;
-      document.getElementById("submenu").style.visibility = "visible";
-    }
+    setSubmenuVisible(false);
   }, [location]);
 
-  function submenu() {
-    if (a == true) {
-      a = false;
-      document.getElementById("submenu").style.visibility = "hidden";
-    } else {
-      a = true;
-      document.getElementById("submenu").style.visibility = "visible";
-    }
-  }
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   var submenuElement = document.getElementById("submenu");
-  //   if (submenuElement) {
-  //     submenuElement.style.visibility = "hidden";
-  //   }
   function logout() {
     dispatch(logoutAction());
     alert("로그아웃 되었습니다");
@@ -66,7 +47,7 @@ function Header() {
             className="toptopprofile"
             onClick={() => {
               if (loginUser) {
-                submenu();
+                setSubmenuVisible(!submenuVisible);
               } else {
                 navigate("/login");
               }
@@ -77,7 +58,7 @@ function Header() {
         </div>
       </div>
 
-      <div id="submenu">
+      <div id="submenu" className={submenuVisible ? "" : "!hidden"}>
         <div className="sm">마이페이지</div>
         <div className="sm">찜레시피</div>
         <div className="sm">뭘로하지</div>
