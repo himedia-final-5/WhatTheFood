@@ -13,6 +13,7 @@ function InquiryList() {
   const [paging, setPaging] = useState({});
   const [pageNumbers, setPageNumbers] = useState([]);
   const [page, setPage] = useState("");
+
   function updatePage(data) {
     setInquiryList(data.content);
     setPaging({
@@ -25,7 +26,7 @@ function InquiryList() {
 
   useEffect(() => {
     axios
-      .get(`/api/inquiries/email/user01@wtfood.today`, {
+      .get(`/api/inquiries/username/${loginUser.username}`, {
         params: {
           pageNumber: page,
         },
@@ -41,7 +42,7 @@ function InquiryList() {
   function onPageMove(page) {
     // 페이지 표시방식
     axios
-      .get(`/api/inquiries/email/user01@wtfood.today`, {
+      .get(`/api/inquiries/username/${loginUser.username}`, {
         params: {
           pageNumber: page,
         },

@@ -32,7 +32,7 @@ public class FaqController {
     public Page<Faq> getFaqList(
 
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize
     ) {
 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);

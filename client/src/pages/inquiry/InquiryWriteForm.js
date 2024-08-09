@@ -20,7 +20,8 @@ function InquiryWriteForm() {
   function onSubmit() {
     axios
       .post("/api/inquiries", {
-        userid: loginUser.userid,
+        // userid: loginUser.userid,
+        // email: loginUser.username,
         username: loginUser.username,
         title,
         content,
