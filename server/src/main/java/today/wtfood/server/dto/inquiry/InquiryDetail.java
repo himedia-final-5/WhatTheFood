@@ -17,4 +17,6 @@ public interface InquiryDetail {
     String getAnswer();
 
     Timestamp getDate();
+
+    String getUsername();
 }
