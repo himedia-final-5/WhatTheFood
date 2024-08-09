@@ -8,7 +8,7 @@ import cn from "../../utils/cn";
  * @property {React.ReactNode} children 자식 노드
  */
 /** @type {function(Props): React.JSX.Element} */
-function Modal({ children, visible, onOverlayClick }) {
+export default function Modal({ children, visible, onOverlayClick }) {
   /** @type {React.MutableRefObject<HTMLDivElement>} */
   const modalRef = useRef(null);
   const [closed, setClosed] = useState(true);
@@ -62,5 +62,3 @@ function Modal({ children, visible, onOverlayClick }) {
     </div>
   );
 }
-
-export default Modal;
