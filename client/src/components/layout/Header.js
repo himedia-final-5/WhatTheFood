@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
 import "./Header.css";
-import { useNavigate } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../../stores/userSlice";
-import { useLocation } from "react-router-dom";
 
 function Header() {
   const dispatch = useDispatch();

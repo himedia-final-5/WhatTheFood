@@ -3,8 +3,8 @@ import "./JoinForm.css";
 import { useNavigate } from "react-router-dom";
 
 function UpdateForm() {
-  const [userid, setUserid] = useState("");
-  const [email, setEmail] = useState("");
+  const [userid] = useState("");
+  const [email] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {});

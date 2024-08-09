@@ -19,7 +19,6 @@ function EventDetail() {
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
 
-
   useEffect(() => {
     jaxios
       .get(`/api/events/${id}`)

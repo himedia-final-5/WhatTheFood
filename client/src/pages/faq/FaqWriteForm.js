@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import "./FaqWriteForm.css";
+import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "../../stores";
-import "./FaqWriteForm.css";
 
 import { useNavigate } from "react-router-dom";
 
 function InquiryWriteForm() {
-  const [word, setWord] = useState(null);
   const loginUser = useSelector((state) => state.user);
 
   const [title, setTitle] = useState("");

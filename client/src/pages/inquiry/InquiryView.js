@@ -3,15 +3,12 @@ import axios from "../../utils/jwtUtil";
 import "./InquiryView.css";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 function InquiryView() {
-  const loginUser = useSelector((state) => state.user);
-  const [word, setWord] = useState(null);
-  const [qnaView, setQnaView] = useState({});
-
-  const navigate = useNavigate();
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [qnaView, setQnaView] = useState({});
 
   useEffect(() => {
     axios
@@ -23,7 +20,7 @@ function InquiryView() {
       .catch((err) => {
         console.error(err);
       });
-  }, [word]);
+  }, [id]);
 
   return (
     <div>

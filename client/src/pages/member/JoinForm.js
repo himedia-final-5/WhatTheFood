@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
 import "./JoinForm.css";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function JoinForm() {
   const navigate = useNavigate();
-
-  useEffect(() => {});
 
   return (
     <div className="body">

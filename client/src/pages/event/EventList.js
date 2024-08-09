@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "../../stores";
-import axios from "axios";
 import jaxios from "../../utils/jwtUtil";
 import "./EventList.css";
 
 function EventList() {
-  const loginUser = useSelector((state) => state.user);
   const [events, setEvents] = useState([]);
   const [pageable, setPageable] = useState({ number: 0, last: false }); //page시작과 끝
   const navigate = useNavigate();

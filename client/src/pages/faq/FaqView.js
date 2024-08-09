@@ -5,7 +5,6 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 function FaqView() {
-  const [word, setWord] = useState(null);
   const [faqiew, setFaqView] = useState({});
 
   const navigate = useNavigate();

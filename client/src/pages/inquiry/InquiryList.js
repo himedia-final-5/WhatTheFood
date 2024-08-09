@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
 import "./InquiryList.css";
-//import Pagination from "../../components/Pagination";
+import React, { useState, useEffect } from "react";
 import axios from "../../utils/jwtUtil";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function InquiryList() {
   const loginUser = useSelector((state) => state.user);
@@ -11,8 +10,8 @@ function InquiryList() {
 
   const [inquiryList, setInquiryList] = useState([]);
   const [paging, setPaging] = useState({});
-  const [pageNumbers, setPageNumbers] = useState([]);
-  const [page, setPage] = useState("");
+  const [pageNumbers] = useState([]);
+  const [page] = useState("");
 
   function updatePage(data) {
     setInquiryList(data.content);

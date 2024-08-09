@@ -2,14 +2,11 @@
 import { useEffect, useState } from "react";
 import "./Notice.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function Notice() {
-  const navigate = useNavigate();
-  const [word, setWord] = useState(null);
   const [noticeList, setNoticeList] = useState([]);
   const [paging, setPaging] = useState({});
-  const [pageNumbers, setPageNumbers] = useState([]);
+  const [pageNumbers] = useState([]);
   function updatePage(data) {
     setNoticeList(data.content);
     setPaging({
