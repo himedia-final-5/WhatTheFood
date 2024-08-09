@@ -4,7 +4,6 @@ import { useSelector } from "../../stores";
 import axios from "axios";
 import jaxios from "../../utils/jwtUtil";
 import "./EventList.css";
-import "../../styles/Reset.css";
 
 function EventList() {
   const loginUser = useSelector((state) => state.user);

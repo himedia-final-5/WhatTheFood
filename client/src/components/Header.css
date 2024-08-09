@@ -5,14 +5,6 @@
   margin-bottom: 100px;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Gugi&family=Nanum+Pen+Script&display=swap");
-/* Reset.css */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 /* EventDetail.css */
 .top {
   display: flex;
