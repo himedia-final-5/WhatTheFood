@@ -1,15 +1,14 @@
 const Pagination = ({ pageData, setPage }) => {
   const pageNumbers = Array.from(
     { length: pageData.totalPages },
-    (_, index) => index + 1,
+    (_, index) => index + 1
   );
 
   return (
     <nav aria-label="pagination">
       <ul className="flex items-center -space-x-px h-8 text-sm">
         <li>
-          <a
-            href="#"
+          <button
             className={
               "flex items-center justify-center px-3 h-8 ms-0 leading-tight " +
               "border border-e-0 border-gray-300 rounded-s-lg " +
@@ -35,13 +34,12 @@ const Pagination = ({ pageData, setPage }) => {
                 d="M5 1 1 5l4 4"
               />
             </svg>
-          </a>
+          </button>
         </li>
 
         {pageNumbers.map((pageNumber) => (
           <li key={pageNumber}>
-            <a
-              href="#"
+            <button
               className={
                 "flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700" +
                 (pageData.number === pageNumber - 1
@@ -53,12 +51,11 @@ const Pagination = ({ pageData, setPage }) => {
               }
             >
               {pageNumber}
-            </a>
+            </button>
           </li>
         ))}
         <li aria-label="next-page">
-          <a
-            href="#"
+          <button
             className={
               "flex items-center justify-center px-3 h-8 leading-tight " +
               "border border-gray-300 rounded-e-lg " +
@@ -84,7 +81,7 @@ const Pagination = ({ pageData, setPage }) => {
                 d="m1 9 4-4-4-4"
               />
             </svg>
-          </a>
+          </button>
         </li>
       </ul>
     </nav>
