@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../stores/userSlice";
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginUser = useSelector((state) => state.user);
-  const [show, setShow] = useState(false);
-
+  const location = useLocation();
   let a = false;
+
+  useEffect(() => {
+    if (a == false) {
+      a = true;
+      document.getElementById("submenu").style.visibility = "hidden";
+    } else {
+      a = false;
+      document.getElementById("submenu").style.visibility = "visible";
+    }
+  }, [location]);
+
   function submenu() {
     if (a == true) {
       a = false;
@@ -21,13 +32,11 @@ function Header() {
       document.getElementById("submenu").style.visibility = "visible";
     }
   }
-  document.addEventListener("DOMContentLoaded", function () {
-    var submenuElement = document.getElementById("submenu");
-    if (submenuElement) {
-      submenuElement.style.visibility = "hidden";
-    }
-  });
-
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   var submenuElement = document.getElementById("submenu");
+  //   if (submenuElement) {
+  //     submenuElement.style.visibility = "hidden";
+  //   }
   function logout() {
     dispatch(logoutAction());
     alert("로그아웃 되었습니다");
