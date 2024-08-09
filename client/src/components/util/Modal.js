@@ -20,7 +20,7 @@ export default function Modal({ children, visible, onOverlayClick }) {
         onOverlayClick?.(false);
       }
     },
-    [onOverlayClick]
+    [onOverlayClick],
   );
 
   // visible 변경 시 closed 상태 변경
@@ -40,7 +40,7 @@ export default function Modal({ children, visible, onOverlayClick }) {
         "bg-white transition-[background-color_backdrop-filter] animate-ease-spring,",
         visible
           ? "animate-fade-in bg-opacity-5 backdrop-blur-sm"
-          : "animate-fade-out bg-opacity-0 backdrop-blur-none"
+          : "animate-fade-out bg-opacity-0 backdrop-blur-none",
       )}
     >
       <div
@@ -48,7 +48,7 @@ export default function Modal({ children, visible, onOverlayClick }) {
         ref={modalRef}
         className={cn(
           "flex items-center justify-center w-full h-full m-0 animate-ease-spring",
-          visible ? "animate-pop-up-in" : "animate-pop-up-out"
+          visible ? "animate-pop-up-in" : "animate-pop-up-out",
         )}
         onClick={handleClickOverlay}
         onAnimationEnd={({ animationName }) => {

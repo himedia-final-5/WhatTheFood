@@ -65,7 +65,7 @@ module.exports = {
             animationTimingFunction: value,
           }),
         },
-        { values: theme("transitionTimingFunction") }
+        { values: theme("transitionTimingFunction") },
       );
     }),
   ],
