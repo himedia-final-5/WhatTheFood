@@ -1,6 +1,5 @@
-// import React, {useState, useEffect} from 'react'
-import { useEffect, useState } from "react";
 import "./Notice.css";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function Notice() {

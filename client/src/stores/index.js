@@ -18,7 +18,7 @@ const reducer = persistReducer(
   },
   combineReducers({
     user: userSlice.reducer,
-  })
+  }),
 );
 
 // 스토어에 configureStore를 사용해 리듀서를 등록합니다.

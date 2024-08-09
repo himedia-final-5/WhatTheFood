@@ -1,7 +1,7 @@
 const Pagination = ({ pageData, setPage }) => {
   const pageNumbers = Array.from(
     { length: pageData.totalPages },
-    (_, index) => index + 1
+    (_, index) => index + 1,
   );
 
   return (

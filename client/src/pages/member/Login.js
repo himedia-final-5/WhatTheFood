@@ -1,9 +1,9 @@
+import "./Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "../../stores";
 import { loginAction } from "../../stores/userSlice";
-import "./Login.css";
 
 function Login() {
   const [username, setUserid] = useState("");
@@ -25,7 +25,7 @@ function Login() {
       let result = await axios.post(
         "/api/auth/login",
         { username, password },
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } },
       );
       dispatch(loginAction(result.data));
       navigate("/");

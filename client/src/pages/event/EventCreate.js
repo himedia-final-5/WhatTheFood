@@ -1,7 +1,7 @@
+import "./EventUpCreate.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./EventUpCreate.css";
 import { useSelector } from "../../stores";
 
 function EventCreateBanner() {
@@ -23,10 +23,10 @@ function EventCreateBanner() {
   const [contentsavefilename, setContentSaveFileName] = useState("");
   const [imgStyle, setImgStyle] = useState({ display: "none" });
   const [bannerimgSrc, setBannerImgSrc] = useState(
-    "http://via.placeholder.com/800x213"
+    "http://via.placeholder.com/800x213",
   );
   const [contentimgSrc, setContentImgSrc] = useState(
-    "http://via.placeholder.com/800x2000"
+    "http://via.placeholder.com/800x2000",
   );
 
   function onSubmit() {
@@ -62,10 +62,10 @@ function EventCreateBanner() {
     setContentImages(result.data.contentImages);
 
     setBannerImgSrc(
-      `http://localhost:8070/images/${result.data.bannersavefilename}`
+      `http://localhost:8070/images/${result.data.bannersavefilename}`,
     );
     setContentImgSrc(
-      `http://localhost:8070/images/${result.data.contentsavefilename}`
+      `http://localhost:8070/images/${result.data.contentsavefilename}`,
     );
     setImgStyle({ width: "800px", display: "block" });
   }

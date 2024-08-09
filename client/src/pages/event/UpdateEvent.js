@@ -1,7 +1,7 @@
+import "./EventUpCreate.css";
 import React, { useState, useEffect } from "react";
 import axios from "../../utils/jwtUtil";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "./EventUpCreate.css";
 import ImageUploadInput from "../../components/util/ImageUploadInput";
 import { useSelector } from "../../stores";
 import useInputs from "../../hooks/useInputs";
@@ -86,7 +86,7 @@ function UpdateEvent() {
           imageSrc={event.bannerImage}
           className={cn(
             "flex flex-col items-center justify-center w-full overflow-hidden",
-            "border-2 border-gray-300 border-dashed rounded-lg"
+            "border-2 border-gray-300 border-dashed rounded-lg",
           )}
         />
       </div>
@@ -100,7 +100,7 @@ function UpdateEvent() {
                 key={index}
                 className={cn(
                   "flex relative items-center justify-center w-full",
-                  "border-2 border-gray-300 border-dashed rounded-lg"
+                  "border-2 border-gray-300 border-dashed rounded-lg",
                 )}
               >
                 <button
@@ -108,13 +108,13 @@ function UpdateEvent() {
                   className={cn(
                     "absolute top-2 right-2 w-8 h-8 rounded-md transition-colors",
                     "text-2xl text-red-500 hover:text-red-700",
-                    "bg-red-300 hover:bg-red-500"
+                    "bg-red-300 hover:bg-red-500",
                   )}
                   onClick={() =>
                     setEvent({
                       ...event,
                       contentImages: event.contentImages.filter(
-                        (_, i) => i !== index
+                        (_, i) => i !== index,
                       ),
                     })
                   }
@@ -126,13 +126,13 @@ function UpdateEvent() {
                     setEvent({
                       ...event,
                       contentImages: event.contentImages.map((image, i) =>
-                        i === index ? contentImage : image
+                        i === index ? contentImage : image,
                       ),
                     })
                   }
                   imageSrc={contentImage}
                   className={cn(
-                    "flex flex-col items-center justify-center w-full h-full overflow-hidden"
+                    "flex flex-col items-center justify-center w-full h-full overflow-hidden",
                   )}
                 />
               </div>
@@ -148,7 +148,7 @@ function UpdateEvent() {
               "w-full py-2 rounded-md transition-colors",
               "text-center items-center",
               "text-2xl text-green-700 hover:text-green-200",
-              "bg-green-300 hover:bg-green-500"
+              "bg-green-300 hover:bg-green-500",
             )}
           >
             이미지 추가 +

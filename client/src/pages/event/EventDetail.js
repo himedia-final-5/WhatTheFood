@@ -1,10 +1,10 @@
+import "./EventDetail.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import jaxios from "../../utils/jwtUtil";
 import Popup from "./PopUp";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import "./EventDetail.css";
 
 function EventDetail() {
   const navigate = useNavigate();

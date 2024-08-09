@@ -1,7 +1,7 @@
+import "./EventList.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jaxios from "../../utils/jwtUtil";
-import "./EventList.css";
 
 function EventList() {
   const [events, setEvents] = useState([]);

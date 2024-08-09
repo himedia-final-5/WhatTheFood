@@ -1,7 +1,6 @@
+import "./InquiryView.css";
 import React, { useState, useEffect } from "react";
 import axios from "../../utils/jwtUtil";
-import "./InquiryView.css";
-
 import { useNavigate, useParams } from "react-router-dom";
 
 function InquiryView() {
