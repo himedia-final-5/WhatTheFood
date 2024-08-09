@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import jaxios from "../../utils/jwtUtil";
+import Popup from "./PopUp";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./EventDetail.css";
 import "../../styles/Reset.css";
-import jaxios from "../../utils/jwtUtil";
 
 function EventDetail() {
   const navigate = useNavigate();
@@ -15,6 +17,9 @@ function EventDetail() {
     contentImages: [],
     pass: "",
   });
+  const currentUrl = window.location.href;
+  const [buttonPopup, setButtonPopup] = useState(false);
+
 
   useEffect(() => {
     jaxios
@@ -56,17 +61,41 @@ function EventDetail() {
       return;
     }
 
-    if (!window.Kakao.Link || !window.Kakao.Link.sendDefault) {
+    if (!window.Kakao.Share || !window.Kakao.Share.sendDefault) {
       console.error("Kakao.Link.sendDefault is not available");
       return;
     }
 
-    window.Kakao.Link.sendDefault({
+    //   const templateId = 110915;
+    //   // 이벤트별 첫 번째 이미지 선택 (혹은 다른 로직으로 이미지 선택 가능)
+
+    //   const templateArgs = {
+    //     title: events.title,
+    //     description: "이벤트 설명을 여기에 추가하세요",
+    //     imageUrl:
+    //       events.contentImages.length > 0
+    //         ? events.contentImages[0]
+    //         : "기본 이미지 URL",
+    //     webUrl: `http://localhost:3000/events/${events.id}`,
+    //     mobileWebUrl: `http://localhost:3000/events/${events.id}`,
+    //   };
+
+    //   window.Kakao.Share.sendCustom({
+    //     templateId: templateId,
+    //     templateArgs: templateArgs,
+    //   });
+    // };
+
+    const imageUrl =
+      events.contentImages.length > 0
+        ? events.contentImages[0]
+        : "기본 이미지 URL";
+
+    window.Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
         title: events.title,
-        description: "내용",
-        imageUrl: "원하는 이미지",
+        imageUrl: imageUrl,
         link: {
           mobileWebUrl: `http://localhost:3000/events/${events.id}`,
           webUrl: `http://localhost:3000/events/${events.id}`,
@@ -134,24 +163,21 @@ function EventDetail() {
       </div>
 
       <div className="event_custom-button_wrap">
-        <button className="event_custom-button" onClick={sendLinkKakaoShare}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 22 24"
+        <a className="event_custom_button" onClick={sendLinkKakaoShare}>
+          <img src="/images/kakao.png" alt="KakaoShare" />
+        </a>
+        <CopyToClipboard text={currentUrl}>
+          <a
+            type="submit"
+            className="event_custom_button"
+            onClick={() => setButtonPopup(true)}
           >
-            <rect width="24" height="24" fill="white" />
-            <path
-              d="M7 14.5L12 9.5L17 14.5"
-              stroke="#000000"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          카카오톡 공유하기
-        </button>
+            <img src="/images/share_copy.png" alt="linkShare" />
+          </a>
+        </CopyToClipboard>
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+          <h3>링크 복사 완료</h3>
+        </Popup>
       </div>
     </div>
   );

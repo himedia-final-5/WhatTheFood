@@ -17,6 +17,7 @@ import FaqWriteForm from "./pages/inquiry/FaqWriteForm"; //임시
 import InquiryList from "./pages/inquiry/InquiryList"; // 임시
 import InquiryView from "./pages/inquiry/InquiryView"; // 임시
 import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm"; //임시
+import Popup from "./pages/events/PopUp";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/createEventBanner" element={<EventCreateBanner />} />
         <Route path="/updateEvent/:id" element={<UpdateEvent />} />
+        <Route path="/popUp" element={<Popup/>} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/faqView/:id" element={<FaqView />} />
 
