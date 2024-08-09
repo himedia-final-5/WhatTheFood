@@ -177,7 +177,6 @@ function EventDetail() {
         </CopyToClipboard>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
           <h3>링크 복사 완료</h3>
-          <p>My Link</p>
         </Popup>
       </div>
     </div>

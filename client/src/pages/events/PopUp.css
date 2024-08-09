@@ -18,7 +18,7 @@
   padding: 30px; /* 넉넉한 패딩 */
   border-radius: 12px; /* 부드러운 모서리 */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* 부드러운 그림자 */
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
   text-align: center;
   position: relative;
@@ -50,12 +50,14 @@
 }
 
 .close-btn {
+  width: 40px;
+  margin: 0 auto;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  bottom:25px;
+  left: 180px;
   background: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #ccc;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -64,4 +66,3 @@
 .close-btn:hover {
   color: #666; /* 닫기 버튼 호버 시 색상 변화 */
 }
-

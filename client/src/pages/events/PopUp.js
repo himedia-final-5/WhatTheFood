@@ -5,9 +5,9 @@ function Popup(props) {
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
-        <button className="close-btn" onClick={() => props.setTrigger(false)}>
+        <a className="close-btn" onClick={() => props.setTrigger(false)}>
           닫기
-        </button>
+        </a>
         {props.children}
       </div>
     </div>
