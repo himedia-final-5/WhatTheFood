@@ -11,7 +11,8 @@ function Header() {
   const loginUser = useSelector((state) => state.user);
   const [show, setShow] = useState(false);
 
-  function submenu(a) {
+  let a = false;
+  function submenu() {
     if (a == true) {
       a = false;
       document.getElementById("submenu").style.visibility = "hidden";
@@ -62,7 +63,7 @@ function Header() {
             className="toptopprofile"
             onClick={() => {
               if (loginUser) {
-                submenu(false);
+                submenu();
               } else {
                 navigate("/login");
               }
