@@ -6,4 +6,9 @@ package today.wtfood.server.dto;
 public record GeneratedId<T>(
         T id
 ) {
+
+    public static <T> GeneratedId<T> of(T id) {
+        return new GeneratedId<>(id);
+    }
+
 }

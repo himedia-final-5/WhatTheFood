@@ -25,7 +25,7 @@ public class FaqController {
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public GeneratedId<Long> insertFaq(@RequestBody FaqDto faq) {
-        return new GeneratedId<>(fs.insertFaq(faq.toEntity()).getId());
+        return GeneratedId.of(fs.insertFaq(faq.toEntity()).getId());
     }
 
     @GetMapping("")

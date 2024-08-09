@@ -35,8 +35,8 @@ public class NoticeController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    GeneratedId<Long> writeNotice(@RequestBody Notice notice) {
-        return new GeneratedId<>(ns.writeNotice(notice));
+    public GeneratedId<Long> writeNotice(@RequestBody Notice notice) {
+        return GeneratedId.of(ns.writeNotice(notice));
     }
 
     @GetMapping("/{id}")

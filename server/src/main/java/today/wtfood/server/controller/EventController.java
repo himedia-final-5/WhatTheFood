@@ -69,7 +69,7 @@ public class EventController {
     @PostMapping("/")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public GeneratedId<Long> createEvent(@RequestBody EventDto event) {
-        return new GeneratedId<>(es.createEvent(event).getId());
+        return GeneratedId.of(es.createEvent(event).getId());
     }
 
 }

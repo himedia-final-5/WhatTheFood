@@ -34,7 +34,7 @@ public class MemberController {
             @Validated
             MemberCreateRequest requestData
     ) {
-        return new GeneratedId<>(memberService.createMember(requestData));
+        return GeneratedId.of(memberService.createMember(requestData));
     }
 
     @GetMapping("")

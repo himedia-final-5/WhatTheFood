@@ -36,7 +36,7 @@ public class InquiryController {
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_USER')")
     public GeneratedId<Long> insertInquiry(@RequestBody InquiryDto inquiry) {
-        return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
+        return GeneratedId.of(is.insertInquiry(inquiry.toEntity()).getId());
     }
 
     @GetMapping("")
