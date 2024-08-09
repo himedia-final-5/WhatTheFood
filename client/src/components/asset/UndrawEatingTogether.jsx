@@ -1,7 +1,7 @@
 import React from "react";
 
-/** @type {function(import("react").SVGProps): React.JSX.Element} */
-function UndrawEatingTogether(props) {
+/** @type {function(React.SVGProps<SVGElement): React.JSX.Element} */
+export default function UndrawEatingTogether(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -359,5 +359,3 @@ function UndrawEatingTogether(props) {
     </svg>
   );
 }
-
-export default UndrawEatingTogether;

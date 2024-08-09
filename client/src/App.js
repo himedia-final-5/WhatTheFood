@@ -5,8 +5,8 @@ import JoinForm from "./pages/member/JoinForm";
 import UpdateForm from "./pages/member/UpdateForm";
 import WriteNotice from "./pages/notice/WriteNotice";
 import Notice from "./pages/notice/Notice";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 import EventList from "./pages/events/EventList";
 import EventDetail from "./pages/events/EventDetail";
 import EventCreateBanner from "./pages/events/EventCreate";
@@ -34,7 +34,7 @@ function App() {
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/createEventBanner" element={<EventCreateBanner />} />
         <Route path="/updateEvent/:id" element={<UpdateEvent />} />
-        <Route path="/popUp" element={<Popup/>} />
+        <Route path="/popUp" element={<Popup />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/faqView/:id" element={<FaqView />} />
 

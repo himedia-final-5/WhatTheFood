@@ -3,7 +3,7 @@ import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutAction } from "../stores/userSlice";
+import { logoutAction } from "../../stores/userSlice";
 import { useLocation } from "react-router-dom";
 
 function Header() {
