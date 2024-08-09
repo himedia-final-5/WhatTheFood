@@ -7,10 +7,10 @@ import WriteNotice from "./pages/notice/WriteNotice";
 import Notice from "./pages/notice/Notice";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import EventList from "./pages/events/EventList";
-import EventDetail from "./pages/events/EventDetail";
-import EventCreateBanner from "./pages/events/EventCreate";
-import UpdateEvent from "./pages/events/UpdateEvent";
+import EventList from "./pages/event/EventList";
+import EventDetail from "./pages/event/EventDetail";
+import EventCreateBanner from "./pages/event/EventCreate";
+import UpdateEvent from "./pages/event/UpdateEvent";
 import Faq from "./pages/inquiry/Faq";
 import FaqView from "./pages/inquiry/FaqView";
 import FaqWriteForm from "./pages/inquiry/FaqWriteForm"; //임시
