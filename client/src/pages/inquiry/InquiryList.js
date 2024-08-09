@@ -71,7 +71,7 @@ function InquiryList() {
                 navigate(`/inquiryWriteForm/`);
               }}
             >
-              <img src="/images/inquirywrite.png" />
+              <img src="/images/inquirywrite.png" alt="write button" />
               문의하기
             </div>
           </div>

@@ -50,17 +50,17 @@ function Header() {
             navigate("/");
           }}
         >
-          <img src="/images/logo.png" />
+          <img src="/images/logo.png" alt="logo" />
         </div>
         <div className="toptop">
           <div className="toptopsearch">
             <input type="text" placeholder="레시피 검색" />
             &nbsp;
-            <img id="img" src="/images/search.png" />
+            <img id="img" src="/images/search.png" alt="search" />
           </div>
 
           <div className="toptopcart">
-            <img id="img" src="/images/cart.png" />
+            <img id="img" src="/images/cart.png" alt="cart" />
           </div>
           <div
             className="toptopprofile"
@@ -72,7 +72,7 @@ function Header() {
               }
             }}
           >
-            <img id="img" src="/images/profile.png" />
+            <img id="img" src="/images/profile.png" alt="profile" />
           </div>
         </div>
       </div>

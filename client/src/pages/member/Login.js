@@ -89,19 +89,19 @@ function Login() {
       </div>
       <div className="otherlogin">
         <div className="google">
-          <img src="/images/google.png" />
+          <img src="/images/google.png" alt="google-oauth" />
           &nbsp;&nbsp;&nbsp;&nbsp;
           <div>Google 계정으로 로그인</div>
         </div>
         <br />
         <div className="kakao">
-          <img src="/images/kakao.png" />
+          <img src="/images/kakao.png" alt="kakao-oauth" />
           &nbsp;&nbsp;&nbsp;&nbsp;
           <div>카카오 계정으로 로그인</div>
         </div>
         <br />
         <div className="naver">
-          <img src="/images/naver.png" />
+          <img src="/images/naver.png" alt="naver-oauth" />
           &nbsp;&nbsp;&nbsp;&nbsp;
           <div>naver 계정으로 로그인</div>
         </div>

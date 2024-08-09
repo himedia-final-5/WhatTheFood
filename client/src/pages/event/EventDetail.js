@@ -152,7 +152,7 @@ function EventDetail() {
         {events.contentImages && events.contentImages.length > 0 ? (
           events.contentImages.map((image, index) => (
             <div key={index} className="eventdetail_contentdetail">
-              <img src={image} alt={`Content Image ${index}`} />
+              <img src={image} alt={`Content - ${index}`} />
             </div>
           ))
         ) : (
