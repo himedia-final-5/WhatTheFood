@@ -5,7 +5,6 @@ import jaxios from "../../utils/jwtUtil";
 import Popup from "./PopUp";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./EventDetail.css";
-import "../../styles/Reset.css";
 
 function EventDetail() {
   const navigate = useNavigate();

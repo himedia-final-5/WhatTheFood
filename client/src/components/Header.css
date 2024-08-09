@@ -6,26 +6,11 @@
   /* position: absolute; */
   flex-direction: column;
   margin-bottom: 100px;
-  background-color: #f8f8f8; /* 전반적인 배경색 */
-  border-bottom: 1px solid #eaeaea; /* 전체 헤더 하단 경계선 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 추가 */
-}
-/* Reset.css */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Header.css */
-
-/* 공통 스타일 */
-.Header {
-  width: 100%;
   background-color: #f8f8f8; /* 밝은 배경색으로 설정 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더 아래에 미세한 그림자 추가 */
 }
 
+/* EventDetail.css */
 .top {
   display: flex;
   justify-content: space-between;
