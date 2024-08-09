@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { useSelector, useDispatch } from "react-redux";
-//import { getCookie } from '../utils/cookieUtil';
 
 function Main() {
   const lUser = useSelector((state) => state.user);

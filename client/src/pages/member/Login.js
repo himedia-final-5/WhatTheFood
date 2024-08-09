@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCookie } from "../../utils/cookieUtil";
 import { loginAction } from "../../stores/userSlice";
 import "./Login.css";
 
@@ -28,8 +27,7 @@ function Login() {
         { username, password },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       );
-      setCookie("auth", result.data, 7);
-      dispatch(loginAction(result.data.member));
+      dispatch(loginAction(result.data));
       navigate("/");
     } catch (err) {
       console.error(err);

@@ -13,9 +13,10 @@ import EventCreateBanner from "./pages/events/EventCreate";
 import UpdateEvent from "./pages/events/UpdateEvent";
 import Faq from "./pages/inquiry/Faq";
 import FaqView from "./pages/inquiry/FaqView";
-import InquiryList from "./pages/inquiry/InquiryList";
-import InquiryView from "./pages/inquiry/InquiryView";
-import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm";
+import FaqWriteForm from "./pages/inquiry/FaqWriteForm"; //임시
+import InquiryList from "./pages/inquiry/InquiryList"; // 임시
+import InquiryView from "./pages/inquiry/InquiryView"; // 임시
+import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm"; //임시
 
 function App() {
   return (
@@ -34,9 +35,12 @@ function App() {
         <Route path="/updateEvent/:id" element={<UpdateEvent />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/faqView/:id" element={<FaqView />} />
+
+        {/* 임시*/}
         <Route path="/inquiryList" element={<InquiryList />} />
         <Route path="/inquiryView/:id" element={<InquiryView />} />
         <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
+        <Route path="/faqWriteForm" element={<FaqWriteForm />} />
       </Routes>
       <Footer />
     </div>

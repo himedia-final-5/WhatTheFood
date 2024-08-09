@@ -39,30 +39,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 공개 api
             "/error",
-
-            // 인증 API
             "/auth/login",
-            "/auth/reissue/**",
-
-            // 회원 API
-            "/members",
-            "/members/*",
-
-            // 레시피 API
-            "/recipes",
-            "/recipes/*",
-
-            // 공지사항 API
-            "/notices",
-            "/notices/*",
-
-            // 이벤트 API
-            "/events",
-            "/events/*",
-
-            // 문의 API
-            "/inquiries",
-            "/inquiries/*"
+            "/auth/logout",
+            "/auth/reissue"
     );
 
     @Override
@@ -72,7 +51,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws IOException {
         try {
-            String accessToken = jwtService.resolveAccessToken(request);
+            String authorizationHeader = request.getHeader("Authorization");
+
+            // 인증 토큰이 없는 경우 다음 필터로 이동
+            if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            String accessToken = authorizationHeader.substring(7);
 
             Claims claims = jwtService.validateToken(accessToken);
             Member member = (Member) userDetailsService.loadUserByUsername(claims.getSubject());

@@ -1,4 +1,4 @@
-#iqWriteCenter {
+#faqWriteCenter {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#iqwf1 {
+#faqwf1 {
   width: 90%;
   display: flex;
   justify-content: center;
@@ -18,39 +18,32 @@
   border: 1px solid black;
 }
 
-#iqwrite {
+#faqwrite {
   width: 90%;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
 }
 
-.iqwfField {
+.faqField {
   width: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
 }
 
-.iqwfField label {
+/* .faqField label {
   font-size: 25px;
-}
+} */
 
-.inquiryinquiry {
+.faqfaq {
   display: flex;
   justify-content: space-around;
   width: 400px;
 }
 
-.iqwf2 {
+.faqwf2 {
   font-size: 25px;
   cursor: pointer;
   border: 1px solid black;
 }
-
-/* #imageArea {
-  display: flex;
-  width: 200px;
-  height: 200px;
-  border: 1px solid black;
-} */

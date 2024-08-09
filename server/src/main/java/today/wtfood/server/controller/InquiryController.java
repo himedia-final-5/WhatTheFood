@@ -3,8 +3,8 @@ package today.wtfood.server.controller;
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import today.wtfood.server.dto.GeneratedId;
@@ -31,37 +31,41 @@ public class InquiryController {
     }
 
     @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public GeneratedId<Long> insertInquiry(@RequestBody InquiryDto inquiry) {
         return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
     }
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<Inquiry> allInquiry() {
         return is.getAllInquiry();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public InquiryDetail getMyInquiryView(@PathVariable("id") long id) {
         return is.getMyInquiryView(id);
     }
 
     @GetMapping("/email/{email}")
-    public Page<InquirySummary> getMyInquiryList(@PathVariable("email") String email,
-                                                 @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-                                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Page<InquirySummary> getMyInquiryList(
+            @PathVariable("email")
+            String email,
+            Pageable pageable
     ) {
-
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        pageRequest.withSort(Sort.Direction.DESC, "id");
-        return is.getMyInquiryList(email, pageRequest);
+        return is.getMyInquiryList(email, pageable);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteInquiry(@PathVariable("id") long id) {
         is.deleteInquiry(id);
     }
 
     @PutMapping("/{id}/answer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void inquiryAnswer(@PathVariable("id") long id, @RequestParam("answer") String answer) {
         is.inquiryAnswer(id, answer);
     }
@@ -71,6 +75,7 @@ public class InquiryController {
     ServletContext context;
 
     @PostMapping("/fileupload")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public HashMap<String, Object> fileupload(
             @RequestParam("appendImage") MultipartFile file) {
         HashMap<String, Object> result = new HashMap<String, Object>();
