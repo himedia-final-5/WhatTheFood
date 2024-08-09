@@ -10,32 +10,34 @@ import { NoticeList, NoticeDetail, NoticeWrite } from "pages/notice";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex flex-col w-full h-full ">
       <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Main />} />
 
-        <Route path="/joinForm" element={<MemberJoin />} />
-        <Route path="/login" element={<MemberLogin />} />
-        <Route path="/setting" element={<MemberUpdate />} />
+          <Route path="/joinForm" element={<MemberJoin />} />
+          <Route path="/login" element={<MemberLogin />} />
+          <Route path="/setting" element={<MemberUpdate />} />
 
-        <Route path="/events" element={<EventList />} />
-        <Route path="/events/:id" element={<EventDetail />} />
-        <Route path="/createEventBanner" element={<EventWrite />} />
-        <Route path="/updateEvent/:id" element={<EventUpdate />} />
+          <Route path="/events" element={<EventList />} />
+          <Route path="/events/:id" element={<EventDetail />} />
+          <Route path="/createEventBanner" element={<EventWrite />} />
+          <Route path="/updateEvent/:id" element={<EventUpdate />} />
 
-        <Route path="/faq" element={<FaqList />} />
-        <Route path="/faqView/:id" element={<FaqDetail />} />
-        <Route path="/faqWriteForm" element={<FaqWrite />} />
+          <Route path="/faq" element={<FaqList />} />
+          <Route path="/faqView/:id" element={<FaqDetail />} />
+          <Route path="/faqWriteForm" element={<FaqWrite />} />
 
-        <Route path="/inquiryList" element={<InquiryList />} />
-        <Route path="/inquiryView/:id" element={<InquiryDetail />} />
-        <Route path="/inquiryWriteForm" element={<InquiryWrite />} />
+          <Route path="/inquiryList" element={<InquiryList />} />
+          <Route path="/inquiryView/:id" element={<InquiryDetail />} />
+          <Route path="/inquiryWriteForm" element={<InquiryWrite />} />
 
-        <Route path="/notice" element={<NoticeList />} />
-        <Route path="/notice/:id" element={<NoticeDetail />} />
-        <Route path="/writeNotice" element={<NoticeWrite />} />
-      </Routes>
+          <Route path="/notice" element={<NoticeList />} />
+          <Route path="/notice/:id" element={<NoticeDetail />} />
+          <Route path="/writeNotice" element={<NoticeWrite />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );
