@@ -1,7 +1,8 @@
-import "./FaqView.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+
+import "./FaqView.css";
+import { axios } from "utils";
 
 function FaqView() {
   const [faqiew, setFaqView] = useState({});

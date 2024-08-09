@@ -1,11 +1,11 @@
-import "./EventUpCreate.css";
 import React, { useState, useEffect } from "react";
-import axios from "../../utils/jwtUtil";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ImageUploadInput from "../../components/util/ImageUploadInput";
-import { useSelector } from "../../stores";
-import useInputs from "../../hooks/useInputs";
-import cn from "../../utils/cn";
+
+import "./EventUpCreate.css";
+import { axios, cn } from "utils";
+import { ImageUploadInput } from "components/util";
+import { useSelector } from "stores";
+import { useInputs } from "hooks";
 
 function UpdateEvent() {
   const navigate = useNavigate();

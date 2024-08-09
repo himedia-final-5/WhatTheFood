@@ -1,6 +1,7 @@
-import "./Notice.css";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
+import "./Notice.css";
+import { axios } from "utils";
 
 function Notice() {
   const [noticeList, setNoticeList] = useState([]);

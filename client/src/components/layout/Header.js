@@ -1,8 +1,8 @@
-import "./Header.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutAction } from "../../stores/userSlice";
+
+import "./Header.css";
+import { logoutAction, useDispatch, useSelector } from "stores";
 
 function Header() {
   const dispatch = useDispatch();

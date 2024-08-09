@@ -1,8 +1,9 @@
-import "./InquiryList.css";
 import React, { useState, useEffect } from "react";
-import axios from "../../utils/jwtUtil";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+import "./InquiryList.css";
+import { axios } from "utils";
+import { useSelector } from "stores";
 
 function InquiryList() {
   const loginUser = useSelector((state) => state.user);

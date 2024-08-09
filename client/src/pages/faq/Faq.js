@@ -1,7 +1,8 @@
-import "./Faq.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+import "./Faq.css";
+import { axios } from "utils";
 
 function Faq() {
   const navigate = useNavigate();

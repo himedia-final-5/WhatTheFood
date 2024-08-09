@@ -1,9 +1,9 @@
-import "./FaqWriteForm.css";
 import React, { useState } from "react";
-import axios from "axios";
-import { useSelector } from "../../stores";
-
 import { useNavigate } from "react-router-dom";
+
+import "./FaqWriteForm.css";
+import { useSelector } from "stores";
+import { axios } from "utils";
 
 function InquiryWriteForm() {
   const loginUser = useSelector((state) => state.user);

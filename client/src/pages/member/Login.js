@@ -1,9 +1,9 @@
-import "./Login.css";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "../../stores";
-import { loginAction } from "../../stores/userSlice";
+
+import "./Login.css";
+import { useSelector, useDispatch, loginAction } from "stores";
+import { axios } from "utils";
 
 function Login() {
   const [username, setUserid] = useState("");

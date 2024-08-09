@@ -1,7 +1,8 @@
-import "./Notice.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import "./Notice.css";
+import { axios } from "utils";
 
 function Notice() {
   const [title, setTitle] = useState("");

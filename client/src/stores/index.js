@@ -39,4 +39,6 @@ export const useSelector = reduxUseSelector;
  */
 export const useDispatch = reduxUseDispatch;
 
+export * from "./userSlice";
+
 export default store;

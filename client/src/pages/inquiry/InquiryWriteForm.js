@@ -1,9 +1,9 @@
-import "./InquiryWriteForm.css";
 import React, { useState } from "react";
-import axios from "../../utils/jwtUtil";
-import { useSelector } from "../../stores";
-
 import { useNavigate } from "react-router-dom";
+
+import "./InquiryWriteForm.css";
+import { axios } from "utils";
+import { useSelector } from "stores";
 
 function InquiryWriteForm() {
   const loginUser = useSelector((state) => state.user);

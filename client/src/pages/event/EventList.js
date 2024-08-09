@@ -1,7 +1,8 @@
-import "./EventList.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import jaxios from "../../utils/jwtUtil";
+
+import "./EventList.css";
+import { axios } from "utils";
 
 function EventList() {
   const [events, setEvents] = useState([]);
@@ -33,7 +34,7 @@ function EventList() {
 
     // 페이지 요청이 시작 되었다는 플래그 설정
     pageable.fecthed = true;
-    jaxios
+    axios
       .get(`/api/events`, { params: { pageNumber: page } })
       .then((result) => {
         //서버로 부터 페이지에 이어서 필요한 데이터를 전달 받고 기존 event 리스트에 추가함

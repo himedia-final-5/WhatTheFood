@@ -1,6 +1,7 @@
-import "./JoinForm.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+import "./JoinForm.css";
 
 function JoinForm() {
   const navigate = useNavigate();
