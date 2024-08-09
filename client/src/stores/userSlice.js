@@ -6,7 +6,6 @@ import { createSlice } from "@reduxjs/toolkit";
  * 슬라이스의 이름, 초기 상태, 리듀서 함수 목록을 인자로 받아서 슬라이스를 생성합니다
  * createSlice 함수는 슬라이스의 이름을 기반으로 액션 타입을 자동으로 생성합니다.
  *
- * @typedef {import('../types/user.d.ts').User} User
  * @type {import("@reduxjs/toolkit").Slice<User | null, import("@reduxjs/toolkit").SliceCaseReducers<User | null>, "user">}
  */
 export const userSlice = createSlice({
