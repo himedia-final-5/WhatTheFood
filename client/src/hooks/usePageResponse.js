@@ -1,14 +1,5 @@
 import { useState } from "react";
-
-/** @returns {Pagination}*/
-const initialPagination = () => ({
-  page: 0,
-  size: 10,
-  totalElements: 0,
-  totalPages: 0,
-  first: false,
-  last: false,
-});
+import { initialPagination } from "utils";
 
 /**
  * @template T
