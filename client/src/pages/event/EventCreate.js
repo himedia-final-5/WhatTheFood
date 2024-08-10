@@ -29,7 +29,8 @@ function EventCreateBanner() {
 
   function onSubmit() {
     axios
-      .post("/api/events/createEvent", {
+      .post("/api/events/", {
+        // '/api/events' 대신 '/events' 사용
         userid: loginUser.userid,
         email: loginUser.email,
         ...event,
@@ -92,9 +93,7 @@ function EventCreateBanner() {
       <div className="createEvent_field">
         <label>배너 이미지</label>
         <ImageUploadInput
-          onUpload={(bannerImage) =>
-            setEvent((prevEvent) => ({ ...prevEvent, bannerImage }))
-          }
+          onUpload={(bannerImage) => setEvent({ ...event, bannerImage })}
           imageSrc={event.bannerImage}
           className={cn(
             "flex flex-col items-center justify-center w-full overflow-hidden",
@@ -122,24 +121,24 @@ function EventCreateBanner() {
                     "bg-red-300 hover:bg-red-500",
                   )}
                   onClick={() =>
-                    setEvent((prevEvent) => ({
-                      ...prevEvent,
-                      contentImages: prevEvent.contentImages.filter(
+                    setEvent({
+                      ...event,
+                      contentImages: event.contentImages.filter(
                         (_, i) => i !== index,
                       ),
-                    }))
+                    })
                   }
                 >
                   X
                 </button>
                 <ImageUploadInput
                   onUpload={(contentImage) =>
-                    setEvent((prevEvent) => ({
-                      ...prevEvent,
-                      contentImages: prevEvent.contentImages.map((image, i) =>
+                    setEvent({
+                      ...event,
+                      contentImages: event.contentImages.map((image, i) =>
                         i === index ? contentImage : image,
                       ),
-                    }))
+                    })
                   }
                   imageSrc={contentImage}
                   className={cn(
@@ -150,10 +149,10 @@ function EventCreateBanner() {
             ))}
           <button
             onClick={() =>
-              setEvent((prevEvent) => ({
-                ...prevEvent,
-                contentImages: [...prevEvent.contentImages, ""],
-              }))
+              setEvent({
+                ...event,
+                contentImages: [...(event.contentImages || []), ""],
+              })
             }
             className={cn(
               "w-full py-2 rounded-md transition-colors",
