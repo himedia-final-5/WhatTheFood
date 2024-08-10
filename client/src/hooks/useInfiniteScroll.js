@@ -49,7 +49,7 @@ export default function useInfiniteScroll(asyncFetchPage, defaultContent = []) {
 
     // 컴포넌트가 언마운트되면 관찰 중지
     return () => observer.disconnect();
-  }, [ref, asyncFetchPage, isFetching, pagination.page]);
+  }, [ref, asyncFetchPage, isFetching, pagination.last, pagination.page]);
 
   return { ref, content, pagination, isFetching };
 }
