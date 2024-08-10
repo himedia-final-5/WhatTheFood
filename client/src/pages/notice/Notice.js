@@ -1,45 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import "./Notice.css";
 import { axios } from "utils";
+import { usePageResponse } from "hooks";
+import { PaginationNav } from "components/util";
 
 function Notice() {
-  const [noticeList, setNoticeList] = useState([]);
-  const [paging, setPaging] = useState({});
-  const [pageNumbers] = useState([]);
-  function updatePage(data) {
-    setNoticeList(data.content);
-    setPaging({
-      number: data.number,
-      totalPages: data.totalPages,
-      first: data.first,
-      last: data.last,
-    });
-  }
+  const { content, pagination, setPageResponse } = usePageResponse();
+
+  const onSelectPage = useCallback(
+    (page) =>
+      axios
+        .get("/api/notices", { params: { page } })
+        .then((result) => setPageResponse(result.data))
+        .catch(console.error),
+    [setPageResponse],
+  );
 
   useEffect(() => {
-    axios
-      .get("/api/notices")
-      .then((result) => {
-        console.log("확인용22", result.data);
-        updatePage(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  function onPageMove(page) {
-    // 페이지 표시방식
-    axios
-      .get(`/api/notices`, { params: { page } })
-      .then((result) => {
-        updatePage(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+    if (content.length === 0) {
+      onSelectPage(0);
+    }
+  }, [content, onSelectPage]);
 
   const formatDate = (timestamp) => {
     if (!timestamp) return "날짜 없음";
@@ -51,19 +33,13 @@ function Notice() {
 
   return (
     <div class="notice_container">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <header class="notice_header">
         <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
         <h2 class="notice_subtitle">공지사항</h2>
         <div className="notice_line"></div>
       </header>
-      {noticeList.length
-        ? noticeList.map((notice, idx) => {
+      {content.length
+        ? content.map((notice, idx) => {
             return (
               <main class="notices">
                 <article class="notice">
@@ -98,52 +74,8 @@ function Notice() {
             );
           })
         : null}
-      <div id="paging" style={{ textAlign: "center", padding: "10px" }}>
-        {!paging.first ? (
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              onPageMove(paging.number - 1);
-            }}
-          >
-            {" "}
-            ◀{" "}
-          </span>
-        ) : (
-          <span></span>
-        )}
-        {pageNumbers.map((page, idx) => (
-          <span
-            key={idx}
-            style={{
-              cursor: "pointer",
-              fontWeight: paging.number === page ? "bold" : "normal",
-              margin: "0 5px",
-            }}
-            onClick={() => {
-              onPageMove(page);
-            }}
-          >
-            {page}
-          </span>
-        ))}
-        {!paging.last ? (
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              onPageMove(paging.number + 1);
-            }}
-          >
-            &nbsp;▶&nbsp;
-          </span>
-        ) : (
-          <></>
-        )}
-      </div>
-      <br />
-      <br />
-      <br />
-      <br />
+
+      <PaginationNav {...{ pagination, onSelectPage }} />
     </div>
   );
 }

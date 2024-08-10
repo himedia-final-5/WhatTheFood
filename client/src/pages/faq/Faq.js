@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Faq.css";
 import { axios } from "utils";
+import { usePageResponse } from "hooks";
+import { PaginationNav } from "components/util";
 
 function Faq() {
   const navigate = useNavigate();
-  const [inquiryList, setInquiryList] = useState([]);
+  const { content, pagination, setPageResponse } = usePageResponse();
+
+  const onSelectPage = useCallback(
+    (page) =>
+      axios
+        .get("/api/faqs", { params: { page } })
+        .then((result) => setPageResponse(result.data))
+        .catch(console.error),
+    [setPageResponse],
+  );
 
   useEffect(() => {
-    axios
-      .get(`/api/faqs`)
-      .then((result) => {
-        setInquiryList(result.data.content);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    if (content.length === 0) {
+      onSelectPage(0);
+    }
+  }, [content, onSelectPage]);
 
   return (
     <div className="faqBody">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <div className="faqCenter">
         <br></br>
         <br></br>
@@ -37,7 +35,7 @@ function Faq() {
         <br></br>
         <div id="faq2">자주 묻는 질문</div>
         <div className="faq_line"></div>
-        {inquiryList.map((inquirylist, idx) => {
+        {content.map((inquirylist, idx) => {
           return (
             <div
               className="faqitem"
@@ -53,7 +51,7 @@ function Faq() {
           );
         })}
       </div>
-      <div id="paging" style={{ textAlign: "center", padding: "10px" }}></div>
+      <PaginationNav {...{ pagination, onSelectPage }} />
     </div>
   );
 }

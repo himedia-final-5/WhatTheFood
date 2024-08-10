@@ -1,55 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./InquiryList.css";
 import { axios } from "utils";
 import { useSelector } from "stores";
+import { usePageResponse } from "hooks";
+import { PaginationNav } from "components/util";
 
 function InquiryList() {
   const loginUser = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const [inquiryList, setInquiryList] = useState([]);
-  const [paging, setPaging] = useState({});
-  const [pageNumbers] = useState([]);
-  const [page] = useState("");
+  const { content, pagination, setPageResponse } = usePageResponse();
 
-  function updatePage(data) {
-    setInquiryList(data.content);
-    setPaging({
-      number: data.number,
-      totalPages: data.totalPages,
-      first: data.first,
-      last: data.last,
-    });
-  }
+  const onSelectPage = useCallback(
+    (page) =>
+      axios
+        .get(`/api/inquiries/username/${loginUser.username}`, {
+          params: { page },
+        })
+        .then((result) => setPageResponse(result.data))
+        .catch(console.error),
+    [loginUser, setPageResponse],
+  );
 
   useEffect(() => {
-    axios
-      .get(`/api/inquiries/username/${loginUser.username}`, {
-        params: { page },
-      })
-      .then((result) => {
-        updatePage(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [loginUser, page]);
+    if (content.length === 0) {
+      onSelectPage(0);
+    }
+  }, [content, onSelectPage]);
 
-  function onPageMove(page) {
-    // 페이지 표시방식
-    axios
-      .get(`/api/inquiries/username/${loginUser.username}`, {
-        params: { page },
-      })
-      .then((result) => {
-        updatePage(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
   return (
     <div>
       <br></br>
@@ -74,7 +54,7 @@ function InquiryList() {
           </div>
           <br></br>
 
-          {inquiryList.map((inquirylist, idx) => {
+          {content.map((inquirylist, idx) => {
             return (
               <div
                 className="iqitem"
@@ -98,50 +78,7 @@ function InquiryList() {
             );
           })}
           <br></br>
-          <div id="paging" style={{ textAlign: "center", padding: "10px" }}>
-            {!paging.first ? (
-              <span
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  onPageMove(paging.number - 1);
-                }}
-              >
-                {" "}
-                ◀{" "}
-              </span>
-            ) : (
-              <span></span>
-            )}
-            {pageNumbers.map((page, idx) => (
-              <span
-                key={idx}
-                style={{
-                  cursor: "pointer",
-                  fontWeight: paging.number === page ? "bold" : "normal",
-                  margin: "0 5px",
-                }}
-                onClick={() => {
-                  onPageMove(page);
-                }}
-              >
-                {page}
-              </span>
-            ))}
-            {!paging.last ? (
-              <span
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  onPageMove(paging.number + 1);
-                }}
-              >
-                &nbsp;▶&nbsp;
-              </span>
-            ) : (
-              <></>
-            )}
-          </div>
-          <br></br>
-          <br></br>
+          <PaginationNav {...{ pagination, onSelectPage }} />
         </div>
       </div>
       <br></br>

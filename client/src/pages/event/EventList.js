@@ -3,19 +3,31 @@ import { useNavigate } from "react-router-dom";
 
 import "./EventList.css";
 import { axios } from "utils";
+import { usePageResponse } from "hooks";
+
+/** @type EventSummary[] */
+const DEFAULT_CONTENT = [];
+const SCROLL_DATA_COUNT = 4;
 
 function EventList() {
-  const [events, setEvents] = useState([]);
-  const [pageable, setPageable] = useState({ number: 0, last: false }); //page시작과 끝
   const navigate = useNavigate();
+  const { content, pagination, setPageResponse } =
+    usePageResponse(DEFAULT_CONTENT);
+  const [accumulatedContent, setAccumulatedContent] = useState(DEFAULT_CONTENT);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(
+    () => setAccumulatedContent((prevPosts) => [...prevPosts, ...content]),
+    [content],
+  );
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight - 10; // 스크롤이 가능한 크기
     const scrollTop = document.documentElement.scrollTop; // 현재 위치
     const clientHeight = document.documentElement.clientHeight; // 내용물의 크기
-    console.log(Number(pageable.number) + 1);
+
     if (scrollTop + clientHeight >= scrollHeight) {
-      onPageMove(Number(pageable.number) + 1);
+      loadPage(Number(pagination.page) + 1);
     }
   };
 
@@ -24,32 +36,25 @@ function EventList() {
   }
 
   //무한스크롤
-  function onPageMove(page) {
+  function loadPage(page) {
     // 마지막 페이지거나, 이미 다음 페이지 요청이 시작된 경우 무시
-    if (pageable.last || pageable.fecthed) {
+    if (pagination.last || isLoading) {
       return;
     }
 
-    console.log("onPageMove(", page, ")");
-
-    // 페이지 요청이 시작 되었다는 플래그 설정
-    pageable.fecthed = true;
+    // 페이지 요청
+    setIsLoading(true);
     axios
-      .get(`/api/events`, { params: { page } })
-      .then((result) => {
-        //서버로 부터 페이지에 이어서 필요한 데이터를 전달 받고 기존 event 리스트에 추가함
-        setEvents([...events, ...result.data.content]);
-        setPageable(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .get(`/api/events`, { params: { page, size: SCROLL_DATA_COUNT } })
+      .then((result) => setPageResponse(result.data))
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   }
 
   useEffect(() => {
     // 이벤트 목록이 비어있으면 첫번째 페이지 데이터 요청
-    if (events.length === 0) {
-      onPageMove(0);
+    if (content.length === 0) {
+      loadPage(0);
     }
   });
 
@@ -70,8 +75,8 @@ function EventList() {
         게시글쓰기
       </button>
       &nbsp;&nbsp;&nbsp;
-      {events.length > 0 ? (
-        events.map((event, index) => (
+      {accumulatedContent.length > 0 ? (
+        accumulatedContent.map((event, index) => (
           <div
             key={index}
             className="event_state_wrap"
