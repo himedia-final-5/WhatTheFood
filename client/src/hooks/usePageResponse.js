@@ -1,26 +1,31 @@
 import { useState } from "react";
 
-/**
- * @template T
- * @returns {PageResponse<T>} */
-const initialPageResponse = () => ({
-  content: [],
-  pagination: {
-    page: 0,
-    size: 10,
-    totalElements: 0,
-    totalPages: 0,
-    first: false,
-    last: false,
-  },
+/** @returns {Pagination}*/
+const initialPagination = () => ({
+  page: 0,
+  size: 10,
+  totalElements: 0,
+  totalPages: 0,
+  first: false,
+  last: false,
 });
 
 /**
  * @template T
- * @param {PageResponse<T>} pageResponse
+ * @param {?T[]} content
+ * @param {?Pagination} pagination
  */
-export default function usePageResponse(pageResponse = initialPageResponse()) {
-  const [pageResponseState, setPageResponseState] = useState(pageResponse);
+export default function usePageResponse(content, pagination) {
+  if (!content) {
+    content = [];
+  }
+  if (!pagination) {
+    pagination = initialPagination();
+  }
+  const [pageResponseState, setPageResponseState] = useState({
+    content,
+    pagination,
+  });
 
   /**
    * @type {React.Dispatch<React.SetStateAction<T[]>>}
