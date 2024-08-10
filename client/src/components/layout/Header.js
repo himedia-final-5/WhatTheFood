@@ -15,7 +15,7 @@ function Header() {
   useEffect(() => {
     setSubmenuVisible(false);
     setAuthFormVisible(false);
-  }, [location]);
+  }, [location, loginUser]);
 
   function logout() {
     dispatch(logoutAction());
