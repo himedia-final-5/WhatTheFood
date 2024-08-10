@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Login.css";
 import { useSelector, useDispatch, loginAction } from "stores";
@@ -75,13 +75,7 @@ function Login() {
       </div>
       <br></br>
       <div className="searching">
-        <div
-          onClick={() => {
-            navigate("/joinForm");
-          }}
-        >
-          회원가입
-        </div>
+        <Link to="/joinForm">회원가입</Link>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div>아이디 찾기</div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

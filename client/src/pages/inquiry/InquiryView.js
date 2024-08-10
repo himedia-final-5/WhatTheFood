@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import "./InquiryView.css";
 import { axios } from "utils";
 
 function InquiryView() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [qnaView, setQnaView] = useState({});
 
@@ -48,14 +47,9 @@ function InquiryView() {
           <div id="iqvcontent">{qnaView.content}</div>
         </div>
         <br></br>
-        <div
-          id="iqvback"
-          onClick={() => {
-            navigate(`/inquiryList`);
-          }}
-        >
+        <Link id="iqvback" to="/inquiryList">
           목록으로
-        </div>
+        </Link>
         <br></br>
       </div>
     </div>

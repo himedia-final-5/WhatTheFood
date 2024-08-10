@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Notice.css";
 import { axios } from "utils";
@@ -52,13 +52,7 @@ function Notice() {
         >
           작성완료
         </button>
-        <button
-          onClick={() => {
-            navigate("/main");
-          }}
-        >
-          돌아가기
-        </button>
+        <Link to="/notice">돌아가기</Link>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import "./EventDetail.css";
@@ -141,11 +141,13 @@ function EventDetail() {
   return (
     <div className="eventdetail_wrap">
       <div className="eventdetail_btn_wrap">
-        <button onClick={() => navigate(`/updateEvent/${events.id}`)}>
-          수정
-        </button>
+        <Link to={`/updateEvent/${events.id}`}>
+          <button>수정</button>
+        </Link>
         <button onClick={() => deleteEvent(events.id)}>삭제</button>
-        <button onClick={() => navigate("/events")}>돌아가기</button>
+        <Link to="/events">
+          <button>돌아가기</button>
+        </Link>
       </div>
 
       <div className="eventdetail_content">

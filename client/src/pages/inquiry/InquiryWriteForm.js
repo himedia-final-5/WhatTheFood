@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./InquiryWriteForm.css";
 import { axios } from "utils";
@@ -112,14 +112,9 @@ function InquiryWriteForm() {
             >
               작성 완료
             </div>
-            <div
-              className="iqwf2"
-              onClick={() => {
-                navigate("/inquiryList");
-              }}
-            >
+            <Link id="iqwf2" to="/inquiryList">
               돌아가기
-            </div>
+            </Link>
           </div>
           <br></br>
         </div>

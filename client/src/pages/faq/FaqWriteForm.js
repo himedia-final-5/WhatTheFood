@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./FaqWriteForm.css";
 import { useSelector } from "stores";
@@ -74,14 +74,9 @@ function InquiryWriteForm() {
             >
               작성 완료
             </div>
-            <div
-              className="faq2"
-              onClick={() => {
-                navigate("");
-              }}
-            >
+            <Link id="back" to="/faq">
               돌아가기
-            </div>
+            </Link>
           </div>
           <br></br>
         </div>

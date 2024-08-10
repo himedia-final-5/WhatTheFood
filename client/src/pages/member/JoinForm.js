@@ -1,11 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./JoinForm.css";
 
 function JoinForm() {
-  const navigate = useNavigate();
-
   return (
     <div className="body">
       <br></br>
@@ -72,14 +70,10 @@ function JoinForm() {
       <br></br>
       <div className="join">
         <div id="join">가입하기</div>
-        <div
-          id="join"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
+
+        <Link id="join" to="/login">
           돌아가기
-        </div>
+        </Link>
       </div>
       <br></br>
       <br></br>

@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Faq.css";
 import { axios } from "utils";
@@ -7,7 +7,6 @@ import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
 function Faq() {
-  const navigate = useNavigate();
   const { content, pagination, setPageResponse } = usePageResponse();
 
   const onSelectPage = useCallback(
@@ -37,17 +36,15 @@ function Faq() {
         <div className="faq_line"></div>
         {content.map((inquirylist, idx) => {
           return (
-            <div
+            <Link
               className="faqitem"
               key={idx}
-              onClick={() => {
-                navigate(`/faqView/${inquirylist.id}`);
-              }}
+              to={`/faqView/${inquirylist.id}`}
             >
               <div className="qnadate">{inquirylist.date.substring(0, 10)}</div>
               <br></br>
               <div className="qnaname">{inquirylist.title}</div>
-            </div>
+            </Link>
           );
         })}
       </div>

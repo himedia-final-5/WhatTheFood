@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./EventUpCreate.css";
 import { axios } from "utils";
@@ -148,13 +148,9 @@ function EventCreateBanner() {
         >
           작성완료
         </button>
-        <button
-          onClick={() => {
-            navigate("/events");
-          }}
-        >
-          돌아가기
-        </button>
+        <Link to="/events">
+          <button>돌아가기</button>
+        </Link>
       </div>
     </div>
   );

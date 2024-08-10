@@ -1,26 +1,33 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Footer.css";
 
 function Footer() {
-  const navigate = useNavigate();
-
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-top">
-          <div className="footer-logo" onClick={() => navigate("/")}>
+          <Link className="footer-logo" to="/">
             <img src="/images/logo.png" alt="Logo" />
-          </div>
+          </Link>
           <div className="footer-links">
             <ul>
-              <li onClick={() => navigate("/about")}>About Us</li>
-              <li onClick={() => navigate("/terms")}>Terms of Service</li>
-              <li onClick={() => navigate("/privacy")}>Privacy Policy</li>
-              <li onClick={() => navigate("/contact")}>Contact Us</li>
-              {/* <li onClick={() => navigate("/inquiryWriteForm")}>문의 작성</li> */}
-              <li onClick={() => navigate("/faq")}>FAQ</li>
+              <li>
+                <Link to="/about">About Us</Link>
+              </li>
+              <li>
+                <Link to="/terms">Terms of Service</Link>
+              </li>
+              <li>
+                <Link to="/privacy">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact Us</Link>
+              </li>
+              <li>
+                <Link to="/faq">FAQ</Link>
+              </li>
             </ul>
           </div>
         </div>

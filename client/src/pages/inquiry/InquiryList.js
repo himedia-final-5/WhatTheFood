@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./InquiryList.css";
 import { axios } from "utils";
@@ -9,7 +9,6 @@ import { PaginationNav } from "components/util";
 
 function InquiryList() {
   const loginUser = useSelector((state) => state.user);
-  const navigate = useNavigate();
 
   const { content, pagination, setPageResponse } = usePageResponse();
 
@@ -42,26 +41,19 @@ function InquiryList() {
           <div id="iq1">
             <div id="blank"></div>
             <div>내 문의 내역</div>
-            <div
-              id="inquiryWrite"
-              onClick={() => {
-                navigate(`/inquiryWriteForm/`);
-              }}
-            >
+            <Link to="/inquiryWriteForm" id="inquiryWrite">
               <img src="/images/inquirywrite.png" alt="write button" />
               문의하기
-            </div>
+            </Link>
           </div>
           <br></br>
 
           {content.map((inquirylist, idx) => {
             return (
-              <div
+              <Link
                 className="iqitem"
                 key={idx}
-                onClick={() => {
-                  navigate(`/inquiryView/${inquirylist.id}`);
-                }}
+                to={`/inquiryView/${inquirylist.id}`}
               >
                 <div className="iqanswer">
                   {inquirylist.answer ? (
@@ -74,7 +66,7 @@ function InquiryList() {
                 <div className="iqdate">
                   {inquirylist.date.substring(0, 10)}
                 </div>
-              </div>
+              </Link>
             );
           })}
           <br></br>

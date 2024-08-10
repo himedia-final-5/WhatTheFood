@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import "./FaqView.css";
 import { axios } from "utils";
 
 function FaqView() {
   const [faqiew, setFaqView] = useState({});
-
-  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -41,14 +39,9 @@ function FaqView() {
           <div id="content">{faqiew.content}</div>
         </div>
         <br></br>
-        <div
-          id="back"
-          onClick={() => {
-            navigate(`/faq`);
-          }}
-        >
+        <Link id="back" to="/faq">
           목록으로
-        </div>
+        </Link>
         <br></br>
       </div>
     </div>
