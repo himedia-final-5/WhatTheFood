@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.service.JwtService;
 
@@ -26,9 +27,12 @@ public class AuthController {
 
     @PostMapping("logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void logout(@RequestHeader("Authorization") String accessToken) {
+    public void logout(@RequestHeader("Authorization") String authorizationHeader) {
         // 접근 토큰 블록
-        jwtService.blockToken(accessToken);
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new BadRequestException("토큰이 올바르지 않습니다.");
+        }
+        jwtService.blockToken(authorizationHeader.substring(7));
     }
 
 }
