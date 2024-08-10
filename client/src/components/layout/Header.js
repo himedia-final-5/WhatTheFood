@@ -11,7 +11,6 @@ function Header() {
   const loginUser = useSelector((state) => state.user);
   const [submenuVisible, setSubmenuVisible] = useState(false);
 
-  console.log("subMenuVisible", submenuVisible);
   useEffect(() => {
     setSubmenuVisible(false);
   }, [location]);
