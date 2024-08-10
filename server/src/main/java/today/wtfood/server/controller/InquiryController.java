@@ -2,7 +2,6 @@ package today.wtfood.server.controller;
 
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -11,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.inquiry.InquiryDetail;
 import today.wtfood.server.dto.inquiry.InquiryDto;
 import today.wtfood.server.dto.inquiry.InquirySummary;
@@ -54,13 +54,13 @@ public class InquiryController {
 
     @GetMapping("/username/{username}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #username == authentication.principal.username)")
-    public Page<InquirySummary> getMyInquiryList(
+    public PageResponse<InquirySummary> getMyInquiryList(
             @PathVariable("username")
             String username,
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {
-        return is.getMyInquiryList(username, pageable);
+        return PageResponse.of(is.getMyInquiryList(username, pageable));
     }
 
     @DeleteMapping("/{id}")

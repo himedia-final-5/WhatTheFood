@@ -1,6 +1,5 @@
 package today.wtfood.server.controller;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -9,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
@@ -40,11 +40,11 @@ public class MemberController {
     @GetMapping("")
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
-    public Page<MemberSummary> getMembers(
+    public PageResponse<MemberSummary> getMembers(
             @PageableDefault(sort = "id")
             Pageable pageable
     ) {
-        return memberService.getMembers(pageable, MemberSummary.class);
+        return PageResponse.of(memberService.getMembers(pageable, MemberSummary.class));
     }
 
     @GetMapping("/{memberId}")

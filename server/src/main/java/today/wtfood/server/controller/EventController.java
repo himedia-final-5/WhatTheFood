@@ -1,13 +1,13 @@
 package today.wtfood.server.controller;
 
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.event.EventDetail;
 import today.wtfood.server.dto.event.EventDto;
 import today.wtfood.server.dto.event.EventSummary;
@@ -33,10 +33,10 @@ public class EventController {
     // 이벤트리스트(페이징)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public Page<EventSummary> getEventList(
+    public PageResponse<EventSummary> getEventList(
             Pageable pageable
     ) {
-        return es.getEventList(pageable);
+        return PageResponse.of(es.getEventList(pageable));
     }
 
     //이벤트 수정 //수정생성용 Dto사용

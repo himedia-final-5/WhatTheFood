@@ -1,13 +1,13 @@
 package today.wtfood.server.controller;
 
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.notice.NoticeDetail;
 import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
@@ -26,11 +26,11 @@ public class NoticeController {
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public Page<NoticeSummary> getNotices(
+    public PageResponse<NoticeSummary> getNotices(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {
-        return ns.getNotices(pageable);
+        return PageResponse.of(ns.getNotices(pageable));
     }
 
     @PostMapping("")

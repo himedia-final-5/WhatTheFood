@@ -1,12 +1,12 @@
 package today.wtfood.server.controller;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.faq.FaqDetail;
 import today.wtfood.server.dto.faq.FaqDto;
 import today.wtfood.server.entity.Faq;
@@ -30,11 +30,11 @@ public class FaqController {
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public Page<Faq> getFaqList(
+    public PageResponse<Faq> getFaqList(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {
-        return fs.getFaqList(pageable);
+        return PageResponse.of(fs.getFaqList(pageable));
     }
 
     @GetMapping("/{id}")
