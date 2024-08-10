@@ -16,7 +16,14 @@ public enum TokenSubject {
      *
      * @implNote 갱신 토큰은 사용자의 인증을 갱신하는 데 사용됩니다. {@code username}을 값으로 가집니다.
      */
-    REFRESH;
+    REFRESH,
+
+    /**
+     * 이메일 토큰
+     *
+     * @implNote 이메일 토큰은 사용자의 이메일 주소를 확인하는 데 사용됩니다. {@code email}을 값으로 가집니다.
+     */
+    EMAIL;
 
     /**
      * 문자열로부터 토큰 타입을 가져옵니다.
@@ -28,6 +35,7 @@ public enum TokenSubject {
         return switch (type) {
             case "ACCESS" -> ACCESS;
             case "REFRESH" -> REFRESH;
+            case "EMAIL" -> EMAIL;
             default -> throw new IllegalArgumentException("Unknown token type: " + type);
         };
     }
