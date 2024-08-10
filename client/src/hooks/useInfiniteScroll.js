@@ -14,8 +14,8 @@ export default function useInfiniteScroll(asyncFetchPage, defaultContent = []) {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    // 관찰 대상이 없거나 이미 데이터를 요청 중이면 작업 중지
-    if (!ref.current || isFetching) {
+    // 관찰 대상이 없거나 이미 데이터를 요청 중이거나 마지막 페이지인 경우 작업 중지
+    if (!ref.current || isFetching || pagination.last) {
       return;
     }
 
