@@ -106,6 +106,9 @@ public class JwtService {
         // 재발급 토큰으로부터 사용자 정보 추출
         Claims claims = validateToken(refreshToken, TokenSubject.REFRESH);
 
+        // 재발급 토큰 블록
+        blockToken(refreshToken);
+
         // username 값을 가져와 접근 토큰 재발급
         String username = claims.get(VALUE_KEY, String.class);
         return generateAuthToken(username);
