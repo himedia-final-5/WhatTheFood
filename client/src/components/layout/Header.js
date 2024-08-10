@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 import "./Header.css";
 import { logoutAction, useDispatch, useSelector } from "stores";
@@ -7,7 +7,6 @@ import { AuthModal } from "components/layout/auth";
 
 function Header() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const loginUser = useSelector((state) => state.user);
   const [submenuVisible, setSubmenuVisible] = useState(false);
@@ -21,7 +20,6 @@ function Header() {
   function logout() {
     dispatch(logoutAction());
     alert("로그아웃 되었습니다");
-    navigate("/login");
   }
 
   return (
