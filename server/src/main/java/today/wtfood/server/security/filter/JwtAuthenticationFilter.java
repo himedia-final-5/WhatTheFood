@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.exception.GlobalExceptionHandler;
+import today.wtfood.server.security.enums.TokenSubject;
 import today.wtfood.server.security.service.JwtService;
 
 import java.io.IOException;
@@ -60,8 +61,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             String accessToken = authorizationHeader.substring(7);
 
-            Claims claims = jwtService.validateToken(accessToken);
-            Member member = (Member) userDetailsService.loadUserByUsername(claims.getSubject());
+            Claims claims = jwtService.validateToken(accessToken, TokenSubject.ACCESS);
+            Member member = (Member) userDetailsService.loadUserByUsername(claims.get(JwtService.VALUE_KEY, String.class));
 
             // 인증 객체 생성 후 SecurityContext 에 저장
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

@@ -37,7 +37,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         Member member = (Member) authentication.getPrincipal();
 
         // JWT 토큰 생성
-        JwtAuthResponse jwtAuthResponse = jwtService.generateToken(member.getUsername());
+        JwtAuthResponse jwtAuthResponse = jwtService.generateAuthToken(member.getUsername());
 
         ResponseHelper.write(response, ResponseEntity.ok(jwtAuthResponse));
     }

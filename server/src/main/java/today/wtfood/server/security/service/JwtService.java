@@ -4,12 +4,15 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.member.MemberAuth;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.entity.BlockedToken;
+import today.wtfood.server.security.enums.TokenSubject;
 import today.wtfood.server.security.repository.BlockTokenRepository;
 import today.wtfood.server.service.MemberService;
 
@@ -22,7 +25,8 @@ import java.util.UUID;
 @Service
 public class JwtService {
 
-    public final String JWT_ISSUER = "wtfood.today";
+    public static final String JWT_ISSUER = "wtfood.today";
+    public static final String VALUE_KEY = "value";
 
     private final SecretKey secretKey;
     private final long accessTokenExpiration;
@@ -46,34 +50,53 @@ public class JwtService {
         this.blockTokenRepository = blockTokenRepository;
     }
 
-    public JwtAuthResponse generateToken(String username) {
-        MemberAuth member = memberService.getMemberByUsername(username, MemberAuth.class);
+    /**
+     * 토큰 생성
+     *
+     * @param subject    토큰 주제
+     * @param value      토큰에 저장할 값
+     * @param expiration 토큰 만료 시간
+     * @param uuid       토큰 UUID, null 일 경우 랜덤 생성
+     * @return 생성된 토큰 문자열
+     */
+    public String generateToken(@NonNull TokenSubject subject, String value, long expiration, @Nullable String uuid) {
+        // UUID 가 null 일 경우 랜덤 생성
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
 
         // 토큰 생성 및 만료 시간 설정
         Date currentDate = new Date();
-        Date accessTokenExpireDate = new Date(currentDate.getTime() + accessTokenExpiration);
-        Date refreshTokenExpireDate = new Date(currentDate.getTime() + refreshTokenExpiration);
+        Date expireDate = new Date(currentDate.getTime() + expiration);
 
         // Claim 정보 설정
         Claims claims = Jwts.claims()
-                .setSubject(username) // JWT의 주제 : 사용자 이름
-                .setIssuer(JWT_ISSUER) // JWT의 발급자
-                .setAudience(JWT_ISSUER) // JWT의 대상자
-                .setIssuedAt(currentDate) // JWT의 발급 시간
-                .setExpiration(accessTokenExpireDate) // JWT의 만료 시간
-                .setId(UUID.randomUUID().toString());
+                .setSubject(subject.name()) // JWT의 주제 (어떤 용도의 토큰인지)
+                .setIssuer(JWT_ISSUER) // JWT의 발급자 (누가 발급한 토큰인지)
+                .setAudience(JWT_ISSUER) // JWT의 대상자 (누구를 위한 토큰인지)
+                .setIssuedAt(currentDate) // JWT의 발급 시간 (언제 발급한 토큰인지)
+                .setExpiration(expireDate) // JWT의 만료 시간 (언제까지 유효한 토큰인지)
+                .setId(uuid); // JWT의 UUID (토큰 식별자)
+        claims.put(VALUE_KEY, value); // JWT의 값 (토큰에 저장할 값)
 
-        // 토큰 생성
-        JwtBuilder jwtBuilder = Jwts.builder()
+        // 토큰 생성 및 반환
+        return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(currentDate)
-                .signWith(secretKey);
-        String accessToken = jwtBuilder
-                .setExpiration(accessTokenExpireDate)
+                .signWith(secretKey)
+                .setExpiration(expireDate)
                 .compact();
-        String refreshToken = jwtBuilder
-                .setExpiration(refreshTokenExpireDate)
-                .compact();
+    }
+
+    public JwtAuthResponse generateAuthToken(String username) {
+        MemberAuth member = memberService.getMemberByUsername(username, MemberAuth.class);
+
+        // 토큰의 UUID 생성 (접근 토큰과 갱신 토큰의 UUID를 동일하게 설정)
+        String uuid = UUID.randomUUID().toString();
+
+        // 토큰 생성
+        String accessToken = generateToken(TokenSubject.ACCESS, username, accessTokenExpiration, uuid);
+        String refreshToken = generateToken(TokenSubject.REFRESH, username, refreshTokenExpiration, uuid);
 
         // 응답 객체 생성 및 반환
         return new JwtAuthResponse(member, accessToken, refreshToken);
@@ -81,35 +104,39 @@ public class JwtService {
 
     public JwtAuthResponse reissueToken(String refreshToken) throws JwtException {
         // 재발급 토큰으로부터 사용자 정보 추출
-        Claims claims = validateToken(refreshToken);
-        String username = claims.getSubject();
+        Claims claims = validateToken(refreshToken, TokenSubject.REFRESH);
 
-        // 접근 토큰 재발급
-        return generateToken(username);
+        // username 값을 가져와 접근 토큰 재발급
+        String username = claims.get(VALUE_KEY, String.class);
+        return generateAuthToken(username);
     }
 
     public void blockToken(String token) {
         // 토큰 검증 및 파싱
-        Claims claims = validateToken(token);
+        Claims claims = validateToken(token, null);
 
-        // 데이터베이스에 토큰 저장
+        // 토큰 블락 데이터베이스에 토큰 UUID 저장 (접근 토큰과 갱신 토큰의 UUID는 동일하기 때문에 동시에 블락됨)
         blockTokenRepository.save(BlockedToken.builder()
                 .tokenUuid(claims.getId())
                 .expireTime(claims.getExpiration().getTime())
                 .build());
     }
 
-    public boolean isBlockedToken(String tokenId) {
-        return blockTokenRepository.existsById(tokenId);
+    public boolean isBlockedToken(String tokenUuid) {
+        return blockTokenRepository.existsById(tokenUuid);
     }
 
-    public Claims validateToken(String token) throws JwtException {
+    public Claims validateToken(String token, @Nullable TokenSubject tokenSubject) throws JwtException {
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
+
+            if (tokenSubject != null && !claims.getSubject().equals(tokenSubject.name())) {
+                throw new UnauthorizedException("Invalid Token Subject");
+            }
 
             if (isBlockedToken(claims.getId())) {
                 throw new UnauthorizedException("Blocked JWT Token");
@@ -123,7 +150,7 @@ public class JwtService {
             log.error("JWT Error on JWT Token Validation : {}", jwtException.getMessage());
             throw new BadRequestException("JWT Error on JWT Token Validation");
         } catch (UnauthorizedException unauthorizedException) {
-            throw unauthorizedException;
+            throw unauthorizedException; // 토큰 검증 단계에서 발생한 UnauthorizedException 은 그대로 반환
         } catch (Exception e) {
             throw new JwtException("Uncaught Error on JWT Token Validation : " + e.getMessage());
         }
