@@ -71,7 +71,6 @@ public class EventController {
     public GeneratedId<Long> createEvent(@RequestBody EventDto event) {
         return GeneratedId.of(es.createEvent(event).getId());
     }
-
 }
 
 
