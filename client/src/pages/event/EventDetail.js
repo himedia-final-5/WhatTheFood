@@ -16,6 +16,7 @@ function EventDetail() {
     contentImages: [],
     pass: "",
   });
+  
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
 
@@ -129,12 +130,15 @@ function EventDetail() {
       return alert("패스워드가 일치하지 않습니다");
     }
     axios
-      .delete(`/api/events/deleteEvent/${events.id}`)
+      .delete(`/events/${id}`, {
+        params: { pass }, // 패스워드를 쿼리 파라미터로 전송
+      })
       .then(() => {
         navigate("/events");
       })
       .catch((err) => {
         console.error(err);
+        alert("이벤트 삭제에 실패했습니다.");
       });
   };
 

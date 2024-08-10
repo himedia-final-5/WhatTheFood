@@ -30,7 +30,6 @@ function EventCreateBanner() {
   function onSubmit() {
     axios
       .post("/api/events/", {
-        // '/api/events' 대신 '/events' 사용
         userid: loginUser.userid,
         email: loginUser.email,
         ...event,
@@ -38,9 +37,7 @@ function EventCreateBanner() {
       })
       .then(() => {
         navigate("/events");
-      })
-      .catch((err) => {
-        console.error(err);
+        console.log(event);
       });
   }
 
@@ -48,7 +45,7 @@ function EventCreateBanner() {
     <div className="createEvent">
       <div className="createEvent_field">
         <label>작성자</label>
-        <input type="text" value={loginUser && loginUser.userid} readOnly />
+        <input type="text" value={loginUser && loginUser.nickname} readOnly />
       </div>
       <div className="createEvent_field">
         <label>PASS</label>
