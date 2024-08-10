@@ -2,8 +2,7 @@ package today.wtfood.server.security.service;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.member.MemberAuth;
@@ -19,10 +18,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
+@Log4j2
 @Service
 public class JwtService {
 
-    private static final Logger log = LoggerFactory.getLogger(JwtService.class);
     public final String JWT_ISSUER = "wtfood.today";
 
     private final SecretKey secretKey;
