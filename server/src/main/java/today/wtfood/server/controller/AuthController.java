@@ -20,7 +20,7 @@ public class AuthController {
     @PostMapping("reissue")
     @ResponseStatus(HttpStatus.OK)
     public JwtAuthResponse reissueFromHeader(@RequestHeader("Refresh") String refreshToken) {
-        // 접근 토큰 재발급
+        // 접근 토큰 갱신
         return jwtService.reissueToken(refreshToken);
     }
 

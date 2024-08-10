@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String authorizationHeader = request.getHeader("Authorization");
 
-            // 인증 토큰이 없는 경우 다음 필터로 이동
+            // 접근 토큰이 없는 경우 다음 필터로 이동
             if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
                 filterChain.doFilter(request, response);
                 return;

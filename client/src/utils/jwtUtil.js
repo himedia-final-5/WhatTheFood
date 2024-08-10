@@ -5,7 +5,7 @@ import { loginAction, logoutAction } from "../stores/userSlice";
 const getUser = () => store.getState().user;
 const jaxios = axios.create();
 
-// 반복적인 재발급 요청을 방지하기 위해 토큰 갱신 중인지 여부를 저장하는 변수
+// 반복적인 갱신 요청을 방지하기 위해 토큰 갱신 중인지 여부를 저장하는 변수
 let refreshingToken = false;
 // 토큰 갱신 중인 동안 대기 중인 요청을 저장하는 배열
 let subscribers = [];

@@ -103,13 +103,13 @@ public class JwtService {
     }
 
     public JwtAuthResponse reissueToken(String refreshToken) throws JwtException {
-        // 재발급 토큰으로부터 사용자 정보 추출
+        // 갱신 토큰으로부터 사용자 정보 추출
         Claims claims = validateToken(refreshToken, TokenSubject.REFRESH);
 
-        // 재발급 토큰 블록
+        // 갱신 토큰 블록
         blockToken(refreshToken);
 
-        // username 값을 가져와 접근 토큰 재발급
+        // username 값을 가져와 접근 토큰 갱신
         String username = claims.get(VALUE_KEY, String.class);
         return generateAuthToken(username);
     }
