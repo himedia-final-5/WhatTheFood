@@ -1,4 +1,6 @@
 export { default as CloseMark } from "./CloseMark";
+export { default as TablerCircleKeyFilled } from "./TablerCircleKeyFilled";
+export { default as TablerUserFilled } from "./TablerUserFilled";
 
 export { default as UndrawAddFiles } from "./UndrawAddFiles";
 export { default as UndrawBarbecue } from "./UndrawBarbecue";
