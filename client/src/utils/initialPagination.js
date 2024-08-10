@@ -1,7 +1,7 @@
 /** @returns {Pagination}*/
-export default function initialPagination() {
+export default function initialPagination(page = 0) {
   return {
-    page: 0,
+    page,
     size: 0,
     totalElements: 0,
     totalPages: 0,
