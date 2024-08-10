@@ -7,6 +7,7 @@ import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
 import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
 import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
 import { NoticeList, NoticeDetail, NoticeWrite } from "pages/notice";
+import { TestAssets } from "pages/test";
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
           <Route path="/notice" element={<NoticeList />} />
           <Route path="/notice/:id" element={<NoticeDetail />} />
           <Route path="/writeNotice" element={<NoticeWrite />} />
+
+          <Route path="/test/assets" element={<TestAssets />} />
         </Routes>
       </div>
       <Footer />
