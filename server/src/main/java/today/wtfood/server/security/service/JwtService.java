@@ -12,7 +12,7 @@ import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.entity.BlockedToken;
-import today.wtfood.server.security.enums.TokenSubject;
+import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.repository.BlockTokenRepository;
 import today.wtfood.server.service.MemberService;
 
@@ -26,7 +26,6 @@ import java.util.UUID;
 public class JwtService {
 
     public static final String JWT_ISSUER = "wtfood.today";
-    public static final String VALUE_KEY = "value";
 
     private final SecretKey secretKey;
     private final long accessTokenExpiration;
@@ -53,13 +52,13 @@ public class JwtService {
     /**
      * 토큰 생성
      *
-     * @param subject    토큰 주제
-     * @param value      토큰에 저장할 값
+     * @param purpose    토큰 주제
+     * @param subject    토큰에 저장할 값
      * @param expiration 토큰 만료 시간
      * @param uuid       토큰 UUID, null 일 경우 랜덤 생성
      * @return 생성된 토큰 문자열
      */
-    public String generateToken(@NonNull TokenSubject subject, String value, long expiration, @Nullable String uuid) {
+    public String generateToken(@NonNull TokenPurpose purpose, String subject, long expiration, @Nullable String uuid) {
         // UUID 가 null 일 경우 랜덤 생성
         if (uuid == null) {
             uuid = UUID.randomUUID().toString();
@@ -71,13 +70,13 @@ public class JwtService {
 
         // Claim 정보 설정
         Claims claims = Jwts.claims()
-                .setSubject(subject.name()) // JWT의 주제 (어떤 용도의 토큰인지)
+                .setSubject(subject) // JWT의 주체 (주로 사용자 ID 또는 고유 식별자)
                 .setIssuer(JWT_ISSUER) // JWT의 발급자 (누가 발급한 토큰인지)
                 .setAudience(JWT_ISSUER) // JWT의 대상자 (누구를 위한 토큰인지)
                 .setIssuedAt(currentDate) // JWT의 발급 시간 (언제 발급한 토큰인지)
                 .setExpiration(expireDate) // JWT의 만료 시간 (언제까지 유효한 토큰인지)
                 .setId(uuid); // JWT의 UUID (토큰 식별자)
-        claims.put(VALUE_KEY, value); // JWT의 값 (토큰에 저장할 값)
+        claims.put(TokenPurpose.CLAIMS_KEY, purpose.name()); // JWT의 값 (토큰에 저장할 값)
 
         // 토큰 생성 및 반환
         return Jwts.builder()
@@ -95,8 +94,8 @@ public class JwtService {
         String uuid = UUID.randomUUID().toString();
 
         // 토큰 생성
-        String accessToken = generateToken(TokenSubject.ACCESS, username, accessTokenExpiration, uuid);
-        String refreshToken = generateToken(TokenSubject.REFRESH, username, refreshTokenExpiration, uuid);
+        String accessToken = generateToken(TokenPurpose.AUTHORIZATION, username, accessTokenExpiration, uuid);
+        String refreshToken = generateToken(TokenPurpose.REFRESH_TOKEN, username, refreshTokenExpiration, uuid);
 
         // 응답 객체 생성 및 반환
         return new JwtAuthResponse(member, accessToken, refreshToken);
@@ -104,13 +103,13 @@ public class JwtService {
 
     public JwtAuthResponse reissueToken(String refreshToken) throws JwtException {
         // 갱신 토큰으로부터 사용자 정보 추출
-        Claims claims = validateToken(refreshToken, TokenSubject.REFRESH);
+        Claims claims = validateToken(refreshToken, TokenPurpose.REFRESH_TOKEN);
 
         // 갱신 토큰 블록
         blockToken(refreshToken);
 
         // username 값을 가져와 접근 토큰 갱신
-        String username = claims.get(VALUE_KEY, String.class);
+        String username = claims.getSubject();
         return generateAuthToken(username);
     }
 
@@ -129,7 +128,7 @@ public class JwtService {
         return blockTokenRepository.existsById(tokenUuid);
     }
 
-    public Claims validateToken(String token, @Nullable TokenSubject tokenSubject) throws JwtException {
+    public Claims validateToken(String token, @Nullable TokenPurpose expectPurpose) throws JwtException {
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
@@ -137,8 +136,8 @@ public class JwtService {
                     .parseClaimsJws(token)
                     .getBody();
 
-            if (tokenSubject != null && !claims.getSubject().equals(tokenSubject.name())) {
-                throw new UnauthorizedException("Invalid Token Subject");
+            if (expectPurpose != null && !expectPurpose.isSamePurpose(claims)) {
+                throw new UnauthorizedException("Invalid Token Purpose");
             }
 
             if (isBlockedToken(claims.getId())) {

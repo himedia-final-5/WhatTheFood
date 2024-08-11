@@ -18,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.exception.GlobalExceptionHandler;
-import today.wtfood.server.security.enums.TokenSubject;
+import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.service.JwtService;
 
 import java.io.IOException;
@@ -54,15 +54,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String authorizationHeader = request.getHeader("Authorization");
 
-            // 접근 토큰이 없는 경우 다음 필터로 이동
+            // 인증 헤더가 없는 경우 다음 필터로 이동
             if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
                 filterChain.doFilter(request, response);
                 return;
             }
             String accessToken = authorizationHeader.substring(7);
 
-            Claims claims = jwtService.validateToken(accessToken, TokenSubject.ACCESS);
-            Member member = (Member) userDetailsService.loadUserByUsername(claims.get(JwtService.VALUE_KEY, String.class));
+            Claims claims = jwtService.validateToken(accessToken, TokenPurpose.AUTHORIZATION);
+            String username = claims.getSubject();
+            Member member = (Member) userDetailsService.loadUserByUsername(username);
 
             // 인증 객체 생성 후 SecurityContext 에 저장
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

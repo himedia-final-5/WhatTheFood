@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
-import today.wtfood.server.security.enums.TokenSubject;
+import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.service.JwtService;
 import today.wtfood.server.service.EmailService;
 
@@ -45,7 +45,7 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     public void sendEmail(@RequestParam("email") String email) throws MessagingException, IOException {
         // 이메일 전송
-        String token = jwtService.generateToken(TokenSubject.EMAIL, email, 1000 * 60 * 60 * 24, null);
+        String token = jwtService.generateToken(TokenPurpose.VERIFY_EMAIL, email, 1000 * 60 * 60 * 24, null);
         emailService.sendJoinEmail(email, token);
     }
 
