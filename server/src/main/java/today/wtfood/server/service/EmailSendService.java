@@ -25,12 +25,12 @@ public class EmailSendService {
     private final String joinMailHtmlTemplate;
 
     public EmailSendService(
-            @Value("${spring.mail.username}") String from,
+            @Value("${mail.sender.verify-email}") String from,
             JavaMailSender javaMailSender,
 
-            @Value("${site.home-page}") String homePage,
-            @Value("${site.join-page}") String joinPage,
-            @Value("${site.logo-path}") String logoPath,
+            @Value("${mail.template.replacement.home-page}") String homePage,
+            @Value("${mail.template.replacement.join-page}") String joinPage,
+            @Value("${mail.template.replacement.logo-path}") String logoPath,
             ResourceLoader resourceLoader
     ) throws IOException {
         this.from = from;
