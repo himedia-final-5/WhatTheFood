@@ -31,7 +31,7 @@ public class EmailToken {
     private Timestamp expiryDate;
 
     public enum TokenPurpose {
-        JOIN,
+        SING_UP,
         RESET_PASSWORD,
         CHANGE_EMAIL
     }

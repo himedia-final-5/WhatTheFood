@@ -62,7 +62,7 @@ public class MemberController {
 
     @GetMapping("/check-username")
     @PreAuthorize("permitAll()")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void checkUsername(
             @RequestParam
             String username
@@ -95,9 +95,9 @@ public class MemberController {
         memberService.deleteMember(memberId);
     }
 
-    @PostMapping("/join/email")
+    @PostMapping("/verify-email/signup")
     @PreAuthorize("permitAll()")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void sendEmail(
             @RequestParam("email")
             String email
@@ -106,7 +106,7 @@ public class MemberController {
             throw new ConflictException("Email already exists");
         }
 
-        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.JOIN, email, 1000 * 60 * 60 * 24);
+        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, email, 1000 * 60 * 60 * 24);
         emailSendService.sendJoinEmail(email, emailToken.getToken().toString());
     }
 
