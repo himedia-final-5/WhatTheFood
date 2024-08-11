@@ -30,10 +30,7 @@ function EventCreateBanner() {
   function onSubmit() {
     axios
       .post("/api/events/", {
-        userid: loginUser.userid,
-        email: loginUser.email,
         ...event,
-        ...inputs,
       })
       .then(() => {
         navigate("/events");
