@@ -1,54 +1,18 @@
 import { useState } from "react";
 
-import {
-  CloseMark,
-  TablerCircleKeyFilled,
-  TablerUserFilled,
-  UndrawEatingTogether,
-} from "components/asset";
+import { CloseMark, UndrawEatingTogether } from "components/asset";
 import { Modal } from "components/util";
-import { cn, axios } from "utils";
-import { useInputs } from "hooks";
-import { useDispatch, signinAction } from "stores";
+import { cn } from "utils";
+import AuthSignInForm from "./AuthSignInForm";
+import AuthSignUpForm from "./AuthSignUpForm";
 
 /**
  * @param {boolean} visible 모달 표시 여부
  * @param {function(boolean)} setVisible 모달 표시 여부 변경 함수
  */
 export default function AuthModal({ visible, setVisible }) {
-  const dispatch = useDispatch();
   const [isSignIn, setSignIn] = useState(true);
-  const { inputs, onInputChange } = useInputs({
-    username: "",
-    password: "",
-  });
   const modeText = isSignIn ? "로그인" : "회원가입";
-
-  async function onFormSubmit() {
-    if (!isSignIn) {
-      /** TODO: 회원가입 기능 구현 */
-      return alert("회원가입은 준비 중입니다.");
-    }
-
-    if (!inputs.username || inputs.username.length < 1) {
-      return alert("아이디를 입력하세요.");
-    }
-
-    if (!inputs.password || inputs.password.length < 1) {
-      return alert("패스워드를 입력하세요.");
-    }
-
-    try {
-      let result = await axios.post("/api/auth/signin", inputs, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      });
-      dispatch(signinAction(result.data));
-      setVisible(false);
-    } catch (err) {
-      console.error(err);
-      alert("로그인에 실패했습니다");
-    }
-  }
 
   async function onSocialLogin(provider) {
     /** TODO: 소셜 로그인 기능 구현 */
@@ -78,83 +42,11 @@ export default function AuthModal({ visible, setVisible }) {
           className="flex flex-col gap-4 items-center w-full flex-1 pt-12"
         >
           <div className="w-full text-2xl font-bold">{modeText}</div>
-          <form
-            aria-label="auth-input-form"
-            className="flex w-full"
-            onSubmit={(event) => {
-              event.preventDefault();
-              onFormSubmit();
-            }}
-          >
-            <div className="flex flex-col flex-1">
-              <div
-                aria-label="auth-input-username"
-                className="w-full h-12 flex"
-              >
-                <label htmlFor="username" className="flex">
-                  <span className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-ss-md">
-                    <TablerUserFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-                  </span>
-                </label>
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  autoComplete="username"
-                  autoCorrect="off"
-                  placeholder="아이디"
-                  defaultValue={inputs.username}
-                  onChange={onInputChange}
-                  required
-                  className={cn(
-                    "block flex-1 min-w-0 w-full p-2.5",
-                    "bg-gray-50 border border-solid border-gray-300",
-                    "text-gray-900 text-base focus:border-green-500",
-                  )}
-                />
-              </div>
-              <div
-                aria-label="auth-input-password"
-                className="w-full h-12 flex"
-              >
-                <label htmlFor="password" className="flex">
-                  <span className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-es-md">
-                    <TablerCircleKeyFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-                  </span>
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="password"
-                  autoCorrect="off"
-                  placeholder="비밀번호"
-                  defaultValue={inputs.password}
-                  onChange={onInputChange}
-                  required
-                  className={cn(
-                    "block flex-1 min-w-0 w-full p-2.5",
-                    "bg-gray-50 border border-solid border-gray-300",
-                    "text-gray-900 text-base focus:border-green-500",
-                  )}
-                />
-              </div>
-            </div>
-            <div
-              aria-label="auth-submit-button"
-              className="w-16 h-full bg-green-500 rounded-e-md"
-            >
-              <button
-                type="submit"
-                className={cn(
-                  "w-full h-full",
-                  "text-white text-base font-bold drop-shadow",
-                )}
-              >
-                {modeText}
-              </button>
-            </div>
-          </form>
+          {isSignIn ? (
+            <AuthSignInForm setVisible={setVisible} />
+          ) : (
+            <AuthSignUpForm />
+          )}
           <div aria-label="auth-social" className="flex flex-col w-full">
             <div className="w-full text-base text-gray-500 my-2">
               소셜 계정으로 {modeText}
