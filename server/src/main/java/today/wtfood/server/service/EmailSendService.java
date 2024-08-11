@@ -16,7 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @Service
-public class EmailService {
+public class EmailSendService {
 
     private final String from;
 
@@ -30,7 +30,7 @@ public class EmailService {
 
     private final ResourceLoader resourceLoader;
 
-    public EmailService(
+    public EmailSendService(
             @Value("${spring.mail.username}") String from,
             @Value("${site.home-page}") String homePage,
             @Value("${site.join-page}") String joinPage,

@@ -10,7 +10,7 @@ import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.service.JwtService;
-import today.wtfood.server.service.EmailService;
+import today.wtfood.server.service.EmailSendService;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class AuthController {
 
     private final JwtService jwtService;
-    private final EmailService emailService;
+    private final EmailSendService emailSendService;
 
     @PostMapping("reissue")
     @ResponseStatus(HttpStatus.OK)
@@ -46,7 +46,7 @@ public class AuthController {
     public void sendEmail(@RequestParam("email") String email) throws MessagingException, IOException {
         // 이메일 전송
         String token = jwtService.generateToken(TokenPurpose.VERIFY_EMAIL, email, 1000 * 60 * 60 * 24, null);
-        emailService.sendJoinEmail(email, token);
+        emailSendService.sendJoinEmail(email, token);
     }
 
 }
