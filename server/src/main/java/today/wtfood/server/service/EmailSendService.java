@@ -35,14 +35,22 @@ public class EmailSendService {
         this.javaMailSender = javaMailSender;
 
         // 리소스 폴더의 mail/signup.txt 파일 읽어오기
-        Resource plainResource = resourceLoader.getResource("classpath:mail/signup.txt");
-        this.signupMailTemplatePlain = new String(Files.readAllBytes(Paths.get(plainResource.getURI())))
-                .replaceAll("%HOME_PAGE%", homePage)
-                .replaceAll("%LOGO_PATH%", logoPath);
+        this.signupMailTemplatePlain = parseTemplate(
+                resourceLoader.getResource("classpath:mail/signup.txt"),
+                homePage,
+                logoPath
+        );
 
         // 리소스 폴더의 mail/signup.html 파일 읽어오기
-        Resource htmlResource = resourceLoader.getResource("classpath:mail/signup.html");
-        this.signupMailTemplateHtml = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())))
+        this.signupMailTemplateHtml = parseTemplate(
+                resourceLoader.getResource("classpath:mail/signup.html"),
+                homePage,
+                logoPath
+        );
+    }
+
+    private String parseTemplate(Resource templateResource, String homePage, String logoPath) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(templateResource.getURI())))
                 .replaceAll("%HOME_PAGE%", homePage)
                 .replaceAll("%LOGO_PATH%", logoPath);
     }
