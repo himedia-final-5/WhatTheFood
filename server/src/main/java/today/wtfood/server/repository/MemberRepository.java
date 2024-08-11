@@ -18,6 +18,8 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
     boolean existsByUsername(String username);
 
+    boolean existsByEmail(String email);
+
     <T> Optional<T> findGenericById(long id, Class<T> projectionType);
 
 }

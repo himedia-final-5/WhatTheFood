@@ -76,6 +76,16 @@ public class MemberService {
     }
 
     /**
+     * email 중복 체크
+     *
+     * @param email 중복 체크할 email
+     * @return 중복 여부
+     */
+    public boolean checkEmailExists(String email) {
+        return !memberRepository.existsByEmail(email);
+    }
+
+    /**
      * 회원 정보 변경
      *
      * @param memberId    변경할 회원의 ID

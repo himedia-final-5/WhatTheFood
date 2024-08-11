@@ -102,6 +102,10 @@ public class MemberController {
             @RequestParam("email")
             String email
     ) throws MessagingException {
+        if (!memberService.checkEmailExists(email)) {
+            throw new ConflictException("Email already exists");
+        }
+
         EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.JOIN, email, 1000 * 60 * 60 * 24);
         emailSendService.sendJoinEmail(email, emailToken.getToken().toString());
     }
