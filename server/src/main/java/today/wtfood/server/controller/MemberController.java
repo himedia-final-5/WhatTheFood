@@ -1,5 +1,7 @@
 package today.wtfood.server.controller;
 
+import jakarta.mail.MessagingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -13,19 +15,20 @@ import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
+import today.wtfood.server.entity.EmailToken;
 import today.wtfood.server.exception.ConflictException;
+import today.wtfood.server.service.EmailSendService;
+import today.wtfood.server.service.EmailTokenService;
 import today.wtfood.server.service.MemberService;
 
 @RestController
 @RequestMapping(path = "/members", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
-
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
+    private final EmailSendService emailSendService;
+    private final EmailTokenService emailTokenService;
 
     @PostMapping("")
     @PreAuthorize("permitAll()")
@@ -90,6 +93,17 @@ public class MemberController {
             long memberId
     ) {
         memberService.deleteMember(memberId);
+    }
+
+    @PostMapping("/join/email")
+    @PreAuthorize("permitAll()")
+    @ResponseStatus(HttpStatus.OK)
+    public void sendEmail(
+            @RequestParam("email")
+            String email
+    ) throws MessagingException {
+        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.JOIN, email, 1000 * 60 * 60 * 24);
+        emailSendService.sendJoinEmail(email, emailToken.getToken().toString());
     }
 
 }
