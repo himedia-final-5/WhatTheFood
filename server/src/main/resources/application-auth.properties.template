@@ -4,6 +4,8 @@ spring.datasource.password=password
 spring.datasource.url=jdbc:mysql://localhost:3306/whatthefood
 #
 # Mail configuration
+spring.mail.host=smtp.example.com
+spring.mail.port=587
 spring.mail.username=username@example.com
 spring.mail.password=password4email
 #
