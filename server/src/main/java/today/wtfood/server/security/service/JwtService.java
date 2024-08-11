@@ -73,9 +73,10 @@ public class JwtService {
                 .setSubject(subject) // JWT의 주체 (주로 사용자 ID 또는 고유 식별자)
                 .setIssuer(JWT_ISSUER) // JWT의 발급자 (누가 발급한 토큰인지)
                 .setAudience(JWT_ISSUER) // JWT의 대상자 (누구를 위한 토큰인지)
-                .setIssuedAt(currentDate) // JWT의 발급 시간 (언제 발급한 토큰인지)
+                // .setIssuedAt(currentDate) // JWT의 발급 시간 (언제 발급한 토큰인지)
+                // .setNotBefore(currentDate) // JWT의 활성 시간 (언제부터 유효한 토큰인지)
                 .setExpiration(expireDate) // JWT의 만료 시간 (언제까지 유효한 토큰인지)
-                .setId(uuid); // JWT의 UUID (토큰 식별자)
+                .setId(uuid); // JWT의 UUID (토큰 자체의 식별자)
         claims.put(TokenPurpose.CLAIMS_KEY, purpose.name()); // JWT의 값 (토큰에 저장할 값)
 
         // 토큰 생성 및 반환
