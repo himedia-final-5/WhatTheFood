@@ -1,18 +1,18 @@
 # Database Configuration
-spring.datasource.username=username
-spring.datasource.password=password
+spring.datasource.username={username}
+spring.datasource.password={password}
 spring.datasource.url=jdbc:mysql://localhost:3306/whatthefood
 #
 # Mail configuration
-spring.mail.host=smtp.example.com
+spring.mail.host={smtp.example.com}
 spring.mail.port=587
-spring.mail.username=username@example.com
-spring.mail.password=password4email
-mail.sender.verify-email=verify@wtfood.today
+spring.mail.username={username@example.com}
+spring.mail.password={password4email}
+mail.sender.verify-email={verify@wtfood.today}
 #
 # Security configuration
 ## secret key for JWT token (TIP: use https://jwtsecret.com/generate)
-jwt.secret=SECRET_KEY_FOR_JWT_TOKEN
+jwt.secret={SECRET_KEY_FOR_JWT_TOKEN}
 ## expiration time of JWT access token in milliseconds (default 30 minutes)
 jwt.access_token_expiration=1800000
 ## expiration time of JWT refresh token in milliseconds (default 7 day)
