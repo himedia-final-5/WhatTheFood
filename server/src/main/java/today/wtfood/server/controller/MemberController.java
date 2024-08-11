@@ -1,6 +1,5 @@
 package today.wtfood.server.controller;
 
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,10 +14,7 @@ import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
-import today.wtfood.server.entity.EmailToken;
 import today.wtfood.server.exception.ConflictException;
-import today.wtfood.server.service.EmailSendService;
-import today.wtfood.server.service.EmailTokenService;
 import today.wtfood.server.service.MemberService;
 
 @RestController
@@ -27,8 +23,6 @@ import today.wtfood.server.service.MemberService;
 public class MemberController {
 
     private final MemberService memberService;
-    private final EmailSendService emailSendService;
-    private final EmailTokenService emailTokenService;
 
     @PostMapping("")
     @PreAuthorize("permitAll()")
@@ -93,21 +87,6 @@ public class MemberController {
             long memberId
     ) {
         memberService.deleteMember(memberId);
-    }
-
-    @PostMapping("/verify-email/signup")
-    @PreAuthorize("permitAll()")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void sendEmail(
-            @RequestParam("email")
-            String email
-    ) throws MessagingException {
-        if (!memberService.checkEmailExists(email)) {
-            throw new ConflictException("Email already exists");
-        }
-
-        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, email, 1000 * 60 * 60 * 24);
-        emailSendService.sendJoinEmail(email, emailToken.getToken().toString());
     }
 
 }
