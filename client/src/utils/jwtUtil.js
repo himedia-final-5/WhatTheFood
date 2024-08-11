@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../stores";
-import { loginAction, logoutAction } from "../stores/userSlice";
+import { signinAction, signoutAction } from "../stores/userSlice";
 
 const getUser = () => store.getState().user;
 const jaxios = axios.create();
@@ -76,7 +76,7 @@ const responseInterceptor = async (error) => {
     });
 
     // 토큰 갱신 성공 시 로그인 처리 후 토큰 갱신 대기열 처리
-    store.dispatch(loginAction(response.data));
+    store.dispatch(signinAction(response.data));
     subscribers.forEach(([resolve]) => resolve(response.data));
     subscribers = [];
     refreshingToken = false;
@@ -88,7 +88,7 @@ const responseInterceptor = async (error) => {
     return jaxios(requestConfig);
   } catch (refreshError) {
     // 토큰 갱신 실패 시 로그아웃 처리 후 토큰 갱신 대기열 처리
-    store.dispatch(logoutAction());
+    store.dispatch(signoutAction());
     subscribers.forEach(([, reject]) => reject(refreshError));
     subscribers = [];
     refreshingToken = false;

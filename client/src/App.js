@@ -17,8 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
 
-          <Route path="/joinForm" element={<MemberJoin />} />
-          <Route path="/login" element={<MemberLogin />} />
+          <Route path="/signin" element={<MemberLogin />} />
+          <Route path="/signup" element={<MemberJoin />} />
           <Route path="/setting" element={<MemberUpdate />} />
 
           <Route path="/events" element={<EventList />} />

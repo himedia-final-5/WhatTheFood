@@ -23,16 +23,16 @@ export const userSlice = createSlice({
      *
      * @returns {User} 입력된 사용자 정보를 반환해 사용자 정보가 있는 상태로 변경합니다.
      */
-    loginAction: (state, action) => action.payload,
+    signinAction: (state, action) => action.payload,
 
     /**
      * 사용자를 로그아웃하는 액션입니다.
      *
      * @returns {null} null을 반환해 사용자 정보가 없는 상태로 변경합니다.
      */
-    logoutAction: () => null,
+    signoutAction: () => null,
   },
 });
 
-export const { loginAction, logoutAction } = userSlice.actions;
+export const { signinAction, signoutAction } = userSlice.actions;
 export default userSlice.reducer;

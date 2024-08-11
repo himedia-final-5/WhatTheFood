@@ -49,7 +49,7 @@ public class SecurityConfig {
 
         // 로그인 처리 설정
         http.formLogin(config -> config
-                .loginPage("/auth/login")
+                .loginPage("/auth/signin")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
         );
@@ -78,7 +78,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost", "http://localhost:3000", "http://wtfood.today", "https://wtfood.today"));
         configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "Accept"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Refresh", "Cache-Control", "Content-Type", "Accept"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

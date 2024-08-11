@@ -34,7 +34,7 @@ public class AuthController {
         return jwtService.reissueToken(refreshToken);
     }
 
-    @PostMapping("logout")
+    @PostMapping("signout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout(@RequestHeader("Authorization") String authorizationHeader) {
         // 접근 토큰 블록

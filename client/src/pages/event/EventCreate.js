@@ -8,14 +8,14 @@ import { useInputs } from "hooks";
 
 function EventCreateBanner() {
   const navigate = useNavigate();
-  const loginUser = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (!loginUser) {
+    if (!user) {
       alert("로그인이 필요합니다.");
-      navigate("/login");
+      navigate("/signin");
     }
-  }, [loginUser, navigate]);
+  }, [user, navigate]);
 
   const [event, setEvent] = useState({
     pass: "",
@@ -30,8 +30,8 @@ function EventCreateBanner() {
   function onSubmit() {
     axios
       .post("/api/events/", {
-        userid: loginUser.userid,
-        email: loginUser.email,
+        userid: user.userid,
+        email: user.email,
         ...event,
         ...inputs,
       })
@@ -45,7 +45,7 @@ function EventCreateBanner() {
     <div className="createEvent">
       <div className="createEvent_field">
         <label>작성자</label>
-        <input type="text" value={loginUser && loginUser.nickname} readOnly />
+        <input type="text" value={user && user.nickname} readOnly />
       </div>
       <div className="createEvent_field">
         <label>PASS</label>

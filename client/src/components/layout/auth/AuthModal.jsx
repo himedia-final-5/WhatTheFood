@@ -9,7 +9,7 @@ import {
 import { Modal } from "components/util";
 import { cn, axios } from "utils";
 import { useInputs } from "hooks";
-import { useDispatch, loginAction } from "stores";
+import { useDispatch, signinAction } from "stores";
 
 /**
  * @param {boolean} visible 모달 표시 여부
@@ -17,15 +17,15 @@ import { useDispatch, loginAction } from "stores";
  */
 export default function AuthModal({ visible, setVisible }) {
   const dispatch = useDispatch();
-  const [isLoginMode, setLoginMode] = useState(true);
+  const [isSignIn, setSignIn] = useState(true);
   const { inputs, onInputChange } = useInputs({
     username: "",
     password: "",
   });
-  const modeText = isLoginMode ? "로그인" : "회원가입";
+  const modeText = isSignIn ? "로그인" : "회원가입";
 
   async function onFormSubmit() {
-    if (!isLoginMode) {
+    if (!isSignIn) {
       /** TODO: 회원가입 기능 구현 */
       return alert("회원가입은 준비 중입니다.");
     }
@@ -39,10 +39,10 @@ export default function AuthModal({ visible, setVisible }) {
     }
 
     try {
-      let result = await axios.post("/api/auth/login", inputs, {
+      let result = await axios.post("/api/auth/signin", inputs, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
-      dispatch(loginAction(result.data));
+      dispatch(signinAction(result.data));
       setVisible(false);
     } catch (err) {
       console.error(err);
@@ -155,12 +155,12 @@ export default function AuthModal({ visible, setVisible }) {
               </button>
             </div>
           </form>
-          <div aria-label="auth-social-login" className="flex flex-col w-full">
+          <div aria-label="auth-social" className="flex flex-col w-full">
             <div className="w-full text-base text-gray-500 my-2">
               소셜 계정으로 {modeText}
             </div>
             <div
-              aria-label="auth-social-login-buttons"
+              aria-label="auth-social-buttons"
               className="flex w- justify-around full gap-4"
             >
               <button
@@ -203,12 +203,12 @@ export default function AuthModal({ visible, setVisible }) {
           <UndrawEatingTogether width="12rem" />
           <div aria-label="mode-change-button" className="flex">
             <div className="text-base text-green-600 mb-8 mr-4">
-              {isLoginMode ? "계정이 없으신가요?" : "계정이 있으신가요?"}
+              {isSignIn ? "계정이 없으신가요?" : "계정이 있으신가요?"}
               <button
                 className="font-bold ml-2"
-                onClick={() => setLoginMode(!isLoginMode)}
+                onClick={() => setSignIn(!isSignIn)}
               >
-                {isLoginMode ? "회원가입" : "로그인"}
+                {isSignIn ? "회원가입" : "로그인"}
               </button>
             </div>
           </div>

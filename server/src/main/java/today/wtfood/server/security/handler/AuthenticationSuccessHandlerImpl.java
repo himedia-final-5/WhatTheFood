@@ -15,7 +15,7 @@ import today.wtfood.server.util.ResponseHelper;
 import java.io.IOException;
 
 /**
- * {@code /auth/login} 요청을 통한 인증 성공 시 호출
+ * {@code /auth/signin} 요청을 통한 인증 성공 시 호출
  */
 @Log4j2
 @Component

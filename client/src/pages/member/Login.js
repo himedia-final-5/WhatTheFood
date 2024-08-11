@@ -6,7 +6,7 @@ function Login() {
   return (
     <div className="body">
       <div className="searching">
-        <Link to="/joinForm">회원가입</Link>
+        <Link to="/signup">회원가입</Link>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div>아이디 찾기</div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

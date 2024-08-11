@@ -2,23 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 import "./Header.css";
-import { logoutAction, useDispatch, useSelector } from "stores";
+import { signoutAction, useDispatch, useSelector } from "stores";
 import { AuthModal } from "components/layout/auth";
 
 function Header() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const loginUser = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const [submenuVisible, setSubmenuVisible] = useState(false);
   const [authFormVisible, setAuthFormVisible] = useState(false);
 
   useEffect(() => {
     setSubmenuVisible(false);
     setAuthFormVisible(false);
-  }, [location, loginUser]);
+  }, [location, user]);
 
-  function logout() {
-    dispatch(logoutAction());
+  function signout() {
+    dispatch(signoutAction());
     alert("로그아웃 되었습니다");
   }
 
@@ -44,7 +44,7 @@ function Header() {
           <div
             className="toptopprofile"
             onClick={() => {
-              if (loginUser) {
+              if (user) {
                 setSubmenuVisible(!submenuVisible);
               } else {
                 setAuthFormVisible(true);
@@ -63,7 +63,7 @@ function Header() {
         <div className="sm">
           <Link to="/inquiryList">고객문의</Link>
         </div>
-        <div className="sm" onClick={logout}>
+        <div className="sm" onClick={signout}>
           로그아웃
         </div>
       </div>

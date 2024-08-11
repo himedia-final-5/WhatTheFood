@@ -6,7 +6,7 @@ import { useSelector } from "stores";
 import { axios } from "utils";
 
 function InquiryWriteForm() {
-  const loginUser = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -16,7 +16,7 @@ function InquiryWriteForm() {
   function onSubmit() {
     axios
       .post("/api/faqs", {
-        userid: loginUser.userid,
+        userid: user.userid,
         title,
         content,
       })

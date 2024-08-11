@@ -11,17 +11,17 @@ function UpdateEvent() {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const loginUser = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const [event, setEvent] = useState({});
   const { inputs, onInputChange } = useInputs(event);
 
   useEffect(() => {
-    if (!loginUser) {
+    if (!user) {
       alert("로그인이 필요합니다.");
-      navigate("/login");
+      navigate("/signin");
     }
-  }, [navigate, loginUser]);
+  }, [navigate, user]);
 
   useEffect(() => {
     axios
@@ -41,11 +41,7 @@ function UpdateEvent() {
     <div className="createEvent">
       <div className="createEvent_field">
         <label>작성자</label>
-        <input
-          type="text"
-          defaultValue={loginUser && loginUser.nickname}
-          readOnly
-        />
+        <input type="text" defaultValue={user && user.nickname} readOnly />
       </div>
       <div className="createEvent_field">
         <label>제목</label>

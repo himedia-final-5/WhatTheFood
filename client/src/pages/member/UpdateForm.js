@@ -61,7 +61,7 @@ function UpdateForm() {
       <br></br>
       <div className="join">
         <div id="join">수정완료</div>
-        <Link id="join" to="/login">
+        <Link id="back" to="/">
           돌아가기
         </Link>
       </div>

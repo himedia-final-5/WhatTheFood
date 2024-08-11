@@ -69,9 +69,9 @@ function JoinForm() {
       </div>
       <br></br>
       <div className="join">
-        <div id="join">가입하기</div>
+        <div id="signup">가입하기</div>
 
-        <Link id="join" to="/login">
+        <Link id="back" to="/signin">
           돌아가기
         </Link>
       </div>

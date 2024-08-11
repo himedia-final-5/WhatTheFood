@@ -40,9 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 공개 api
             "/error",
-            "/auth/login",
-            "/auth/logout",
-            "/auth/reissue"
+            "/auth/**"
     );
 
     @Override

@@ -8,19 +8,19 @@ import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
 function InquiryList() {
-  const loginUser = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const { content, pagination, setPageResponse } = usePageResponse();
 
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/inquiries/username/${loginUser.username}`, {
+        .get(`/api/inquiries/username/${user.username}`, {
           params: { page },
         })
         .then((result) => setPageResponse(result.data))
         .catch(console.error),
-    [loginUser, setPageResponse],
+    [user, setPageResponse],
   );
 
   useEffect(() => {
