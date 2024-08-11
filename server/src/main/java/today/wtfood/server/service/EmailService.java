@@ -32,9 +32,9 @@ public class EmailService {
 
     public EmailService(
             @Value("${spring.mail.username}") String from,
-            @Value("${wtfood.home-page}") String homePage,
-            @Value("${wtfood.join-page}") String joinPage,
-            @Value("${wtfood.logo-path}") String logoPath,
+            @Value("${site.home-page}") String homePage,
+            @Value("${site.join-page}") String joinPage,
+            @Value("${site.logo-path}") String logoPath,
             JavaMailSender javaMailSender,
             ResourceLoader resourceLoader
     ) {
