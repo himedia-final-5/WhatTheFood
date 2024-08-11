@@ -19,31 +19,36 @@ import java.nio.file.Paths;
 public class EmailSendService {
 
     private final String from;
-
-    private final String homePage;
-
-    private final String joinPage;
-
-    private final String logoPath;
-
     private final JavaMailSender javaMailSender;
 
-    private final ResourceLoader resourceLoader;
+    private final String joinMailPlainTemplate;
+    private final String joinMailHtmlTemplate;
 
     public EmailSendService(
             @Value("${spring.mail.username}") String from,
+            JavaMailSender javaMailSender,
+
             @Value("${site.home-page}") String homePage,
             @Value("${site.join-page}") String joinPage,
             @Value("${site.logo-path}") String logoPath,
-            JavaMailSender javaMailSender,
             ResourceLoader resourceLoader
-    ) {
+    ) throws IOException {
         this.from = from;
-        this.homePage = homePage;
-        this.joinPage = joinPage;
-        this.logoPath = logoPath;
         this.javaMailSender = javaMailSender;
-        this.resourceLoader = resourceLoader;
+
+        // 리소스 폴더의 mail/join.txt 파일 읽어오기
+        Resource plainResource = resourceLoader.getResource("classpath:mail/join.txt");
+        this.joinMailPlainTemplate = new String(Files.readAllBytes(Paths.get(plainResource.getURI())))
+                .replaceAll("%HOME_PAGE%", homePage)
+                .replaceAll("%JOIN_PAGE%", joinPage)
+                .replaceAll("%LOGO_PATH%", logoPath);
+
+        // 리소스 폴더의 mail/join.html 파일 읽어오기
+        Resource htmlResource = resourceLoader.getResource("classpath:mail/join.html");
+        this.joinMailHtmlTemplate = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())))
+                .replaceAll("%HOME_PAGE%", homePage)
+                .replaceAll("%JOIN_PAGE%", joinPage)
+                .replaceAll("%LOGO_PATH%", logoPath);
     }
 
     public void sendMail(IEmailMessage emailMessage) throws MessagingException {
@@ -59,26 +64,13 @@ public class EmailSendService {
         javaMailSender.send(mimeMessage);
     }
 
-    public void sendJoinEmail(String email, String token) throws MessagingException, IOException {
-        // 리소스 폴더의 mail/join.txt 파일 읽어오기
-        Resource plainResource = resourceLoader.getResource("classpath:mail/join.txt");
-        String plainContent = new String(Files.readAllBytes(Paths.get(plainResource.getURI())));
-        plainContent = plainContent.replaceAll("%HOME_PAGE%", homePage)
-                .replaceAll("%JOIN_PAGE%", joinPage + "?token=" + token);
-
-        // 리소스 폴더의 mail/join.html 파일 읽어오기
-        Resource htmlResource = resourceLoader.getResource("classpath:mail/join.html");
-        String htmlContent = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())));
-        htmlContent = htmlContent.replaceAll("%HOME_PAGE%", homePage)
-                .replaceAll("%LOGO_PATH%", logoPath)
-                .replaceAll("%JOIN_PAGE%", joinPage + token);
-
+    public void sendJoinEmail(String email, String emailToken) throws MessagingException {
         // 이메일 전송
         sendMail(new EmailMessage(
                 email,
                 "오늘뭐먹지? - 회원가입 인증 메일",
-                plainContent,
-                htmlContent
+                joinMailPlainTemplate.replaceAll("%EMAIL_TOKEN%", emailToken),
+                joinMailHtmlTemplate.replaceAll("%EMAIL_TOKEN%", emailToken)
         ));
     }
 
