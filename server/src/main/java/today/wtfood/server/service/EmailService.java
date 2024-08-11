@@ -71,7 +71,7 @@ public class EmailService {
         String htmlContent = new String(Files.readAllBytes(Paths.get(htmlResource.getURI())));
         htmlContent = htmlContent.replaceAll("%HOME_PAGE%", homePage)
                 .replaceAll("%LOGO_PATH%", logoPath)
-                .replaceAll("%JOIN_PAGE%", joinPage + "?token=" + token);
+                .replaceAll("%JOIN_PAGE%", joinPage + token);
 
         // 이메일 전송
         sendMail(new EmailMessage(
