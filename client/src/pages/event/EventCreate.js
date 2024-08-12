@@ -4,7 +4,6 @@ import "./EventUpCreate.css";
 import { axios, cn } from "utils";
 import { ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
-import { useInputs } from "hooks";
 
 function EventCreateBanner() {
   const navigate = useNavigate();
@@ -25,15 +24,18 @@ function EventCreateBanner() {
     contentImages: [],
   });
 
-  const { inputs, onInputChange } = useInputs(event);
+  function onInputChange(e) {
+    const { name, value } = e.target;
+    setEvent((prevEvent) => ({
+      ...prevEvent,
+      [name]: value,
+    }));
+  }
 
   function onSubmit() {
     axios
       .post("/api/events/", {
-        userid: user.userid,
-        email: user.email,
         ...event,
-        ...inputs,
       })
       .then(() => {
         navigate("/events");
@@ -52,7 +54,7 @@ function EventCreateBanner() {
         <input
           type="password"
           name="pass"
-          value={inputs.pass}
+          value={event.pass}
           onChange={onInputChange}
         />
       </div>
@@ -61,7 +63,7 @@ function EventCreateBanner() {
         <input
           type="text"
           name="title"
-          value={inputs.title}
+          value={event.title}
           onChange={onInputChange}
         />
       </div>

@@ -16,7 +16,7 @@ function EventDetail() {
     contentImages: [],
     pass: "",
   });
-  
+
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
 
@@ -125,21 +125,22 @@ function EventDetail() {
   };
 
   const deleteEvent = (id) => {
-    const pass = window.prompt("삭제할 패스워드를 입력하세요");
-    if (events.pass !== pass) {
-      return alert("패스워드가 일치하지 않습니다");
+    // const pass = window.prompt("삭제할 패스워드를 입력하세요");
+    // if (events.pass !== pass) {
+    //   return alert("패스워드가 일치하지 않습니다");
+    // }
+    const isDel = window.confirm("삭제 하시겠습니까?");
+    if (isDel) {
+      axios
+        .delete(`/api/events/${id}`)
+        .then(() => {
+          navigate("/events");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("이벤트 삭제에 실패했습니다.");
+        });
     }
-    axios
-      .delete(`/events/${id}`, {
-        params: { pass }, // 패스워드를 쿼리 파라미터로 전송
-      })
-      .then(() => {
-        navigate("/events");
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("이벤트 삭제에 실패했습니다.");
-      });
   };
 
   return (
