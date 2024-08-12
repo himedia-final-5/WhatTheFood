@@ -4,6 +4,7 @@ import "./Notice.css";
 import { axios } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
+import { Link } from "react-router-dom";
 
 function Notice() {
   const { content, pagination, setPageResponse } = usePageResponse();
@@ -23,12 +24,6 @@ function Notice() {
     }
   }, [content, onSelectPage]);
 
-  function onNoticeWrite() {
-    navigate("/WriteNotice");
-  }
-
-  function onNoticeView() {}
-
   const formatDate = (timestamp) => {
     if (!timestamp) return "날짜 없음";
 
@@ -45,15 +40,9 @@ function Notice() {
 
         <div class="noticeWrite-container">
           <div class="background-circle"></div>
-          <p
-            class="noticeWrite-text"
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              onNoticeWrite();
-            }}
-          >
+          <Link to="/WriteNotice" class="noticeWrite-text cursor-pointer">
             게시글 쓰기
-          </p>
+          </Link>
         </div>
 
         <div className="notice_line"></div>
@@ -80,14 +69,12 @@ function Notice() {
                     <div className="notice-date">
                       {formatDate(notice.writeDate)}
                     </div>
-                    <div
+                    <Link
+                      to={`/noticeView/${notice.id}`}
                       className="notice_col"
-                      onClick={() => {
-                        navigate(`/noticeView/${notice.id}`);
-                      }}
                     >
                       {notice.title}
-                    </div>
+                    </Link>
                   </div>
                 </article>
               </main>
@@ -95,9 +82,7 @@ function Notice() {
           })
         : null}
 
-
       <PaginationNav {...{ pagination, onSelectPage }} />
-
     </div>
   );
 }
