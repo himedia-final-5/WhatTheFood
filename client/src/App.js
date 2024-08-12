@@ -55,7 +55,7 @@ function App() {
           <Route path="/iView/:id" element={<IView />} />
 
           <Route path="/faqList" element={<FList />} />
-          <Route path="/faqView" element={<FaqView />} />
+          <Route path="/fView/:id" element={<FaqView />} />
           <Route path="/writeFaq" element={<WFaq />} />
         </Routes>
       </div>

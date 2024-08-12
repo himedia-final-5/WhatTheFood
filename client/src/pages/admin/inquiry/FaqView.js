@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from "react";
 import SubMenu from "../SubMenu";
-import axios from "utils";
-import { useNavigate } from "react-router-dom";
+import { axios } from "utils";
+import { useParams, useNavigate } from "react-router-dom";
 
 function FaqView() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [faqView, setFaqView] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`/api/faqs/${id}`)
+      .then((result) => {
+        setFaqView(result.data);
+      })
+
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [id]);
+
   return (
     <div className="adminContainer">
       <SubMenu />
@@ -12,17 +27,17 @@ function FaqView() {
       <div className="productTable">
         <div className="field">
           <label>FAQ 제목</label>
-          <div>{}</div>
+          <div>{faqView.title}</div>
         </div>
 
         <div className="field">
           <label>등록날짜</label>
-          <div>{}</div>
+          <div>{(faqView.date + "").substring(0, 10)}</div>
         </div>
 
         <div className="field">
           <label>FAQ 내용</label>
-          <div>{}</div>
+          <div>{faqView.content}</div>
         </div>
 
         <div className="btns">
