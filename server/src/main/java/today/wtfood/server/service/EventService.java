@@ -28,7 +28,7 @@ public class EventService {
         return er.save(event.toEntity());
     }
 
-    //이벤트 리스트 조회(키워드)
+    //이벤트 리스트 조회
     public Page<EventSummary> getEventList(Pageable pageable) {
         return er.findAllBy(pageable);
     }

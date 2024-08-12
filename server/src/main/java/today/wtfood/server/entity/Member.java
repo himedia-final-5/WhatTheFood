@@ -8,10 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 @Table(name = "member")
@@ -100,5 +97,18 @@ public class Member implements UserDetails {
         claims.put("username", username);
         return claims;
     }
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recipe.Comment> comments;
+
+    // 찜한 레시피들 목록
+    @ManyToMany
+    @JoinTable(
+            name = "favorite_recipes",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id")
+    )
+    private Set<Recipe> favoriteRecipes; // 사용자가 찜한 레시피 목록
+
 
 }
