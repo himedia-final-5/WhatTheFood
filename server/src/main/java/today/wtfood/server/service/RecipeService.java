@@ -1,10 +1,17 @@
 package today.wtfood.server.service;
 
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
+import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.repository.RecipeRepository;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -21,36 +28,42 @@ public class RecipeService {
         return rr.save(recipe.toEntity());
     }
 
-    // 모든 레시피 조회 (페이지네이션)
-    public Page<Recipe> getAllRecipes(Pageable pageable) {
-        return recipeRepository.findAll(pageable);
+    // 레시피 리스트 (페이지네이션)
+    public Page<RecipeSummary> getRecipeList(Pageable pageable) {
+        return rr.findAllBy(pageable);
+    }
+
+    // 모든 레시피 조회
+    public List<Recipe> getRecipeList() {
+        return rr.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    }
+
+    // ID로 레시피 조회
+    public RecipeDetail getRecipeById(long id) {
+        return rr.findDetailById(id)
+                .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found"));
     }
 
     // 제목으로 레시피 검색
     public Page<Recipe> getRecipesByTitle(String title, Pageable pageable) {
-        return recipeRepository.findByTitleContaining(title, pageable);
+        return rr.findByTitle(title, pageable);
     }
 
     // 설명으로 레시피 검색
     public Page<Recipe> getRecipesByDescription(String description, Pageable pageable) {
-        return recipeRepository.findByDescriptionContaining(description, pageable);
+        return rr.findByDescription(description, pageable);
     }
 
     // 제목과 설명으로 레시피 검색
     public Page<Recipe> getRecipesByTitleAndDescription(String title, String description, Pageable pageable) {
-        return recipeRepository.findByTitleContainingAndDescriptionContaining(title, description, pageable);
+        return rr.findByTitleAndDescription(title, description, pageable);
     }
 
-    // ID로 레시피 조회
-    public Recipe getRecipeById(long id) {
-        return recipeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Recipe with id " + id + " not found"));
-    }
 
     // 레시피 수정
     @Transactional
     public Recipe updateRecipe(long id, Recipe updatedRecipe) {
-        Recipe recipe = recipeRepository.findById(id)
+        Recipe recipe = rr.findById(id)
                 .orElseThrow(() -> new RuntimeException("Recipe with id " + id + " not found"));
 
         recipe.setTitle(updatedRecipe.getTitle());
@@ -68,13 +81,13 @@ public class RecipeService {
         recipe.setFinishedImages(updatedRecipe.getFinishedImages());
         recipe.setTags(updatedRecipe.getTags());
 
-        return recipeRepository.save(recipe);
+        return rr.save(recipe);
     }
 
     // 레시피 삭제
     public void deleteRecipe(long id) {
-        if (recipeRepository.existsById(id)) {
-            recipeRepository.deleteById(id);
+        if (rr.existsById(id)) {
+            rr.deleteById(id);
         } else {
             throw new RuntimeException("Recipe not found with id " + id);
         }
