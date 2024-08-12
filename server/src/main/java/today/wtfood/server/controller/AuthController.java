@@ -29,14 +29,14 @@ public class AuthController {
 
     @PostMapping("reissue")
     @ResponseStatus(HttpStatus.OK)
-    public JwtAuthResponse reissueFromHeader(@RequestHeader("Refresh") String refreshToken) {
+    public JwtAuthResponse reissue(@RequestHeader("Refresh") String refreshToken) {
         // 접근 토큰 갱신
         return jwtService.reissueToken(refreshToken);
     }
 
     @PostMapping("signout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void logout(@RequestHeader("Authorization") String authorizationHeader) {
+    public void signout(@RequestHeader("Authorization") String authorizationHeader) {
         // 접근 토큰 블록
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             throw new BadRequestException("토큰이 올바르지 않습니다.");
@@ -46,7 +46,7 @@ public class AuthController {
 
     @PostMapping("/signup/verify-email")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void sendEmail(
+    public void sendVerifyEmail(
             @RequestParam("email")
             String email
     ) throws MessagingException {
@@ -55,7 +55,7 @@ public class AuthController {
         }
 
         EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, email, 1000 * 60 * 60 * 24);
-        emailSendService.sendJoinEmail(email, emailToken.getToken().toString());
+        emailSendService.sendSignUpEmail(email, emailToken.getToken().toString());
     }
 
 }
