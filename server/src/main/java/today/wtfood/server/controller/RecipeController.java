@@ -124,6 +124,6 @@ public class RecipeController {
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
-        rs.removeFavoriteRecipe(memberId, recipeId);
+        rs.deleteFavoriteRecipe(memberId, recipeId);
     }
 }

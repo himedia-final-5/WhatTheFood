@@ -141,5 +141,5 @@ public class Recipe {
 
     // 찜한 멤버들 목록
     @ManyToMany(mappedBy = "favoriteRecipes")
-    private Set<Member> likedByMembers; // 이 레시피를 찜한 멤버 목록
+    private Set<Member> favoriteByMembers; // 이 레시피를 찜한 멤버 목록
 }

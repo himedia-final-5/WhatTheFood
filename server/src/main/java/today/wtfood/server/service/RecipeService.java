@@ -110,11 +110,11 @@ public class RecipeService {
     public List<Recipe> getFavoriteRecipes(long memberId) {
         Member member = mr.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
-        return rr.findByLikedByMembersContains(member);
+        return rr.findByFavoriteByMembersContains(member);
     }
 
     // 찜하기 제거
-    public void removeFavoriteRecipe(long memberId, long recipeId) {
+    public void deleteFavoriteRecipe(long memberId, long recipeId) {
         Member member = mr.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         Recipe recipe = rr.findById(recipeId)
