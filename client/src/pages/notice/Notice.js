@@ -48,6 +48,12 @@ function Notice() {
       });
   }
 
+  function onNoticeWrite() {
+    navigate("/WriteNotice");
+  }
+
+  function onNoticeView() {}
+
   const formatDate = (timestamp) => {
     if (!timestamp) return "날짜 없음";
 
@@ -58,15 +64,23 @@ function Notice() {
 
   return (
     <div class="notice_container">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <header class="notice_header">
         <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
         <h2 class="notice_subtitle">공지사항</h2>
+
+        <div class="noticeWrite-container">
+          <div class="background-circle"></div>
+          <p
+            class="noticeWrite-text"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              onNoticeWrite();
+            }}
+          >
+            게시글 쓰기
+          </p>
+        </div>
+
         <div className="notice_line"></div>
       </header>
       {noticeList.length
@@ -94,7 +108,7 @@ function Notice() {
                     <div
                       className="notice_col"
                       onClick={() => {
-                        // onBoardView( notice.id );
+                        navigate(`/noticeView/${notice.id}`);
                       }}
                     >
                       {notice.title}
@@ -119,21 +133,7 @@ function Notice() {
         ) : (
           <span></span>
         )}
-        {pageNumbers.map((page, idx) => (
-          <span
-            key={idx}
-            style={{
-              cursor: "pointer",
-              fontWeight: paging.number === page ? "bold" : "normal",
-              margin: "0 5px",
-            }}
-            onClick={() => {
-              onPageMove(page);
-            }}
-          >
-            {page}
-          </span>
-        ))}
+
         {!paging.last ? (
           <span
             style={{ cursor: "pointer" }}
@@ -147,10 +147,6 @@ function Notice() {
           <></>
         )}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   );
 }

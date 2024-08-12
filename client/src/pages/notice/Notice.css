@@ -4,6 +4,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  margin-bottom:50px;
 }
 
 /* Header */
@@ -32,7 +33,7 @@
   margin-top: 2px;
   font-weight: normal;
   font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
-  font-size: 14px;
+  font-size: 17px;
   line-height: 20px;
   letter-spacing: -0.5px;
 }
@@ -85,12 +86,123 @@
 }
 
 .notice-date {
-  font-size: 16px;
+  font-size: 13px;
   color: #888;
+  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
 }
 
 .notice-title {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: bold;
   color: #000;
+}
+
+
+/* 기본 스타일 리셋 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.noticeWrite-container {
+  width: 417.91px;
+  /* height: 214.6px; */
+  position: relative; /* 부모 요소에 relative positioning 적용 */
+  /* padding: 20px; 여백 추가 */
+}
+
+.background-circle {
+  width: 220px; /* 부모 요소의 너비를 기준으로 설정 */
+  height: 70px; /* 부모 요소의 높이를 기준으로 설정 */
+  border-radius: 133.93px; /* 둥근 모서리 설정 */
+  background-color: #d9d9d9; /* 배경색 설정 */
+  position: absolute;
+  top: 50px;
+  left:900px;
+}
+
+.noticeWrite-text {
+  position: relative;
+  left: 800px; /* 중앙 정렬을 위한 상대적 위치 설정 */
+  top: 75px; /* 중앙 정렬을 위한 상대적 위치 설정 */
+  font-family: Impact, Charcoal, sans-serif;
+  font-size: 24px; /* 폰트 크기 설정 */
+  font-weight: 500; /* 폰트 두께 설정 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  color: #000; /* 텍스트 색상 설정 */
+  margin: 0; /* 기본 여백 제거 */
+}
+
+
+/* 전체 폼 컨테이너 */
+.form-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#noticeWrite-title {
+  font-size:20px;
+}
+
+/* 필드 스타일 */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* 버튼 스타일 */
+.btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btns button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btns button:hover {
+  background-color: #0056b3;
+}
+
+.btns button:last-child {
+  background-color: #6c757d;
+}
+
+.btns button:last-child:hover {
+  background-color: #5a6268;
 }
