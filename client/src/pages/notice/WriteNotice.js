@@ -22,6 +22,7 @@ function Notice() {
 
   return (
     <div className="writeBoard">
+
       <h2>Board Write Form</h2>
       <div className="field">
         <label>제목</label>
@@ -53,6 +54,7 @@ function Notice() {
           작성완료
         </button>
         <Link to="/notice">돌아가기</Link>
+
       </div>
     </div>
   );

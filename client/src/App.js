@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
+
 import { Header, Footer } from "components/layout";
 import { Main } from "pages/main";
 import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
@@ -9,10 +10,12 @@ import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
 import { NoticeList, NoticeDetail, NoticeWrite } from "pages/notice";
 import { TestAssets } from "pages/test";
 
+
 function App() {
   return (
     <div className="App flex flex-col w-full h-full ">
       <Header />
+
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Main />} />
@@ -41,6 +44,7 @@ function App() {
           <Route path="/test/assets" element={<TestAssets />} />
         </Routes>
       </div>
+
       <Footer />
     </div>
   );

@@ -23,6 +23,12 @@ function Notice() {
     }
   }, [content, onSelectPage]);
 
+  function onNoticeWrite() {
+    navigate("/WriteNotice");
+  }
+
+  function onNoticeView() {}
+
   const formatDate = (timestamp) => {
     if (!timestamp) return "날짜 없음";
 
@@ -36,6 +42,20 @@ function Notice() {
       <header class="notice_header">
         <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
         <h2 class="notice_subtitle">공지사항</h2>
+
+        <div class="noticeWrite-container">
+          <div class="background-circle"></div>
+          <p
+            class="noticeWrite-text"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              onNoticeWrite();
+            }}
+          >
+            게시글 쓰기
+          </p>
+        </div>
+
         <div className="notice_line"></div>
       </header>
       {content.length
@@ -63,7 +83,7 @@ function Notice() {
                     <div
                       className="notice_col"
                       onClick={() => {
-                        // onBoardView( notice.id );
+                        navigate(`/noticeView/${notice.id}`);
                       }}
                     >
                       {notice.title}
@@ -75,7 +95,9 @@ function Notice() {
           })
         : null}
 
+
       <PaginationNav {...{ pagination, onSelectPage }} />
+
     </div>
   );
 }
