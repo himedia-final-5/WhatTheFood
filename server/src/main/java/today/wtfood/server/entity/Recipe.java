@@ -70,12 +70,12 @@ public class Recipe {
 
 
     @OneToMany
-    private List<CookingStep> cookingSteps; // 조리순서
+    private List<CookingSteps> cookingSteps; // 조리순서
 
     @Data
     @Entity
     @Table(name = "cooking_step")
-    public class CookingStep {
+    public class CookingSteps {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

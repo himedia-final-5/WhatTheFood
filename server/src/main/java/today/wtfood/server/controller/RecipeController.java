@@ -123,7 +123,7 @@ public class RecipeController {
     @DeleteMapping("/{recipeId}/favorite")
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
+    public void deleteFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
 }
