@@ -62,7 +62,7 @@ public class RecipeService {
 
     // 레시피 수정
     @Transactional
-    public Recipe updateRecipe(long id, Recipe updatedRecipe) {
+    public void updateRecipe(long id, Recipe updatedRecipe) {
         Recipe recipe = rr.findById(id)
                 .orElseThrow(() -> new RuntimeException("Recipe with id " + id + " not found"));
 
@@ -80,8 +80,6 @@ public class RecipeService {
         recipe.setCookingSteps(updatedRecipe.getCookingSteps());
         recipe.setFinishedImages(updatedRecipe.getFinishedImages());
         recipe.setTags(updatedRecipe.getTags());
-
-        return rr.save(recipe);
     }
 
     // 레시피 삭제

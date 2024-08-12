@@ -110,7 +110,7 @@ public class Recipe {
     @Getter
     @Setter
     @Entity
-    @Table(name = "comments")
+    @Table(name = "recipe_comments")
     public class Comment {
 
         @Id
