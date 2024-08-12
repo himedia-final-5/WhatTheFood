@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-
-import jaxios from "../../utils/jwtUtil";
-import axios from "axios";
 import "./Notice.css";
+import { axios } from "utils";
 
 function Notice() {
-  const loginUser = useSelector((state) => state.user);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [write_date, setWrite_date] = useState("");
   const navigate = useNavigate();
-  const [notice, setNotice] = useState({});
 
   function onSubmit() {
     axios
@@ -28,34 +22,39 @@ function Notice() {
 
   return (
     <div className="writeBoard">
-      {/* <div className='field'>
-        <label>작성자</label><input type="text"  />
-    </div> */}
 
-      <div class="form-container">
-        <div class="field">
-          <label>제목</label>
-          <input
-            class="noticeWrite-title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.currentTarget.value)}
-          />
-        </div>
-        <div class="field">
-          <label>내용</label>
-          <textarea
-            id="content"
-            rows="10"
-            value={content}
-            style={{ resize: "none" }}
-            onChange={(e) => setContent(e.currentTarget.value)}
-          ></textarea>
-        </div>
-        <div class="btns">
-          <button onClick={() => onSubmit()}>작성완료</button>
-          <button onClick={() => navigate("/Notice")}>돌아가기</button>
-        </div>
+      <h2>Board Write Form</h2>
+      <div className="field">
+        <label>제목</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.currentTarget.value);
+          }}
+        />
+      </div>
+      <div className="field">
+        <label>내용</label>
+        <textarea
+          rows="10"
+          value={content}
+          onChange={(e) => {
+            setContent(e.currentTarget.value);
+          }}
+        ></textarea>
+      </div>
+
+      <div className="btns">
+        <button
+          onClick={() => {
+            onSubmit();
+          }}
+        >
+          작성완료
+        </button>
+        <Link to="/notice">돌아가기</Link>
+
       </div>
     </div>
   );

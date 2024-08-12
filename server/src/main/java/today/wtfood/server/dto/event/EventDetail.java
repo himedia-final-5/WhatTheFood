@@ -1,6 +1,5 @@
 package today.wtfood.server.dto.event;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -8,16 +7,8 @@ import java.util.List;
  */
 
 //디테일
-public interface EventDetail {
-    long getId();
-
-    String getTitle();
+public interface EventDetail extends EventSummary {
 
     List<String> getContentImages();
 
-    Timestamp getStartDate();
-
-    Timestamp getEndDate();
-
-    String getBannerImage();
 }

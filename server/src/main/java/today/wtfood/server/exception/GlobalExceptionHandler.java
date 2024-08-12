@@ -4,6 +4,7 @@ import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,6 +24,16 @@ public class GlobalExceptionHandler {
         log.error("JWT Exception: ", exception);
 
         ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, exception.getMessage());
+    }
+
+    /**
+     * @implNote 권한이 없는 사용자가 접근하려고 할 때 발생하는 예외
+     */
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public void handleAuthorizationDeniedException(AuthorizationDeniedException exception, HttpServletResponse response) throws IOException {
+        log.error("AuthorizationDeniedException: ", exception);
+
+        ResponseHelper.writeError(response, HttpStatus.FORBIDDEN, exception.getMessage());
     }
 
     /**

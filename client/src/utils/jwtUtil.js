@@ -1,7 +1,8 @@
 import axios from "axios";
-import { setCookie, getCookie, removeCookie } from "./cookieUtil";
+import store from "../stores";
+import { loginAction, logoutAction } from "../stores/userSlice";
 
-const AUTH_COOKIE_NAME = "auth";
+const getUser = () => store.getState().user;
 const jaxios = axios.create();
 
 // 반복적인 재발급 요청을 방지하기 위해 토큰 갱신 중인지 여부를 저장하는 변수
@@ -11,16 +12,16 @@ let subscribers = [];
 
 /** axios 요청 전송을 가로채 요청 정보를 변경하는 인터셉터 */
 const requestInterceptor = (config) => {
-  // 인증 정보를 쿠키로부터 가져오기
-  const auth = getCookie(AUTH_COOKIE_NAME);
+  // 로그인 정보를 저장소로부터 가져오기
+  const user = getUser();
 
-  // 인증 정보가 없으면 바로 반환
-  if (auth === undefined) {
+  // 로그인 정보가 없으면 바로 반환
+  if (!user) {
     return config;
   }
 
-  // 인증 정보가 있으면 요청 헤더의 Authorization 값으로 지정
-  config.headers.Authorization = `Bearer ${auth.accessToken}`;
+  // 로그인 정보가 있으면 요청 헤더의 Authorization 값으로 지정
+  config.headers.Authorization = `Bearer ${user.accessToken}`;
 
   // 요청 정보 반환
   return config;
@@ -29,11 +30,11 @@ jaxios.interceptors.request.use(requestInterceptor, console.log);
 
 /** axios 실패 응답을 가로채 토큰 갱신을 시도하는 인터셉터 */
 const responseInterceptor = async (error) => {
-  // 인증 정보를 쿠키로부터 가져오기
-  const auth = getCookie(AUTH_COOKIE_NAME);
+  // 로그인 정보를 저장소로부터 가져오기
+  const user = getUser();
 
-  // 인증 정보가 없으면 바로 반환
-  if (auth === undefined) {
+  // 로그인 정보가 없으면 바로 반환
+  if (!user) {
     return Promise.reject(error);
   }
 
@@ -50,23 +51,18 @@ const responseInterceptor = async (error) => {
     return Promise.reject(error);
   }
 
-  // 토큰 갱신 중이면 대기열에 추가
+  // 이미 토큰 갱신 중이면 토큰 갱신 대기열에 추가
   if (refreshingToken) {
     return new Promise((resolve) => {
-      subscribers.push(() => {
-        // 인증 정보를 쿠키로부터 가져오기
-        const auth = getCookie(AUTH_COOKIE_NAME);
-
-        // 인증 정보가 없으면 바로 반환
-        if (auth === undefined) {
-          return Promise.reject(error);
-        }
-
-        // 토큰 갱신 후 요청 정보에 Authorization 헤더 추가
-        requestConfig.headers.Authorization = `Bearer ${auth.refreshToken}`;
-        requestConfig._retry = true;
-        resolve(jaxios(requestConfig));
-      });
+      subscribers.push([
+        (user) => {
+          // 토큰 갱신 후 요청 정보에 Authorization 헤더 추가
+          requestConfig.headers.Authorization = `Bearer ${user.refreshToken}`;
+          requestConfig._retry = true;
+          resolve(jaxios(requestConfig));
+        },
+        (reject) => reject(error),
+      ]);
     });
   }
 
@@ -75,13 +71,13 @@ const responseInterceptor = async (error) => {
     refreshingToken = true;
     const response = await axios.post("/api/auth/reissue", null, {
       headers: {
-        Refresh: auth.refreshToken,
+        Refresh: user.refreshToken,
       },
     });
 
-    // 토큰 갱신 성공 시 쿠키에 저장 후 토큰 갱신 완료 함수 호출
-    setCookie(AUTH_COOKIE_NAME, response.data, 7);
-    subscribers.forEach((callback) => callback());
+    // 토큰 갱신 성공 시 로그인 처리 후 토큰 갱신 대기열 처리
+    store.dispatch(loginAction(response.data));
+    subscribers.forEach(([resolve]) => resolve(response.data));
     subscribers = [];
     refreshingToken = false;
 
@@ -91,12 +87,15 @@ const responseInterceptor = async (error) => {
     // 요청 재시도 후 반환
     return jaxios(requestConfig);
   } catch (refreshError) {
-    // 토큰 갱신 실패 시 콘솔에 로그 출력
-    console.error("Token refresh failed:", refreshError);
+    // 토큰 갱신 실패 시 로그아웃 처리 후 토큰 갱신 대기열 처리
+    store.dispatch(logoutAction());
+    subscribers.forEach(([, reject]) => reject(refreshError));
+    subscribers = [];
+    refreshingToken = false;
 
-    // 인증 정보 삭제
-    removeCookie(AUTH_COOKIE_NAME);
-    return Promise.reject(error);
+    // 요청 실패 오류 객체 콘솔 출력 후 반환
+    console.error("Token refresh failed:", refreshError);
+    return Promise.reject(refreshError);
   }
 };
 jaxios.interceptors.response.use((response) => response, responseInterceptor);

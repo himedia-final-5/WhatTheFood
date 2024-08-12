@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import "./InquiryWriteForm.css";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
+import "./InquiryWriteForm.css";
+import { axios } from "utils";
+import { useSelector } from "stores";
 
 function InquiryWriteForm() {
-  const [word, setWord] = useState(null);
   const loginUser = useSelector((state) => state.user);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [appendImage, setAppendImage] = useState("");
+  const [image, setAppendImage] = useState("");
   const [appendImageSrc, setAppendImageSrc] = useState("");
   const [appendImageStyle, setAppendImageStyle] = useState({ display: "none" });
 
@@ -20,11 +19,12 @@ function InquiryWriteForm() {
   function onSubmit() {
     axios
       .post("/api/inquiries", {
-        userid: loginUser.userid,
-        email: loginUser.email,
+        // userid: loginUser.userid,
+        // email: loginUser.username,
+        username: loginUser.username,
         title,
         content,
-        appendImage,
+        image,
       })
       .then(() => {
         navigate("/inquiryList");
@@ -41,9 +41,7 @@ function InquiryWriteForm() {
     const result = await axios.post("/api/inquiries/fileupload", formData);
     setAppendImage(result.data.appendImage);
 
-    setAppendImageSrc(
-      `http://localhost:8070/images/${result.data.appendImage}`
-    );
+    setAppendImageSrc(`http://localhost:8070/images/${result.data.image}`);
     setAppendImageStyle({ width: "200px", height: "200px", display: "block" });
     // setImgStyle({ width: "800px", display: "block" });
   }
@@ -56,15 +54,15 @@ function InquiryWriteForm() {
       <br></br>
       <br></br>
       <div className="iqBody">
-        <div id="iqWriteCeter">
+        <div id="iqWriteCenter">
           <div id="iqwf1">문의 작성</div>
           <br></br>
           <div id="iqwrite">
             <div className="iqwfField">
-              <label>제목</label>
-              <br />
               <input
                 type="text"
+                placeholder="제목"
+                style={{ fontSize: "30px" }}
                 onChange={(e) => {
                   setTitle(e.currentTarget.value);
                 }}
@@ -73,10 +71,10 @@ function InquiryWriteForm() {
             <br></br>
             <br></br>
             <div className="iqwfField">
-              <label>문의 내용</label>
-              <br />
               <textarea
                 rows="20"
+                placeholder="문의내용을 작성해주세요."
+                style={{ fontSize: "30px" }}
                 onChange={(e) => {
                   setContent(e.currentTarget.value);
                 }}
@@ -89,6 +87,7 @@ function InquiryWriteForm() {
               <br />
               <input
                 type="file"
+                style={{ fontSize: "20px" }}
                 onChange={(e) => {
                   onFileUpload(e);
                 }}
@@ -113,14 +112,9 @@ function InquiryWriteForm() {
             >
               작성 완료
             </div>
-            <div
-              className="iqwf2"
-              onClick={() => {
-                navigate("/inquiryList");
-              }}
-            >
+            <Link id="iqwf2" to="/inquiryList">
               돌아가기
-            </div>
+            </Link>
           </div>
           <br></br>
         </div>

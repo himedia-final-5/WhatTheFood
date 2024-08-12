@@ -1,12 +1,14 @@
 package today.wtfood.server.controller;
 
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
-import today.wtfood.server.dto.PageableRequest;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
@@ -26,24 +28,27 @@ public class MemberController {
 
 
     @PostMapping("")
+    @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.CREATED)
     public GeneratedId<Long> createMember(
             @Validated
             MemberCreateRequest requestData
     ) {
-        return new GeneratedId<>(memberService.createMember(requestData));
+        return GeneratedId.of(memberService.createMember(requestData));
     }
 
     @GetMapping("")
+    @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
-    public Page<MemberSummary> getMembers(
-            @Validated
-            PageableRequest pageable
+    public PageResponse<MemberSummary> getMembers(
+            @PageableDefault(sort = "id")
+            Pageable pageable
     ) {
-        return memberService.getMembers(pageable, MemberSummary.class);
+        return PageResponse.of(memberService.getMembers(pageable, MemberSummary.class));
     }
 
     @GetMapping("/{memberId}")
+    @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
     public MemberDetail getMember(
             @PathVariable
@@ -53,6 +58,7 @@ public class MemberController {
     }
 
     @GetMapping("/check-username")
+    @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
     public void checkUsername(
             @RequestParam
@@ -64,6 +70,7 @@ public class MemberController {
     }
 
     @PostMapping("/{memberId}")
+    @PreAuthorize("hasRole('ROLE_USER') and #memberId == authentication.principal.id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateMember(
             @PathVariable
@@ -76,6 +83,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/{memberId}")
+    @PreAuthorize("hasRole('ROLE_USER') and #memberId == authentication.principal.id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(
             @PathVariable

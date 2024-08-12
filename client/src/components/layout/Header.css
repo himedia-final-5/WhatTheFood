@@ -1,0 +1,144 @@
+.Header {
+  width: 100%;
+  display: flex;
+  /* position: absolute; */
+  flex-direction: column;
+  margin-bottom: 100px;
+  background-color: #f8f8f8; /* 밝은 배경색으로 설정 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더 아래에 미세한 그림자 추가 */
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px; /* 좌우 패딩을 넓게 주어 여백 추가 */
+  background-color: #ffffff; /* 밝은 배경색 유지 */
+  border-bottom: 1px solid #eaeaea; /* 헤더 하단에 얇은 경계선 추가 */
+}
+
+.toptoplogo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.toptoplogo img {
+  height: 40px; /* 로고 크기 조정 */
+  transition: transform 0.3s ease;
+}
+
+.toptoplogo img:hover {
+  transform: scale(1.1); /* 로고에 호버 시 살짝 확대 효과 */
+}
+
+.toptop {
+  display: flex;
+  align-items: center;
+}
+
+.toptopcart img,
+.toptopprofile img {
+  height: 40px; /* 장바구니와 프로필 아이콘 크기 조절 */
+  cursor: pointer;
+  margin-left: 20px; /* 아이콘 사이 여백 추가 */
+}
+
+#submenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  width: 200px;
+  height: 300px;
+  border: 1px solid blue;
+  top: 70px;
+  right: 45px;
+  background-color: #f9f9f9;
+}
+
+.sm {
+  display: flex;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.toptopsearch {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  border: 1px solid #ddd; /* 검색 바에 얇은 테두리 추가 */
+  border-radius: 25px; /* 검색 바를 둥글게 */
+  padding: 5px 15px;
+  background-color: #f4f4f4; /* 검색 바 배경색 */
+}
+
+.toptopsearch input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 200px;
+  background-color: transparent; /* 배경을 투명하게 설정 */
+}
+
+.toptopsearch img {
+  height: 20px; /* 검색 아이콘 크기 조정 */
+  cursor: pointer;
+}
+
+.toptopcart,
+.toptopprofile {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.toptopcart img,
+.toptopprofile img {
+  height: 30px; /* 아이콘 크기 조정 */
+  transition: transform 0.3s ease;
+}
+
+.toptopcart img:hover,
+.toptopprofile img:hover {
+  transform: scale(1.1); /* 아이콘에 호버 시 살짝 확대 효과 */
+}
+
+/* menu 스타일 */
+.menu {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  background-color: #fff; /* 배경색을 밝게 유지 */
+}
+
+.topMenu {
+  margin: 0 20px; /* 좌우 여백 추가 */
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; /* 텍스트 색상 */
+  cursor: pointer;
+  position: relative; /* 포지션 설정 */
+  transition: color 0.3s ease;
+}
+
+.topMenu:hover {
+  color: #7b7b7b; /* 호버 시 텍스트 색상 변경 */
+}
+
+/* 메뉴 하단에 작은 바 추가 */
+.topMenu::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #7b7b7b; /* 하단 바 색상 */
+  left: 50%;
+  bottom: -5px;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.topMenu:hover::after {
+  width: 100%; /* 호버 시 하단 바 확장 */
+}

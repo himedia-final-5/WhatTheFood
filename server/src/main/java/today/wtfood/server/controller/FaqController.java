@@ -1,10 +1,12 @@
 package today.wtfood.server.controller;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.faq.FaqDetail;
 import today.wtfood.server.dto.faq.FaqDto;
 import today.wtfood.server.entity.Faq;
@@ -21,30 +23,28 @@ public class FaqController {
     }
 
     @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public GeneratedId<Long> insertFaq(@RequestBody FaqDto faq) {
-        return new GeneratedId<>(fs.insertFaq(faq.toEntity()).getId());
+        return GeneratedId.of(fs.insertFaq(faq.toEntity()).getId());
     }
 
-    @GetMapping("/")
-    public Page<Faq> getFaqList(
-
-            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+    @GetMapping("")
+    @PreAuthorize("permitAll()")
+    public PageResponse<Faq> getFaqList(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
     ) {
-
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        pageRequest.withSort(Sort.Direction.DESC, "id");
-        return fs.getFaqList(pageRequest);
+        return PageResponse.of(fs.getFaqList(pageable));
     }
-
 
     @GetMapping("/{id}")
+    @PreAuthorize("permitAll()")
     public FaqDetail getFaqView(@PathVariable("id") long id) {
         return fs.getFaqView(id);
     }
 
-
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteInquiry(@PathVariable("id") long id) {
         fs.deleteInquiry(id);
     }

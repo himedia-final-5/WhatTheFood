@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import "./JoinForm.css";
-import { useNavigate } from "react-router-dom";
 
 function UpdateForm() {
-  const [userid, setUserid] = useState("");
-  const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  const [userid] = useState("");
+  const [email] = useState("");
 
   useEffect(() => {});
 
@@ -61,14 +61,9 @@ function UpdateForm() {
       <br></br>
       <div className="join">
         <div id="join">수정완료</div>
-        <div
-          id="join"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
+        <Link id="join" to="/login">
           돌아가기
-        </div>
+        </Link>
       </div>
       <br></br>
       <br></br>

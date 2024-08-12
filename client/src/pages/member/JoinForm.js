@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+
 import "./JoinForm.css";
-import { useNavigate } from "react-router-dom";
 
 function JoinForm() {
-  const navigate = useNavigate();
-
-  useEffect(() => {});
-
   return (
     <div className="body">
       <br></br>
@@ -21,7 +18,7 @@ function JoinForm() {
 
       <div className="memberInfo">
         <div className="Info">
-          <label>아이디</label>
+          {/* <label>아이디</label> */}
           <input placeholder="아이디" />
         </div>
         <div id="idcheck">ID 중복확인</div>
@@ -30,23 +27,23 @@ function JoinForm() {
         <br></br>
         <br></br>
         <div className="Info">
-          <label>비밀번호</label>
+          {/* <label>비밀번호</label> */}
           <input type="password" placeholder="비밀번호" />
         </div>
         <div>비밀번호 메시지</div>
 
         <br />
         <div className="Info">
-          <label>비밀번호 확인</label>
+          {/* <label>비밀번호 확인</label> */}
           <input type="password" placeholder="비밀번호 확인" />
         </div>
-        <div>비번 확인여부</div>
+        <div>비번 확인여부 메시지</div>
 
         <br></br>
         <br></br>
         <br />
         <div className="Info">
-          <label>닉네임</label>
+          {/* <label>닉네임</label> */}
           <input placeholder="닉네임" />
         </div>
         <div id="idcheck">닉네임 중복확인</div>
@@ -56,31 +53,27 @@ function JoinForm() {
         <br></br>
         <br />
         <div className="Info">
-          <label>이메일</label>
+          {/* <label>이메일</label> */}
           <input placeholder="이메일" />
         </div>
 
         <br />
 
         <div className="Info">
-          <label>이메일 인증코드</label>
+          {/* <label>이메일 인증코드</label> */}
           <input placeholder="인증코드" />
         </div>
-        <div>인증코드 확인 여부</div>
+        <div>인증코드 확인 여부 메시지</div>
 
         <br></br>
       </div>
       <br></br>
       <div className="join">
         <div id="join">가입하기</div>
-        <div
-          id="join"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
+
+        <Link id="join" to="/login">
           돌아가기
-        </div>
+        </Link>
       </div>
       <br></br>
       <br></br>

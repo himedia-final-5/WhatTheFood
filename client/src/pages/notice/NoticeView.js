@@ -1,7 +1,6 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Notice.css";
-
 import { useNavigate, useParams } from "react-router-dom";
 function NoticeView() {
   const [noticeView, setNoticeView] = useState({});

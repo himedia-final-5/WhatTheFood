@@ -1,25 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import "./InquiryList.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { axios } from "utils";
+import { useSelector } from "stores";
+import { usePageResponse } from "hooks";
+import { PaginationNav } from "components/util";
 
 function InquiryList() {
-  const navigate = useNavigate();
-  const [word, setWord] = useState(null);
-  const [qnaList, setQnaList] = useState([]);
-  const [inquiryList, setInquiryList] = useState([]);
+  const loginUser = useSelector((state) => state.user);
+
+  const { content, pagination, setPageResponse } = usePageResponse();
+
+  const onSelectPage = useCallback(
+    (page) =>
+      axios
+        .get(`/api/inquiries/username/${loginUser.username}`, {
+          params: { page },
+        })
+        .then((result) => setPageResponse(result.data))
+        .catch(console.error),
+    [loginUser, setPageResponse],
+  );
 
   useEffect(() => {
-    axios
-      .get(`/api/inquiries`)
-      .then((result) => {
-        setInquiryList(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    if (content.length === 0) {
+      onSelectPage(0);
+    }
+  }, [content, onSelectPage]);
 
   return (
     <div>
@@ -33,60 +41,36 @@ function InquiryList() {
           <div id="iq1">
             <div id="blank"></div>
             <div>내 문의 내역</div>
-            <div
-              id="inquiryWrite"
-              onClick={() => {
-                navigate(`/inquiryWriteForm/`);
-              }}
-            >
-              <img src="/images/inquirywrite.png" />
+            <Link to="/inquiryWriteForm" id="inquiryWrite">
+              <img src="/images/inquirywrite.png" alt="write button" />
               문의하기
-            </div>
+            </Link>
           </div>
           <br></br>
 
-          {inquiryList.map((inquirylist, idx) => {
+          {content.map((inquirylist, idx) => {
             return (
-              <div
+              <Link
                 className="iqitem"
                 key={idx}
-                onClick={() => {
-                  navigate(`/inquiryView/${inquirylist.id}`);
-                }}
+                to={`/inquiryView/${inquirylist.id}`}
               >
-                <div className="iqanswer">답변여부</div>
+                <div className="iqanswer">
+                  {inquirylist.answer ? (
+                    <div style={{ color: "green" }}>답변완료</div>
+                  ) : (
+                    <div style={{ color: "grey" }}>답변처리중</div>
+                  )}
+                </div>
                 <div className="iqname">{inquirylist.title}</div>
                 <div className="iqdate">
                   {inquirylist.date.substring(0, 10)}
                 </div>
-              </div>
+              </Link>
             );
           })}
-        </div>
-        <div id="paging" style={{ textAlign: "center", padding: "10px" }}>
-          {/* {
-                (paging.prev)?(
-                    <span style={{cursor:"pointer"}} onClick={ ()=>{ onPageMove( paging.beginPage-1 ) } } > ◀ </span>
-                ):(<span></span>)
-            }
-            {
-                (beginend)?(
-                    beginend.map((page, idx)=>{
-                        return (
-                            <span style={{cursor:"pointer"}} key={idx} onClick={
-                                ()=>{ onPageMove( page ) }
-                            }>&nbsp;{page}&nbsp;</span>
-                        )
-                    })
-                ):(<></>)
-            }
-            {
-                (paging.next)?(
-                    <span style={{cursor:"pointer"}} onClick={
-                        ()=>{ onPageMove( paging.endPage+1 ) }
-                    }>&nbsp;▶&nbsp;</span>
-                ):(<></>)
-            } */}
+          <br></br>
+          <PaginationNav {...{ pagination, onSelectPage }} />
         </div>
       </div>
       <br></br>

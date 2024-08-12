@@ -1,45 +1,50 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/member/Login";
-import Main from "./pages/Main";
-import JoinForm from "./pages/member/JoinForm";
-import UpdateForm from "./pages/member/UpdateForm";
-import WriteNotice from "./pages/notice/WriteNotice";
-import Notice from "./pages/notice/Notice";
-import NoticeView from "./pages/notice/NoticeView";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import EventList from "./pages/events/EventList";
-import EventDetail from "./pages/events/EventDetail";
-import EventCreateBanner from "./pages/events/EventCreate";
-import UpdateEvent from "./pages/events/UpdateEvent";
-import Faq from "./pages/inquiry/Faq";
-import FaqView from "./pages/inquiry/FaqView";
-import InquiryList from "./pages/inquiry/InquiryList";
-import InquiryView from "./pages/inquiry/InquiryView";
-import InquiryWriteForm from "./pages/inquiry/InquiryWriteForm";
+
+
+import { Header, Footer } from "components/layout";
+import { Main } from "pages/main";
+import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
+import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
+import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
+import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
+import { NoticeList, NoticeDetail, NoticeWrite } from "pages/notice";
+import { TestAssets } from "pages/test";
+
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex flex-col w-full h-full ">
       <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/joinForm" element={<JoinForm />} />
-        <Route path="/updateForm" element={<UpdateForm />} />
-        <Route path="/notice" element={<Notice />} />
-        <Route path="/writeNotice" element={<WriteNotice />} />
-        <Route path="/noticeView/:id" element={<NoticeView />} />
-        <Route path="/events" element={<EventList />} />
-        <Route path="/events/:id" element={<EventDetail />} />
-        <Route path="/createEventBanner" element={<EventCreateBanner />} />
-        <Route path="/updateEvent/:id" element={<UpdateEvent />} />
-        <Route path="/faq" element={<Faq />} />
-        <Route path="/faqView/:id" element={<FaqView />} />
-        <Route path="/inquiryList" element={<InquiryList />} />
-        <Route path="/inquiryView/:id" element={<InquiryView />} />
-        <Route path="/inquiryWriteForm" element={<InquiryWriteForm />} />
-      </Routes>
+
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Main />} />
+
+          <Route path="/joinForm" element={<MemberJoin />} />
+          <Route path="/login" element={<MemberLogin />} />
+          <Route path="/setting" element={<MemberUpdate />} />
+
+          <Route path="/events" element={<EventList />} />
+          <Route path="/events/:id" element={<EventDetail />} />
+          <Route path="/createEventBanner" element={<EventWrite />} />
+          <Route path="/updateEvent/:id" element={<EventUpdate />} />
+
+          <Route path="/faq" element={<FaqList />} />
+          <Route path="/faqView/:id" element={<FaqDetail />} />
+          <Route path="/faqWriteForm" element={<FaqWrite />} />
+
+          <Route path="/inquiryList" element={<InquiryList />} />
+          <Route path="/inquiryView/:id" element={<InquiryDetail />} />
+          <Route path="/inquiryWriteForm" element={<InquiryWrite />} />
+
+          <Route path="/notice" element={<NoticeList />} />
+          <Route path="/notice/:id" element={<NoticeDetail />} />
+          <Route path="/writeNotice" element={<NoticeWrite />} />
+
+          <Route path="/test/assets" element={<TestAssets />} />
+        </Routes>
+      </div>
+
       <Footer />
     </div>
   );

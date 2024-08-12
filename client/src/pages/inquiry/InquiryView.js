@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./InquiryView.css";
+import { Link, useParams } from "react-router-dom";
 
-import { useNavigate, useParams } from "react-router-dom";
+import "./InquiryView.css";
+import { axios } from "utils";
 
 function InquiryView() {
-  const [word, setWord] = useState(null);
-  const [qnaView, setQnaView] = useState({});
-
-  const navigate = useNavigate();
   const { id } = useParams();
+
+  const [qnaView, setQnaView] = useState({});
 
   useEffect(() => {
     axios
@@ -21,7 +19,7 @@ function InquiryView() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -33,23 +31,25 @@ function InquiryView() {
       <div id="iqvbody">
         <div id="iqvcontainer">
           <div id="iqvhead">
-            <div id="iqvanswer">답변여부</div>
+            <div id="iqvanswer">
+              {qnaView.answer ? (
+                <div style={{ color: "green" }}>답변완료</div>
+              ) : (
+                <div style={{ color: "grey" }}>답변처리중</div>
+              )}
+            </div>
             <div id="iqvtitle">{qnaView.title}</div>
             <hr></hr>
-            <div id="iqvdate">{qnaView.date}</div>
+            <div id="iqvdate">{(qnaView.date + "").substring(0, 10)}</div>
             <hr></hr>
           </div>
+          <br></br>
           <div id="iqvcontent">{qnaView.content}</div>
         </div>
         <br></br>
-        <div
-          id="iqvback"
-          onClick={() => {
-            navigate(`/inquiryList`);
-          }}
-        >
+        <Link id="iqvback" to="/inquiryList">
           목록으로
-        </div>
+        </Link>
         <br></br>
       </div>
     </div>

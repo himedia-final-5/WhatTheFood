@@ -2,12 +2,15 @@ package today.wtfood.server.controller;
 
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import today.wtfood.server.dto.GeneratedId;
+import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.inquiry.InquiryDetail;
 import today.wtfood.server.dto.inquiry.InquiryDto;
 import today.wtfood.server.dto.inquiry.InquirySummary;
@@ -31,37 +34,43 @@ public class InquiryController {
     }
 
     @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public GeneratedId<Long> insertInquiry(@RequestBody InquiryDto inquiry) {
-        return new GeneratedId<>(is.insertInquiry(inquiry.toEntity()).getId());
+        return GeneratedId.of(is.insertInquiry(inquiry.toEntity()).getId());
     }
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<Inquiry> allInquiry() {
         return is.getAllInquiry();
     }
 
     @GetMapping("/{id}")
+    @PostAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and returnObject.username == authentication.principal.username)")
     public InquiryDetail getMyInquiryView(@PathVariable("id") long id) {
         return is.getMyInquiryView(id);
     }
 
-    @GetMapping("/email/{email}")
-    public Page<InquirySummary> getMyInquiryList(@PathVariable("email") String email,
-                                                 @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-                                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
-    ) {
 
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        pageRequest.withSort(Sort.Direction.DESC, "id");
-        return is.getMyInquiryList(email, pageRequest);
+    @GetMapping("/username/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #username == authentication.principal.username)")
+    public PageResponse<InquirySummary> getMyInquiryList(
+            @PathVariable("username")
+            String username,
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        return PageResponse.of(is.getMyInquiryList(username, pageable));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteInquiry(@PathVariable("id") long id) {
         is.deleteInquiry(id);
     }
 
     @PutMapping("/{id}/answer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void inquiryAnswer(@PathVariable("id") long id, @RequestParam("answer") String answer) {
         is.inquiryAnswer(id, answer);
     }
@@ -71,6 +80,7 @@ public class InquiryController {
     ServletContext context;
 
     @PostMapping("/fileupload")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public HashMap<String, Object> fileupload(
             @RequestParam("appendImage") MultipartFile file) {
         HashMap<String, Object> result = new HashMap<String, Object>();

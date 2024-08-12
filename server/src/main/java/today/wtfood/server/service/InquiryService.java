@@ -34,8 +34,8 @@ public class InquiryService {
                 .orElseThrow(() -> new RuntimeException("문의글을 찾을 수 없습니다."));
     }
 
-    public Page<InquirySummary> getMyInquiryList(String email, Pageable pageable) {
-        return ir.findAllByEmail(email, pageable);
+    public Page<InquirySummary> getMyInquiryList(String username, Pageable pageable) {
+        return ir.findAllByUsername(username, pageable);
     }
 
     public void deleteInquiry(long id) {
