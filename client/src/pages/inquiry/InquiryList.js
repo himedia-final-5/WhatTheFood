@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import "./InquiryList.css";
 import { axios } from "utils";
 import { useSelector } from "stores";
 import { usePageResponse } from "hooks";
-import { PaginationNav } from "components/util";
+import { PaginationNav, UserFeatureContainer } from "components/util";
 
 function InquiryList() {
   const user = useSelector((state) => state.user);
@@ -13,13 +14,19 @@ function InquiryList() {
   const { content, pagination, setPageResponse } = usePageResponse();
 
   const onSelectPage = useCallback(
-    (page) =>
+    (page) => {
+      if (!user) {
+        toast.error("로그인이 필요한 서비스입니다.");
+        return;
+      }
+
       axios
         .get(`/api/inquiries/username/${user.username}`, {
           params: { page },
         })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(console.error);
+    },
     [user, setPageResponse],
   );
 
@@ -30,7 +37,7 @@ function InquiryList() {
   }, [content, onSelectPage]);
 
   return (
-    <div>
+    <UserFeatureContainer>
       <br></br>
       <br></br>
       <br></br>
@@ -74,7 +81,7 @@ function InquiryList() {
         </div>
       </div>
       <br></br>
-    </div>
+    </UserFeatureContainer>
   );
 }
 

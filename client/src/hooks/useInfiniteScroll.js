@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { initialPagination } from "utils";
+import { initialPagination, defaultErrorHandler } from "utils";
 
 /**
  * @template T
  * @param {(page: number) => Promise<PageResponse<T>>} asyncFetchPage - 페이지 데이터 요청 함수
- * @param {?T[]} defaultContent - 초기 컨텐츠
+ * @param {(error: Error) => void} [onError] - 데이터 요청 실패 시 호출할 함수
  */
-export default function useInfiniteScroll(asyncFetchPage, defaultContent = []) {
+export default function useInfiniteScroll(
+  asyncFetchPage,
+  onError = defaultErrorHandler,
+) {
   /** @type {React.RefObject<HTMLElement>} */
   const ref = useRef(null);
-  const [content, setContent] = useState(defaultContent);
+  const [content, setContent] = useState([]);
   const [pagination, setPagination] = useState(initialPagination(-1));
   const [isFetching, setIsFetching] = useState(false);
 
@@ -29,17 +32,31 @@ export default function useInfiniteScroll(asyncFetchPage, defaultContent = []) {
 
         // 데이터 요청 중으로 상태 변경 후 다음 페이지 데이터 요청
         setIsFetching(true);
-        const currentContent = await asyncFetchPage(pagination.page + 1);
+        try {
+          const currentContent = await asyncFetchPage(pagination.page + 1);
 
-        // 데이터 요청 결과를 컨텐츠에 추가하고 상태 변경
-        setContent((prevContent) => [
-          ...prevContent,
-          ...currentContent.content,
-        ]);
-        setPagination(currentContent.pagination);
+          // 데이터 요청 결과가 없으면 작업 중지
+          if (!currentContent) {
+            setIsFetching(false);
+            return;
+          }
 
-        // 데이터 요청 완료로 상태 변경
-        setIsFetching(false);
+          // 데이터 요청 결과를 컨텐츠에 추가하고 상태 변경
+          setContent((prevContent) => [
+            ...prevContent,
+            ...currentContent.content,
+          ]);
+          setPagination(currentContent.pagination);
+
+          // 데이터 요청 완료로 상태 변경
+          setIsFetching(false);
+        } catch (error) {
+          // 데이터 요청 실패 시 에러 핸들링 함수 호출
+          onError(error);
+        } finally {
+          // 데이터 요청 완료로 상태 변경
+          setIsFetching(false);
+        }
       },
       { threshold: 0.1 },
     );
@@ -49,7 +66,14 @@ export default function useInfiniteScroll(asyncFetchPage, defaultContent = []) {
 
     // 컴포넌트가 언마운트되면 관찰 중지
     return () => observer.disconnect();
-  }, [ref, asyncFetchPage, isFetching, pagination.last, pagination.page]);
+  }, [
+    ref,
+    asyncFetchPage,
+    onError,
+    isFetching,
+    pagination.last,
+    pagination.page,
+  ]);
 
   return { ref, content, pagination, isFetching };
 }

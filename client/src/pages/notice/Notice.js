@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./Notice.css";
 import { axios } from "utils";
 import { usePageResponse } from "hooks";
-import { PaginationNav } from "components/util";
+import { AdminFeature, PaginationNav } from "components/util";
 import { Link } from "react-router-dom";
 
 function Notice() {
@@ -31,11 +31,14 @@ function Notice() {
         <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
         <h2 class="notice_subtitle">공지사항</h2>
 
-        <div class="noticeWrite-container">
-          <Link to="/WriteNotice" class="noticeWrite-text cursor-pointer">
-            <button>게시글 쓰기</button>
-          </Link>
-        </div>
+        <AdminFeature>
+          <div class="noticeWrite-container">
+            <div class="background-circle"></div>
+            <Link to="/WriteNotice" class="noticeWrite-text cursor-pointer">
+              게시글 쓰기
+            </Link>
+          </div>
+        </AdminFeature>
 
         <div className="notice_line"></div>
       </header>

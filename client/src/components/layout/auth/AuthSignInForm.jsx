@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 import { TablerCircleKeyFilled, TablerUserFilled } from "components/asset";
 import { cn, axios } from "utils";
 import { useInputs } from "hooks";
@@ -15,11 +17,11 @@ export default function AuthSignInForm({ setVisible }) {
 
   async function onFormSubmit() {
     if (!inputs.username || inputs.username.length < 1) {
-      return alert("아이디를 입력하세요.");
+      return toast.error("아이디를 입력하세요.");
     }
 
     if (!inputs.password || inputs.password.length < 1) {
-      return alert("패스워드를 입력하세요.");
+      return toast.error("패스워드를 입력하세요.");
     }
 
     try {
@@ -27,17 +29,18 @@ export default function AuthSignInForm({ setVisible }) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
       dispatch(signinAction(result.data));
+      toast.success("로그인에 성공했습니다");
       setVisible(false);
     } catch (err) {
       console.error(err);
-      alert("로그인에 실패했습니다");
+      toast.error("로그인에 실패했습니다");
     }
   }
 
   return (
     <form
       aria-label="auth-input-form"
-      className="flex w-full"
+      className="flex w-full h-fit"
       onSubmit={(event) => {
         event.preventDefault();
         onFormSubmit();

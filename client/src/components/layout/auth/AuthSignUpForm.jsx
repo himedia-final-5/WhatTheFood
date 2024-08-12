@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 import { TablerCircleKeyFilled, TablerUserFilled } from "components/asset";
 import { cn } from "utils";
 import { useInputs } from "hooks";
@@ -7,13 +9,13 @@ export default function AuthSignUpForm() {
 
   async function onFormSubmit() {
     /** TODO: 회원가입 기능 구현 */
-    return alert("회원가입은 준비 중입니다.");
+    return toast.warn("회원가입은 준비 중입니다.");
   }
 
   return (
     <form
       aria-label="auth-input-form"
-      className="flex w-full"
+      className="flex w-full h-fit"
       onSubmit={(event) => {
         event.preventDefault();
         onFormSubmit();

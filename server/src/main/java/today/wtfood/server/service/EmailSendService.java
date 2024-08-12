@@ -68,7 +68,7 @@ public class EmailSendService {
         javaMailSender.send(mimeMessage);
     }
 
-    public void sendJoinEmail(String email, String emailToken) throws MessagingException {
+    public void sendSignUpEmail(String email, String emailToken) throws MessagingException {
         // 이메일 전송
         sendMail(new EmailMessage(
                 email,

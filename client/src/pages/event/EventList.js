@@ -1,27 +1,39 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./EventList.css";
-import { axios } from "utils";
-import { useInfiniteScroll } from "hooks";
+import { AdminFeature } from "components/util";
+import { axios, defaultErrorHandler } from "utils";
+import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
 function EventList() {
-  const { ref, content } = useInfiniteScroll(async (page) => {
-    /** @type {{data: PageResponse<EventSummary>}} */
-    const response = await axios.get(`/api/events`, {
-      params: { page, size: 8 },
-    });
-
-    return response.data;
-  });
+  const [throttleInterval, setThrottleInterval] = useState(0);
+  const throttle = usePromiseThrottle(throttleInterval);
+  const { ref, content } = useInfiniteScroll(
+    throttle(async (page) => {
+      /** @type {{data: PageResponse<EventSummary>}} */
+      const response = await axios.get(`/api/events`, {
+        params: { page, size: 8 },
+      });
+      setThrottleInterval(0);
+      return response.data;
+    }),
+    (error) => {
+      setThrottleInterval(3000);
+      defaultErrorHandler(error);
+    },
+  );
 
   return (
     <div className="event_banner_wrap relative">
-      <Link
-        to="/createEventBanner"
-        className="absolute left-6 -top-10 rounded-md px-2 py-0.5 border-2"
-      >
-        게시글쓰기
-      </Link>
+      <AdminFeature>
+        <Link
+          to="/createEventBanner"
+          className="absolute left-6 -top-10 rounded-md px-2 py-0.5 border-2"
+        >
+          게시글쓰기
+        </Link>
+      </AdminFeature>
       {content.length > 0 ? (
         content.map((event, index) => (
           <Link
