@@ -57,27 +57,22 @@ public class Recipe {
 
     @ElementCollection
     @CollectionTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "ingredient", length = 100, nullable = false)
     private List<String> ingredients; // 재료
 
     @ElementCollection
     @CollectionTable(name = "recipe_tool", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "tool", length = 100, nullable = false)
     private List<String> cookingTools; // 조리도구
 
     @ElementCollection
     @CollectionTable(name = "recipe_guide_link", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "guide_link", length = 200)
     private List<String> guideLinks; // 가이드 링크
 
     @ElementCollection
     @CollectionTable(name = "recipe_step", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "cooking_step", length = 1000, nullable = false)
     private List<String> cookingSteps; // 조리순서
 
     @ElementCollection
     @CollectionTable(name = "recipe_finished_image", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "finished_image", length = 200)
     private List<String> finishedImages; // 완성품사진 경로
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -96,7 +91,7 @@ public class Recipe {
         private Long id;
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
-        @JoinColumn(name = "id", nullable = false)
+        @JoinColumn(name = "recipe_id", nullable = false)
         private Recipe recipe;
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -113,6 +108,5 @@ public class Recipe {
 
     @ElementCollection
     @CollectionTable(name = "recipe_tag", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "tag", length = 50)
     private List<String> tags; // 태그
 }
