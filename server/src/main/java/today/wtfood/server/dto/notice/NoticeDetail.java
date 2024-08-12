@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /**
  * Projection for {@link today.wtfood.server.entity.Notice}
  */
-public interface NoticeDetail {
+public interface NoticeDetail extends NoticeSummary {
     long getId();
 
     Timestamp getWriteDate();
