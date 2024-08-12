@@ -101,4 +101,8 @@ public class Member implements UserDetails {
         return claims;
     }
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recipe.Comment> comments;
+
+
 }
