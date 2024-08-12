@@ -13,9 +13,9 @@ export default function UndrawChef(props) {
           y2="154.92035"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="gray" stop-opacity="0.25" />
-          <stop offset="0.53514" stop-color="gray" stop-opacity="0.12" />
-          <stop offset="1" stop-color="gray" stop-opacity="0.1" />
+          <stop offset="0" stopColor="gray" stopOpacity="0.25" />
+          <stop offset="0.53514" stopColor="gray" stopOpacity="0.12" />
+          <stop offset="1" stopColor="gray" stopOpacity="0.1" />
         </linearGradient>
       </defs>
       <title>Chef</title>
@@ -395,8 +395,8 @@ export default function UndrawChef(props) {
         transform="translate(-154.96538 -103.63591)"
         fill="none"
         stroke="#535461"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit="10"
+        strokeWidth="2"
       />
       <path
         d="M938.98211,543.11749c16.39418,11.85908,23.22,30.40913,23.22,30.40913s-19.75442-.67731-36.14861-12.53638-23.22-30.40913-23.22-30.40913S922.58792,531.25842,938.98211,543.11749Z"
@@ -408,8 +408,8 @@ export default function UndrawChef(props) {
         transform="translate(-154.96538 -103.63591)"
         fill="none"
         stroke="#535461"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit="10"
+        strokeWidth="2"
       />
       <path
         d="M986.02559,572.58246c-18.83028,20.69669-22.81359,47.739-22.81359,47.739s26.5466-6.51371,45.37688-27.21041,22.81359-47.739,22.81359-47.739S1004.85587,551.88576,986.02559,572.58246Z"
@@ -421,8 +421,8 @@ export default function UndrawChef(props) {
         transform="translate(-154.96538 -103.63591)"
         fill="none"
         stroke="#535461"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit="10"
+        strokeWidth="2"
       />
     </svg>
   );
