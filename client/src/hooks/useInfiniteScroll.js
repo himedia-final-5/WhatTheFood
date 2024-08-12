@@ -31,6 +31,12 @@ export default function useInfiniteScroll(asyncFetchPage, defaultContent = []) {
         setIsFetching(true);
         const currentContent = await asyncFetchPage(pagination.page + 1);
 
+        // 데이터 요청 결과가 없으면 작업 중지
+        if (!currentContent) {
+          setIsFetching(false);
+          return;
+        }
+
         // 데이터 요청 결과를 컨텐츠에 추가하고 상태 변경
         setContent((prevContent) => [
           ...prevContent,
