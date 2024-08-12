@@ -1,19 +1,28 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./EventList.css";
 import { AdminFeature } from "components/util";
-import { axios } from "utils";
-import { useInfiniteScroll } from "hooks";
+import { axios, defaultErrorHandler } from "utils";
+import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
 function EventList() {
-  const { ref, content } = useInfiniteScroll(async (page) => {
-    /** @type {{data: PageResponse<EventSummary>}} */
-    const response = await axios.get(`/api/events`, {
-      params: { page, size: 8 },
-    });
-
-    return response.data;
-  });
+  const [throttleInterval, setThrottleInterval] = useState(0);
+  const throttle = usePromiseThrottle(throttleInterval);
+  const { ref, content } = useInfiniteScroll(
+    throttle(async (page) => {
+      /** @type {{data: PageResponse<EventSummary>}} */
+      const response = await axios.get(`/api/events`, {
+        params: { page, size: 8 },
+      });
+      setThrottleInterval(0);
+      return response.data;
+    }),
+    (error) => {
+      setThrottleInterval(3000);
+      defaultErrorHandler(error);
+    },
+  );
 
   return (
     <div className="event_banner_wrap relative">
