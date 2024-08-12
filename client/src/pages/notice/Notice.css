@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  margin-bottom:50px;
+  margin-bottom: 50px;
 }
 
 /* Header */
@@ -95,7 +95,6 @@
   color: #000;
 }
 
-
 /* 기본 스타일 리셋 */
 body {
   margin: 0;
@@ -117,7 +116,7 @@ body {
   background-color: #d9d9d9; /* 배경색 설정 */
   position: absolute;
   top: 50px;
-  left:900px;
+  left: 900px;
 }
 
 .noticeWrite-text {
@@ -132,7 +131,6 @@ body {
   margin: 0; /* 기본 여백 제거 */
 }
 
-
 /* 전체 폼 컨테이너 */
 .form-container {
   max-width: 600px;
@@ -144,7 +142,7 @@ body {
 }
 
 #noticeWrite-title {
-  font-size:20px;
+  font-size: 20px;
 }
 
 /* 필드 스타일 */

@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 
-
 import { Header, Footer } from "components/layout";
 import { Main } from "pages/main";
 import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
@@ -9,7 +8,6 @@ import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
 import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
 import { NoticeList, NoticeDetail, NoticeWrite } from "pages/notice";
 import { TestAssets } from "pages/test";
-
 
 function App() {
   return (

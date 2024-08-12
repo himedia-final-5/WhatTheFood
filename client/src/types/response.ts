@@ -3,7 +3,7 @@ declare type GeneratedId = {
 };
 
 declare type ErrorResponse = {
-  status: number
+  status: number;
   message: string;
 };
 
