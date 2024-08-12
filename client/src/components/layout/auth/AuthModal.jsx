@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
+import { useToggle } from "@reactuses/core";
 
 import { CloseMark, UndrawEatingTogether } from "components/asset";
 import { Modal } from "components/util";
@@ -13,7 +13,7 @@ import AuthSignUpForm from "./AuthSignUpForm";
  * @param {function(boolean)} setVisible 모달 표시 여부 변경 함수
  */
 export default function AuthModal({ visible, setVisible }) {
-  const [isSignIn, setSignIn] = useState(true);
+  const [isSignIn, toggleSignIn] = useToggle(true);
   const modeText = isSignIn ? "로그인" : "회원가입";
 
   async function onSocialLogin(provider) {
@@ -100,10 +100,7 @@ export default function AuthModal({ visible, setVisible }) {
               <div aria-label="mode-change-button" className="flex">
                 <div className="text-base text-green-600 mb-8 mr-4">
                   {isSignIn ? "계정이 없으신가요?" : "계정이 있으신가요?"}
-                  <button
-                    className="font-bold ml-2"
-                    onClick={() => setSignIn(!isSignIn)}
-                  >
+                  <button className="font-bold ml-2" onClick={toggleSignIn}>
                     {isSignIn ? "회원가입" : "로그인"}
                   </button>
                 </div>

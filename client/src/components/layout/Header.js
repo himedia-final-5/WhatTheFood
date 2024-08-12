@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { useToggle } from "@reactuses/core";
 import { toast } from "react-toastify";
 
 import "./Header.css";
 import { signoutAction, useDispatch, useSelector } from "stores";
 import { AuthModal } from "components/layout/auth";
+import { useToggleElement } from "hooks";
 
 function Header() {
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector((state) => state.user);
-  const [submenuVisible, setSubmenuVisible] = useState(false);
-  const [authFormVisible, setAuthFormVisible] = useState(false);
+  const [submenuRef, showSubmenu, toggleSubmenu] = useToggleElement(false);
+  const [showAuthForm, toggleAuthForm] = useToggle(false);
 
   useEffect(() => {
-    setSubmenuVisible(false);
-    setAuthFormVisible(false);
-  }, [location, user]);
+    toggleSubmenu(false);
+    toggleAuthForm(false);
+  }, [location, user, toggleSubmenu, toggleAuthForm]);
 
   function signout() {
     dispatch(signoutAction());
@@ -25,7 +27,7 @@ function Header() {
 
   return (
     <div className="Header">
-      <AuthModal visible={authFormVisible} setVisible={setAuthFormVisible} />
+      <AuthModal visible={showAuthForm} setVisible={toggleAuthForm} />
       <div className="top">
         <div className="toptoplogo">
           <Link to="/">
@@ -44,20 +46,18 @@ function Header() {
           </div>
           <div
             className="toptopprofile"
-            onClick={() => {
-              if (user) {
-                setSubmenuVisible(!submenuVisible);
-              } else {
-                setAuthFormVisible(true);
-              }
-            }}
+            onClick={() => (user ? toggleSubmenu(true) : toggleAuthForm(true))}
           >
             <img id="img" src="/images/profile.png" alt="profile" />
           </div>
         </div>
       </div>
 
-      <div id="submenu" className={submenuVisible ? "" : "!hidden"}>
+      <div
+        id="submenu"
+        ref={submenuRef}
+        className={showSubmenu ? "" : "!hidden"}
+      >
         <div className="sm">마이페이지</div>
         <div className="sm">찜레시피</div>
         <div className="sm">뭘로하지</div>
