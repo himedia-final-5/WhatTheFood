@@ -30,16 +30,32 @@ jaxios.interceptors.request.use(requestInterceptor, console.log);
 
 /** axios 실패 응답을 가로채 토큰 갱신을 시도하는 인터셉터 */
 const responseInterceptor = async (error) => {
+  // 에러에 메시지 값 추가
+  error.toastMessage = error?.response?.data?.message ?? "알 수 없는 오류";
+
+  // 요청 취소의 경우 바로 반환
+  if (axios.isCancel(error)) {
+    error.toastMessage = "요청이 취소되었습니다.";
+    return Promise.reject(error);
+  }
+
+  // 응답이 없는 경우 바로 반환
+  if (!error.response) {
+    error.toastMessage = "서버와 연결할 수 없습니다.";
+    return Promise.reject(error);
+  }
+
+  // 응답이 401(인증 실패)가 아니면 바로 반환
+  if (error?.response?.status !== 401) {
+    return Promise.reject(error);
+  }
+
   // 로그인 정보를 저장소로부터 가져오기
   const user = getUser();
 
   // 로그인 정보가 없으면 바로 반환
   if (!user) {
-    return Promise.reject(error);
-  }
-
-  // 응답이 401(인증 실패)가 아니면 바로 반환
-  if (error.response.status !== 401) {
+    error.toastMessage = "로그인이 필요합니다.";
     return Promise.reject(error);
   }
 
@@ -95,6 +111,7 @@ const responseInterceptor = async (error) => {
 
     // 요청 실패 오류 객체 콘솔 출력 후 반환
     console.error("Token refresh failed:", refreshError);
+    error.toastMessage = "로그인이 필요합니다.";
     return Promise.reject(refreshError);
   }
 };
