@@ -69,7 +69,7 @@ public class Recipe {
     private List<String> guideLinks; // 가이드 링크
 
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<CookingStep> cookingSteps; // 조리순서
 
     @Data
