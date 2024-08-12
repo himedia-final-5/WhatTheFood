@@ -28,7 +28,7 @@ public interface RecipeDetail extends RecipeSummary {
 
     List<String> guideLinks();
 
-    List<String> cookingSteps();
+    List<String> cookingStep();
 
     List<String> finishedImages();
 

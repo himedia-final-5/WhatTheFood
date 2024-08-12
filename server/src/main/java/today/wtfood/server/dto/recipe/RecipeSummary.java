@@ -1,6 +1,6 @@
 package today.wtfood.server.dto.recipe;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**

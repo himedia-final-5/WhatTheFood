@@ -68,9 +68,9 @@ public class Recipe {
     @CollectionTable(name = "recipe_guide_link", joinColumns = @JoinColumn(name = "id"))
     private List<String> guideLinks; // 가이드 링크
 
-    @ElementCollection
-    @CollectionTable(name = "recipe_step", joinColumns = @JoinColumn(name = "id"))
-    private List<String> cookingSteps; // 조리순서
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CookingStep> cookingSteps; // 조리순서
 
     @Data
     @Entity
