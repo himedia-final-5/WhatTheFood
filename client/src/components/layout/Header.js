@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 import "./Header.css";
 import { logoutAction, useDispatch, useSelector } from "stores";
+import { AuthModal } from "components/layout/auth";
 
 function Header() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const loginUser = useSelector((state) => state.user);
   const [submenuVisible, setSubmenuVisible] = useState(false);
+  const [authFormVisible, setAuthFormVisible] = useState(false);
 
   useEffect(() => {
     setSubmenuVisible(false);
-  }, [location]);
+    setAuthFormVisible(false);
+  }, [location, loginUser]);
 
   function logout() {
     dispatch(logoutAction());
     alert("로그아웃 되었습니다");
-    navigate("/login");
   }
 
   return (
     <div className="Header">
+      <AuthModal visible={authFormVisible} setVisible={setAuthFormVisible} />
       <div className="top">
         <div className="toptoplogo">
           <Link to="/">
@@ -45,7 +47,7 @@ function Header() {
               if (loginUser) {
                 setSubmenuVisible(!submenuVisible);
               } else {
-                navigate("/login");
+                setAuthFormVisible(true);
               }
             }}
           >

@@ -31,9 +31,9 @@ function reducer(state, action) {
  * 여러 입력 상태를 관리하는 커스텀 훅
  *
  * @template T
- * @param {Object.<string, T>} defaultValues - 입력의 기본 값
+ * @param {T} defaultValues - 입력의 기본 값
  * @returns {{
- *   inputs: Object.<string, T>,
+ *   inputs: T,
  *   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
  *   onReset: () => void,
  *   dispatch: React.Dispatch<UseInputsAction | null>
