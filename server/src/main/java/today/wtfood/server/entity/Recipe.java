@@ -26,7 +26,7 @@ public class Recipe {
     private Member member; // 작성자 (회원)
 
     @CreationTimestamp
-    @Column(name = "created_date", nullable = false, updatable = false)
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL")
     private Timestamp createdDate; // 작성 시간
 
     @Column(name = "view_count", nullable = false)
@@ -96,7 +96,7 @@ public class Recipe {
         private String description; // 조리 내용
 
         @CreationTimestamp
-        @Column(name = "created_date", nullable = false, updatable = false)
+        @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL")
         private Timestamp createdDate; // 생성 시간
     }
 
@@ -131,7 +131,7 @@ public class Recipe {
         private String content;
 
         @CreationTimestamp
-        @Column(name = "created_date", nullable = false, updatable = false)
+        @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL")
         private Timestamp createdDate;
     }
 
