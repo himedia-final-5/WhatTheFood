@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import "./EventList.css";
+import { AdminFeature } from "components/util";
 import { axios } from "utils";
 import { useInfiniteScroll } from "hooks";
 
@@ -16,12 +17,14 @@ function EventList() {
 
   return (
     <div className="event_banner_wrap relative">
-      <Link
-        to="/createEventBanner"
-        className="absolute left-6 -top-10 rounded-md px-2 py-0.5 border-2"
-      >
-        게시글쓰기
-      </Link>
+      <AdminFeature>
+        <Link
+          to="/createEventBanner"
+          className="absolute left-6 -top-10 rounded-md px-2 py-0.5 border-2"
+        >
+          게시글쓰기
+        </Link>
+      </AdminFeature>
       {content.length > 0 ? (
         content.map((event, index) => (
           <Link

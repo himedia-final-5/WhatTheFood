@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import "./EventUpCreate.css";
 import { axios, cn } from "utils";
-import { ImageUploadInput } from "components/util";
+import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 import { useInputs } from "hooks";
 
@@ -16,13 +15,6 @@ function UpdateEvent() {
 
   const [event, setEvent] = useState({});
   const { inputs, onInputChange } = useInputs(event);
-
-  useEffect(() => {
-    if (!user) {
-      toast.error("로그인이 필요합니다.");
-      navigate("/signin");
-    }
-  }, [navigate, user]);
 
   useEffect(() => {
     axios
@@ -39,7 +31,7 @@ function UpdateEvent() {
   }
 
   return (
-    <div className="createEvent">
+    <AdminFeatureContainer className="createEvent">
       <div className="createEvent_field">
         <label>작성자</label>
         <input type="text" defaultValue={user && user.nickname} readOnly />
@@ -158,7 +150,7 @@ function UpdateEvent() {
           <button>돌아가기</button>
         </Link>
       </div>
-    </div>
+    </AdminFeatureContainer>
   );
 }
 

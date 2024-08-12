@@ -4,6 +4,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
 import "./EventDetail.css";
+import { AdminFeature } from "components/util";
 import { axios } from "utils";
 import Popup from "./PopUp";
 
@@ -144,10 +145,12 @@ function EventDetail() {
   return (
     <div className="eventdetail_wrap">
       <div className="eventdetail_btn_wrap">
-        <Link to={`/updateEvent/${events.id}`}>
-          <button>수정</button>
-        </Link>
-        <button onClick={() => deleteEvent(events.id)}>삭제</button>
+        <AdminFeature>
+          <Link to={`/updateEvent/${events.id}`}>
+            <button>수정</button>
+          </Link>
+          <button onClick={() => deleteEvent(events.id)}>삭제</button>
+        </AdminFeature>
         <Link to="/events">
           <button>돌아가기</button>
         </Link>
