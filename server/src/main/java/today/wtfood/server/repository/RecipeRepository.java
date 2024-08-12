@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeSummary;
+import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -48,4 +50,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
      * @return 페이지네이션된 레시피 목록
      */
     Page<Recipe> findByTitleAndDescription(String title, String description, Pageable pageable);
+
+    List<Recipe> findByLikedByMembersContains(Member member);
 }

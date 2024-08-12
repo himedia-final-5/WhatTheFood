@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -136,5 +137,9 @@ public class Recipe {
 
     @ElementCollection
     @CollectionTable(name = "recipe_tag", joinColumns = @JoinColumn(name = "id"))
-    private List<String> tags; // 태그
+    private List<String> tags; // 해쉬태그
+
+    // 찜한 멤버들 목록
+    @ManyToMany(mappedBy = "favoriteRecipes")
+    private Set<Member> likedByMembers; // 이 레시피를 찜한 멤버 목록
 }

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
 import today.wtfood.server.dto.recipe.RecipeSummary;
+import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.repository.MemberRepository;
 import today.wtfood.server.repository.RecipeRepository;
 
 import java.util.List;
@@ -18,9 +20,11 @@ import java.util.List;
 public class RecipeService {
 
     private final RecipeRepository rr;
+    private final MemberRepository mr;
 
-    public RecipeService(RecipeRepository rr) {
+    public RecipeService(RecipeRepository rr, MemberRepository mr) {
         this.rr = rr;
+        this.mr = mr;
     }
 
     // 레시피 생성
@@ -90,4 +94,34 @@ public class RecipeService {
             throw new RuntimeException("Recipe not found with id " + id);
         }
     }
+
+    // 찜하기 추가
+    public void addFavoriteRecipe(long memberId, long recipeId) {
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+
+        member.getFavoriteRecipes().add(recipe);
+        mr.save(member);
+    }
+
+    // 찜한 레시피 목록 조회
+    public List<Recipe> getFavoriteRecipes(long memberId) {
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+        return rr.findByLikedByMembersContains(member);
+    }
+
+    // 찜하기 제거
+    public void removeFavoriteRecipe(long memberId, long recipeId) {
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+
+        member.getFavoriteRecipes().remove(recipe);
+        mr.save(member);
+    }
+
 }

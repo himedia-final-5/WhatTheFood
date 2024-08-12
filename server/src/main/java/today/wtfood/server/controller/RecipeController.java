@@ -13,6 +13,8 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.service.RecipeService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
@@ -101,5 +103,27 @@ public class RecipeController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipeDto) {
         return GeneratedId.of(rs.createRecipe(recipeDto).getId());
+    }
+
+    // 레시피 찜하기
+    @PostMapping("/{recipeId}/favorite")
+    @PreAuthorize("isAuthenticated()")
+    public void addFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
+        rs.addFavoriteRecipe(memberId, recipeId);
+    }
+
+    // 찜한 레시피 목록 조회
+    @GetMapping("/favorites")
+    @PreAuthorize("isAuthenticated()")
+    public List<Recipe> getFavoriteRecipes(@RequestParam long memberId) {
+        return rs.getFavoriteRecipes(memberId);
+    }
+
+    // 찜하기 취소
+    @DeleteMapping("/{recipeId}/favorite")
+    @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
+        rs.removeFavoriteRecipe(memberId, recipeId);
     }
 }
