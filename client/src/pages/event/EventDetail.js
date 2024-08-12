@@ -6,33 +6,43 @@ import { toast } from "react-toastify";
 import "./EventDetail.css";
 import { AdminFeature } from "components/util";
 import { axios } from "utils";
+import { usePromise } from "hooks";
 import Popup from "./PopUp";
 
+/** @type {?EventDetail} */
+const DEFAULT_EVENT = null;
 function EventDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [events, setEvents] = useState({
-    startDate: "",
-    endDate: "",
-    title: "",
-    contentImages: [],
-    pass: "",
-  });
 
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get(`/api/events/${id}`)
-      .then((result) => {
-        console.log(result.data);
-        setEvents(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const [fetchEvent, event, isLoading, isError] = usePromise(
+    DEFAULT_EVENT,
+    async () => (await axios.get(`/api/events/${id}`)).data,
+  );
+  const [deleteEvent] = usePromise(
+    null,
+    async () => {
+      if (window.confirm("삭제 하시겠습니까?")) {
+        await axios.delete(`/api/events/${id}`);
+        navigate("/events");
+        toast.success("이벤트가 삭제되었습니다.");
+      }
+    },
+    () => toast.error("이벤트 삭제에 실패했습니다."),
+  );
 
+  useEffect(() => {
+    if ((!isLoading, event == null && event?.id !== id)) {
+      fetchEvent();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  useEffect(() => {
     const loadKakaoSDK = () => {
       if (!window.Kakao) {
         console.error("Kakao SDK is not loaded");
@@ -71,14 +81,14 @@ function EventDetail() {
     //   // 이벤트별 첫 번째 이미지 선택 (혹은 다른 로직으로 이미지 선택 가능)
 
     //   const templateArgs = {
-    //     title: events.title,
+    //     title: event.title,
     //     description: "이벤트 설명을 여기에 추가하세요",
     //     imageUrl:
-    //       events.contentImages.length > 0
-    //         ? events.contentImages[0]
+    //       event.contentImages.length > 0
+    //         ? event.contentImages[0]
     //         : "기본 이미지 URL",
-    //     webUrl: `http://localhost:3000/events/${events.id}`,
-    //     mobileWebUrl: `http://localhost:3000/events/${events.id}`,
+    //     webUrl: `http://localhost:3000/event/${event.id}`,
+    //     mobileWebUrl: `http://localhost:3000/event/${event.id}`,
     //   };
 
     //   window.Kakao.Share.sendCustom({
@@ -88,18 +98,18 @@ function EventDetail() {
     // };
 
     const imageUrl =
-      events.contentImages.length > 0
-        ? events.contentImages[0]
+      event.contentImages.length > 0
+        ? event.contentImages[0]
         : "기본 이미지 URL";
 
     window.Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
-        title: events.title,
+        title: event.title,
         imageUrl: imageUrl,
         link: {
-          mobileWebUrl: `http://localhost:3000/events/${events.id}`,
-          webUrl: `http://localhost:3000/events/${events.id}`,
+          mobileWebUrl: `http://localhost:3000/event/${event.id}`,
+          webUrl: `http://localhost:3000/event/${event.id}`,
         },
       },
       social: {
@@ -111,81 +121,72 @@ function EventDetail() {
         {
           title: "웹으로 보기",
           link: {
-            mobileWebUrl: `http://localhost:3000/events/${events.id}`,
-            webUrl: `http://localhost:3000/events/${events.id}`,
+            mobileWebUrl: `http://localhost:3000/event/${event.id}`,
+            webUrl: `http://localhost:3000/event/${event.id}`,
           },
         },
         {
           title: "앱으로 보기",
           link: {
-            mobileWebUrl: `http://localhost:3000/events/${events.id}`,
-            webUrl: `http://localhost:3000/events/${events.id}`,
+            mobileWebUrl: `http://localhost:3000/event/${event.id}`,
+            webUrl: `http://localhost:3000/event/${event.id}`,
           },
         },
       ],
     });
   };
 
-  const deleteEvent = (id) => {
-    const isDel = window.confirm("삭제 하시겠습니까?");
-    if (isDel) {
-      axios
-        .delete(`/api/events/${id}`)
-        .then(() => {
-          navigate("/events");
-          toast.success("이벤트가 삭제되었습니다.");
-        })
-        .catch((err) => {
-          console.error(err);
-          toast.error("이벤트 삭제에 실패했습니다.");
-        });
-    }
-  };
+  if (isError) {
+    toast.error("이벤트 정보를 불러오는데 실패했습니다.");
+    return <div></div>;
+  }
 
   return (
-    <div className="eventdetail_wrap">
-      <div className="eventdetail_btn_wrap">
-        <AdminFeature>
-          <Link to={`/updateEvent/${events.id}`}>
-            <button>수정</button>
+    event && (
+      <div className="eventdetail_wrap">
+        <div className="eventdetail_btn_wrap">
+          <AdminFeature>
+            <Link to={`/updateEvent/${event.id}`}>
+              <button>수정</button>
+            </Link>
+            <button onClick={deleteEvent}>삭제</button>
+          </AdminFeature>
+          <Link to="/event">
+            <button>돌아가기</button>
           </Link>
-          <button onClick={() => deleteEvent(events.id)}>삭제</button>
-        </AdminFeature>
-        <Link to="/events">
-          <button>돌아가기</button>
-        </Link>
-      </div>
+        </div>
 
-      <div className="eventdetail_content">
-        {events.contentImages && events.contentImages.length > 0 ? (
-          events.contentImages.map((image, index) => (
-            <div key={index} className="eventdetail_contentdetail">
-              <img src={image} alt={`Content - ${index}`} />
-            </div>
-          ))
-        ) : (
-          <p>No content images available.</p>
-        )}
-      </div>
+        <div className="eventdetail_content">
+          {event.contentImages && event.contentImages.length > 0 ? (
+            event.contentImages.map((image, index) => (
+              <div key={index} className="eventdetail_contentdetail">
+                <img src={image} alt={`Content - ${index}`} />
+              </div>
+            ))
+          ) : (
+            <p>No content images available.</p>
+          )}
+        </div>
 
-      <div className="event_custom-button_wrap">
-        <button className="event_custom_button" onClick={sendLinkKakaoShare}>
-          <img src="/images/kakao.png" alt="KakaoShare" />
-        </button>
-        <CopyToClipboard text={currentUrl}>
-          <button
-            type="submit"
-            className="event_custom_button"
-            onClick={() => setButtonPopup(true)}
-          >
-            <img src="/images/share_copy.png" alt="linkShare" />
+        <div className="event_custom-button_wrap">
+          <button className="event_custom_button" onClick={sendLinkKakaoShare}>
+            <img src="/images/kakao.png" alt="KakaoShare" />
           </button>
-        </CopyToClipboard>
-        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-          <h3>링크 복사 완료</h3>
-        </Popup>
+          <CopyToClipboard text={currentUrl}>
+            <button
+              type="submit"
+              className="event_custom_button"
+              onClick={() => setButtonPopup(true)}
+            >
+              <img src="/images/share_copy.png" alt="linkShare" />
+            </button>
+          </CopyToClipboard>
+          <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <h3>링크 복사 완료</h3>
+          </Popup>
+        </div>
       </div>
-    </div>
+    )
   );
 }
 
