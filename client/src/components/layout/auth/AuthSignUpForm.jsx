@@ -15,7 +15,7 @@ export default function AuthSignUpForm() {
   return (
     <form
       aria-label="auth-input-form"
-      className="flex w-full"
+      className="flex w-full h-fit"
       onSubmit={(event) => {
         event.preventDefault();
         onFormSubmit();
