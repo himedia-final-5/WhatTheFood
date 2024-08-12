@@ -51,7 +51,8 @@ function App() {
         <ToastContainer
           transition={Flip}
           position="top-right"
-          autoClose={1500}
+          closeButton={false}
+          autoClose={3000}
           closeOnClick={true}
           pauseOnHover={true}
         />,
