@@ -10,5 +10,7 @@ public interface NoticeSummary {
 
     Timestamp getWriteDate();
 
+    String getContent();
+
     String getTitle();
 }

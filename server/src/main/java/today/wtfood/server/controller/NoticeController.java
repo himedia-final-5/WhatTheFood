@@ -4,11 +4,14 @@ package today.wtfood.server.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.notice.NoticeDetail;
+import today.wtfood.server.dto.notice.NoticeDto;
 import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
 import today.wtfood.server.service.NoticeService;
@@ -50,4 +53,17 @@ public class NoticeController {
     public void deleteNotice(@PathVariable("id") long id) {
         ns.deleteNotice(id);
     }
+
+    @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateNotice(@PathVariable("id") long id, @RequestBody NoticeDto notice) {
+        try {
+            ns.updateNotice(id, notice);
+            return;
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
 }

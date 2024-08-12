@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import "./Notice.css";
 import { axios } from "utils";
@@ -8,10 +8,19 @@ function Notice() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [notice, setNotice] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`/api/notices/${id}`)
+      .then((result) => setNotice(result.data))
+      .catch(console.error);
+  }, [id]);
 
   function onSubmit() {
     axios
-      .post("/api/notices", { title, content })
+      .post(`/api/notices/${id}`, { title, content })
       .then(() => {
         navigate("/notice");
       })
@@ -31,6 +40,7 @@ function Notice() {
             value={title}
             onChange={(e) => setTitle(e.currentTarget.value)}
           />
+          {Notice.title}
         </div>
         <div class="field">
           <label>내용</label>
@@ -43,7 +53,7 @@ function Notice() {
           ></textarea>
         </div>
         <div class="btns">
-          <button onClick={() => onSubmit()}>작성완료</button>
+          <button onClick={() => onSubmit()}>수정완료</button>
           <button onClick={() => navigate("/Notice")}>돌아가기</button>
         </div>
       </div>

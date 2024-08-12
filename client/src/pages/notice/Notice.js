@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import "./Notice.css";
 import { axios } from "utils";
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 function Notice() {
   const { content, pagination, setPageResponse } = usePageResponse();
+  /** @type {{data: PageResponse<NoticeSummary>}} */
 
   const onSelectPage = useCallback(
     (page) =>
@@ -24,14 +25,6 @@ function Notice() {
     }
   }, [content, onSelectPage]);
 
-  const formatDate = (timestamp) => {
-    if (!timestamp) return "날짜 없음";
-
-    const date = new Date(timestamp);
-
-    return date.toISOString().substring(0, 10);
-  };
-
   return (
     <div class="notice_container">
       <header class="notice_header">
@@ -39,9 +32,8 @@ function Notice() {
         <h2 class="notice_subtitle">공지사항</h2>
 
         <div class="noticeWrite-container">
-          <div class="background-circle"></div>
           <Link to="/WriteNotice" class="noticeWrite-text cursor-pointer">
-            게시글 쓰기
+            <button>게시글 쓰기</button>
           </Link>
         </div>
 
@@ -67,7 +59,7 @@ function Notice() {
                   </div>
                   <div class="notice-details">
                     <div className="notice-date">
-                      {formatDate(notice.writeDate)}
+                      {notice.writeDate.slice(0, 10)}
                     </div>
                     <Link
                       to={`/noticeView/${notice.id}`}

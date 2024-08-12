@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.notice.NoticeDetail;
+import today.wtfood.server.dto.notice.NoticeDto;
 import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
 import today.wtfood.server.repository.NoticeRepository;
@@ -47,6 +48,16 @@ public class NoticeService {
 
     public void deleteNotice(long id) {
         nr.deleteById(id);
+
+    }
+
+    @Transactional
+    public void updateNotice(long id, NoticeDto dto) {
+        Notice notice = nr.findById(id)
+                .orElseThrow(() -> new RuntimeException("Notice with id " + id + " not found"));
+        notice.setTitle(dto.getTitle());
+        notice.setContent(dto.getContent());
+        
 
     }
 }
