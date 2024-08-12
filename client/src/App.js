@@ -1,4 +1,7 @@
+import { createPortal } from "react-dom";
 import { Routes, Route } from "react-router-dom";
+import { Flip, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Header, Footer } from "components/layout";
 import { Main } from "pages/main";
@@ -11,7 +14,7 @@ import { TestAssets } from "pages/test";
 
 function App() {
   return (
-    <div className="App flex flex-col w-full h-full ">
+    <div className="App flex flex-col w-full h-full">
       <Header />
 
       <div className="flex-1">
@@ -44,6 +47,16 @@ function App() {
       </div>
 
       <Footer />
+      {createPortal(
+        <ToastContainer
+          transition={Flip}
+          position="top-right"
+          autoClose={1500}
+          closeOnClick={true}
+          pauseOnHover={true}
+        />,
+        document.getElementById("toast"),
+      )}
     </div>
   );
 }
