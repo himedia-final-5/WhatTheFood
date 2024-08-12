@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { toast } from "react-toastify";
 
 import { CloseMark, UndrawEatingTogether } from "components/asset";
 import { Modal } from "components/util";
@@ -17,7 +18,7 @@ export default function AuthModal({ visible, setVisible }) {
 
   async function onSocialLogin(provider) {
     /** TODO: 소셜 로그인 기능 구현 */
-    alert("소셜 로그인은 준비 중입니다.");
+    toast.warn("소셜 로그인은 준비 중입니다.");
   }
 
   return (

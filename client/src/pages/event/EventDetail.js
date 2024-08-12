@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 import "./EventDetail.css";
 import { axios } from "utils";
@@ -125,20 +126,17 @@ function EventDetail() {
   };
 
   const deleteEvent = (id) => {
-    // const pass = window.prompt("삭제할 패스워드를 입력하세요");
-    // if (events.pass !== pass) {
-    //   return alert("패스워드가 일치하지 않습니다");
-    // }
     const isDel = window.confirm("삭제 하시겠습니까?");
     if (isDel) {
       axios
         .delete(`/api/events/${id}`)
         .then(() => {
           navigate("/events");
+          toast.success("이벤트가 삭제되었습니다.");
         })
         .catch((err) => {
           console.error(err);
-          alert("이벤트 삭제에 실패했습니다.");
+          toast.error("이벤트 삭제에 실패했습니다.");
         });
     }
   };

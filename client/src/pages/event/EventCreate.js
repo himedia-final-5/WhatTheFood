@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import "./EventUpCreate.css";
 import { axios, cn } from "utils";
 import { ImageUploadInput } from "components/util";
@@ -11,7 +13,7 @@ function EventCreateBanner() {
 
   useEffect(() => {
     if (!user) {
-      alert("로그인이 필요합니다.");
+      toast.error("로그인이 필요합니다.");
       navigate("/signin");
     }
   }, [user, navigate]);

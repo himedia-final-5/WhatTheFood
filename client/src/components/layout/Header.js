@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import "./Header.css";
 import { signoutAction, useDispatch, useSelector } from "stores";
@@ -19,7 +20,7 @@ function Header() {
 
   function signout() {
     dispatch(signoutAction());
-    alert("로그아웃 되었습니다");
+    toast.success("로그아웃 되었습니다");
   }
 
   return (
