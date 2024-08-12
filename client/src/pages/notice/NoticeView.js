@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { axios } from "utils";
+import "./Notice.css";
+import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 function NoticeView() {
-  const [noticeView, setNoticeView] = useState({});
+  const [noticeView, setNoticeView] = useState({
+    title: "",
+    content: "",
+    writeDate: "",
+  });
 
   const navigate = useNavigate();
   const { id } = useParams();
 
+  /** @type {{data: PageResponse<NoticeSummary>}} */
   useEffect(() => {
     axios
       .get(`/api/notices/${id}`)
@@ -17,15 +24,22 @@ function NoticeView() {
       .catch((err) => {
         console.error(err);
       });
-  }, [id]);
+  }, []);
 
-  const formatDate = (timestamp) => {
-    if (!timestamp) return "날짜 없음";
-
-    const date = new Date(timestamp);
-
-    return date.toISOString().substring(0, 10);
-  };
+  function deleteNotice() {
+    const isDel = window.confirm("삭제 하시겠습니까?");
+    if (isDel) {
+      axios
+        .delete(`/api/notices/${id}`)
+        .then(() => {
+          navigate("/notice");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("삭제에 실패했습니다.");
+        });
+    }
+  }
 
   return (
     <div className="notice_container">
@@ -33,6 +47,22 @@ function NoticeView() {
         <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
         <h2 class="notice_subtitle">공지사항</h2>
 
+        <Link
+          to={`/UpdateNotice/${id}`}
+          class="noticeWrite-text cursor-pointer"
+          style={{ left: "265px", top: "75px" }}
+        >
+          <button>수정하기</button>
+        </Link>
+        <button
+          class="noticeWrite-text cursor-pointer"
+          onClick={() => {
+            deleteNotice();
+          }}
+          style={{ left: "400px" }}
+        >
+          삭제하기
+        </button>
         <div className="notice_line"></div>
       </header>
       <main class="notices">
@@ -50,20 +80,14 @@ function NoticeView() {
               </g>
             </svg>
           </div>
-          <div class="notice-details">
+          <div className="notice-details">
             <div className="notice-date">
-              {formatDate(noticeView.writeDate)}
+              {noticeView.writeDate.slice(0, 10)}
             </div>
-            <div
-              className="notice_col"
-              onClick={() => {
-                navigate(`/noticeView/${noticeView.id}`);
-              }}
-            >
-              {noticeView.title}
-            </div>
+            <div className="notice_col">{noticeView.title}</div>
           </div>
         </article>
+        <div className="notice-content">{noticeView.content}</div>
       </main>
       <div className="notice_line"></div>
     </div>
