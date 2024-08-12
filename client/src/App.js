@@ -5,6 +5,7 @@ import JoinForm from "./pages/member/JoinForm";
 import UpdateForm from "./pages/member/UpdateForm";
 import WriteNotice from "./pages/notice/WriteNotice";
 import Notice from "./pages/notice/Notice";
+import NoticeView from "./pages/notice/NoticeView";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import EventList from "./pages/events/EventList";
@@ -28,6 +29,7 @@ function App() {
         <Route path="/updateForm" element={<UpdateForm />} />
         <Route path="/notice" element={<Notice />} />
         <Route path="/writeNotice" element={<WriteNotice />} />
+        <Route path="/noticeView/:id" element={<NoticeView />} />
         <Route path="/events" element={<EventList />} />
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/createEventBanner" element={<EventCreateBanner />} />
