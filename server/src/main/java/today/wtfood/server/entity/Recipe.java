@@ -71,6 +71,34 @@ public class Recipe {
     @CollectionTable(name = "recipe_step", joinColumns = @JoinColumn(name = "id"))
     private List<String> cookingSteps; // 조리순서
 
+    @Data
+    @Entity
+    @Table(name = "cooking_step")
+    public class CookingStep {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id", nullable = false, unique = true)
+        private Long id;
+
+        @ManyToOne(fetch = FetchType.LAZY, optional = false)
+        @JoinColumn(name = "recipe_id", nullable = false)
+        private Recipe recipe;
+
+        @Column(name = "step_number", nullable = false)
+        private Integer stepNumber; // 조리 순서 번호
+
+        @Column(name = "image_url", length = 200)
+        private String imageUrl; // 이미지 경로
+
+        @Column(name = "description", length = 1000)
+        private String description; // 조리 내용
+
+        @CreationTimestamp
+        @Column(name = "created_date", nullable = false, updatable = false)
+        private Timestamp createdDate; // 생성 시간
+    }
+
     @ElementCollection
     @CollectionTable(name = "recipe_finished_image", joinColumns = @JoinColumn(name = "id"))
     private List<String> finishedImages; // 완성품사진 경로
