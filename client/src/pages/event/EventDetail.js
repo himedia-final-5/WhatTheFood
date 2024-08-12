@@ -22,17 +22,21 @@ function EventDetail() {
     DEFAULT_EVENT,
     async () => (await axios.get(`/api/events/${id}`)).data,
   );
-  const [deleteEvent] = usePromise(
-    null,
-    async () => {
-      if (window.confirm("삭제 하시겠습니까?")) {
-        await axios.delete(`/api/events/${id}`);
-        navigate("/events");
-        toast.success("이벤트가 삭제되었습니다.");
-      }
-    },
-    () => toast.error("이벤트 삭제에 실패했습니다."),
-  );
+
+  const deleteEvent = () => {
+    if (window.confirm("삭제 하시겠습니까?")) {
+      toast.promise(axios.delete(`/api/events/${id}`), {
+        pending: "이벤트 삭제 중...",
+        success: {
+          render() {
+            navigate("/events");
+            return "이벤트가 삭제되었습니다.";
+          },
+        },
+        error: "이벤트 삭제에 실패했습니다.",
+      });
+    }
+  };
 
   useEffect(() => {
     if ((!isLoading, event == null && event?.id !== id)) {
