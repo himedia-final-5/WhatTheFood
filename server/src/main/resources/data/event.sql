@@ -13,7 +13,7 @@ VALUES (1,
         'https://static.wtable.co.kr/image/production/service/staticpage/105/f626ecd1-e006-44a8-912b-9a6c5df34fd6.jpg');
 INSERT INTO event_content (id, content_images)
 VALUES (1,
-        'https://static.wtable.co.kr/image/production/service/staticpage/105/8e1e7860-6318-4659-baff-b84d3f1d9316.jpg');
+       'https://static.wtable.co.kr/image/production/service/staticpage/105/8e1e7860-6318-4659-baff-b84d3f1d9316.jpg');
 INSERT INTO event_content (id, content_images)
 VALUES (1,
         'https://static.wtable.co.kr/image/production/service/staticpage/105/03ebb62b-4258-4b5c-9cbb-87282c8474b7.jpg');

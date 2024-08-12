@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/inquiries")
@@ -40,9 +39,11 @@ public class InquiryController {
     }
 
     @GetMapping("")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public List<Inquiry> allInquiry() {
-        return is.getAllInquiry();
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public PageResponse<Inquiry> allInquiry(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        return PageResponse.of(is.getAllInquiry(pageable));
     }
 
     @GetMapping("/{id}")

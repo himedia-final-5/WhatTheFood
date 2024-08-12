@@ -13,6 +13,8 @@ import java.util.Optional;
 @Repository
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
+    Page<Inquiry> findAll(Pageable pageable);
+
     Page<InquirySummary> findAllByUsername(String username, Pageable pageable);
 
     Optional<InquiryDetail> findDetailById(Long id);

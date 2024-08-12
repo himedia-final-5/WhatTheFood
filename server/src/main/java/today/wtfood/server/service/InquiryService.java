@@ -9,8 +9,6 @@ import today.wtfood.server.dto.inquiry.InquirySummary;
 import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.repository.InquiryRepository;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class InquiryService {
@@ -21,8 +19,8 @@ public class InquiryService {
         this.ir = ir;
     }
 
-    public List<Inquiry> getAllInquiry() {
-        return ir.findAll();
+    public Page<Inquiry> getAllInquiry(Pageable pageable) {
+        return ir.findAll(pageable);
     }
 
     public Inquiry insertInquiry(Inquiry entity) {
