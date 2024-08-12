@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,7 +17,7 @@ function NoticeView() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [id]);
 
   const formatDate = (timestamp) => {
     if (!timestamp) return "날짜 없음";
