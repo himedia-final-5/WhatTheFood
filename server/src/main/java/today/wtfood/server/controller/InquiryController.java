@@ -72,7 +72,7 @@ public class InquiryController {
 
     @PutMapping("/{id}/answer")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void inquiryAnswer(@PathVariable("id") long id, @RequestParam("answer") String answer) {
+    public void inquiryAnswer(@PathVariable("id") long id, @RequestParam String answer) {
         is.inquiryAnswer(id, answer);
     }
 

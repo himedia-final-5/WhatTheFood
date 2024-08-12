@@ -13,6 +13,7 @@ import Admin from "pages/admin/Login";
 import MemberList from "pages/admin/member/MemberList";
 import NList from "pages/admin/notice/NoticeList";
 import WriteNotice from "pages/admin/notice/NoticeWriteForm";
+
 import IList from "pages/admin/inquiry/InquiryList";
 import IView from "pages/admin/inquiry/InquiryView";
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/wNotice" element={<WriteNotice />} />
           <Route path="/iList" element={<IList />} />
           <Route path="/iView/:id" element={<IView />} />
+
           <Route path="/faqList" element={<FList />} />
           <Route path="/faqView" element={<FaqView />} />
           <Route path="/writeFaq" element={<WFaq />} />

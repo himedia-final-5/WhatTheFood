@@ -8,7 +8,7 @@ function InquiryView() {
   const { id } = useParams();
 
   const [qnaView, setQnaView] = useState({});
-  const [answer, setAnswer] = useState();
+  const [answer, setAnswer] = useState("");
 
   useEffect(() => {
     axios
@@ -22,13 +22,11 @@ function InquiryView() {
       });
   }, [id]);
 
-  function iqAnswer(id) {
+  function iqAnswer() {
     axios
-      .put(`/api/inquiries/${id}/answer`, {
-        answer: answer,
-      })
+      .put(`/api/inquiries/${id}/answer`, null, { params: { answer } })
       .then(() => {
-        navigate("/InquiryList");
+        navigate("/iList");
       })
       .catch((err) => {
         console.error(err);
@@ -71,6 +69,7 @@ function InquiryView() {
             <textarea
               rows="10"
               value={answer}
+              placeholder={qnaView.answer}
               onChange={(e) => {
                 setAnswer(e.currentTarget.value);
               }}
@@ -81,7 +80,7 @@ function InquiryView() {
         <div className="btns">
           <button
             onClick={() => {
-              iqAnswer(qnaView.id);
+              iqAnswer();
             }}
           >
             답변등록/수정
@@ -89,7 +88,7 @@ function InquiryView() {
           <button onClick={() => {}}>삭제</button>
           <button
             onClick={() => {
-              navigate("/InquiryList");
+              navigate("/iList");
             }}
           >
             돌아가기
