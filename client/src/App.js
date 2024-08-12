@@ -60,7 +60,7 @@ function App() {
           transition={Flip}
           position="top-right"
           closeButton={false}
-          autoClose={3000}
+          autoClose={2000}
           closeOnClick={true}
           pauseOnHover={true}
         />,
