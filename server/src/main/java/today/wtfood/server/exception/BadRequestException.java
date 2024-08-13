@@ -1,14 +1,16 @@
 package today.wtfood.server.exception;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+@Getter
 public class BadRequestException extends ResponseStatusException {
 
     /**
      * 필드 이름
      */
-    private String field;
+    private final String field;
 
     public BadRequestException(String message) {
         this(message, null);
