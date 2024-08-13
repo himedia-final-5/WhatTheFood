@@ -25,7 +25,7 @@ public class RecipeDto implements Serializable {
     List<String> ingredients;
     List<String> cookingTools;
     List<String> guideLinks;
-    List<Recipe.CookingSteps> cookingSteps;
+    List<Recipe.CookingStep> cookingSteps;
     List<String> finishedImages;
 
     public Recipe toEntity() {
