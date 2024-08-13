@@ -14,6 +14,7 @@ import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
+import today.wtfood.server.dto.member.admin.MemberAdmin;
 import today.wtfood.server.exception.ConflictException;
 import today.wtfood.server.service.MemberService;
 
@@ -52,6 +53,26 @@ public class MemberController {
             long memberId
     ) {
         return memberService.getMemberById(memberId, MemberDetail.class);
+    }
+
+    @GetMapping("admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public PageResponse<MemberAdmin> getMembersAdmin(
+            @PageableDefault(sort = "id")
+            Pageable pageable
+    ) {
+        return PageResponse.of(memberService.getMembers(pageable, MemberAdmin.class));
+    }
+
+    @GetMapping("admin/{memberId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberAdmin getMemberAdmin(
+            @PathVariable
+            long memberId
+    ) {
+        return memberService.getMemberById(memberId, MemberAdmin.class);
     }
 
     @GetMapping("/check-username")

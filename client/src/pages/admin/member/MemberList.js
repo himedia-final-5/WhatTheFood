@@ -15,7 +15,7 @@ function MemberList() {
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/members`, {
+        .get(`/api/members/admin`, {
           params: { page },
         })
         .then((result) => setPageResponse(result.data))

@@ -9,6 +9,7 @@ import { PaginationNav } from "components/util";
 function SearchIList() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const [isMounted, setMounted] = useState(false);
   const { username } = useParams();
   const { content, pagination, setPageResponse } = usePageResponse();
   const [word, setWord] = useState("");
@@ -21,14 +22,13 @@ function SearchIList() {
         })
         .then((result) => setPageResponse(result.data))
         .catch(console.error),
-    [user, setPageResponse],
+    [user, username],
   );
 
-  useEffect(() => {
-    if (content.length === 0) {
-      onSelectPage(0);
-    }
-  }, [content, onSelectPage]);
+  if (!isMounted) {
+    onSelectPage(0);
+    setMounted(true);
+  }
 
   function userIqView(id) {
     navigate(`/iView/${id}`);
@@ -36,7 +36,9 @@ function SearchIList() {
 
   function onSearch() {
     navigate(`/searchIList/${word}`);
+    setMounted(false);
   }
+
   return (
     <div className="adminContainer">
       <SubMenu />

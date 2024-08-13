@@ -22,7 +22,7 @@ function MView() {
 
   function deleteMember() {
     axios
-      .delete(`/api/members/${id}`)
+      .delete(`/api/members/admin/${id}`)
       .then(() => {
         navigate("/memberList");
       })
