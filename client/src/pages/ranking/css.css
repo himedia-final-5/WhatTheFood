@@ -1,0 +1,106 @@
+/* Events.css */
+.event_banner_wrap {
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 20px; /* 패딩 추가로 여백 확보 */
+  display: grid;
+  gap: 20px; /* 그리드 아이템 사이의 간격 */
+  margin-bottom: 100px;
+}
+
+.event_banner_wrap button {
+  width: 50%;
+  height: 30px;
+  border: 1px solid #f3f3f3; /* 테두리 추가 */
+  border-radius: 8px; /* 테두리 둥글게 */
+  background-color: #fff; /* 배경색 추가 */
+}
+
+.event_imageUrl {
+  width: 100%;
+  margin-bottom: 20px; /* 이미지 아래 여백 조정 */
+}
+
+.event_state_wrap {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box; /* 패딩과 마진을 포함한 너비 설정 */
+  border: 1px solid #f3f3f3; /* 테두리 추가 */
+  border-radius: 8px; /* 테두리 둥글게 */
+  background-color: #fff; /* 배경색 추가 */
+}
+
+.event_text_wrap {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column; /* 모바일에서 세로 정렬 */
+}
+
+.event_state_name {
+  display: block; /* 블록으로 변경하여 전체 너비 사용 */
+  font-size: 1.2rem; /* 글자 크기 조정 */
+  font-weight: bold; /* 글자 두께 조정 */
+  margin-bottom: 10px; /* 아래 여백 추가 */
+}
+
+.event_date {
+  font-size: 0.9rem; /* 글자 크기 조정 */
+  color: #666; /* 색상 조정 */
+  text-align: left; /* 왼쪽 정렬 */
+}
+
+.event_imageUrl img {
+  width: 100%;
+  height: auto; /* 이미지 비율 유지 */
+  border-radius: 8px; /* 이미지 둥글게 */
+}
+
+.event_content {
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6; /* 행간 조정 */
+}
+
+/* 반응형 디자인 */
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .event_banner_wrap {
+    width: 500px;
+    grid-template-columns: 1fr; /* 작은 화면에서 한 개씩 나열 */
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .event_banner_wrap {
+    width: 800px;
+    grid-template-columns: repeat(2, 1fr); /* 중간 크기 화면에서 두 개씩 나열 */
+  }
+}
+
+/* Small Desktop */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .event_banner_wrap {
+    width: 1000px;
+    grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1280px) and (max-width: 1799px) {
+  .event_banner_wrap {
+    width: 1000px;
+    grid-template-columns: repeat(2, 1fr); /* 두 개씩 나열 */
+  }
+}
+
+/* Large Desktop */
+@media screen and (min-width: 1800px) {
+  .event_banner_wrap {
+    width: 800px;
+    grid-template-columns: repeat(3, 1fr); /* 큰 화면에서 세 개씩 나열 */
+    margin: 0px auto;
+  }
+}
