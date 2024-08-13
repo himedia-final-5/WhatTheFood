@@ -20,7 +20,7 @@ function NoticeList() {
         })
         .then((result) => setPageResponse(result.data))
         .catch(console.error),
-    [user, setPageResponse],
+    [setPageResponse],
   );
 
   useEffect(() => {

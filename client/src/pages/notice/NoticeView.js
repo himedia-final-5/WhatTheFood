@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { axios } from "utils";
-import "./Notice.css";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
+
+import "./Notice.css";
+import { axios } from "utils";
 import { AdminFeature } from "components/util";
+
 function NoticeView() {
   const [noticeView, setNoticeView] = useState({
     title: "",
@@ -25,7 +27,7 @@ function NoticeView() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [id]);
 
   function deleteNotice() {
     const isDel = window.confirm("삭제 하시겠습니까?");

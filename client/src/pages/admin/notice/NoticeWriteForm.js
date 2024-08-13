@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
-import { useNavigate } from "react-router-dom";
 
 function NoticeWriteForm() {
   const navigate = useNavigate();

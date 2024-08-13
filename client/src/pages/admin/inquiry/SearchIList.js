@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,7 +22,7 @@ function SearchIList() {
         })
         .then((result) => setPageResponse(result.data))
         .catch(console.error),
-    [user, username],
+    [username, setPageResponse],
   );
 
   if (!isMounted) {

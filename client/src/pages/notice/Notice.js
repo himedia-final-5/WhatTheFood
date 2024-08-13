@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import "./Notice.css";
 import { axios } from "utils";
 import { usePageResponse } from "hooks";
 import { AdminFeature, PaginationNav } from "components/util";
-import { Link } from "react-router-dom";
 
 function Notice() {
   const { content, pagination, setPageResponse } = usePageResponse();

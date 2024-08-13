@@ -1,5 +1,4 @@
 import "./Admin.css";
-import axios from "utils";
 
 function Login() {
   return (
