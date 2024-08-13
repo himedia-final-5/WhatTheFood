@@ -5,12 +5,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import today.wtfood.server.util.ResponseHelper;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Log4j2
 @ControllerAdvice
@@ -37,6 +44,39 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * @implNote 스프링에서 {@link RequestParam} 어노테이션으로 요구된 파라미터가 요청에 포함되지 않았을 경우에 발생하는 예외
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public void handleMissingServletRequestParameterException(MissingServletRequestParameterException exception, HttpServletResponse response) throws IOException {
+        log.error("MissingServletRequestParameterException: ", exception);
+        log.error("파라미터 {}이(가) 올바르지 않습니다. : {}", exception.getParameterName(), exception.getMessage());
+
+        ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    /**
+     * @implNote 스프링에서 요청의 파라미터 타입이 컨트롤러에서 기대하는 메소드의 파라미터 타입과 일치하지 않을 때 발생하는 예외
+     */
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public void handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException exception, HttpServletResponse response) throws IOException {
+        log.error("MethodArgumentTypeMismatchException: ", exception);
+        log.error("파라미터 {}이(가) 올바르지 않습니다. : {}", exception.getPropertyName(), exception.getMessage());
+        ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    /**
+     * @implNote 스프링에서 메소드 파라미터의 검증(Validation) 과정에서 요구사항을 만족하지 못하는 파라미터가 있을 때 발생하는 예외
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public void handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, HttpServletResponse response) throws IOException {
+        log.error("MethodArgumentNotValidException: ", exception);
+        FieldError fieldError = Objects.requireNonNull(exception.getBindingResult().getFieldError());
+        log.error("파라미터 {}이(가) 올바르지 않습니다. : {}", fieldError.getField(), fieldError.getDefaultMessage());
+
+        ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    /**
      * @implNote 메서드 인자로 전달된 값이 잘못된 경우 발생하는 예외
      */
     @ExceptionHandler(IllegalArgumentException.class)
@@ -44,6 +84,16 @@ public class GlobalExceptionHandler {
         log.error("IllegalArgumentException: ", exception);
 
         ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    /**
+     * @implNote 요청한 리소스를 찾을 수 없을 때 발생하는 예외
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public void handleNoResourceFoundException(NoResourceFoundException exception, HttpServletResponse response) throws IOException {
+        log.error("NoResourceFoundException: ", exception);
+
+        ResponseHelper.writeError(response, HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     /**
