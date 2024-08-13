@@ -1,2 +1,4 @@
-export { default as Header } from "./Header";
-export { default as Footer } from "./Footer";
+import { lazyLoading as $ } from "utils";
+
+export const DefaultLayout = $(() => import("./DefaultLayout"));
+export const AdminLayout = $(() => import("./AdminLayout"));

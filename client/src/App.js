@@ -5,7 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Header, Footer } from "components/layout";
+import { DefaultLayout, AdminLayout } from "components/layout";
 import { FallbackRender } from "components/layout/error";
 import { Main } from "pages/main";
 import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
@@ -44,20 +44,18 @@ function App() {
     <div className="App flex flex-col w-full h-full">
       <ErrorBoundary FallbackComponent={FallbackRender}>
         <Suspense fallback={<FallbackRender />}>
-          <Header />
-
-          <div className="flex-1">
-            <Routes>
+          <Routes>
+            <Route element={<DefaultLayout />}>
               <Route path="/" element={<Main />} />
-
-              <Route path="/signin" element={<MemberLogin />} />
-              <Route path="/signup" element={<MemberJoin />} />
-              <Route path="/setting" element={<MemberUpdate />} />
 
               <Route path="/events" element={<EventList />} />
               <Route path="/events/:id" element={<EventDetail />} />
               <Route path="/events/write" element={<EventWrite />} />
               <Route path="/events/write/:id" element={<EventUpdate />} />
+
+              <Route path="/signin" element={<MemberLogin />} />
+              <Route path="/signup" element={<MemberJoin />} />
+              <Route path="/setting" element={<MemberUpdate />} />
 
               <Route path="/faq" element={<FaqList />} />
               <Route path="/faqView/:id" element={<FaqDetail />} />
@@ -72,8 +70,8 @@ function App() {
               <Route path="/writeNotice" element={<NoticeWrite />} />
               <Route path="/updateNotice/:id" element={<NoticeUpdate />} />
               <Route path="/test/assets" element={<TestAssets />} />
-
-              {/* Admin */}
+            </Route>
+            <Route element={<AdminLayout />}>
               <Route path="/admin" element={<Admin />} />
               <Route path="/memberList" element={<MemberList />} />
               <Route path="/mView/:id" element={<MView />} />
@@ -88,10 +86,8 @@ function App() {
               <Route path="/fView/:id" element={<FaqView />} />
               <Route path="/writeFaq" element={<WFaq />} />
               <Route path="/faqUpdate/:id" element={<FaqUpdate />} />
-            </Routes>
-          </div>
-
-          <Footer />
+            </Route>
+          </Routes>
         </Suspense>
       </ErrorBoundary>
 
