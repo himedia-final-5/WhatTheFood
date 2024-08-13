@@ -4,6 +4,7 @@ import { TablerCircleKeyFilled, TablerUserFilled } from "components/asset";
 import { cn, axios } from "utils";
 import { useInputs } from "hooks";
 import { useDispatch, signinAction } from "stores";
+import Input from "components/form/Input";
 
 /**
  * @param {function(boolean)} setVisible 모달 표시 여부 변경 함수
@@ -58,14 +59,12 @@ export default function AuthSignInForm({ setVisible }) {
     >
       <div className="flex flex-col flex-1">
         <div aria-label="auth-input-username" className="w-full h-12 flex">
-          <label htmlFor="username" className="flex">
-            <span className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-ss-md">
-              <TablerUserFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-            </span>
-          </label>
-          <input
-            id="username"
+          <Input
             name="username"
+            labelProps={{
+              className:
+                "flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-ss-md",
+            }}
             type="text"
             autoComplete="username"
             autoCorrect="off"
@@ -78,17 +77,19 @@ export default function AuthSignInForm({ setVisible }) {
               "bg-gray-50 border border-solid border-gray-300",
               "text-gray-900 text-base focus:border-green-500",
             )}
-          />
+          >
+            <TablerUserFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
+          </Input>
         </div>
         <div aria-label="auth-input-password" className="w-full h-12 flex">
-          <label htmlFor="password" className="flex">
-            <span className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-es-md">
-              <TablerCircleKeyFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-            </span>
-          </label>
-          <input
-            id="password"
+          <Input
             name="password"
+            labelProps={{
+              className: cn(
+                "flex items-center px-3",
+                "bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-es-md",
+              ),
+            }}
             type="password"
             autoComplete="password"
             autoCorrect="off"
@@ -101,7 +102,9 @@ export default function AuthSignInForm({ setVisible }) {
               "bg-gray-50 border border-solid border-gray-300",
               "text-gray-900 text-base focus:border-green-500",
             )}
-          />
+          >
+            <TablerCircleKeyFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
+          </Input>
         </div>
       </div>
       <div
