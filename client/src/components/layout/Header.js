@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import "./Header.css";
 import { signoutAction, useDispatch, useSelector } from "stores";
-import { AuthModal } from "components/layout/auth";
+import { AuthModal } from "components/modal/auth";
 import { useToggleElement } from "hooks";
 
 function Header() {
