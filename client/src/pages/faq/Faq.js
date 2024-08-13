@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import "./Faq.css";

@@ -1,5 +1,3 @@
-import React from "react";
-
 /** @type {function(React.SVGProps<SVGElement): React.JSX.Element} */
 export default function UndrawSpecialEvent(props) {
   return (
