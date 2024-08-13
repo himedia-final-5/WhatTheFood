@@ -69,13 +69,15 @@ public class Recipe {
     private List<String> guideLinks; // 가이드 링크
 
 
-    @OneToMany
-    private List<CookingSteps> cookingSteps; // 조리순서
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CookingStep> cookingSteps; // 조리순서
 
-    @Data
+    @Getter
+    @Setter
     @Entity
-    @Table(name = "cooking_step")
-    public class CookingSteps {
+    @NoArgsConstructor
+    @Table(name = "recipe_cooking_step")
+    public static class CookingStep {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,8 +113,9 @@ public class Recipe {
     @Getter
     @Setter
     @Entity
+    @NoArgsConstructor
     @Table(name = "recipe_comments")
-    public class Comment {
+    public static class Comment {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
