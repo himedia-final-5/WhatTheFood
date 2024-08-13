@@ -27,6 +27,7 @@ import NUpdate from "pages/admin/notice/NUpdate";
 
 import IList from "pages/admin/inquiry/InquiryList";
 import IView from "pages/admin/inquiry/InquiryView";
+import SearchIList from "pages/admin/inquiry/SearchIList";
 
 import FList from "pages/admin/inquiry/FaqList";
 import FaqView from "pages/admin/inquiry/FaqView";
@@ -70,6 +71,7 @@ function App() {
               <Route path="/nUpdate/:id" element={<NUpdate />} />
               <Route path="/iList" element={<IList />} />
               <Route path="/iView/:id" element={<IView />} />
+              <Route path="/searchIList/:username" element={<SearchIList />} />
               <Route path="/faqList" element={<FList />} />
               <Route path="/fView/:id" element={<FaqView />} />
               <Route path="/writeFaq" element={<WFaq />} />
