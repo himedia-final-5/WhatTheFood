@@ -12,6 +12,8 @@ public interface InquirySummary {
 
     String getTitle();
 
+    String getUsername();
+
     Timestamp getDate();
 
     String getAnswer();
