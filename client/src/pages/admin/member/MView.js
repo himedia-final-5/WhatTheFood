@@ -10,7 +10,7 @@ function MView() {
 
   useEffect(() => {
     axios
-      .get(`/api/members/${id}`)
+      .get(`/api/members/admin/${id}`)
       .then((result) => {
         setMemberView(result.data);
       })
