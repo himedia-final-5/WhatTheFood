@@ -3,8 +3,10 @@ package today.wtfood.server.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.faq.FaqDetail;
@@ -41,6 +43,17 @@ public class FaqController {
     @PreAuthorize("permitAll()")
     public FaqDetail getFaqView(@PathVariable("id") long id) {
         return fs.getFaqView(id);
+    }
+
+    @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void updateFaq(@PathVariable("id") long id, @RequestBody FaqDto faq) {
+        try {
+            fs.updateFaq(id, faq);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+
     }
 
     @DeleteMapping("/{id}")

@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from "react";
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function WriteFaq() {
+function FaqUpdate() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [faqView, setFaqView] = useState({});
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  function submitfaq() {
+  useEffect(() => {
     axios
-      .post(`/api/faqs`, { title: title, content: content })
+      .get(`/api/faqs/${id}`)
+      .then((result) => {
+        setFaqView(result.data);
+      })
+
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [id]);
+
+  function submitFaqud() {
+    axios
+      .post(`/api/faqs/${id}`, { title: title, content: content })
       .then(() => {
         navigate("/faqList");
       })
@@ -18,15 +33,17 @@ function WriteFaq() {
         console.error(err);
       });
   }
+
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>FAQ 등록</h2>
+      <h2>FAQ 수정</h2>
       <div className="productTable">
         <div className="field">
           <label>FAQ 제목</label>
           <input
             type="text"
+            placeholder={faqView.title}
             onChange={(e) => {
               setTitle(e.currentTarget.value);
             }}
@@ -37,6 +54,7 @@ function WriteFaq() {
           <div>
             <textarea
               rows="10"
+              placeholder={faqView.content}
               onChange={(e) => {
                 setContent(e.currentTarget.value);
               }}
@@ -47,10 +65,10 @@ function WriteFaq() {
         <div className="btns">
           <button
             onClick={() => {
-              submitfaq();
+              submitFaqud();
             }}
           >
-            등록
+            수정완료
           </button>
           <button
             onClick={() => {
@@ -65,4 +83,4 @@ function WriteFaq() {
   );
 }
 
-export default WriteFaq;
+export default FaqUpdate;

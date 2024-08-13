@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function WriteFaq() {
+function NUpdate() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [noiceView, setNoticeView] = useState({});
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  function submitfaq() {
+  useEffect(() => {
     axios
-      .post(`/api/faqs`, { title: title, content: content })
+      .get(`/api/notices/${id}`)
+      .then((result) => {
+        setNoticeView(result.data);
+      })
+
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [id]);
+
+  function submitNud() {
+    axios
+      .post(`/api/notices/${id}`, { title: title, content: content })
       .then(() => {
-        navigate("/faqList");
+        navigate("/noticeList");
       })
       .catch((err) => {
         console.error(err);
@@ -21,22 +36,24 @@ function WriteFaq() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>FAQ 등록</h2>
+      <h2>공지사항 수정</h2>
       <div className="productTable">
         <div className="field">
-          <label>FAQ 제목</label>
+          <label>공지사항 제목</label>
           <input
             type="text"
+            placeholder={noiceView.title}
             onChange={(e) => {
               setTitle(e.currentTarget.value);
             }}
           />
         </div>
         <div className="field">
-          <label>FAQ 내용</label>
+          <label>공지사항 내용</label>
           <div>
             <textarea
               rows="10"
+              placeholder={noiceView.content}
               onChange={(e) => {
                 setContent(e.currentTarget.value);
               }}
@@ -47,14 +64,14 @@ function WriteFaq() {
         <div className="btns">
           <button
             onClick={() => {
-              submitfaq();
+              submitNud();
             }}
           >
-            등록
+            수정완료
           </button>
           <button
             onClick={() => {
-              navigate("/FaqList");
+              navigate("/noticeList");
             }}
           >
             돌아가기
@@ -65,4 +82,4 @@ function WriteFaq() {
   );
 }
 
-export default WriteFaq;
+export default NUpdate;

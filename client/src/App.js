@@ -16,9 +16,14 @@ import { NoticeList, NoticeDetail, NoticeWrite } from "pages/notice";
 import { TestAssets } from "pages/test";
 
 import Admin from "pages/admin/Login";
+
 import MemberList from "pages/admin/member/MemberList";
+import MView from "pages/admin/member/MView";
+
 import NList from "pages/admin/notice/NoticeList";
+import NView from "pages/admin/notice/NView";
 import WriteNotice from "pages/admin/notice/NoticeWriteForm";
+import NUpdate from "pages/admin/notice/NUpdate";
 
 import IList from "pages/admin/inquiry/InquiryList";
 import IView from "pages/admin/inquiry/InquiryView";
@@ -26,6 +31,7 @@ import IView from "pages/admin/inquiry/InquiryView";
 import FList from "pages/admin/inquiry/FaqList";
 import FaqView from "pages/admin/inquiry/FaqView";
 import WFaq from "pages/admin/inquiry/WriteFaq";
+import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
 
 function App() {
   return (
@@ -57,14 +63,17 @@ function App() {
               {/* Admin */}
               <Route path="/admin" element={<Admin />} />
               <Route path="/memberList" element={<MemberList />} />
+              <Route path="/mView/:id" element={<MView />} />
               <Route path="/noticeList" element={<NList />} />
+              <Route path="/nView/:id" element={<NView />} />
               <Route path="/wNotice" element={<WriteNotice />} />
+              <Route path="/nUpdate/:id" element={<NUpdate />} />
               <Route path="/iList" element={<IList />} />
               <Route path="/iView/:id" element={<IView />} />
-
               <Route path="/faqList" element={<FList />} />
               <Route path="/fView/:id" element={<FaqView />} />
               <Route path="/writeFaq" element={<WFaq />} />
+              <Route path="/faqUpdate/:id" element={<FaqUpdate />} />
             </Routes>
           </div>
 

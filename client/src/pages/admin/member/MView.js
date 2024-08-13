@@ -3,16 +3,16 @@ import SubMenu from "../SubMenu";
 import { axios } from "utils";
 import { useParams, useNavigate } from "react-router-dom";
 
-function FaqView() {
+function MView() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [faqView, setFaqView] = useState({});
+  const [memberView, setMemberView] = useState({});
 
   useEffect(() => {
     axios
-      .get(`/api/faqs/${id}`)
+      .get(`/api/members/${id}`)
       .then((result) => {
-        setFaqView(result.data);
+        setMemberView(result.data);
       })
 
       .catch((err) => {
@@ -20,55 +20,52 @@ function FaqView() {
       });
   }, [id]);
 
-  function deleteFaq() {
+  function deleteMember() {
     axios
-      .delete(`/api/faqs/${id}`)
+      .delete(`/api/members/${id}`)
       .then(() => {
-        navigate("/faqList");
+        navigate("/memberList");
       })
       .catch((err) => {
         console.error(err);
       });
   }
-
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>FAQ</h2>
+      <h2>회원 정보</h2>
       <div className="productTable">
         <div className="field">
-          <label>FAQ 제목</label>
-          <div>{faqView.title}</div>
+          <label>회원 이름</label>
+          <div>{memberView.username}</div>
         </div>
 
         <div className="field">
-          <label>등록날짜</label>
-          <div>{(faqView.date + "").substring(0, 10)}</div>
+          <label>회원 이메일</label>
+          <div>{memberView.email}</div>
         </div>
 
         <div className="field">
-          <label>FAQ 내용</label>
-          <div>{faqView.content}</div>
+          <label>회원 닉네임</label>
+          <div>{memberView.nickname}</div>
+        </div>
+
+        <div className="field">
+          <label>회원 소개</label>
+          <div>{memberView.introduce}</div>
         </div>
 
         <div className="btns">
           <button
             onClick={() => {
-              navigate(`/faqUpdate/${faqView.id}`);
+              deleteMember();
             }}
           >
-            수정
+            회원 삭제
           </button>
           <button
             onClick={() => {
-              deleteFaq();
-            }}
-          >
-            삭제
-          </button>
-          <button
-            onClick={() => {
-              navigate("/FaqList");
+              navigate("/memberList");
             }}
           >
             돌아가기
@@ -79,4 +76,4 @@ function FaqView() {
   );
 }
 
-export default FaqView;
+export default MView;

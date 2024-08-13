@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.faq.FaqDetail;
+import today.wtfood.server.dto.faq.FaqDto;
 import today.wtfood.server.entity.Faq;
 import today.wtfood.server.repository.FaqRepository;
 
@@ -34,5 +35,12 @@ public class FaqService {
     public FaqDetail getFaqView(long id) {
         return fr.findDetailById(id)
                 .orElseThrow(() -> new RuntimeException("FAQ 없다 이것들아."));
+    }
+
+    @Transactional
+    public void updateFaq(long id, FaqDto dto) {
+        Faq faq = fr.findById(id).orElseThrow(() -> new RuntimeException("Faq with id " + id + " not found"));
+        faq.setTitle(dto.title());
+        faq.setContent(dto.content());
     }
 }
