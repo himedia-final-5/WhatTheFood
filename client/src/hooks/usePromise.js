@@ -5,7 +5,7 @@ import { defaultErrorHandler } from "utils";
 /**
  * @template T
  * @param {T} initialValue
- * @param {() => Promise<any>} promiseFn
+ * @param {() => Promise<T>} promiseFn
  * @param {(error: Error) => void} onError
  * @returns {[() => void,T,  boolean, boolean]}
  */
