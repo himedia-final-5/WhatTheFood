@@ -150,7 +150,7 @@ export default function EventDetail() {
       <div className="eventdetail_wrap">
         <div className="eventdetail_btn_wrap">
           <AdminFeature>
-            <Link to={`/updateEvent/${event.id}`}>
+            <Link to={`/events/write/${event.id}`}>
               <button>수정</button>
             </Link>
             <button onClick={deleteEvent}>삭제</button>
