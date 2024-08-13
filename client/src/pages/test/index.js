@@ -1,1 +1,3 @@
-export { default as TestAssets } from "./TestAssets";
+import { lazyLoading as $ } from "utils";
+
+export const TestAssets = $(() => import("./TestAssets"));

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
 import { useNavigate } from "react-router-dom";

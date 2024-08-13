@@ -1,4 +1,3 @@
-import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -8,7 +7,6 @@ import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import store from "stores";
 import ChannelService from "ChannelService";
@@ -23,6 +21,10 @@ const options = {
 ChannelService.boot(options, () => {
   console.log("ChannelTalk has been booted");
 });
+
+const reportWebVitals = () => {
+  import("./reportWebVitals").then((module) => module.default());
+};
 
 export let persistor = persistStore(store);
 

@@ -1,8 +1,10 @@
-export { default as AdminFeature } from "./AdminFeature";
-export { default as AdminFeatureContainer } from "./AdminFeatureContainer";
-export { default as UserFeature } from "./UserFeature";
-export { default as UserFeatureContainer } from "./UserFeatureContainer";
+import { lazyLoading as $ } from "utils";
 
-export { default as ImageUploadInput } from "./ImageUploadInput";
-export { default as PaginationNav } from "./PaginationNav";
-export { default as Modal } from "./Modal";
+export const AdminFeature = $(() => import("./AdminFeature"));
+export const AdminFeatureContainer = $(() => import("./AdminFeatureContainer"));
+export const UserFeature = $(() => import("./UserFeature"));
+export const UserFeatureContainer = $(() => import("./UserFeatureContainer"));
+
+export const ImageUploadInput = $(() => import("./ImageUploadInput"));
+export const PaginationNav = $(() => import("./PaginationNav"));
+export const Modal = $(() => import("./Modal"));

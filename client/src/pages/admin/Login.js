@@ -1,4 +1,3 @@
-import React from "react";
 import "./Admin.css";
 import axios from "utils";
 

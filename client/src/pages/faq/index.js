@@ -1,3 +1,5 @@
-export { default as FaqList } from "./Faq";
-export { default as FaqDetail } from "./FaqView";
-export { default as FaqWrite } from "./FaqWriteForm";
+import { lazyLoading as $ } from "utils";
+
+export const FaqList = $(() => import("./Faq"));
+export const FaqDetail = $(() => import("./FaqView"));
+export const FaqWrite = $(() => import("./FaqWriteForm"));
