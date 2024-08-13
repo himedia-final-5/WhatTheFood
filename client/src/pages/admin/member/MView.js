@@ -35,27 +35,27 @@ function MView() {
       <SubMenu />
       <h2>회원 정보</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>회원 이름</label>
           <div>{memberView.username}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>회원 이메일</label>
           <div>{memberView.email}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>회원 닉네임</label>
           <div>{memberView.nickname}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>회원 소개</label>
           <div>{memberView.introduce}</div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               deleteMember();

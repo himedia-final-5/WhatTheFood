@@ -25,7 +25,7 @@ function NoticeWriteForm() {
       <SubMenu />
       <h2>공지 등록</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 제목</label>
           <input
             type="text"
@@ -34,7 +34,7 @@ function NoticeWriteForm() {
             }}
           />
         </div>
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 내용</label>
           <div>
             <textarea
@@ -46,7 +46,7 @@ function NoticeWriteForm() {
           </div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               submitNotice();

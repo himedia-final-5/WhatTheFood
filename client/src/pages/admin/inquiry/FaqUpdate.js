@@ -39,7 +39,7 @@ function FaqUpdate() {
       <SubMenu />
       <h2>FAQ 수정</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>FAQ 제목</label>
           <input
             type="text"
@@ -49,7 +49,7 @@ function FaqUpdate() {
             }}
           />
         </div>
-        <div className="field">
+        <div className="adminfield">
           <label>FAQ 내용</label>
           <div>
             <textarea
@@ -62,7 +62,7 @@ function FaqUpdate() {
           </div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               submitFaqud();

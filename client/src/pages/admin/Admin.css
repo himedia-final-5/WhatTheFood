@@ -1,5 +1,25 @@
+.adminTotalContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.adminLogoutImg {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.adminLogoutImg img {
+  width: 80px;
+  height: 80px;
+}
+
 .AdminForm {
-  width: 600px;
+  width: 100%;
   height: 300px;
   margin: 0 auto;
   border: 1px solid black;
@@ -10,7 +30,7 @@
   margin-top: 50px;
 }
 
-.field {
+.adminfield {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -27,14 +47,14 @@ input {
   padding: 5px;
 }
 
-.btns button {
+.adminbtns button {
   background: blue;
   color: white;
   font-weight: bold;
 }
 
 .adminContainer {
-  width: 800px;
+  width: 100%;
   margin: 0 auto;
   border: 1px dotted red;
   display: flex;
@@ -61,10 +81,10 @@ input {
   flex-direction: column;
 }
 
-.productTable .row {
+.productTable .adminrow {
   display: flex;
 }
-.productTable .row .col {
+.productTable .adminrow .admincol {
   flex: 1;
   padding: 23px 0;
   text-align: center;
@@ -72,17 +92,17 @@ input {
   margin: 1px;
 }
 
-.productTable .row .col:nth-child(2) {
+.productTable .adminrow .admincol:nth-child(2) {
   flex: 2;
 }
 
-.productTable .row:first-child .col {
+.productTable .adminrow:first-child .admincol {
   background-color: grey;
   color: white;
   font-weight: bold;
 }
 
-.productTable .field {
+.productTable .adminfield {
   width: 100%;
   padding: 5px;
   display: flex;
@@ -90,22 +110,22 @@ input {
   box-sizing: border-box;
 }
 
-.productTable .field label {
+.productTable .adminfield label {
   flex: 1;
   padding: 3px;
 }
-.productTable .field input {
+.productTable .adminfield input {
   flex: 5;
   padding: 3px;
 }
-.productTable .field div {
+.productTable .adminfield div {
   flex: 5;
 }
 
-.btns {
+.adminbtns {
   display: flex;
 }
-.btns button {
+.adminbtns button {
   flex: 1;
   padding: 5px;
   margin: 2px;
@@ -113,4 +133,27 @@ input {
 
 .adminSearch {
   border: 1px solid black;
+}
+
+.AdminAdminForm {
+  width: 400px;
+}
+
+.AdminAdminLogin {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.adminadmin {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+}
+.adminadmin label {
+  flex: 1;
+  font-weight: bold;
+}
+.adminadmin input {
+  border: 1px solid #ddd;
 }

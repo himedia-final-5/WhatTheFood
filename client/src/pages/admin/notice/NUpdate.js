@@ -38,7 +38,7 @@ function NUpdate() {
       <SubMenu />
       <h2>공지사항 수정</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 제목</label>
           <input
             type="text"
@@ -48,7 +48,7 @@ function NUpdate() {
             }}
           />
         </div>
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 내용</label>
           <div>
             <textarea
@@ -61,7 +61,7 @@ function NUpdate() {
           </div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               submitNud();

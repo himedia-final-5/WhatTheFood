@@ -39,7 +39,7 @@ function QnaList() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <div className="btns" style={{ display: "flex", margin: "5px" }}>
+      <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
         <input type="text" className="adminSearch" />
         <button>검색</button>
         <button
@@ -52,17 +52,17 @@ function QnaList() {
         </button>
       </div>
       <div className="productTable">
-        <div className="row">
-          <div className="col">번호</div>
-          <div className="col">FAQ 제목</div>
-          <div className="col">등록날짜</div>
+        <div className="adminrow">
+          <div className="admincol">번호</div>
+          <div className="admincol">FAQ 제목</div>
+          <div className="admincol">등록날짜</div>
         </div>
         {content.map((qnalist, idx) => {
           return (
-            <div className="row" key={idx} to={`/fView/${qnalist.id}`}>
-              <div className="col">{qnalist.id}</div>
+            <div className="adminrow" key={idx} to={`/fView/${qnalist.id}`}>
+              <div className="admincol">{qnalist.id}</div>
               <div
-                className="col"
+                className="admincol"
                 onClick={() => {
                   qnaView(qnalist.id);
                 }}
@@ -71,7 +71,7 @@ function QnaList() {
                 {qnalist.title}
               </div>
 
-              <div className="col">{qnalist.date.substring(0, 10)}</div>
+              <div className="admincol">{qnalist.date.substring(0, 10)}</div>
             </div>
           );
         })}

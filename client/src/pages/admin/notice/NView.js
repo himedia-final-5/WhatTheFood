@@ -35,22 +35,22 @@ function NView() {
       <SubMenu />
       <h2>공지사항</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 제목</label>
           <div>{noticeView.title}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>등록날짜</label>
           <div>{(noticeView.writeDate + "").substring(0, 10)}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 내용</label>
           <div>{noticeView.content}</div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               navigate(`/nUpdate/${noticeView.id}`);

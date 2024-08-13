@@ -42,7 +42,7 @@ function SearchIList() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <div className="btns" style={{ display: "flex", margin: "5px" }}>
+      <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
         <input
           type="text"
           className="adminSearch"
@@ -59,23 +59,23 @@ function SearchIList() {
         </button>
       </div>
       <div className="productTable">
-        <div className="row">
-          <div className="col">번호</div>
-          <div className="col">문의제목</div>
-          <div className="col">유저ID</div>
-          <div className="col">등록날짜</div>
-          <div className="col">답변여부</div>
+        <div className="adminrow">
+          <div className="admincol">번호</div>
+          <div className="admincol">문의제목</div>
+          <div className="admincol">유저ID</div>
+          <div className="admincol">등록날짜</div>
+          <div className="admincol">답변여부</div>
         </div>
         {content.map((inquirylist, idx) => {
           return (
             <div
-              className="row"
+              className="adminrow"
               key={idx}
               to={`/inquiryView/${inquirylist.id}`}
             >
-              <div className="col">{inquirylist.id}</div>
+              <div className="admincol">{inquirylist.id}</div>
               <div
-                className="col"
+                className="admincol"
                 onClick={() => {
                   userIqView(inquirylist.id);
                 }}
@@ -83,9 +83,11 @@ function SearchIList() {
               >
                 {inquirylist.title}
               </div>
-              <div className="col">{inquirylist.username}</div>
-              <div className="col">{inquirylist.date.substring(0, 10)}</div>
-              <div className="col">
+              <div className="admincol">{inquirylist.username}</div>
+              <div className="admincol">
+                {inquirylist.date.substring(0, 10)}
+              </div>
+              <div className="admincol">
                 {inquirylist.answer ? (
                   <div style={{ color: "green" }}>답변완료</div>
                 ) : (

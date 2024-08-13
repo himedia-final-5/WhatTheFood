@@ -23,7 +23,7 @@ function WriteFaq() {
       <SubMenu />
       <h2>FAQ 등록</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>FAQ 제목</label>
           <input
             type="text"
@@ -32,7 +32,7 @@ function WriteFaq() {
             }}
           />
         </div>
-        <div className="field">
+        <div className="adminfield">
           <label>FAQ 내용</label>
           <div>
             <textarea
@@ -44,7 +44,7 @@ function WriteFaq() {
           </div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               submitfaq();

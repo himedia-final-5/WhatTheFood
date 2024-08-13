@@ -1,38 +1,24 @@
 import "./Admin.css";
+import { axios } from "utils";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "stores";
+
+import React, { useState } from "react";
+import AuthSignInForm from "components/layout/auth/AuthSignInForm";
 
 function Login() {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   return (
-    <div className="AdminForm">
-      <h2>Admin LogIn</h2>
-      <div className="field">
-        <label>Admin ID</label>
-        <input
-          type="text"
-          //   value={adminid}
-          onChange={(e) => {
-            // setAdminid(e.currentTarget.value);
-          }}
-        />
-      </div>
-      <div className="field">
-        <label>Password</label>
-        <input
-          type="password"
-          //   value={pwd}
-          onChange={(e) => {
-            // setPwd(e.currentTarget.value);
-          }}
-        />
-      </div>
-      <div className="btns">
-        <button
-          onClick={() => {
-            // onLogin();
-          }}
-        >
-          로그인
-        </button>
-      </div>
+    <div className="AdminAdminForm">
+      <div className="AdminAdminLogin">Admin LogIn</div>
+      <br></br>
+      <AuthSignInForm
+        setVisible={() => {
+          navigate(`/memberList`);
+        }}
+      />
     </div>
   );
 }

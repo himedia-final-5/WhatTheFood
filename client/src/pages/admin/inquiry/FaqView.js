@@ -36,22 +36,22 @@ function FaqView() {
       <SubMenu />
       <h2>FAQ</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>FAQ 제목</label>
           <div>{faqView.title}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>등록날짜</label>
           <div>{(faqView.date + "").substring(0, 10)}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>FAQ 내용</label>
           <div>{faqView.content}</div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               navigate(`/faqUpdate/${faqView.id}`);

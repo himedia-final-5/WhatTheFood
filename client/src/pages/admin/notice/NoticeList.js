@@ -40,7 +40,7 @@ function NoticeList() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <div className="btns" style={{ display: "flex", margin: "5px" }}>
+      <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
         <input type="text" className="adminSearch" />
         <button>검색</button>
         <button
@@ -53,17 +53,17 @@ function NoticeList() {
         </button>
       </div>
       <div className="productTable">
-        <div className="row">
-          <div className="col">번호</div>
-          <div className="col">공지사항</div>
-          <div className="col">등록날짜</div>
+        <div className="adminrow">
+          <div className="admincol">번호</div>
+          <div className="admincol">공지사항</div>
+          <div className="admincol">등록날짜</div>
         </div>
         {content.map((noticelist, idx) => {
           return (
-            <div className="row" key={idx} to={`/nView/${noticelist.id}`}>
-              <div className="col">{noticelist.id}</div>
+            <div className="adminrow" key={idx} to={`/nView/${noticelist.id}`}>
+              <div className="admincol">{noticelist.id}</div>
               <div
-                className="col"
+                className="admincol"
                 onClick={() => {
                   nView(noticelist.id);
                 }}
@@ -72,7 +72,9 @@ function NoticeList() {
                 {noticelist.title}
               </div>
 
-              <div className="col">{noticelist.writeDate.slice(0, 10)}</div>
+              <div className="admincol">
+                {noticelist.writeDate.slice(0, 10)}
+              </div>
             </div>
           );
         })}

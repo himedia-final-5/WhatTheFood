@@ -38,32 +38,32 @@ function InquiryView() {
       <SubMenu />
       <h2>문의사항</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>문의 제목</label>
           <div>{qnaView.title}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>등록날짜</label>
           <div>{(qnaView.date + "").substring(0, 10)}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>유저ID</label>
           <div>{qnaView.username}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>문의 내용</label>
           <div>{qnaView.content}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>스크린샷</label>
           <div>{qnaView.image}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>답변 내용</label>
           <div>
             <textarea
@@ -77,7 +77,7 @@ function InquiryView() {
           </div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button
             onClick={() => {
               iqAnswer();

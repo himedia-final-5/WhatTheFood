@@ -10,22 +10,22 @@ function NoticeView() {
       <SubMenu />
       <h2>공지사항</h2>
       <div className="productTable">
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 제목</label>
           <div>{}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>등록날짜</label>
           <div>{}</div>
         </div>
 
-        <div className="field">
+        <div className="adminfield">
           <label>공지사항 내용</label>
           <div>{}</div>
         </div>
 
-        <div className="btns">
+        <div className="adminbtns">
           <button onClick={() => {}}>수정</button>
           <button onClick={() => {}}>삭제</button>
           <button

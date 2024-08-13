@@ -40,22 +40,22 @@ function MemberList() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <div className="btns" style={{ display: "flex", margin: "5px" }}>
+      <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
         <input type="text" className="adminSearch" />
         <button>회원 검색</button>
       </div>
       <div className="productTable">
-        <div className="row">
-          <div className="col">번호</div>
-          <div className="col">회원 ID</div>
-          <div className="col">회원 닉네임</div>
+        <div className="adminrow">
+          <div className="admincol">번호</div>
+          <div className="admincol">회원 ID</div>
+          <div className="admincol">회원 닉네임</div>
         </div>
         {content.map((memberlist, idx) => {
           return (
-            <div className="row" key={idx} to={`/mView/${memberlist.id}`}>
-              <div className="col">{memberlist.id}</div>
+            <div className="adminrow" key={idx} to={`/mView/${memberlist.id}`}>
+              <div className="admincol">{memberlist.id}</div>
               <div
-                className="col"
+                className="admincol"
                 onClick={() => {
                   mView(memberlist.id);
                 }}
@@ -64,7 +64,7 @@ function MemberList() {
                 {memberlist.username}
               </div>
 
-              <div className="col">{memberlist.nickname}</div>
+              <div className="admincol">{memberlist.nickname}</div>
             </div>
           );
         })}
