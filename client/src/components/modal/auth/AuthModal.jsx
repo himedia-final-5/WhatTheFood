@@ -91,7 +91,7 @@ export default function AuthModal({ visible, setVisible }) {
             >
               <UndrawEatingTogether width="12rem" className="text-green-600" />
               <div aria-label="mode-change-button" className="flex">
-                <div className="text-base text-green-600 mb-8 mr-4">
+                <div className="text-base text-green-600 mb-24 md:mb-8 mr-4">
                   {isSignIn ? "계정이 없으신가요?" : "계정이 있으신가요?"}
                   <button className="font-bold ml-2" onClick={toggleSignIn}>
                     {isSignIn ? "회원가입" : "로그인"}
