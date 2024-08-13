@@ -24,17 +24,27 @@ export default function AuthSignInForm({ setVisible }) {
       return toast.error("패스워드를 입력하세요.");
     }
 
-    try {
-      let result = await axios.post("/api/auth/signin", inputs, {
+    /** @type {(request: SignInRequest) => Promise<User>} */
+    async function signIn(request) {
+      /** @type {import("axios").AxiosResponse<User>} */
+      const response = await axios.post("/api/auth/signin", request, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
-      dispatch(signinAction(result.data));
-      toast.success("로그인에 성공했습니다");
-      setVisible(false);
-    } catch (err) {
-      console.error(err);
-      toast.error("로그인에 실패했습니다");
+
+      return response.data;
     }
+
+    toast.promise(signIn(inputs), {
+      pending: "로그인 중입니다",
+      success: {
+        render({ data }) {
+          dispatch(signinAction(data));
+          setVisible(false);
+          return "로그인에 성공했습니다";
+        },
+      },
+      error: "로그인에 실패했습니다",
+    });
   }
 
   return (
