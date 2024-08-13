@@ -60,7 +60,7 @@ function MemberList() {
                   mView(memberlist.id);
                 }}
               >
-                {memberlist.username}
+                {memberlist.email}
               </div>
 
               <div className="col">{memberlist.nickname}</div>

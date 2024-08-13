@@ -48,6 +48,7 @@ function Faq() {
           );
         })}
       </div>
+      <br></br>
       <PaginationNav {...{ pagination, onSelectPage }} />
     </div>
   );

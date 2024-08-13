@@ -85,7 +85,9 @@ function InquiryList() {
               <div className="col">{inquirylist.date.substring(0, 10)}</div>
               <div className="col">
                 {inquirylist.answer ? (
-                  <div style={{ color: "green" }}>답변완료</div>
+                  <div style={{ color: "green", fontWeight: "bold" }}>
+                    답변완료
+                  </div>
                 ) : (
                   <div style={{ color: "grey" }}>답변처리중</div>
                 )}

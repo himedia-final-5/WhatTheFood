@@ -68,7 +68,7 @@ input {
   flex: 1;
   padding: 23px 0;
   text-align: center;
-  border: 1px dotted blueviolet;
+  border: 1px solid black;
   margin: 1px;
 }
 
@@ -86,7 +86,7 @@ input {
   width: 100%;
   padding: 5px;
   display: flex;
-  border: 1px dotted blue;
+  border: 1px solid black;
   box-sizing: border-box;
 }
 
@@ -112,5 +112,5 @@ input {
 }
 
 .adminSearch {
-  border: 1px solid #ddd;
+  border: 1px solid black;
 }
