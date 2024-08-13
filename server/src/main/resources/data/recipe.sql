@@ -32,7 +32,7 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (1, 'http://post.naver.com/viewer/postView.nhn?volumeNo=30465474&memberNo=35667439&vType=VERTICAL');
 
 -- Recipe Cooking Steps
-INSERT INTO cooking_step (recipe_id, step_number, image_url, description)
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
 VALUES
     (1, 1, 'http://static.wtable.co.kr/image/production/service/recipe/972/e3ce099f-2575-4762-b6ba-e7e328de70f5.jpg?size=800x800', '어묵은 먹기 좋게 2장씩 꼬치에 꽂아주세요.'),
     (1, 2, 'http://static.wtable.co.kr/image/production/service/recipe/972/23daf027-1c94-4d95-96c9-cdc4a337ef18.jpg?size=800x800', '끓는 물에 어묵 꼬치를 5분 정도 끓여주세요.'),

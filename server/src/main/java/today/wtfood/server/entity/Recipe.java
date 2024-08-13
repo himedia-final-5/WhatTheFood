@@ -70,11 +70,14 @@ public class Recipe {
 
 
     @OneToMany
+    @JoinColumn(name = "recipe_id")
     private List<CookingSteps> cookingSteps; // 조리순서
 
-    @Data
+    @Getter
+    @Setter
     @Entity
-    @Table(name = "cooking_step")
+    @NoArgsConstructor
+    @Table(name = "recipe_cooking_step")
     public class CookingSteps {
 
         @Id
