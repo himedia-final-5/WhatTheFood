@@ -3,6 +3,7 @@ import { axios } from "utils";
 import "./Notice.css";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
+import { AdminFeature } from "components/util";
 function NoticeView() {
   const [noticeView, setNoticeView] = useState({
     title: "",
@@ -46,23 +47,24 @@ function NoticeView() {
       <header class="notice_header">
         <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
         <h2 class="notice_subtitle">공지사항</h2>
-
-        <Link
-          to={`/UpdateNotice/${id}`}
-          class="noticeWrite-text cursor-pointer"
-          style={{ left: "265px", top: "75px" }}
-        >
-          <button>수정하기</button>
-        </Link>
-        <button
-          class="noticeWrite-text cursor-pointer"
-          onClick={() => {
-            deleteNotice();
-          }}
-          style={{ left: "400px" }}
-        >
-          삭제하기
-        </button>
+        <AdminFeature>
+          <Link
+            to={`/UpdateNotice/${id}`}
+            class="noticeWrite-text cursor-pointer"
+            style={{ left: "265px", top: "75px" }}
+          >
+            <button>수정하기</button>
+          </Link>
+          <button
+            class="noticeWrite-text cursor-pointer"
+            onClick={() => {
+              deleteNotice();
+            }}
+            style={{ left: "400px" }}
+          >
+            삭제하기
+          </button>
+        </AdminFeature>
         <div className="notice_line"></div>
       </header>
       <main class="notices">
