@@ -2,7 +2,13 @@ import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
 import { useToggle } from "@reactuses/core";
 
-import { CloseMark, UndrawEatingTogether } from "components/asset";
+import {
+  CloseMark,
+  UndrawEatingTogether,
+  LogoKakao,
+  LogoGoogle,
+  LogoNaver,
+} from "components/asset";
 import { Modal } from "components/util";
 import { AuthSignInForm, AuthSignUpForm } from "./index.js";
 import { cn } from "utils";
@@ -58,36 +64,24 @@ export default function AuthModal({ visible, setVisible }) {
                   aria-label="auth-social-buttons"
                   className="flex w- justify-around full gap-4"
                 >
-                  <button
-                    className="flex items-center justify-center w-24 h-12 border border-solid border-gray-300 rounded-md"
-                    onClick={() => onSocialLogin("kakao")}
-                  >
-                    <img
-                      src="/images/kakao.png"
-                      alt="카카오 로그인"
-                      className="w-8 h-8"
-                    />
-                  </button>
-                  <button
-                    className="flex items-center justify-center w-24 h-12 border border-solid border-gray-300 rounded-md"
-                    onClick={() => onSocialLogin("google")}
-                  >
-                    <img
-                      src="/images/google.png"
-                      alt="구글 로그인"
-                      className="w-8 h-8"
-                    />
-                  </button>
-                  <button
-                    className="flex items-center justify-center w-24 h-12 border border-solid border-gray-300 rounded-md"
-                    onClick={() => onSocialLogin("naver")}
-                  >
-                    <img
-                      src="/images/naver.png"
-                      alt="네이버 로그인"
-                      className="w-8 h-8"
-                    />
-                  </button>
+                  {[
+                    ["kakao", "카카오", "#ffeb00", LogoKakao],
+                    ["google", "구글", "transparent", LogoGoogle],
+                    ["naver", "네이버", "#00bf18", LogoNaver],
+                  ].map(([provider, name, backgroundColor, Logo]) => (
+                    <div
+                      key={provider}
+                      className="flex items-center justify-center px-4 py-1 border border-gray-300 rounded-md"
+                      style={{ backgroundColor }}
+                    >
+                      <Logo
+                        key={provider}
+                        onClick={() => onSocialLogin(provider)}
+                        className="h-10 cursor-pointer"
+                        alt={`${name} 로그인`}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -95,7 +89,7 @@ export default function AuthModal({ visible, setVisible }) {
               aria-label="auth-modal-footer"
               className="flex justify-between items-end"
             >
-              <UndrawEatingTogether width="12rem" />
+              <UndrawEatingTogether width="12rem" className="text-green-600" />
               <div aria-label="mode-change-button" className="flex">
                 <div className="text-base text-green-600 mb-8 mr-4">
                   {isSignIn ? "계정이 없으신가요?" : "계정이 있으신가요?"}
