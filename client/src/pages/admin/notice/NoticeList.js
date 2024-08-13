@@ -72,9 +72,7 @@ function NoticeList() {
                 {noticelist.title}
               </div>
 
-              <div className="col">
-                {(noticelist.write_date + "").substring(0, 10)}
-              </div>
+              <div className="col">{noticelist.writeDate.slice(0, 10)}</div>
             </div>
           );
         })}

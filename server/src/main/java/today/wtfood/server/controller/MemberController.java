@@ -80,7 +80,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/{memberId}")
-    @PreAuthorize("hasRole('ROLE_USER') and #memberId == authentication.principal.id")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') and #memberId == authentication.principal.id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(
             @PathVariable

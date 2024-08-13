@@ -29,9 +29,9 @@ function MemberList() {
     }
   }, [content, onSelectPage]);
 
-  useEffect(() => {
-    axios.get(`/api/members`);
-  });
+  // useEffect(() => {
+  //   axios.get(`/api/members`);
+  // });
 
   function mView(id) {
     navigate(`/mView/${id}`);

@@ -42,7 +42,7 @@ function NView() {
 
         <div className="field">
           <label>등록날짜</label>
-          <div>{(noticeView.date + "").substring(0, 10)}</div>
+          <div>{noticeView.writeDate.slice(0, 10)}</div>
         </div>
 
         <div className="field">
