@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
-import today.wtfood.server.dto.recipe.RecipeSummary;
+import today.wtfood.server.dto.recipe.RecipeInfo;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.repository.MemberRepository;
@@ -33,7 +33,7 @@ public class RecipeService {
     }
 
     // 레시피 리스트 (페이지네이션)
-    public Page<RecipeSummary> getRecipeList(Pageable pageable) {
+    public Page<RecipeInfo> getRecipeList(Pageable pageable) {
         return rr.findAllBy(pageable);
     }
 

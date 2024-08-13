@@ -77,7 +77,7 @@ public class Recipe {
     @Entity
     @NoArgsConstructor
     @Table(name = "recipe_cooking_step")
-    public class CookingStep {
+    public static class CookingStep {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,8 +113,9 @@ public class Recipe {
     @Getter
     @Setter
     @Entity
+    @NoArgsConstructor
     @Table(name = "recipe_comments")
-    public class Comment {
+    public static class Comment {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
