@@ -21,7 +21,7 @@ export default function UserFeatureContainer({
   const isFirstMount = useFirstMountState();
   const user = useSelector((state) => state.user);
 
-  if (user?.role !== "ROLE_ADMIN") {
+  if (user?.role !== "ROLE_USER") {
     if (notify && isFirstMount) {
       toast.error("회원만 접근 가능합니다.");
     }
