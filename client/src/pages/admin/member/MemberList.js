@@ -41,7 +41,7 @@ function MemberList() {
     <div className="adminContainer">
       <SubMenu />
       <div className="btns" style={{ display: "flex", margin: "5px" }}>
-        <input type="text" />
+        <input type="text" className="adminSearch" />
         <button>회원 검색</button>
       </div>
       <div className="productTable">

@@ -40,7 +40,7 @@ function QnaList() {
     <div className="adminContainer">
       <SubMenu />
       <div className="btns" style={{ display: "flex", margin: "5px" }}>
-        <input type="text" />
+        <input type="text" className="adminSearch" />
         <button>검색</button>
         <button
           style={{ marginLeft: "auto" }}
