@@ -11,6 +11,18 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import store from "stores";
+import ChannelService from "ChannelService";
+
+ChannelService.loadScript();
+
+const options = {
+  pluginId: "01934fbe-4eab-4fab-a723-3254167cdcf0", // 채널톡 대시보드에서 제공받은 플러그인 ID
+};
+
+// 채널톡 초기화
+ChannelService.boot(options, () => {
+  console.log("ChannelTalk has been booted");
+});
 
 export let persistor = persistStore(store);
 

@@ -17,3 +17,5 @@ jwt.secret={SECRET_KEY_FOR_JWT_TOKEN}
 jwt.access_token_expiration=1800000
 ## expiration time of JWT refresh token in milliseconds (default 7 day)
 jwt.refresh_token_expiration=604800000
+
+channel.talk.access.secret=YOUR_ACCESS_SECRET
