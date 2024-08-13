@@ -27,7 +27,7 @@ export default function AuthModal({ visible, setVisible }) {
           <div
             className={cn(
               "flex flex-col justify-between w-full h-full m-auto px-8 py-2",
-              "bg-white rounded-sm shadow-md shadow-neutral-400",
+              "bg-white rounded-xl shadow-md shadow-neutral-400",
               "md:w-[640px] md:h-[520px]",
             )}
           >
