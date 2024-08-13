@@ -11,7 +11,7 @@ import Popup from "./PopUp";
 
 /** @type {?EventDetail} */
 const DEFAULT_EVENT = null;
-function EventDetail() {
+export default function EventDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -91,8 +91,8 @@ function EventDetail() {
     //       event.contentImages.length > 0
     //         ? event.contentImages[0]
     //         : "기본 이미지 URL",
-    //     webUrl: `http://localhost:3000/event/${event.id}`,
-    //     mobileWebUrl: `http://localhost:3000/event/${event.id}`,
+    //     webUrl: `http://localhost:3000/events/${event.id}`,
+    //     mobileWebUrl: `http://localhost:3000/events/${event.id}`,
     //   };
 
     //   window.Kakao.Share.sendCustom({
@@ -112,8 +112,8 @@ function EventDetail() {
         title: event.title,
         imageUrl: imageUrl,
         link: {
-          mobileWebUrl: `http://localhost:3000/event/${event.id}`,
-          webUrl: `http://localhost:3000/event/${event.id}`,
+          mobileWebUrl: `http://localhost:3000/events${event.id}`,
+          webUrl: `http://localhost:3000/events/${event.id}`,
         },
       },
       social: {
@@ -125,15 +125,15 @@ function EventDetail() {
         {
           title: "웹으로 보기",
           link: {
-            mobileWebUrl: `http://localhost:3000/event/${event.id}`,
-            webUrl: `http://localhost:3000/event/${event.id}`,
+            mobileWebUrl: `http://localhost:3000/events/${event.id}`,
+            webUrl: `http://localhost:3000/events/${event.id}`,
           },
         },
         {
           title: "앱으로 보기",
           link: {
-            mobileWebUrl: `http://localhost:3000/event/${event.id}`,
-            webUrl: `http://localhost:3000/event/${event.id}`,
+            mobileWebUrl: `http://localhost:3000/events/${event.id}`,
+            webUrl: `http://localhost:3000/events/${event.id}`,
           },
         },
       ],
@@ -150,12 +150,12 @@ function EventDetail() {
       <div className="eventdetail_wrap">
         <div className="eventdetail_btn_wrap">
           <AdminFeature>
-            <Link to={`/updateEvent/${event.id}`}>
+            <Link to={`/events/write/${event.id}`}>
               <button>수정</button>
             </Link>
             <button onClick={deleteEvent}>삭제</button>
           </AdminFeature>
-          <Link to="/event">
+          <Link to="/events">
             <button>돌아가기</button>
           </Link>
         </div>
@@ -193,5 +193,3 @@ function EventDetail() {
     )
   );
 }
-
-export default EventDetail;

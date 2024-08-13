@@ -6,7 +6,7 @@ import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
-function EventList() {
+export default function EventList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
   const { ref, content } = useInfiniteScroll(
@@ -28,7 +28,7 @@ function EventList() {
     <div className="event_banner_wrap relative">
       <AdminFeature>
         <Link
-          to="/createEventBanner"
+          to="/events/write"
           className="absolute left-6 -top-10 rounded-md px-2 py-0.5 border-2"
         >
           게시글쓰기
@@ -61,5 +61,3 @@ function EventList() {
     </div>
   );
 }
-
-export default EventList;
