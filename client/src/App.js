@@ -12,7 +12,12 @@ import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
 import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
 import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
-import { NoticeList, NoticeDetail, NoticeWrite } from "pages/notice";
+import {
+  NoticeList,
+  NoticeDetail,
+  NoticeWrite,
+  NoticeUpdate,
+} from "pages/notice";
 import { TestAssets } from "pages/test";
 
 import Admin from "pages/admin/Login";
@@ -51,8 +56,9 @@ function App() {
               <Route path="/inquiryView/:id" element={<InquiryDetail />} />
               <Route path="/inquiryWriteForm" element={<InquiryWrite />} />
               <Route path="/notice" element={<NoticeList />} />
-              <Route path="/notice/:id" element={<NoticeDetail />} />
+              <Route path="/noticeView/:id" element={<NoticeDetail />} />
               <Route path="/writeNotice" element={<NoticeWrite />} />
+              <Route path="/updateNotice/:id" element={<NoticeUpdate />} />
               <Route path="/test/assets" element={<TestAssets />} />
               {/* Admin */}
               <Route path="/admin" element={<Admin />} />
