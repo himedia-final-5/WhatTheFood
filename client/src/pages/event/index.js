@@ -1,4 +1,6 @@
-export { default as EventList } from "./EventList";
-export { default as EventDetail } from "./EventDetail";
-export { default as EventWrite } from "./EventCreate";
-export { default as EventUpdate } from "./UpdateEvent";
+import { lazyLoading as $ } from "utils";
+
+export const EventList = $(() => import("./EventList"));
+export const EventDetail = $(() => import("./EventDetail"));
+export const EventWrite = $(() => import("./EventCreate"));
+export const EventUpdate = $(() => import("./UpdateEvent"));

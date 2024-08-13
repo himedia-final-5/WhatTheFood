@@ -1,1 +1,3 @@
-export { default as FallbackRender } from "./FallbackRender";
+import { lazyLoading as $ } from "utils";
+
+export const FallbackRender = $(() => import("./FallbackRender"));

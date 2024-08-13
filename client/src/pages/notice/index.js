@@ -1,4 +1,6 @@
-export { default as NoticeList } from "./Notice";
-export { default as NoticeDetail } from "./NoticeView";
-export { default as NoticeWrite } from "./WriteNotice";
-export { default as NoticeUpdate } from "./UpdateNotice";
+import { lazyLoading as $ } from "utils";
+
+export const NoticeList = $(() => import("./Notice"));
+export const NoticeDetail = $(() => import("./NoticeView"));
+export const NoticeWrite = $(() => import("./WriteNotice"));
+export const NoticeUpdate = $(() => import("./UpdateNotice"));

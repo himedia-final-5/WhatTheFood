@@ -4,9 +4,8 @@ import { useToggle } from "@reactuses/core";
 
 import { CloseMark, UndrawEatingTogether } from "components/asset";
 import { Modal } from "components/util";
+import { AuthSignInForm, AuthSignUpForm } from "./index.js";
 import { cn } from "utils";
-import AuthSignInForm from "./AuthSignInForm";
-import AuthSignUpForm from "./AuthSignUpForm";
 
 /**
  * @param {boolean} visible 모달 표시 여부

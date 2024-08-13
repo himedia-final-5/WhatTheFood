@@ -1,1 +1,3 @@
-export { default as Main } from "./Main";
+import { lazyLoading as $ } from "utils";
+
+export const Main = $(() => import("./Main"));

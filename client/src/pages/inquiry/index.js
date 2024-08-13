@@ -1,3 +1,5 @@
-export { default as InquiryList } from "./InquiryList";
-export { default as InquiryDetail } from "./InquiryView";
-export { default as InquiryWrite } from "./InquiryWriteForm";
+import { lazyLoading as $ } from "utils";
+
+export const InquiryList = $(() => import("./InquiryList"));
+export const InquiryDetail = $(() => import("./InquiryView"));
+export const InquiryWrite = $(() => import("./InquiryWriteForm"));
