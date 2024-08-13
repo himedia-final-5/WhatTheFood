@@ -66,6 +66,7 @@ function QnaList() {
                 onClick={() => {
                   qnaView(qnalist.id);
                 }}
+                style={{ cursor: "pointer" }}
               >
                 {qnalist.title}
               </div>

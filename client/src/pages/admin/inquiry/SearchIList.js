@@ -77,6 +77,7 @@ function SearchIList() {
                 onClick={() => {
                   userIqView(inquirylist.id);
                 }}
+                style={{ cursor: "pointer" }}
               >
                 {inquirylist.title}
               </div>

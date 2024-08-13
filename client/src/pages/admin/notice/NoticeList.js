@@ -67,6 +67,7 @@ function NoticeList() {
                 onClick={() => {
                   nView(noticelist.id);
                 }}
+                style={{ cursor: "pointer" }}
               >
                 {noticelist.title}
               </div>

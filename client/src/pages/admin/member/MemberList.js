@@ -47,7 +47,7 @@ function MemberList() {
       <div className="productTable">
         <div className="row">
           <div className="col">번호</div>
-          <div className="col">회원 이름</div>
+          <div className="col">회원 ID</div>
           <div className="col">회원 닉네임</div>
         </div>
         {content.map((memberlist, idx) => {
@@ -59,8 +59,9 @@ function MemberList() {
                 onClick={() => {
                   mView(memberlist.id);
                 }}
+                style={{ cursor: "pointer" }}
               >
-                {memberlist.email}
+                {memberlist.username}
               </div>
 
               <div className="col">{memberlist.nickname}</div>
