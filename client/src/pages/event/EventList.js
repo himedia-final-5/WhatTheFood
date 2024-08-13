@@ -6,7 +6,7 @@ import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
-function EventList() {
+export default function EventList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
   const { ref, content } = useInfiniteScroll(
@@ -61,5 +61,3 @@ function EventList() {
     </div>
   );
 }
-
-export default EventList;

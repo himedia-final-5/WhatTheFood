@@ -11,7 +11,7 @@ import Popup from "./PopUp";
 
 /** @type {?EventDetail} */
 const DEFAULT_EVENT = null;
-function EventDetail() {
+export default function EventDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -193,5 +193,3 @@ function EventDetail() {
     )
   );
 }
-
-export default EventDetail;

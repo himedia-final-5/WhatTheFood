@@ -6,7 +6,7 @@ import { axios, cn } from "utils";
 import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 
-function EventCreateBanner() {
+export default function EventWrite() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
@@ -167,5 +167,3 @@ function EventCreateBanner() {
     </AdminFeatureContainer>
   );
 }
-
-export default EventCreateBanner;

@@ -7,7 +7,7 @@ import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 import { useInputs } from "hooks";
 
-function UpdateEvent() {
+export default function EventUpdate() {
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -153,5 +153,3 @@ function UpdateEvent() {
     </AdminFeatureContainer>
   );
 }
-
-export default UpdateEvent;
