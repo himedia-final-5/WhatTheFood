@@ -7,9 +7,12 @@ import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import store from "stores";
+
+const reportWebVitals = () => {
+  import("./reportWebVitals").then((module) => module.default());
+};
 
 export let persistor = persistStore(store);
 
