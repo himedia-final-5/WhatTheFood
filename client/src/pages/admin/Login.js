@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "stores";
 
 import React, { useState } from "react";
-import AuthSignInForm from "components/layout/auth/AuthSignInForm";
+import AuthSignInForm from "components/modal/auth/signin/AuthSignInForm";
 
 function Login() {
   const user = useSelector((state) => state.user);
