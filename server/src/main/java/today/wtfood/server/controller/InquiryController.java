@@ -1,14 +1,11 @@
 package today.wtfood.server.controller;
 
-import jakarta.servlet.ServletContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.inquiry.InquiryDetail;
@@ -17,11 +14,6 @@ import today.wtfood.server.dto.inquiry.InquirySummary;
 import today.wtfood.server.entity.Inquiry;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.InquiryService;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/inquiries")
@@ -82,31 +74,5 @@ public class InquiryController {
     public void inquiryAnswer(@PathVariable("id") long id, @RequestParam String answer) {
         is.inquiryAnswer(id, answer);
     }
-
-
-    @Autowired
-    ServletContext context;
-
-    @PostMapping("/fileupload")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public HashMap<String, Object> fileupload(
-            @RequestParam("appendImage") MultipartFile file) {
-        HashMap<String, Object> result = new HashMap<String, Object>();
-        String path = context.getRealPath("/uploads");
-        Calendar today = Calendar.getInstance();
-        long dt = today.getTimeInMillis();
-        String filename = file.getOriginalFilename();
-        String fn1 = filename.substring(0, filename.indexOf("."));
-        String fn2 = filename.substring(filename.indexOf("."));
-        String uploadPath = path + "/" + fn1 + dt + fn2;
-        try {
-            file.transferTo(new File(uploadPath));
-            result.put("appendImage", fn1 + dt + fn2);
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
 
 }

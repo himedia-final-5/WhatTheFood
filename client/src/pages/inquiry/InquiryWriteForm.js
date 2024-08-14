@@ -34,14 +34,17 @@ function InquiryWriteForm() {
 
   async function onFileUpload(e) {
     const formData = new FormData();
-    formData.append("appendImage", e.target.files[0]);
+    formData.append("file", e.target.files[0]);
 
-    const result = await axios.post("/api/inquiries/fileupload", formData);
-    setAppendImage(result.data.appendImage);
-
-    setAppendImageSrc(`http://localhost:8070/images/${result.data.image}`);
+    const response = await axios.post("/api/file/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const imageSrc = `/api/static/${response.data.name}`;
+    setAppendImage(imageSrc);
+    setAppendImageSrc(imageSrc);
     setAppendImageStyle({ width: "200px", height: "200px", display: "block" });
-    // setImgStyle({ width: "800px", display: "block" });
   }
 
   return (
