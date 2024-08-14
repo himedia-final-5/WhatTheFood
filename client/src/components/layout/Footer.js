@@ -13,16 +13,16 @@ function Footer() {
           <div className="footer-links">
             <ul>
               <li>
-                <Link to="/about">About Us</Link>
+                <Link to="/about">회사소개</Link>
               </li>
               <li>
-                <Link to="/terms">Terms of Service</Link>
+                <Link to="/terms">이용약관</Link>
               </li>
               <li>
-                <Link to="/privacy">Privacy Policy</Link>
+                <Link to="/privacy">개인정보처리방침</Link>
               </li>
               <li>
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/contact">광고/제휴</Link>
               </li>
               <li>
                 <Link to="/faq">FAQ</Link>
@@ -55,12 +55,13 @@ function Footer() {
         </div>
         <div className="footer-info">
           <p>
-            기사배열 책임자 : 김수향&nbsp;&nbsp;|&nbsp;&nbsp;청소년 보호 책임자
-            : 이정규
+            책임자1 : 김현재&nbsp;&nbsp;|&nbsp;&nbsp; 책임자2 : 이준서
+            &nbsp;&nbsp;|&nbsp;&nbsp; 책임자3 : 김태희&nbsp;&nbsp;|&nbsp;&nbsp;
+            책임자4 : 김재연
           </p>
           <p>
             본 콘텐츠의 저작권은 제공처 또는 WhatTheFood에 있으며, 이를 무단
-            이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.
+            이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 없습니다.
           </p>
           <p>© WhatTheFood Corp.</p>
         </div>
