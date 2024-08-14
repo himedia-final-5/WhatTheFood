@@ -31,7 +31,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             return memberService.getMemberByUsername(username, Member.class);
         } catch (NotFoundException e) {
-            throw new UsernameNotFoundException(username + " - User Not found");
+            // 토큰이 올바르게 발급되었지만, 사용자 정보가 존재하지 않을 때
+            // => 회원이 토큰 발급 후 탈퇴한 경우라고 생각해 아래 메시지를 제공
+            throw new UsernameNotFoundException("토큰이 만료되었습니다");
         }
     }
 

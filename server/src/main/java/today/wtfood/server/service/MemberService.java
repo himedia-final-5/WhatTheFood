@@ -51,7 +51,7 @@ public class MemberService {
      */
     public <T> T getMemberById(long id, Class<T> projectionType) {
         return memberRepository.findGenericById(id, projectionType)
-                .orElseThrow(() -> new NotFoundException("Invalid member ID"));
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
     }
 
     /**
@@ -63,7 +63,7 @@ public class MemberService {
      */
     public <T> T getMemberByUsername(String username, Class<T> projectionType) {
         return memberRepository.findByUsername(username, projectionType)
-                .orElseThrow(() -> new NotFoundException("Invalid member username"));
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
     }
 
     /**
@@ -109,7 +109,7 @@ public class MemberService {
     @Transactional(rollbackFor = Exception.class)
     public void updateMember(long memberId, MemberUpdateRequest requestData) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("Invalid member ID"));
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
 
         member.setNickname(requestData.nickname());
         member.setPassword(passwordEncoder.encode(requestData.password()));
@@ -125,7 +125,7 @@ public class MemberService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteMember(long memberId) {
         if (!memberRepository.existsById(memberId)) {
-            throw new NotFoundException("Invalid member ID");
+            throw new NotFoundException("회원 정보를 찾을 수 없습니다");
         }
 
         memberRepository.deleteById(memberId);
