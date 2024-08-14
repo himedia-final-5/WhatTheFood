@@ -9,6 +9,7 @@ import today.wtfood.server.dto.notice.NoticeDetail;
 import today.wtfood.server.dto.notice.NoticeDto;
 import today.wtfood.server.dto.notice.NoticeSummary;
 import today.wtfood.server.entity.Notice;
+import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.repository.NoticeRepository;
 
 @Service
@@ -42,11 +43,15 @@ public class NoticeService {
     // 작성 후
     public NoticeDetail getNotice(long id) {
         return nr.findDetailById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 공지사항이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("데이터를 찾을 수 없습니다", "id"));
     }
 
 
     public void deleteNotice(long id) {
+        if (!nr.existsById(id)) {
+            throw new NotFoundException("데이터를 찾을 수 없습니다", "id");
+        }
+
         nr.deleteById(id);
 
     }
@@ -54,10 +59,10 @@ public class NoticeService {
     @Transactional
     public void updateNotice(long id, NoticeDto dto) {
         Notice notice = nr.findById(id)
-                .orElseThrow(() -> new RuntimeException("Notice with id " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("데이터를 찾을 수 없습니다", "id"));
         notice.setTitle(dto.getTitle());
         notice.setContent(dto.getContent());
-        
+
 
     }
 }

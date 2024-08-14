@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import today.wtfood.server.dto.file.FileResponse;
 import today.wtfood.server.exception.BadRequestException;
+import today.wtfood.server.exception.InternalServerErrorException;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,33 +74,36 @@ public class StaticFileService {
      * @param file 업로드할 파일
      * @return 업로드된 파일의 정보
      * @throws BadRequestException 파일 이름, 타입, 크기가 유효하지 않은 경우
-     * @throws IOException         파일 업로드에 실패한 경우
      * @implNote TODO: 파일 포맷 필터 기능 추가
      */
-    public FileResponse uploadFile(MultipartFile file) throws IOException {
+    public FileResponse uploadFile(MultipartFile file) {
         String fileName = file.getOriginalFilename();
         if (fileName == null) {
-            throw new BadRequestException("Invalid file name");
+            throw new BadRequestException("잘못된 파일 이름입니다", "file");
         }
 
         long fileSize = file.getSize();
         if (fileSize <= 0) {
-            throw new BadRequestException("Invalid file size");
+            throw new BadRequestException("잘못된 파일 크기입니다", "file");
         }
 
         String fileType = file.getContentType();
         if (fileType == null) {
-            throw new BadRequestException("Invalid file type");
+            throw new BadRequestException("잘못된 파일 타입입니다", "file");
         }
 
         String fileExtension = mimeTypeToExtensionMap.get(fileType);
         if (fileExtension == null) {
-            throw new BadRequestException("Unsupported file type");
+            throw new BadRequestException("지원하지 않는 파일 형식입니다", "file");
         }
 
-        File staticFile = getStaticFile(fileExtension);
-        file.transferTo(staticFile);
-        return new FileResponse(staticFile.getName(), fileType, fileSize);
+        try {
+            File staticFile = getStaticFile(fileExtension);
+            file.transferTo(staticFile);
+            return new FileResponse(staticFile.getName(), fileType, fileSize);
+        } catch (IOException e) {
+            throw new InternalServerErrorException("파일 저장에 실패했습니다", "file");
+        }
     }
 
 }

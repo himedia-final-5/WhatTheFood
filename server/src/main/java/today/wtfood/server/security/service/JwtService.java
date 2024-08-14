@@ -138,24 +138,26 @@ public class JwtService {
                     .getBody();
 
             if (expectPurpose != null && !expectPurpose.isSamePurpose(claims)) {
-                throw new UnauthorizedException("Invalid Token Purpose");
+                throw new UnauthorizedException("다른 용도의 토큰입니다");
             }
 
             if (isBlockedToken(claims.getId())) {
-                throw new UnauthorizedException("Blocked JWT Token");
+                throw new UnauthorizedException("토큰이 만료되었습니다");
             }
+
             return claims;
         } catch (ExpiredJwtException expiredJwtException) {
-            throw new UnauthorizedException("JWT Token Expired");
+            throw new UnauthorizedException("토큰이 만료되었습니다");
         } catch (InvalidClaimException invalidClaimException) {
-            throw new UnauthorizedException("Invalid JWT Token");
+            throw new UnauthorizedException("토큰의 정보가 잘못되었습니다");
         } catch (io.jsonwebtoken.JwtException jwtException) {
             log.error("JWT Error on JWT Token Validation : {}", jwtException.getMessage());
-            throw new BadRequestException("JWT Error on JWT Token Validation");
+            throw new BadRequestException("잘못된 토큰입니다");
         } catch (UnauthorizedException unauthorizedException) {
             throw unauthorizedException; // 토큰 검증 단계에서 발생한 UnauthorizedException 은 그대로 반환
         } catch (Exception e) {
-            throw new JwtException("Uncaught Error on JWT Token Validation : " + e.getMessage());
+            log.error("Unexpected Error on JWT Token Validation : {}", e.getMessage());
+            throw new JwtException("토큰 검증 중 오류가 발생했습니다");
         }
     }
 

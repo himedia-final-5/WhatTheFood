@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.event.EventDetail;
@@ -44,12 +43,7 @@ public class EventController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateEvent(@PathVariable("id") long id, @RequestBody EventDto event) {
-        try {
-            es.updateEvent(id, event); //성공
-            return;
-        } catch (RuntimeException e) { //에러
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        es.updateEvent(id, event);
     }
 
     // 이벤트 삭제
@@ -57,12 +51,7 @@ public class EventController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEvent(@PathVariable("id") long id) {
-        try {
-            es.deleteEvent(id); //삭제
-            return;
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        es.deleteEvent(id);
     }
 
     // 새로운 이벤트 생성 //수정생성용 Dto사용
