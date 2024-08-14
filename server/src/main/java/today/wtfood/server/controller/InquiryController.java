@@ -15,6 +15,7 @@ import today.wtfood.server.dto.inquiry.InquiryDetail;
 import today.wtfood.server.dto.inquiry.InquiryDto;
 import today.wtfood.server.dto.inquiry.InquirySummary;
 import today.wtfood.server.entity.Inquiry;
+import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.InquiryService;
 
 import java.io.File;
@@ -34,8 +35,14 @@ public class InquiryController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public GeneratedId<Long> insertInquiry(@RequestBody InquiryDto inquiry) {
-        return GeneratedId.of(is.insertInquiry(inquiry.toEntity()).getId());
+    public GeneratedId<Long> insertInquiry(
+            @RequestBody
+            InquiryDto inquiry,
+
+            @CurrentUser
+            String username
+    ) {
+        return GeneratedId.of(is.insertInquiry(inquiry.toEntity(username)).getId());
     }
 
     @GetMapping("")

@@ -12,7 +12,6 @@ import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.notice.NoticeDetail;
 import today.wtfood.server.dto.notice.NoticeDto;
 import today.wtfood.server.dto.notice.NoticeSummary;
-import today.wtfood.server.entity.Notice;
 import today.wtfood.server.service.NoticeService;
 
 @RestController
@@ -37,8 +36,8 @@ public class NoticeController {
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public GeneratedId<Long> writeNotice(@RequestBody Notice notice) {
-        return GeneratedId.of(ns.writeNotice(notice));
+    public GeneratedId<Long> writeNotice(@RequestBody NoticeDto notice) {
+        return GeneratedId.of(ns.writeNotice(notice.toEntity()));
     }
 
     @GetMapping("/{id}")
