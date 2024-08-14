@@ -43,9 +43,9 @@ function InquiryList() {
       <br></br>
       <br></br>
       <br></br>
-      <div className="iqBody">
-        <div className="iqCenter">
-          <div id="iq1">
+      <div className="inquiryBody">
+        <div className="inquiryCenter">
+          <div id="inquiry1">
             <div id="blank"></div>
             <div>내 문의 내역</div>
             <Link to="/inquiryWriteForm" id="inquiryWrite">
@@ -58,19 +58,19 @@ function InquiryList() {
           {content.map((inquirylist, idx) => {
             return (
               <Link
-                className="iqitem"
+                className="inquiryitem"
                 key={idx}
                 to={`/inquiryView/${inquirylist.id}`}
               >
-                <div className="iqanswer">
+                <div className="inquiryanswer">
                   {inquirylist.answer ? (
                     <div style={{ color: "green" }}>답변완료</div>
                   ) : (
                     <div style={{ color: "grey" }}>답변처리중</div>
                   )}
                 </div>
-                <div className="iqname">{inquirylist.title}</div>
-                <div className="iqdate">
+                <div className="inquiryname">{inquirylist.title}</div>
+                <div className="inquirydate">
                   {inquirylist.date.substring(0, 10)}
                 </div>
               </Link>

@@ -5,7 +5,7 @@ import "./FaqWriteForm.css";
 import { useSelector } from "stores";
 import { axios } from "utils";
 
-function InquiryWriteForm() {
+function FaqWriteForm() {
   const user = useSelector((state) => state.user);
 
   const [title, setTitle] = useState("");
@@ -85,4 +85,4 @@ function InquiryWriteForm() {
   );
 }
 
-export default InquiryWriteForm;
+export default FaqWriteForm;

@@ -58,11 +58,11 @@
   cursor: pointer;
 }
 
-.qnaname {
+.faqname {
   font-size: 25px;
 }
 
-.qnadate {
+.faqdate {
   font-size: 20px;
   color: gray;
 }

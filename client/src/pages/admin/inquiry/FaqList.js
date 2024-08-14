@@ -6,7 +6,7 @@ import { axios } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
-function QnaList() {
+function FaqList() {
   const navigate = useNavigate();
 
   const { content, pagination, setPageResponse } = usePageResponse();
@@ -32,7 +32,7 @@ function QnaList() {
     axios.get(`/api/faqs`);
   });
 
-  function qnaView(id) {
+  function faqView(id) {
     navigate(`/fView/${id}`);
   }
   return (
@@ -56,21 +56,21 @@ function QnaList() {
           <div className="admincol">FAQ 제목</div>
           <div className="admincol">등록날짜</div>
         </div>
-        {content.map((qnalist, idx) => {
+        {content.map((faq, idx) => {
           return (
-            <div className="adminrow" key={idx} to={`/fView/${qnalist.id}`}>
-              <div className="admincol">{qnalist.id}</div>
+            <div className="adminrow" key={idx} to={`/fView/${faq.id}`}>
+              <div className="admincol">{faq.id}</div>
               <div
                 className="admincol"
                 onClick={() => {
-                  qnaView(qnalist.id);
+                  faqView(faq.id);
                 }}
                 style={{ cursor: "pointer" }}
               >
-                {qnalist.title}
+                {faq.title}
               </div>
 
-              <div className="admincol">{qnalist.date.substring(0, 10)}</div>
+              <div className="admincol">{faq.date.substring(0, 10)}</div>
             </div>
           );
         })}
@@ -81,4 +81,4 @@ function QnaList() {
   );
 }
 
-export default QnaList;
+export default FaqList;

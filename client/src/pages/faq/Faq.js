@@ -41,9 +41,9 @@ function Faq() {
               key={idx}
               to={`/faqView/${inquirylist.id}`}
             >
-              <div className="qnadate">{inquirylist.date.substring(0, 10)}</div>
+              <div className="fqadate">{inquirylist.date.substring(0, 10)}</div>
               <br></br>
-              <div className="qnaname">{inquirylist.title}</div>
+              <div className="fqaname">{inquirylist.title}</div>
             </Link>
           );
         })}

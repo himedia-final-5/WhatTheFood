@@ -54,12 +54,12 @@ function InquiryWriteForm() {
       <br></br>
       <br></br>
       <br></br>
-      <div className="iqBody">
-        <div id="iqWriteCenter">
-          <div id="iqwf1">문의 작성</div>
+      <div className="inquiryBody">
+        <div id="inquiryWriteCenter">
+          <div id="inquirywf1">문의 작성</div>
           <br></br>
-          <div id="iqwrite">
-            <div className="iqwfField">
+          <div id="inquirywrite">
+            <div className="inquirywfField">
               <input
                 type="text"
                 placeholder="제목"
@@ -71,7 +71,7 @@ function InquiryWriteForm() {
             </div>
             <br></br>
             <br></br>
-            <div className="iqwfField">
+            <div className="inquirywfField">
               <textarea
                 rows="20"
                 placeholder="문의내용을 작성해주세요."
@@ -83,7 +83,7 @@ function InquiryWriteForm() {
             </div>
             <br></br>
             <br></br>
-            <div className="iqwfField">
+            <div className="inquirywfField">
               <label>사진 첨부</label>
               <br />
               <input
@@ -106,14 +106,14 @@ function InquiryWriteForm() {
           <br></br>
           <div className="inquiryinquiry">
             <div
-              className="iqwf2"
+              className="inquirywf2"
               onClick={() => {
                 onSubmit();
               }}
             >
               작성 완료
             </div>
-            <Link id="iqwf2" to="/inquiryList">
+            <Link id="inquirywf2" to="/inquiryList">
               돌아가기
             </Link>
           </div>

@@ -29,7 +29,7 @@ function InquiryList() {
     }
   }, [content, onSelectPage]);
 
-  function userIqView(id) {
+  function userinquiryiew(id) {
     navigate(`/iView/${id}`);
   }
 
@@ -76,7 +76,7 @@ function InquiryList() {
               <div
                 className="admincol"
                 onClick={() => {
-                  userIqView(inquirylist.id);
+                  userinquiryiew(inquirylist.id);
                 }}
               >
                 {inquirylist.title}

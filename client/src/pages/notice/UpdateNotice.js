@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./Notice.css";
 import { axios } from "utils";
 
-function Notice() {
+function UpdateNotice() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function Notice() {
             value={title}
             onChange={(e) => setTitle(e.currentTarget.value)}
           />
-          {Notice.title}
+          {UpdateNotice.title}
         </div>
         <div class="field">
           <label>내용</label>
@@ -61,4 +61,4 @@ function Notice() {
   );
 }
 
-export default Notice;
+export default UpdateNotice;
