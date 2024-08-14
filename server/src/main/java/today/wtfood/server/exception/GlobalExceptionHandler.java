@@ -3,6 +3,7 @@ package today.wtfood.server.exception;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
@@ -72,6 +73,16 @@ public class GlobalExceptionHandler {
 
         FieldError fieldError = Objects.requireNonNull(exception.getBindingResult().getFieldError());
         ResponseHelper.writeFieldError(response, fieldError.getField(), fieldError.getDefaultMessage());
+    }
+
+    /**
+     * @implNote 데이터베이스 제약 조건을 위반했을 때 발생하는 예외
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public void handleDataIntegrityViolationException(DataIntegrityViolationException exception, HttpServletResponse response) throws IOException {
+        log.error("DataIntegrityViolationException: ", exception);
+
+        ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, "잘못된 데이터가 입력되었습니다");
     }
 
     /**
