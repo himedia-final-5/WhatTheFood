@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import today.wtfood.server.config.properties.JwtProperties;
 import today.wtfood.server.config.properties.MailProperties;
+import today.wtfood.server.config.properties.SecurityCorsProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties({
+        SecurityCorsProperties.class,
         JwtProperties.class,
         MailProperties.class
 })

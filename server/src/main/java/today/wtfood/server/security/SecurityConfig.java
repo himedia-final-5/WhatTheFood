@@ -20,9 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import today.wtfood.server.config.properties.SecurityCorsProperties;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
-
-import java.util.List;
 
 @Log4j2
 @Configuration
@@ -35,6 +34,7 @@ public class SecurityConfig {
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AuthenticationFailureHandler authenticationFailureHandler;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final SecurityCorsProperties corsProperties;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -76,9 +76,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost", "http://localhost:3000", "http://wtfood.today", "https://wtfood.today"));
-        configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Refresh", "Cache-Control", "Content-Type", "Accept"));
+        configuration.setAllowedOrigins(corsProperties.getAllowedOrigins());
+        configuration.setAllowedMethods(corsProperties.getAllowedMethods());
+        configuration.setAllowedHeaders(corsProperties.getAllowedHeaders());
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
