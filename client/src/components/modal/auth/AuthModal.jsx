@@ -39,10 +39,10 @@ export default function AuthModal({ visible, setVisible }) {
           >
             <div
               aria-label="auth-modal-header"
-              className="flex justify-end w-full md:hidden"
+              className="relative flex w-full justify-end md:hidden"
             >
               <CloseMark
-                className="top-0 right-0 h-10 -mr-2 p-2 text-neutral-500 cursor-pointer"
+                className="absolute top-1 -right-4 h-10 text-neutral-500 cursor-pointer"
                 onClick={() => setVisible(false)}
               />
             </div>
@@ -62,7 +62,7 @@ export default function AuthModal({ visible, setVisible }) {
                 </div>
                 <div
                   aria-label="auth-social-buttons"
-                  className="flex w- justify-around full gap-4"
+                  className="flex w-full justify-around gap-4"
                 >
                   {[
                     ["kakao", "카카오", "#ffeb00", LogoKakao],
