@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,11 @@ function MemberList() {
   const user = useSelector((state) => state.user);
 
   const { content, pagination, setPageResponse } = usePageResponse();
+  const [word, setWord] = useState("");
+
+  function onSearch() {
+    navigate(`/searchMList/${word}`);
+  }
 
   const onSelectPage = useCallback(
     (page) =>
@@ -41,8 +46,21 @@ function MemberList() {
     <div className="adminContainer">
       <SubMenu />
       <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
-        <input type="text" className="adminSearch" />
-        <button>회원 검색</button>
+        <input
+          type="text"
+          className="adminSearch"
+          onChange={(e) => {
+            setWord(e.currentTarget.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            onSearch();
+          }}
+          style={{ fontSize: "25px" }}
+        >
+          회원 검색
+        </button>
       </div>
       <div className="productTable">
         <div className="adminrow">

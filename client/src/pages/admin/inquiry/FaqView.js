@@ -34,20 +34,20 @@ function FaqView() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>FAQ</h2>
+      <div className="adminCategory">FAQ</div>
       <div className="productTable">
         <div className="adminfield">
-          <label>FAQ 제목</label>
+          <label className="labellabel">제목</label>
           <div>{faqView.title}</div>
         </div>
 
         <div className="adminfield">
-          <label>등록날짜</label>
+          <label className="labellabel">등록날짜</label>
           <div>{(faqView.date + "").substring(0, 10)}</div>
         </div>
 
         <div className="adminfield">
-          <label>FAQ 내용</label>
+          <label className="labellabel">내용</label>
           <div>{faqView.content}</div>
         </div>
 

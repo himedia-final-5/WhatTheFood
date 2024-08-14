@@ -36,10 +36,10 @@ function NUpdate() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>공지사항 수정</h2>
+      <div className="adminCategory">공지사항 수정</div>
       <div className="productTable">
         <div className="adminfield">
-          <label>공지사항 제목</label>
+          <label className="labellabel">제목</label>
           <input
             type="text"
             placeholder={noiceView.title}
@@ -49,7 +49,7 @@ function NUpdate() {
           />
         </div>
         <div className="adminfield">
-          <label>공지사항 내용</label>
+          <label className="labellabel">내용</label>
           <div>
             <textarea
               rows="10"

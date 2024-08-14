@@ -2,6 +2,7 @@ package today.wtfood.server.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -74,6 +75,18 @@ public class MemberController {
     ) {
         return memberService.getMemberById(memberId, MemberAdmin.class);
     }
+
+    @GetMapping("username/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public PageResponse<MemberSummary> getMemberList(
+            @PathVariable("username")
+            String username,
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        return PageResponse.of(memberService.getMemberList(username, pageable));
+    }
+
 
     @GetMapping("/check-username")
     @PreAuthorize("permitAll()")

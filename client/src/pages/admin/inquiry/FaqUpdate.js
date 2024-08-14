@@ -37,7 +37,7 @@ function FaqUpdate() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>FAQ 수정</h2>
+      <div className="adminCategory">FAQ 수정</div>
       <div className="productTable">
         <div className="adminfield">
           <label>FAQ 제목</label>

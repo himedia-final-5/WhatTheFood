@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.member.MemberCreateRequest;
+import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.exception.NotFoundException;
@@ -116,4 +117,7 @@ public class MemberService {
         memberRepository.deleteById(memberId);
     }
 
+    public Page<MemberSummary> getMemberList(String username, Pageable pageable) {
+        return memberRepository.findAllByUsername(username, pageable);
+    }
 }

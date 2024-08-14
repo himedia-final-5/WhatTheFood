@@ -1,80 +1,83 @@
-import { useCallback, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "stores";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
-function NoticeList() {
+function SearchMList() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-
+  const [isMounted, setMounted] = useState(false);
+  const { username } = useParams();
   const { content, pagination, setPageResponse } = usePageResponse();
+  const [word, setWord] = useState("");
 
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/notices`, {
+        .get(`/api/members/username/${username}`, {
           params: { page },
         })
         .then((result) => setPageResponse(result.data))
         .catch(console.error),
-    [setPageResponse],
+    [username, setPageResponse],
   );
 
-  useEffect(() => {
-    if (content.length === 0) {
-      onSelectPage(0);
-    }
-  }, [content, onSelectPage]);
+  if (!isMounted) {
+    onSelectPage(0);
+    setMounted(true);
+  }
 
-  useEffect(() => {
-    axios.get(`/api/notices`);
-  });
+  function mView(id) {
+    navigate(`/mView/${id}`);
+  }
 
-  function nView(id) {
-    navigate(`/nView/${id}`);
+  function onSearch() {
+    navigate(`/searchMList/${word}`);
+    setMounted(false);
   }
 
   return (
     <div className="adminContainer">
       <SubMenu />
       <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
-        {/* <input type="text" className="adminSearch" />
-        <button>검색</button> */}
+        <input
+          type="text"
+          className="adminSearch"
+          onChange={(e) => {
+            setWord(e.currentTarget.value);
+          }}
+        />
         <button
-          style={{ marginLeft: "auto", fontSize: "25px" }}
           onClick={() => {
-            navigate("/wNotice");
+            onSearch();
           }}
         >
-          공지사항 등록
+          회원 검색
         </button>
       </div>
       <div className="productTable">
         <div className="adminrow">
           <div className="admincol">번호</div>
-          <div className="admincol">공지사항</div>
-          <div className="admincol">등록날짜</div>
+          <div className="admincol">회원 ID</div>
+          <div className="admincol">회원 닉네임</div>
         </div>
-        {content.map((noticelist, idx) => {
+        {content.map((member, idx) => {
           return (
-            <div className="adminrow" key={idx} to={`/nView/${noticelist.id}`}>
-              <div className="admincol">{noticelist.id}</div>
+            <div className="adminrow" key={idx} to={`/mView/${member.id}`}>
+              <div className="admincol">{member.id}</div>
               <div
                 className="admincol"
                 onClick={() => {
-                  nView(noticelist.id);
+                  mView(member.id);
                 }}
                 style={{ cursor: "pointer" }}
               >
-                {noticelist.title}
+                {member.username}
               </div>
-
-              <div className="admincol">
-                {noticelist.writeDate.slice(0, 10)}
-              </div>
+              <div className="admincol">{member.nickname}</div>
             </div>
           );
         })}
@@ -85,4 +88,4 @@ function NoticeList() {
   );
 }
 
-export default NoticeList;
+export default SearchMList;

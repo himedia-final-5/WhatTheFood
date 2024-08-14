@@ -36,45 +36,44 @@ function InquiryView() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>문의사항</h2>
+      <div className="adminCategory">문의사항</div>
       <div className="productTable">
         <div className="adminfield">
-          <label>문의 제목</label>
+          <label className="labellabel">제목</label>
           <div>{qnaView.title}</div>
         </div>
 
         <div className="adminfield">
-          <label>등록날짜</label>
+          <label className="labellabel">등록날짜</label>
           <div>{(qnaView.date + "").substring(0, 10)}</div>
         </div>
 
         <div className="adminfield">
-          <label>유저ID</label>
+          <label className="labellabel">회원ID</label>
           <div>{qnaView.username}</div>
         </div>
 
         <div className="adminfield">
-          <label>문의 내용</label>
+          <label className="labellabel">내용</label>
           <div>{qnaView.content}</div>
         </div>
 
         <div className="adminfield">
-          <label>스크린샷</label>
+          <label className="labellabel">스크린샷</label>
           <div>{qnaView.image}</div>
         </div>
 
         <div className="adminfield">
-          <label>답변 내용</label>
-          <div>
-            <textarea
-              rows="10"
-              value={answer}
-              placeholder={qnaView.answer}
-              onChange={(e) => {
-                setAnswer(e.currentTarget.value);
-              }}
-            ></textarea>
-          </div>
+          <label className="labellabel">답변 내용</label>
+
+          <textarea
+            rows="10"
+            value={answer}
+            placeholder={qnaView.answer}
+            onChange={(e) => {
+              setAnswer(e.currentTarget.value);
+            }}
+          ></textarea>
         </div>
 
         <div className="adminbtns">

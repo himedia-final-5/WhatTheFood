@@ -21,10 +21,10 @@ function WriteFaq() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>FAQ 등록</h2>
+      <div className="adminCategory">FAQ 등록</div>
       <div className="productTable">
         <div className="adminfield">
-          <label>FAQ 제목</label>
+          <label className="labellabel">FAQ 제목</label>
           <input
             type="text"
             onChange={(e) => {
@@ -33,15 +33,13 @@ function WriteFaq() {
           />
         </div>
         <div className="adminfield">
-          <label>FAQ 내용</label>
-          <div>
-            <textarea
-              rows="10"
-              onChange={(e) => {
-                setContent(e.currentTarget.value);
-              }}
-            ></textarea>
-          </div>
+          <label className="labellabel">FAQ 내용</label>
+          <textarea
+            rows="10"
+            onChange={(e) => {
+              setContent(e.currentTarget.value);
+            }}
+          ></textarea>
         </div>
 
         <div className="adminbtns">

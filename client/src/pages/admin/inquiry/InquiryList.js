@@ -53,15 +53,16 @@ function InquiryList() {
           onClick={() => {
             onSearch();
           }}
+          style={{ fontSize: "25px" }}
         >
-          유저ID 검색
+          회원ID 검색
         </button>
       </div>
       <div className="productTable">
         <div className="adminrow">
           <div className="admincol">번호</div>
           <div className="admincol">문의제목</div>
-          <div className="admincol">유저ID</div>
+          <div className="admincol">회원ID</div>
           <div className="admincol">등록날짜</div>
           <div className="admincol">답변여부</div>
         </div>

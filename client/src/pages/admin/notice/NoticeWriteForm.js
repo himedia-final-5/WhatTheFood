@@ -23,10 +23,10 @@ function NoticeWriteForm() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>공지 등록</h2>
+      <div className="adminCategory">공지 등록</div>
       <div className="productTable">
         <div className="adminfield">
-          <label>공지사항 제목</label>
+          <label className="labellabel">제목</label>
           <input
             type="text"
             onChange={(e) => {
@@ -35,15 +35,14 @@ function NoticeWriteForm() {
           />
         </div>
         <div className="adminfield">
-          <label>공지사항 내용</label>
-          <div>
-            <textarea
-              rows="10"
-              onChange={(e) => {
-                setContent(e.currentTarget.value);
-              }}
-            ></textarea>
-          </div>
+          <label className="labellabel">내용</label>
+
+          <textarea
+            rows="10"
+            onChange={(e) => {
+              setContent(e.currentTarget.value);
+            }}
+          ></textarea>
         </div>
 
         <div className="adminbtns">

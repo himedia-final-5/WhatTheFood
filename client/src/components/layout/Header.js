@@ -77,7 +77,7 @@ function Header() {
           <Link to="/ranking">랭킹</Link>
         </div>
         <div className="topMenu">
-          <Link to="/store">스토어</Link>
+          <Link to="/store">매장 찾기</Link>
         </div>
         <div className="topMenu">
           <Link to="/notice">공지사항</Link>

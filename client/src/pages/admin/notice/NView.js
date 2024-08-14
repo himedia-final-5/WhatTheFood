@@ -33,20 +33,20 @@ function NView() {
   return (
     <div className="adminContainer">
       <SubMenu />
-      <h2>공지사항</h2>
+      <div className="adminCategory">공지사항</div>
       <div className="productTable">
         <div className="adminfield">
-          <label>공지사항 제목</label>
+          <label className="labellabel">제목</label>
           <div>{noticeView.title}</div>
         </div>
 
         <div className="adminfield">
-          <label>등록날짜</label>
+          <label className="labellabel">등록날짜</label>
           <div>{(noticeView.writeDate + "").substring(0, 10)}</div>
         </div>
 
         <div className="adminfield">
-          <label>공지사항 내용</label>
+          <label className="labellabel">내용</label>
           <div>{noticeView.content}</div>
         </div>
 

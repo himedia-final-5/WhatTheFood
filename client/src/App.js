@@ -24,6 +24,7 @@ import Admin from "pages/admin/Login";
 
 import MemberList from "pages/admin/member/MemberList";
 import MView from "pages/admin/member/MView";
+import SearchMList from "pages/admin/member/SearchMList";
 
 import NList from "pages/admin/notice/NoticeList";
 import NView from "pages/admin/notice/NView";
@@ -79,6 +80,7 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/memberList" element={<MemberList />} />
               <Route path="/mView/:id" element={<MView />} />
+              <Route path="/searchMList/:username" element={<SearchMList />} />
               <Route path="/noticeList" element={<NList />} />
               <Route path="/nView/:id" element={<NView />} />
               <Route path="/wNotice" element={<WriteNotice />} />

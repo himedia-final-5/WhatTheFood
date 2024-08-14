@@ -12,16 +12,31 @@ export default function AdminLayout() {
     toast.success("로그아웃 되었습니다.");
     navigate("/admin");
   }
+
+  function toHome() {
+    navigate("/");
+  }
   return (
     <div className="adminTotalContainer">
       <br></br>
-      <div
-        className="adminLogoutImg"
-        onClick={() => {
-          signout();
-        }}
-      >
-        <img src="/images/logout.png" />
+      <div className="adminIcon">
+        <div
+          className="adminLogoutImg"
+          onClick={() => {
+            signout();
+          }}
+        >
+          <img src="/images/logout.png" />
+        </div>
+        <div
+          className="adminLogoutImg"
+          onClick={() => {
+            toHome();
+          }}
+        >
+          <img src="/images/home.png" />
+          <img src="/images/logo.png" id="adminHlogo" />
+        </div>
       </div>
 
       <br></br>

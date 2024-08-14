@@ -40,10 +40,10 @@ function QnaList() {
     <div className="adminContainer">
       <SubMenu />
       <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
-        <input type="text" className="adminSearch" />
-        <button>검색</button>
+        {/* <input type="text" className="adminSearch" />
+        <button>검색</button> */}
         <button
-          style={{ marginLeft: "auto" }}
+          style={{ marginLeft: "auto", fontSize: "25px" }}
           onClick={() => {
             navigate("/writeFaq");
           }}
