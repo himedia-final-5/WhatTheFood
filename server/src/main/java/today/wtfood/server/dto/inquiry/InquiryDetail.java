@@ -14,6 +14,8 @@ public interface InquiryDetail {
 
     String getContent();
 
+    String getImage();
+
     String getAnswer();
 
     Timestamp getDate();

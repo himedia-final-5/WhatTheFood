@@ -7,7 +7,8 @@ import today.wtfood.server.entity.Inquiry;
  */
 public record InquiryDto(
         String title,
-        String content
+        String content,
+        String image
 ) {
 
     public Inquiry toEntity(String username) {
@@ -15,6 +16,7 @@ public record InquiryDto(
                 .username(username)
                 .title(title)
                 .content(content)
+                .image(image)
                 .build();
     }
 

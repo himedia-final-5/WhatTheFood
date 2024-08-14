@@ -45,6 +45,9 @@ function InquiryView() {
           </div>
           <br></br>
           <div id="iqvcontent">{qnaView.content}</div>
+          <div id="iqvimage">
+            {qnaView.image && <img src={qnaView.image} alt="이미지" />}
+          </div>
         </div>
         <br></br>
         <Link id="iqvback" to="/inquiryList">
