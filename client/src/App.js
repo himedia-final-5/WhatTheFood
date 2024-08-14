@@ -39,6 +39,8 @@ import FaqView from "pages/admin/inquiry/FaqView";
 import WFaq from "pages/admin/inquiry/WriteFaq";
 import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
 
+import BrandList from "pages/admin/brand/BrandList";
+
 function App() {
   return (
     <div className="App flex flex-col w-full h-full">
@@ -88,6 +90,8 @@ function App() {
               <Route path="/fView/:id" element={<FaqView />} />
               <Route path="/writeFaq" element={<WFaq />} />
               <Route path="/faqUpdate/:id" element={<FaqUpdate />} />
+              <Route path="/brandList" element={<BrandList />} />
+              brandList
             </Route>
           </Routes>
         </Suspense>
