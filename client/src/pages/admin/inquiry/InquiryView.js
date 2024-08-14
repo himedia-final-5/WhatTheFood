@@ -40,33 +40,36 @@ function InquiryView() {
       <div className="productTable">
         <div className="adminfield">
           <label className="labellabel">제목</label>
-          <div>{qnaView.title}</div>
+          <div className="labelcontent">{qnaView.title}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">등록날짜</label>
-          <div>{(qnaView.date + "").substring(0, 10)}</div>
+          <div className="labelcontent">
+            {(qnaView.date + "").substring(0, 10)}
+          </div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">회원ID</label>
-          <div>{qnaView.username}</div>
+          <div className="labelcontent">{qnaView.username}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">내용</label>
-          <div>{qnaView.content}</div>
+          <div className="labelcontent">{qnaView.content}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">스크린샷</label>
-          <div>{qnaView.image}</div>
+          <div className="labelcontent">{qnaView.image}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">답변 내용</label>
 
           <textarea
+            style={{ fontSize: "20px" }}
             rows="10"
             value={answer}
             placeholder={qnaView.answer}

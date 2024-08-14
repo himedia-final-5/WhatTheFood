@@ -27,6 +27,7 @@ function WriteFaq() {
           <label className="labellabel">FAQ 제목</label>
           <input
             type="text"
+            style={{ fontSize: "20px" }}
             onChange={(e) => {
               setTitle(e.currentTarget.value);
             }}
@@ -35,6 +36,7 @@ function WriteFaq() {
         <div className="adminfield">
           <label className="labellabel">FAQ 내용</label>
           <textarea
+            style={{ fontSize: "20px" }}
             rows="10"
             onChange={(e) => {
               setContent(e.currentTarget.value);

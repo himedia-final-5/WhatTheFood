@@ -43,6 +43,7 @@ function FaqUpdate() {
           <label>FAQ 제목</label>
           <input
             type="text"
+            style={{ fontSize: "20px" }}
             placeholder={faqView.title}
             onChange={(e) => {
               setTitle(e.currentTarget.value);
@@ -51,15 +52,15 @@ function FaqUpdate() {
         </div>
         <div className="adminfield">
           <label>FAQ 내용</label>
-          <div>
-            <textarea
-              rows="10"
-              placeholder={faqView.content}
-              onChange={(e) => {
-                setContent(e.currentTarget.value);
-              }}
-            ></textarea>
-          </div>
+
+          <textarea
+            rows="10"
+            style={{ fontSize: "20px" }}
+            placeholder={faqView.content}
+            onChange={(e) => {
+              setContent(e.currentTarget.value);
+            }}
+          ></textarea>
         </div>
 
         <div className="adminbtns">

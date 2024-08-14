@@ -188,6 +188,10 @@ textarea {
   text-align: center;
 }
 
+.labelcontent {
+  font-size: 20px;
+}
+
 .adminCategory {
   font-size: 30px;
   font-weight: bold;

@@ -37,17 +37,19 @@ function NView() {
       <div className="productTable">
         <div className="adminfield">
           <label className="labellabel">제목</label>
-          <div>{noticeView.title}</div>
+          <div className="labelcontent">{noticeView.title}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">등록날짜</label>
-          <div>{(noticeView.writeDate + "").substring(0, 10)}</div>
+          <div className="labelcontent">
+            {(noticeView.writeDate + "").substring(0, 10)}
+          </div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">내용</label>
-          <div>{noticeView.content}</div>
+          <div className="labelcontent">{noticeView.content}</div>
         </div>
 
         <div className="adminbtns">

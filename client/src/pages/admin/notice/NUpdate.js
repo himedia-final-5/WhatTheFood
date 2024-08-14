@@ -42,6 +42,7 @@ function NUpdate() {
           <label className="labellabel">제목</label>
           <input
             type="text"
+            style={{ fontSize: "20px" }}
             placeholder={noiceView.title}
             onChange={(e) => {
               setTitle(e.currentTarget.value);
@@ -53,6 +54,7 @@ function NUpdate() {
           <div>
             <textarea
               rows="10"
+              style={{ fontSize: "20px" }}
               placeholder={noiceView.content}
               onChange={(e) => {
                 setContent(e.currentTarget.value);

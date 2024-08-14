@@ -40,22 +40,22 @@ function MView() {
       <div className="productTable">
         <div className="adminfield">
           <label className="labellabel">회원 이름</label>
-          <div>{memberView.username}</div>
+          <div className="labelcontent">{memberView.username}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">회원 이메일</label>
-          <div>{memberView.email}</div>
+          <div className="labelcontent">{memberView.email}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">회원 닉네임</label>
-          <div>{memberView.nickname}</div>
+          <div className="labelcontent">{memberView.nickname}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">회원 소개</label>
-          <div>{memberView.introduce}</div>
+          <div className="labelcontent">{memberView.introduce}</div>
         </div>
 
         <div className="adminbtns">
