@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { signoutAction, useDispatch, useSelector } from "stores";
+import { signoutAction, useDispatch } from "stores";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLayout() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function AdminLayout() {
             signout();
           }}
         >
-          <img src="/images/logout.png" />
+          <img src="/images/logout.png" alt="logout" />
         </div>
         <div
           className="adminLogoutImg"
@@ -34,8 +34,8 @@ export default function AdminLayout() {
             toHome();
           }}
         >
-          <img src="/images/home.png" />
-          <img src="/images/logo.png" id="adminHlogo" />
+          <img src="/images/home.png" alt="home" />
+          <img src="/images/logo.png" id="adminHlogo" alt="adminHlogo" />
         </div>
       </div>
 

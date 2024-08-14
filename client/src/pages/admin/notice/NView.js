@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
 import { useParams, useNavigate } from "react-router-dom";

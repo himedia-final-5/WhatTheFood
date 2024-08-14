@@ -1,14 +1,13 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "stores";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
 function SearchIList() {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
   const [isMounted, setMounted] = useState(false);
   const { username } = useParams();
   const { content, pagination, setPageResponse } = usePageResponse();

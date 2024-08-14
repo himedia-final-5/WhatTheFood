@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import SubMenu from "../SubMenu";
-import { axios } from "utils";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "stores";
-
 const { kakao } = window;
+
 function BrandList() {
   useEffect(() => {
     const container = document.getElementById("map");

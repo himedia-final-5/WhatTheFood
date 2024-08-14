@@ -1,14 +1,13 @@
 import { useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import SubMenu from "../SubMenu";
 import { axios } from "utils";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "stores";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
 function QnaList() {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
 
   const { content, pagination, setPageResponse } = usePageResponse();
 

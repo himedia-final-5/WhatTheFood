@@ -27,14 +27,14 @@ function InquiryList() {
         .then((result) => setPageResponse(result.data))
         .catch(console.error);
     },
-    [user, setPageResponse],
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [user],
   );
 
-  useEffect(() => {
-    if (content.length === 0) {
-      onSelectPage(0);
-    }
-  }, [content, onSelectPage]);
+  // 페이지 로딩시 첫 페이지 데이터 로드
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => onSelectPage(0), []);
 
   return (
     <UserFeatureContainer>
