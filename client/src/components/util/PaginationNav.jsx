@@ -1,4 +1,6 @@
-import { cn } from "utils";
+import cn from "utils/cn";
+import PaginationLeft from "components/asset/PaginationLeft";
+import PaginationRight from "components/asset/PaginationRight";
 
 /**
  * @typedef {object} Props
@@ -6,90 +8,62 @@ import { cn } from "utils";
  * @property {function(number)} onSelectPage 페이지 이동 함수
  */
 /** @type {function(Props): React.JSX.Element} */
+
 export default function PaginationNav({ pagination, onSelectPage }) {
-  const pageNumbers = Array.from(
-    { length: pagination.totalPages },
-    (_, index) => index + 1,
-  );
+  const current = pagination.page;
+  const start = Math.max(0, Math.min(current - 2, pagination.totalPages - 5));
+  const end = Math.min(pagination.totalPages - 1, start + 4);
+
+  const isFistPage = current === 0;
+  const isLastPage = current === pagination.totalPages - 1;
 
   return (
-    <nav
-      aria-label="pagination"
-      className="flex items-center -space-x-px h-8 text-sm text-gray-500"
-    >
-      <button
-        aria-label="prev-page"
-        className={cn(
-          "flex items-center justify-center px-3 h-8 ms-0 leading-tight ",
-          "border border-e-0 border-gray-300 rounded-s-lg ",
-          pagination.first
-            ? " bg-gray-200 cursor-default"
-            : "  hover:bg-gray-100 hover:text-gray-700",
-        )}
-        onClick={() => pagination.first || onSelectPage(0)}
-      >
-        <span className="sr-only">Previous</span>
-        <svg
-          className="w-2.5 h-2.5 rtl:rotate-180"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 6 10"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M5 1 1 5l4 4"
-          />
-        </svg>
-      </button>
-
-      {pageNumbers.map((pageNumber) => (
-        <button
-          key={pageNumber}
+    <nav aria-label="pagination" className="flex justify-center mx-auto my-2">
+      <ul className="flex items-center justify-center h-9 w-72 text-base">
+        <li
+          role={isFistPage ? undefined : "button"}
           className={cn(
-            "flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300",
-            pagination.page === pageNumber - 1
-              ? "bg-blue-100 cursor-default"
-              : "hover:bg-gray-100 hover:text-gray-700",
+            "flex items-center justify-center h-full px-3 leading-tight rounded-l-lg border",
+            isFistPage
+              ? "border-gray-300"
+              : "cursor-pointer text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700",
           )}
-          onClick={() =>
-            pagination.page === pageNumber - 1 || onSelectPage(pageNumber - 1)
-          }
+          onClick={() => isFistPage || onSelectPage(current - 1)}
         >
-          {pageNumber}
-        </button>
-      ))}
-      <button
-        aria-label="next-page"
-        className={cn(
-          "flex items-center justify-center px-3 h-8 leading-tight",
-          "border border-gray-300 rounded-e-lg",
-          pagination.last
-            ? " bg-gray-200 cursor-default"
-            : "  hover:bg-gray-100 hover:text-gray-700",
-        )}
-        onClick={() => pagination.last || onSelectPage(pagination.page + 1)}
-      >
-        <span className="sr-only">Next</span>
-        <svg
-          className="w-2.5 h-2.5 rtl:rotate-180"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 6 10"
+          <PaginationLeft className="w-2.5 h-2.5" />
+        </li>
+        {Array.from({ length: end - start + 1 }).map((_, i) => {
+          const page = start + i;
+          const isCurrent = page === current;
+          return (
+            <li
+              key={i}
+              role={isCurrent ? undefined : "button"}
+              className={cn(
+                "flex items-center justify-center h-full px-3 leading-tight",
+                isCurrent
+                  ? "bg-slate-200 text-gray-500 border border-gray-300 "
+                  : "cursor-pointer text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700",
+              )}
+              onClick={() => isCurrent || onSelectPage(page)}
+            >
+              {page + 1}
+            </li>
+          );
+        })}
+        <li
+          role={isLastPage ? undefined : "button"}
+          className={cn(
+            "flex items-center justify-center h-full px-3 leading-tight rounded-r-lg  border ",
+            isLastPage
+              ? "border-gray-300 "
+              : "cursor-pointer text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700",
+          )}
+          onClick={() => isLastPage || onSelectPage(current + 1)}
         >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="m1 9 4-4-4-4"
-          />
-        </svg>
-      </button>
+          <PaginationRight className="w-2.5 h-2.5" />
+        </li>
+      </ul>
     </nav>
   );
 }
