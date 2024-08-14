@@ -74,7 +74,7 @@ public class MemberService {
      * @throws ConflictException   유저네임이 이미 사용중인 경우 발생
      */
     public void validateUsernameFormatAndUnique(String username) {
-        if (username.matches("^[a-zA-Z0-9_]{4,45}$")) {
+        if (!username.matches("^[a-zA-Z0-9_]{4,45}$")) {
             throw new BadRequestException("올바른 아이디 형식이 아닙니다", "username");
         }
 
@@ -91,7 +91,7 @@ public class MemberService {
      * @throws ConflictException   이메일이 이미 사용중인 경우 발생
      */
     public void validateEmailFormatAndUnique(String email) {
-        if (email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+        if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
             throw new BadRequestException("올바른 이메일 형식이 아닙니다", "email");
         }
 
