@@ -6,14 +6,13 @@ import today.wtfood.server.entity.EmailToken;
 
 import java.sql.Timestamp;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface EmailTokenRepository extends JpaRepository<EmailToken, UUID> {
+public interface EmailTokenRepository extends JpaRepository<EmailToken, String> {
 
-    Optional<EmailToken> findByTokenAndExpiryDateIsAfter(UUID token, Timestamp date);
+    Optional<EmailToken> findByTokenAndExpiryDateIsAfter(String token, Timestamp date);
 
-    default Optional<EmailToken> findByToken(UUID token) {
+    default Optional<EmailToken> findByToken(String token) {
         return findByTokenAndExpiryDateIsAfter(token, new Timestamp(System.currentTimeMillis()));
     }
 
