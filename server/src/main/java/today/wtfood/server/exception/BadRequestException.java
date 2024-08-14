@@ -2,23 +2,32 @@ package today.wtfood.server.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 @Getter
-public class BadRequestException extends ResponseStatusException {
+public class BadRequestException extends BaseResponseStatusException {
 
-    /**
-     * 필드 이름
-     */
-    private final String field;
-
-    public BadRequestException(String message) {
-        this(message, null);
+    @Override
+    public @NonNull HttpStatusCode getStatusCode() {
+        return HttpStatus.BAD_REQUEST;
     }
 
-    public BadRequestException(String message, String field) {
-        super(HttpStatus.BAD_REQUEST, message);
-        this.field = field;
+    public BadRequestException(@NonNull String reason) {
+        super(reason, null, null);
+    }
+
+    public BadRequestException(@NonNull String reason, @Nullable String field) {
+        super(reason, field, null);
+    }
+
+    public BadRequestException(@NonNull String reason, @Nullable Throwable cause) {
+        super(reason, null, cause);
+    }
+
+    public BadRequestException(@NonNull String reason, @Nullable String field, @Nullable Throwable cause) {
+        super(reason, field, cause);
     }
 
 }
