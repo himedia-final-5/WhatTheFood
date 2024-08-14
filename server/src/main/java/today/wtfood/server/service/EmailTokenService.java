@@ -6,7 +6,6 @@ import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.repository.EmailTokenRepository;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Service
 public class EmailTokenService {
@@ -38,7 +37,7 @@ public class EmailTokenService {
     /**
      * 이메일 토큰 조회
      */
-    public EmailToken getEmailToken(UUID token) {
+    public EmailToken getEmailToken(String token) {
         return emailTokenRepository.findByToken(token)
                 .orElseThrow(() -> new BadRequestException("유효하지 않은 인증 문자입니다."));
     }

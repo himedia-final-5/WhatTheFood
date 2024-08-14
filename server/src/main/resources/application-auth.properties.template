@@ -8,14 +8,14 @@ spring.mail.host={smtp.example.com}
 spring.mail.port=587
 spring.mail.username={username@example.com}
 spring.mail.password={password4email}
-mail.sender.verify-email={verify@wtfood.today}
 #
 # Security configuration
 ## secret key for JWT token (TIP: use https://jwtsecret.com/generate)
 jwt.secret={SECRET_KEY_FOR_JWT_TOKEN}
 ## expiration time of JWT access token in milliseconds (default 30 minutes)
-jwt.access_token_expiration=1800000
+jwt.access-token-expiration=1800000
 ## expiration time of JWT refresh token in milliseconds (default 7 day)
-jwt.refresh_token_expiration=604800000
-
+jwt.refresh-token-expiration=604800000
+#
+# Channel Talk configuration
 channel.talk.access.secret=YOUR_ACCESS_SECRET

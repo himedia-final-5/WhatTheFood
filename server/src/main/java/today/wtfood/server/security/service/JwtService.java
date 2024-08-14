@@ -1,12 +1,12 @@
 package today.wtfood.server.security.service;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import today.wtfood.server.config.properties.JwtProperties;
 import today.wtfood.server.dto.member.MemberAuth;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.UnauthorizedException;
@@ -16,38 +16,19 @@ import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.repository.BlockTokenRepository;
 import today.wtfood.server.service.MemberService;
 
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
 @Log4j2
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     public static final String JWT_ISSUER = "wtfood.today";
 
-    private final SecretKey secretKey;
-    private final long accessTokenExpiration;
-    private final long refreshTokenExpiration;
-
+    private final JwtProperties jwtProperties;
     private final MemberService memberService;
     private final BlockTokenRepository blockTokenRepository;
-
-    public JwtService(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.access_token_expiration}") long accessTokenExpiration,
-            @Value("${jwt.refresh_token_expiration}") long refreshTokenExpiration,
-            MemberService memberService,
-            BlockTokenRepository blockTokenRepository
-    ) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        this.accessTokenExpiration = accessTokenExpiration;
-        this.refreshTokenExpiration = refreshTokenExpiration;
-
-        this.memberService = memberService;
-        this.blockTokenRepository = blockTokenRepository;
-    }
 
     /**
      * 토큰 생성
@@ -83,7 +64,7 @@ public class JwtService {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(currentDate)
-                .signWith(secretKey)
+                .signWith(jwtProperties.getSecret())
                 .setExpiration(expireDate)
                 .compact();
     }
@@ -94,12 +75,12 @@ public class JwtService {
         // 토큰의 UUID 생성 (접근 토큰과 갱신 토큰의 UUID를 동일하게 설정)
         String uuid = UUID.randomUUID().toString();
 
-        // 토큰 생성
-        String accessToken = generateToken(TokenPurpose.AUTHORIZATION, username, accessTokenExpiration, uuid);
-        String refreshToken = generateToken(TokenPurpose.REFRESH_TOKEN, username, refreshTokenExpiration, uuid);
-
         // 응답 객체 생성 및 반환
-        return new JwtAuthResponse(member, accessToken, refreshToken);
+        return new JwtAuthResponse(
+                member,
+                generateToken(TokenPurpose.AUTHORIZATION, username, jwtProperties.getAccessTokenExpiration(), uuid),
+                generateToken(TokenPurpose.REFRESH_TOKEN, username, jwtProperties.getRefreshTokenExpiration(), uuid)
+        );
     }
 
     public JwtAuthResponse reissueToken(String refreshToken) throws JwtException {
@@ -132,7 +113,7 @@ public class JwtService {
     public Claims validateToken(String token, @Nullable TokenPurpose expectPurpose) throws JwtException {
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
+                    .setSigningKey(jwtProperties.getSecret())
                     .build()
                     .parseClaimsJws(token)
                     .getBody();

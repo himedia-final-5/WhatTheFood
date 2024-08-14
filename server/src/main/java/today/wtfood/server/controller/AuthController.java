@@ -57,7 +57,7 @@ public class AuthController {
         memberService.validateEmailFormatAndUnique(email);
 
         EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, email, 1000 * 60 * 60 * 24);
-        emailSendService.sendSignUpEmail(email, emailToken.getToken().toString());
+        emailSendService.sendSignUpEmail(email, emailToken.getToken());
     }
 
 }

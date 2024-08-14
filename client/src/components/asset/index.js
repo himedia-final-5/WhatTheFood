@@ -6,6 +6,7 @@ export const LogoNaver = $(() => import("./LogoNaver"));
 
 export const CloseMark = $(() => import("./CloseMark"));
 export const TablerCircleKeyFilled = $(() => import("./TablerCircleKeyFilled"));
+export const TablerMailFilled = $(() => import("./TablerMailFilled"));
 export const TablerUserFilled = $(() => import("./TablerUserFilled"));
 
 export const UndrawAddFiles = $(() => import("./UndrawAddFiles"));

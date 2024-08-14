@@ -3,70 +3,63 @@ package today.wtfood.server.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.dto.email.EmailMessage;
-import today.wtfood.server.dto.email.IEmailMessage;
+import today.wtfood.server.config.properties.MailProperties;
+import today.wtfood.server.dto.email.MailTemplate;
 import today.wtfood.server.exception.InternalServerErrorException;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 @Log4j2
 @Service
 public class EmailSendService {
 
-    private final String from;
+    private final MailProperties mailProperties;
     private final JavaMailSender javaMailSender;
 
-    private final String signupMailTemplatePlain;
-    private final String signupMailTemplateHtml;
+    private final MailTemplate signUpMailTemplate;
 
     public EmailSendService(
-            @Value("${mail.sender.verify-email}") String from,
-            @Value("${mail.template.home-page}") String homePage,
-            @Value("${mail.template.logo-path}") String logoPath,
+            MailProperties mailProperties,
             ResourceLoader resourceLoader,
             JavaMailSender javaMailSender
     ) throws IOException {
-        this.from = from;
+        this.mailProperties = mailProperties;
         this.javaMailSender = javaMailSender;
 
-        // 리소스 폴더의 mail/signup.txt 파일 읽어오기
-        this.signupMailTemplatePlain = parseTemplate(
-                resourceLoader.getResource("classpath:mail/signup.txt"),
-                homePage,
-                logoPath
-        );
-
-        // 리소스 폴더의 mail/signup.html 파일 읽어오기
-        this.signupMailTemplateHtml = parseTemplate(
-                resourceLoader.getResource("classpath:mail/signup.html"),
-                homePage,
-                logoPath
+        this.signUpMailTemplate = MailTemplate.fromProperties(
+                mailProperties.getSignUpTemplate(),
+                resourceLoader
         );
     }
 
-    private String parseTemplate(Resource templateResource, String homePage, String logoPath) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(templateResource.getURI())))
-                .replaceAll("%HOME_PAGE%", homePage)
-                .replaceAll("%LOGO_PATH%", logoPath);
-    }
-
-    public void sendMail(IEmailMessage emailMessage) throws InternalServerErrorException {
+    /**
+     * 이메일을 전송
+     *
+     * @param targetEmail  대상 이메일
+     * @param subject      이메일 제목
+     * @param mailTemplate 이메일 템플릿
+     * @param replacements 치환자 목록
+     * @throws InternalServerErrorException 이메일 전송 중 오류가 발생했을 때
+     */
+    public void sendMail(String targetEmail, String subject, MailTemplate mailTemplate, Map<String, String> replacements) throws InternalServerErrorException {
         try {
             // 전송될 이메일 내용 설정
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(emailMessage.getTo());
-            mimeMessageHelper.setSubject(emailMessage.getSubject());
-            mimeMessageHelper.setText(emailMessage.getPlainContent(), emailMessage.getHtmlContent());
+            mimeMessageHelper.setTo(targetEmail);
+            mimeMessageHelper.setSubject(subject);
+            mimeMessageHelper.setFrom(mailTemplate.sender());
+            mimeMessageHelper.setText(
+                    replaceAllIgnoreCase(mailTemplate.plainText(), replacements),
+                    replaceAllIgnoreCase(mailTemplate.htmlText(), replacements)
+            );
 
             // 메일 전송
             javaMailSender.send(mimeMessage);
@@ -80,17 +73,22 @@ public class EmailSendService {
     /**
      * 회원가입 이메일을 전송
      *
-     * @param email      대상 이메일
-     * @param emailToken 이메일에 포함할 토큰
+     * @param targetEmail 대상 이메일
+     * @param emailToken  이메일에 포함할 토큰
      * @throws InternalServerErrorException 이메일 전송 중 오류가 발생했을 때
      */
-    public void sendSignUpEmail(String email, String emailToken) throws InternalServerErrorException {
-        sendMail(new EmailMessage(
-                email,
-                "오늘뭐먹지? - 회원가입 인증 메일",
-                signupMailTemplatePlain.replaceAll("%EMAIL_TOKEN%", emailToken),
-                signupMailTemplateHtml.replaceAll("%EMAIL_TOKEN%", emailToken)
-        ));
+    public void sendSignUpEmail(String targetEmail, String emailToken) throws InternalServerErrorException {
+        Map<String, String> replacements = new HashMap<>(mailProperties.getGlobalReplacements());
+        replacements.put("email-token", emailToken);
+
+        sendMail(targetEmail, "회원가입을 위한 이메일 인증", signUpMailTemplate, replacements);
+    }
+
+    private String replaceAllIgnoreCase(String text, Map<String, String> replacements) {
+        for (Map.Entry<String, String> entry : replacements.entrySet()) {
+            text = text.replaceAll("(?i)%" + Pattern.quote(entry.getKey()) + "%", entry.getValue());
+        }
+        return text;
     }
 
 }
