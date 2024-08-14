@@ -4,7 +4,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.recipe.RecipeDetail;
@@ -78,12 +77,8 @@ public class RecipeController {
             @PathVariable("id") long id,
             @RequestBody RecipeDto recipeDto
     ) {
-        try {
-            Recipe updatedRecipe = recipeDto.toEntity(); // DTO를 엔티티로 변환
-            rs.updateRecipe(id, updatedRecipe);
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        Recipe updatedRecipe = recipeDto.toEntity();
+        rs.updateRecipe(id, updatedRecipe);
     }
 
     // 레시피 삭제
@@ -91,11 +86,7 @@ public class RecipeController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRecipe(@PathVariable("id") long id) {
-        try {
-            rs.deleteRecipe(id);
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        rs.deleteRecipe(id);
     }
 
     // 새로운 레시피 생성

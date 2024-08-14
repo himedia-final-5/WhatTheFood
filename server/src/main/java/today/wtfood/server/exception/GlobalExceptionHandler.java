@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     public void handleJwtException(JwtException exception, HttpServletResponse response) throws IOException {
         log.error("JWT Exception: ", exception);
 
-        ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, exception.getMessage());
+        ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, "잘못된 토큰입니다");
     }
 
     /**
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     public void handleAuthorizationDeniedException(AuthorizationDeniedException exception, HttpServletResponse response) throws IOException {
         log.error("AuthorizationDeniedException: ", exception);
 
-        ResponseHelper.writeError(response, HttpStatus.FORBIDDEN, exception.getMessage());
+        ResponseHelper.writeError(response, HttpStatus.FORBIDDEN, "권한이 없습니다");
     }
 
     /**
@@ -49,9 +49,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public void handleMissingServletRequestParameterException(MissingServletRequestParameterException exception, HttpServletResponse response) throws IOException {
         log.error("MissingServletRequestParameterException: ", exception);
-        log.error("파라미터 {}이(가) 올바르지 않습니다. : {}", exception.getParameterName(), exception.getMessage());
 
-        ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+        ResponseHelper.writeFieldError(response, exception.getParameterName(), exception.getMessage());
     }
 
     /**
@@ -60,8 +59,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public void handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException exception, HttpServletResponse response) throws IOException {
         log.error("MethodArgumentTypeMismatchException: ", exception);
-        log.error("파라미터 {}이(가) 올바르지 않습니다. : {}", exception.getPropertyName(), exception.getMessage());
-        ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+
+        ResponseHelper.writeFieldError(response, exception.getPropertyName(), exception.getMessage());
     }
 
     /**
@@ -70,10 +69,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public void handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, HttpServletResponse response) throws IOException {
         log.error("MethodArgumentNotValidException: ", exception);
-        FieldError fieldError = Objects.requireNonNull(exception.getBindingResult().getFieldError());
-        log.error("파라미터 {}이(가) 올바르지 않습니다. : {}", fieldError.getField(), fieldError.getDefaultMessage());
 
-        ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+        FieldError fieldError = Objects.requireNonNull(exception.getBindingResult().getFieldError());
+        ResponseHelper.writeFieldError(response, fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     /**

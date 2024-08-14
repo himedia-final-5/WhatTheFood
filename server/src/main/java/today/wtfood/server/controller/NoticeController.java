@@ -7,7 +7,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.notice.NoticeDetail;
@@ -58,12 +57,7 @@ public class NoticeController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateNotice(@PathVariable("id") long id, @RequestBody NoticeDto notice) {
-        try {
-            ns.updateNotice(id, notice);
-            return;
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        ns.updateNotice(id, notice);
     }
 
 }

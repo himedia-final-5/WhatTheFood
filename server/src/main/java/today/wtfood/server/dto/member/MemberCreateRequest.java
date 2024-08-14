@@ -1,6 +1,5 @@
 package today.wtfood.server.dto.member;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,22 +12,19 @@ import today.wtfood.server.entity.Member;
  */
 public record MemberCreateRequest(
         @NotBlank
-        @Size(min = 4, max = 45)
-        @Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "아이디는 영문, 숫자, _만 입력 가능합니다.")
+        @Pattern(regexp = "^[a-zA-Z0-9_]{4,45}$", message = "올바른 아이디 형식이 아닙니다")
         String username,
 
         @NotBlank
-        @Size(min = 4, max = 45)
+        @Size(min = 4, max = 45, message = "비밀번호는 4자 이상 45자 이하로 입력해주세요")
         String password,
 
         @NotBlank
-        @Size(min = 2, max = 15)
-        @Pattern(regexp = "^[a-zA-Z0-9_가-힣]*$", message = "닉네임은 한글, 영문, 숫자, _만 입력 가능합니다.")
+        @Pattern(regexp = "^[a-zA-Z0-9_가-힣]{2,15}$", message = "올바른 닉네임 형식이 아닙니다")
         String nickname,
 
         @NotBlank
-        @Size(min = 4, max = 45)
-        @Email
+        @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "올바른 이메일 형식이 아닙니다")
         String email
 ) {
 

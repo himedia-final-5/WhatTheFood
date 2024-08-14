@@ -15,7 +15,6 @@ import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
 import today.wtfood.server.dto.member.admin.MemberAdmin;
-import today.wtfood.server.exception.ConflictException;
 import today.wtfood.server.service.MemberService;
 
 @RestController
@@ -82,9 +81,7 @@ public class MemberController {
             @RequestParam
             String username
     ) {
-        if (!memberService.checkUsernameExists(username)) {
-            throw new ConflictException("Username already exists");
-        }
+        memberService.validateUsernameFormatAndUnique(username);
     }
 
     @PostMapping("/{memberId}")

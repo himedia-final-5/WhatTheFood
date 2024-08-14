@@ -138,12 +138,13 @@ public class JwtService {
                     .getBody();
 
             if (expectPurpose != null && !expectPurpose.isSamePurpose(claims)) {
-                throw new UnauthorizedException("Invalid Token Purpose");
+                throw new UnauthorizedException("토큰의 목적 정보가 잘못되었습니다");
             }
 
             if (isBlockedToken(claims.getId())) {
-                throw new UnauthorizedException("Blocked JWT Token");
+                throw new UnauthorizedException("토큰이 만료되었습니다");
             }
+
             return claims;
         } catch (ExpiredJwtException expiredJwtException) {
             throw new UnauthorizedException("JWT Token Expired");

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.faq.FaqDetail;
 import today.wtfood.server.dto.faq.FaqDto;
 import today.wtfood.server.entity.Faq;
+import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.repository.FaqRepository;
 
 @Service
@@ -20,6 +21,10 @@ public class FaqService {
     }
 
     public void deleteInquiry(long id) {
+        if (!fr.existsById(id)) {
+            throw new NotFoundException("데이터를 찾을 수 없습니다", "id");
+        }
+
         fr.deleteById(id);
     }
 
@@ -34,12 +39,13 @@ public class FaqService {
 
     public FaqDetail getFaqView(long id) {
         return fr.findDetailById(id)
-                .orElseThrow(() -> new RuntimeException("FAQ 없다 이것들아."));
+                .orElseThrow(() -> new NotFoundException("데이터를 찾을 수 없습니다", "id"));
     }
 
     @Transactional
     public void updateFaq(long id, FaqDto dto) {
-        Faq faq = fr.findById(id).orElseThrow(() -> new RuntimeException("Faq with id " + id + " not found"));
+        Faq faq = fr.findById(id)
+                .orElseThrow(() -> new NotFoundException("데이터를 찾을 수 없습니다", "id"));
         faq.setTitle(dto.title());
         faq.setContent(dto.content());
     }

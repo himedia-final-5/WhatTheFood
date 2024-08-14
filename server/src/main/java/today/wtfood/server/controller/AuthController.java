@@ -1,6 +1,5 @@
 package today.wtfood.server.controller;
 
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -8,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.entity.EmailToken;
 import today.wtfood.server.exception.BadRequestException;
-import today.wtfood.server.exception.ConflictException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.service.JwtService;
 import today.wtfood.server.service.EmailSendService;
@@ -37,11 +35,17 @@ public class AuthController {
     @PostMapping("signout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void signout(@RequestHeader("Authorization") String authorizationHeader) {
-        // 접근 토큰 블록
-        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            throw new BadRequestException("토큰이 올바르지 않습니다.");
+        try {
+            // 인증 헤더 검증
+            if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+                throw new BadRequestException("토큰이 누락되었습니다.");
+            }
+
+            jwtService.blockToken(authorizationHeader.substring(7));
+        } catch (Exception e) {
+            // 로그아웃 실패는 클라이언트에게 알리지 않음
+            log.error("Signout failed: ", e);
         }
-        jwtService.blockToken(authorizationHeader.substring(7));
     }
 
     @PostMapping("/signup/verify-email")
@@ -49,10 +53,8 @@ public class AuthController {
     public void sendVerifyEmail(
             @RequestParam("email")
             String email
-    ) throws MessagingException {
-        if (!memberService.checkEmailExists(email)) {
-            throw new ConflictException("Email already exists");
-        }
+    ) {
+        memberService.validateEmailFormatAndUnique(email);
 
         EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, email, 1000 * 60 * 60 * 24);
         emailSendService.sendSignUpEmail(email, emailToken.getToken().toString());

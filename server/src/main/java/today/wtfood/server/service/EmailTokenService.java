@@ -40,7 +40,7 @@ public class EmailTokenService {
      */
     public EmailToken getEmailToken(UUID token) {
         return emailTokenRepository.findByToken(token)
-                .orElseThrow(() -> new BadRequestException("Invalid token"));
+                .orElseThrow(() -> new BadRequestException("유효하지 않은 인증 문자입니다."));
     }
 
 }

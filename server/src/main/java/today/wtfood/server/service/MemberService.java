@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberUpdateRequest;
 import today.wtfood.server.entity.Member;
+import today.wtfood.server.exception.BadRequestException;
+import today.wtfood.server.exception.ConflictException;
 import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.repository.MemberRepository;
 
@@ -64,25 +66,38 @@ public class MemberService {
                 .orElseThrow(() -> new NotFoundException("Invalid member username"));
     }
 
-
     /**
-     * username 중복 체크
+     * 유저네임 유효성 및 중복 검증
      *
-     * @param username 중복 체크할 username
-     * @return 중복 여부
+     * @param username 검증할 유저네임
+     * @throws BadRequestException 유저네임 형식이 올바르지 않은 경우 발생
+     * @throws ConflictException   유저네임이 이미 사용중인 경우 발생
      */
-    public boolean checkUsernameExists(String username) {
-        return !memberRepository.existsByUsername(username);
+    public void validateUsernameFormatAndUnique(String username) {
+        if (username.matches("^[a-zA-Z0-9_]{4,45}$")) {
+            throw new BadRequestException("올바른 아이디 형식이 아닙니다", "username");
+        }
+
+        if (memberRepository.existsByUsername(username)) {
+            throw new ConflictException("이미 사용중인 아이디입니다", "username");
+        }
     }
 
     /**
-     * email 중복 체크
+     * 이메일 유효성 및 중복 검증
      *
-     * @param email 중복 체크할 email
-     * @return 중복 여부
+     * @param email 검증할 이메일
+     * @throws BadRequestException 이메일 형식이 올바르지 않은 경우 발생
+     * @throws ConflictException   이메일이 이미 사용중인 경우 발생
      */
-    public boolean checkEmailExists(String email) {
-        return !memberRepository.existsByEmail(email);
+    public void validateEmailFormatAndUnique(String email) {
+        if (email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+            throw new BadRequestException("올바른 이메일 형식이 아닙니다", "email");
+        }
+
+        if (memberRepository.existsByEmail(email)) {
+            throw new ConflictException("이미 사용중인 이메일입니다", "email");
+        }
     }
 
     /**
