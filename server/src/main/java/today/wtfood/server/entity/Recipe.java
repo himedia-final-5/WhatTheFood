@@ -1,5 +1,6 @@
 package today.wtfood.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -107,6 +108,7 @@ public class Recipe {
     private List<String> finishedImages; // 완성품사진 경로
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Comment> comments;
 
 
@@ -144,5 +146,6 @@ public class Recipe {
 
     // 찜한 멤버들 목록
     @ManyToMany(mappedBy = "favoriteRecipes")
+    @JsonIgnore
     private Set<Member> favoriteByMembers; // 이 레시피를 찜한 멤버 목록
 }
