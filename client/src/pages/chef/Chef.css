@@ -1,0 +1,43 @@
+/* src/components/FoodCategoryList.css */
+.category-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  
+  .category-header {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .category-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .category-item {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .category-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .category-button:hover {
+    color: #0056b3;
+  }
+  

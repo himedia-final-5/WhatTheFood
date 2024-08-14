@@ -20,6 +20,7 @@ import {
 } from "pages/notice";
 import { TestAssets } from "pages/test";
 import { RankingList } from "pages/ranking";
+import { ChefList } from "pages/chef";
 import Admin from "pages/admin/Login";
 
 import MemberList from "pages/admin/member/MemberList";
@@ -72,6 +73,7 @@ function App() {
               <Route path="/test/assets" element={<TestAssets />} />
 
               <Route path="/ranking" element={<RankingList />} />
+              <Route path="/chefs" element={<ChefList />} />
             </Route>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<Admin />} />
