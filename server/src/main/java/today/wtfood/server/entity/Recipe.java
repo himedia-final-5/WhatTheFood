@@ -1,5 +1,7 @@
 package today.wtfood.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -107,6 +109,7 @@ public class Recipe {
     private List<String> finishedImages; // 완성품사진 경로
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Comment> comments;
 
 
@@ -124,6 +127,7 @@ public class Recipe {
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "recipe_id", nullable = false)
+        @JsonBackReference  // 순환 참조 방지
         private Recipe recipe;
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
