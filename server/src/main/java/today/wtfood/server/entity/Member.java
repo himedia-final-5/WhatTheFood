@@ -1,6 +1,5 @@
 package today.wtfood.server.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -100,7 +99,6 @@ public class Member implements UserDetails {
     }
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Recipe.Comment> comments;
 
     // 찜한 레시피들 목록
@@ -110,7 +108,6 @@ public class Member implements UserDetails {
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
-    @JsonIgnore
     private Set<Recipe> favoriteRecipes; // 사용자가 찜한 레시피 목록
 
 
