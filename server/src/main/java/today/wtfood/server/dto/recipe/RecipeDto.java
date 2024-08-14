@@ -25,7 +25,7 @@ public class RecipeDto implements Serializable {
     List<String> ingredients;
     List<String> cookingTools;
     List<String> guideLinks;
-    List<Recipe.CookingStep> cookingSteps;
+    List<Recipe.CookingStep> cookingStep;
     List<String> finishedImages;
 
     public Recipe toEntity() {
@@ -41,7 +41,7 @@ public class RecipeDto implements Serializable {
         recipe.setIngredients(ingredients);
         recipe.setCookingTools(cookingTools);
         recipe.setGuideLinks(guideLinks);
-        recipe.setCookingSteps(cookingSteps);
+        recipe.setCookingStep(cookingStep);
         recipe.setFinishedImages(finishedImages);
         return recipe;
     }

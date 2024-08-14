@@ -70,7 +70,7 @@ public class Recipe {
 
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CookingStep> cookingSteps; // 조리순서
+    private List<CookingStep> cookingStep; // 조리순서
 
     @Getter
     @Setter

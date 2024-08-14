@@ -83,7 +83,7 @@ public class RecipeService {
         recipe.setIngredients(updatedRecipe.getIngredients());
         recipe.setCookingTools(updatedRecipe.getCookingTools());
         recipe.setGuideLinks(updatedRecipe.getGuideLinks());
-        recipe.setCookingSteps(updatedRecipe.getCookingSteps());
+        recipe.setCookingStep(updatedRecipe.getCookingStep());
         recipe.setFinishedImages(updatedRecipe.getFinishedImages());
         recipe.setTags(updatedRecipe.getTags());
     }

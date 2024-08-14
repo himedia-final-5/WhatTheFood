@@ -34,7 +34,7 @@ public interface RecipeSummary {
     MemberSummary getMember();    // 작성자
 
     // 조리 단계 정보를 가져오기
-    List<CookingStepSummary> getCookingSteps(); // 조리 순서
+    List<CookingStepSummary> getCookingStep(); // 조리 순서
 
     // 완료된 사진 경로 가져오기
     List<String> getFinishedImages(); // 완성품 사진 경로
