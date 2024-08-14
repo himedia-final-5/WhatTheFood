@@ -5,8 +5,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { DefaultLayout, AdminLayout } from "components/layout";
-import { FallbackRender } from "components/layout/error";
+import { DefaultLayout, AdminLayout } from "layouts";
+import { FallbackRender } from "layouts/error";
 import { Main } from "pages/main";
 import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
