@@ -53,11 +53,11 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (1, '마라어묵'), (1, '간단요리');
 
 -- Comments for Recipe
-INSERT INTO recipe_comments (id, recipe_id, member_id, content)
+INSERT INTO recipe_comments (recipe_id, member_id, content)
 VALUES
-    (1, 1, 1, '이거 너무 간단한데 맛있어요ㅠㅠㅠㅠ 앞으로 술안주 없으면 이겁니다!!! 오늘 뭐 먹지 사랑해요'),
-    (1, 1, 2, '라조장 고추소스 있는데 그걸로 가능한건지;;ㅎ'),
-    (1, 1, 3, '마라소스 어떤건지 궁금해요!!');
+    (1, 1, '이거 너무 간단한데 맛있어요ㅠㅠㅠㅠ 앞으로 술안주 없으면 이겁니다!!! 오늘 뭐 먹지 사랑해요'),
+    (1, 2, '라조장 고추소스 있는데 그걸로 가능한건지;;ㅎ'),
+    (1, 3, '마라소스 어떤건지 궁금해요!!');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
