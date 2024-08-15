@@ -80,6 +80,7 @@ public class RecipeService {
         recipe.setLevel(updatedRecipe.getLevel());
         recipe.setVideoLink(updatedRecipe.getVideoLink());
         recipe.setCategory(updatedRecipe.getCategory());
+        recipe.setIngredientImage(updatedRecipe.getIngredientImage());
         recipe.setIngredients(updatedRecipe.getIngredients());
         recipe.setCookingTools(updatedRecipe.getCookingTools());
         recipe.setGuideLinks(updatedRecipe.getGuideLinks());
