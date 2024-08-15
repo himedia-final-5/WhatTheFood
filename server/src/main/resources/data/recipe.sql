@@ -89,6 +89,14 @@ INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_tim
 VALUES (18, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1220/8d0908bd-24e2-4e6e-982d-2c0b5594c4a8.jpg?size=800x800',
 '매콤 짭잘 탱탱한 면발', '매콤하고 칼칼한 국물 맛이 일품인 해물 볶음 짬뽕입니다. 신선한 해산물과 다양한 채소가 어우러져 풍부한 맛을 제공합니다. 집에서도 쉽게 즐길 수 있는 중화 요리입니다.',
 35, 4, 3, 'https://www.youtube.com/watch?v=Qapbhge2LvA&pp=ygUe7ZW066y8IOuztuydjCDsp6zrvZUg66eM65Ok6riw', '중식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (19, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1213/806a52e8-4c12-4900-9380-d1bc5ed276f5.jpg?size=800x800',
+'비벼비벼 잡채랑 함께', '맛있고 간편한 중국식 잡채 덮밥입니다. 달콤하고 짭조름한 잡채와 밥이 잘 어우러져 한 끼 식사로 적합합니다. 다양한 채소와 고기의 조화가 일품입니다.',
+30, 4, 2, 'https://www.youtube.com/watch?v=Dw342KkUa4U&pp=ygUYCOyeoeyxhCDrja7rsKUg66eM65Ok6riw', '중식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (20, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1224/59fb77e4-dc72-48f2-9b68-d39c578409bc.jpg?size=800x800',
+'쫄깃쫄깃 너무 맛있는', '바삭한 찹쌀 옷을 입힌 탕수육에 새콤달콤한 소스를 더한 요리입니다. 찹쌀가루를 사용하여 더욱 바삭한 식감을 자랑하며, 집에서도 간편하게 즐길 수 있는 중식 요리입니다.',
+40, 4, 3, 'https://www.youtube.com/watch?v=WfGs1hMSqhk&pp=ygUa7LC57IyAIO2DleyImOycoSDrp4zrk6TquLA%3D', '중식', 0);
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -127,6 +135,10 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (17, 'https://static.wtable.co.kr/image/production/service/recipe/1217/0d6c3a78-74e7-4e75-88a1-e63e27d48f50.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (18, 'https://static.wtable.co.kr/image/production/service/recipe/1220/aa4cd5c4-a145-4ae7-b8be-94918bcb9142.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (19, 'https://static.wtable.co.kr/image/production/service/recipe/1213/c2fce090-3e26-4c18-a404-7909c43ac1b4.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (20, 'https://static.wtable.co.kr/image/production/service/recipe/1224/eccdee3f-2089-40f0-9ac2-553113fbbca9.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -360,6 +372,40 @@ VALUES
     (18, '물 500ml'),
     (18, '후추 약간'),
     (18, '참기름 1큰술');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (19, '잡채면 200g'),
+    (19, '소고기 150g'),
+    (19, '양파 1개'),
+    (19, '당근 1개'),
+    (19, '피망 1개'),
+    (19, '표고버섯 3개'),
+    (19, '다진 마늘 1큰술'),
+    (19, '간장 2큰술'),
+    (19, '설탕 1큰술'),
+    (19, '식용유 적당량'),
+    (19, '후추 약간'),
+    (19, '참기름 1큰술'),
+    (19, '물 300ml'),
+    (19, '밥 4공기');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (20, '돼지고기 안심 300g'),
+    (20, '찹쌀가루 1컵'),
+    (20, '전분 1컵'),
+    (20, '계란 1개'),
+    (20, '식용유 적당량'),
+    (20, '양파 1개'),
+    (20, '피망 1개'),
+    (20, '당근 1개'),
+    (20, '표고버섯 3개'),
+    (20, '다진 마늘 1큰술'),
+    (20, '설탕 3큰술'),
+    (20, '식초 3큰술'),
+    (20, '간장 2큰술'),
+    (20, '물 200ml'),
+    (20, '후추 약간'),
+    (20, '참기름 1큰술');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -398,6 +444,10 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (17, '팬'), (17, '중국식 국자'), (17, '칼'), (17, '도마');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (18, '팬'), (18, '중국식 국자'), (18, '칼'), (18, '도마');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (19, '팬'), (19, '중국식 국자'), (19, '칼'), (19, '도마');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (20, '팬'), (20, '볼'), (20, '칼'), (20, '도마'), (20, '체');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -436,6 +486,10 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (17, 'http://blog.naver.com/tkfkd1219-/223371453593');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (18, 'http://blog.naver.com/tkfkd1219-/223371453593');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (19, 'http://blog.naver.com/weddinghsje/223104398157');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (20, 'http://blog.naver.com/bolskitchen/223474688453');
 
 
 -- Recipe Cooking Steps
@@ -561,6 +615,21 @@ VALUES
     (18, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1220/9d13d169-da00-4811-ae4b-4c2c26308d49.jpg?size=800x800', '팬에 식용유를 두르고 다진 마늘, 다진 생강, 대파를 두반장과 함께 볶아 향을 내주세요.'),
     (18, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1220/56ada9cc-7d91-489f-8ec0-6956c1aa0dad.jpg?size=800x800', '순서 3에 1의 채소를 넣어 볶으면서 고춧가루를 넣고 채소에 잘 흡수되도록 계속 볶아주세요.'),
     (18, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1220/d89c1647-5f04-4903-8379-1b2c02ae4d16.jpg?size=800x800', '순서 4에 물을 붓고 2의 해물을 넣어 끓여주세요. 육수가 잘 끓어오르면 분량의 물, 치킨파우더, 굴소스, 설탕, 소금, 후춧가루 를 넣어 양념을 해주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (19, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1213/c56695bd-caf3-46a2-bb6f-e16b5ba9fe1d.jpg?size=800x800', '중국 당면은 미리 찬물에 30분간 담궈서 불려놔 주세요.'),
+    (19, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1213/041d6914-900e-4917-85aa-577439563161.jpg?size=800x800', '모든 채소와 버섯은 채 썰고, 마늘, 대파는 다져서 준비해 주세요.'),
+    (19, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1213/47bcc79b-44aa-4fad-b997-3fffdc854424.jpg?size=800x800', '고기는 채 썰어 마리네이드 한 후 기름에 볶아서 준비합니다.'),
+    (19, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1213/0f6590f6-3923-4c5d-b1e2-9c8d4509b7bf.jpg?size=800x800', '분량의 재료를 골고루 섞어서 소스를 만들어 주세요.팬에 기름을 두르고 대파, 마늘을 넣어 향을 내주세요. 모든 채소와 고기를 넣고 볶은 뒤 순서 4의 소스를 넣어 볶고 마지막에 당면을 넣고 마무리하면 완성이랍니다.*Tip. 중국 당면은 전분을 원료로 만들어 말린 면으로, 한국의 당면과 달리 두껍고 탱탱한 게 특징이예요!');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (20, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1224/ce60d5fb-e1a9-4107-b42d-c39495384bcf.jpg?size=800x800', '돼지고기 등심은 4x5cm 크기로 0.5cm 두께로 썰어 칼등으로 살짝 두들겨 준비해 주세요.'),
+    (20, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1224/16d9a3c0-ebea-4004-9c8b-608de402333f.jpg?size=800x800', '분량의 재료를 골고루 섞어서 튀김 반죽을 만들어 순서 1의 돼지고기를 버무려 주세요.'),
+    (20, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1224/916eccaa-d051-4bd9-8f34-8bca47c7a14d.jpg?size=800x800', '분량의 재료를 골고루 섞어서 소스를 만들어 주세요..'),
+    (20, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1224/cbf4ac94-cb00-43b1-9537-1c589393a9ab.jpg?size=800x800', '순서 2의 튀김 반죽을 입힌 돼지고기를 가열한 기름에 하나씩 넣어 바삭하게 튀겨 주세요.'),
+    (20, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1224/4d959f9a-a113-4a36-a9ef-af3c6fdba84c.jpg?size=800x800', '뜨거운 팬에 식용유을 두르고 다진 생강을 볶아 향을 내준 뒤 순서 3의 소스를 넣고 끓여주세요.');
+
+
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/972/961fd6ad-a401-471a-9941-8859a7e71f81.jpg?size=800x800');
@@ -598,6 +667,11 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (17, 'https://static.wtable.co.kr/image/production/service/recipe/1217/65818e8d-1a5b-41ab-8753-35387fc53f2c.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (18, 'https://static.wtable.co.kr/image/production/service/recipe/1220/1dbe5370-f4c5-43d8-88d3-70965819a926.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (19, 'https://static.wtable.co.kr/image/production/service/recipe/1213/151cc9ca-f219-4bdf-b1ed-6c1ad6cf1198.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (20, 'https://static.wtable.co.kr/image/production/service/recipe/1224/20bdc681-de18-486e-969a-f4fa1da58e08.jpg?size=800x800');
+
 
 -- Recipe Tags
 INSERT INTO recipe_tag (id, tags)
@@ -636,7 +710,10 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (17, '해물짜장'), (17, '매운음식'), (17, '중식'), (17, '해산물');
 INSERT INTO recipe_tag (id, tags)
 VALUES (18, '해물짬뽕'), (18, '중식'), (18, '매운음식'), (18, '볶음');
-
+INSERT INTO recipe_tag (id, tags)
+VALUES (19, '잡채덮밥'), (19, '중식'), (19, '간편식'), (19, '채소');
+INSERT INTO recipe_tag (id, tags)
+VALUES (20, '탕수육'), (20, '찹쌀'), (20, '중식'), (20, '튀김');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -729,7 +806,16 @@ VALUES
     (18, 1, '매운 해물짬뽕이 정말 맛있어요. 해산물의 풍미가 좋고, 국물 맛이 정말 시원하네요.'),
     (18, 2, '짬뽕이 매콤하고 진한 맛이 좋았어요. 해물과 채소가 풍부하게 들어가서 만족스럽습니다.'),
     (18, 3, '중화면과 해물이 잘 어우러져서 맛있습니다. 매운 맛이 일품이에요. 자주 해먹을 것 같아요.');
-
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (19, 1, '잡채와 밥이 잘 어울려서 맛있었습니다. 간편하게 한 끼 식사로 좋네요.'),
+    (19, 2, '중국식 잡채 덮밥이 간단하면서도 맛있어요. 다양한 채소와 고기가 함께해서 좋습니다.'),
+    (19, 3, '잡채가 밥과 함께 먹으니 정말 맛있습니다. 자주 해먹을 것 같아요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (20, 1, '찹쌀가루 덕분에 탕수육이 정말 바삭하고 맛있어요. 소스도 너무 잘 어울립니다.'),
+    (20, 2, '탕수육이 바삭하고 소스가 정말 맛있어요. 집에서 쉽게 만들 수 있어서 좋습니다.'),
+    (20, 3, '찹쌀로 만든 탕수육은 정말 색다르고 맛있습니다. 자주 해먹을 것 같아요.');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -768,7 +854,10 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 17);  -- 사용자가 17번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 18);  -- 사용자가 18번 레시피를 찜한 경우
-
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 19);  -- 사용자가 19번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 20);  -- 사용자가 20번 레시피를 찜한 경우
 
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;
