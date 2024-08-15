@@ -10,6 +10,8 @@ import java.util.Set;
  * Projection for {@link today.wtfood.server.entity.Recipe}
  */
 public interface RecipeInfo {
+    List<String> getIngredientImage();
+
     List<String> getIngredients();
 
     List<String> getCookingTools();

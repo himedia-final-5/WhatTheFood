@@ -56,6 +56,11 @@ public class Recipe {
     @Column(name = "category", length = 50)
     private String category; // 카테고리
 
+    // 재료 이미지 경로 필드 추가
+    @ElementCollection
+    @CollectionTable(name = "recipe_ingredient_image", joinColumns = @JoinColumn(name = "id"))
+    private List<String> ingredientImage; // 재료 이미지 경로
+
     @ElementCollection
     @CollectionTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "id"))
     private List<String> ingredients; // 재료

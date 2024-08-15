@@ -36,6 +36,8 @@ public interface RecipeSummary {
     // 조리 단계 정보를 가져오기
     List<CookingStepSummary> getCookingStep(); // 조리 순서
 
+    List<String> getIngredientImage();//재료 사진
+
     // 완료된 사진 경로 가져오기
     List<String> getFinishedImages(); // 완성품 사진 경로
 

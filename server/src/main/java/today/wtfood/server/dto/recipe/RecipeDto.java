@@ -22,6 +22,7 @@ public class RecipeDto implements Serializable {
     Integer level;
     String videoLink;
     String category;
+    List<String> ingredientImage;
     List<String> ingredients;
     List<String> cookingTools;
     List<String> guideLinks;
@@ -38,6 +39,7 @@ public class RecipeDto implements Serializable {
         recipe.setLevel(level);
         recipe.setVideoLink(videoLink);
         recipe.setCategory(category);
+        recipe.setIngredientImage(ingredientImage);
         recipe.setIngredients(ingredients);
         recipe.setCookingTools(cookingTools);
         recipe.setGuideLinks(guideLinks);
