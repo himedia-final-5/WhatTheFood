@@ -10,7 +10,7 @@ VALUES (1, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/3
 30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '한식', 0);
 
 -- 재료 사진 삽입
-INSERT INTO recipe_ingredient (id, ingredientImage)
+INSERT INTO recipe_ingredient_image (id, ingredientImage)
 VALUES
     (1, 'https://static.wtable.co.kr/image/production/service/recipe/972/1f30ff0e-b6c6-4936-9eed-083b4c4428e5.jpg?size=800x800');
 
