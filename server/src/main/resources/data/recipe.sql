@@ -13,70 +13,82 @@ DELETE FROM favorite_recipes WHERE recipe_id = 1;
 DELETE FROM recipe WHERE id = 1;
 DELETE FROM recipe_ingredient_image WHERE id = 1;
 
--- 외래키 제약조건을 다시 활성화
-SET SESSION FOREIGN_KEY_CHECKS = 1;
-
-
-
-
-외래키 제약조건을 임시로 비활성화
-SET SESSION FOREIGN_KEY_CHECKS = 0;
 
 -- 데이터베이스 구조 변경
 
 -- Recipe 데이터 삽입 (member_id 추가)
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (1, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/3c5e9f76-20bf-409b-a003-daba4eb60627.jpg?size=800x800',
-'간단하게 매운 어묵요리', '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
+'간단하면서 마라마라 얼큰맛', '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
 30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '한식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (2, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2344/9a1bd1e4-cbf9-4e2c-857a-56c95078bf4c.jpg?size=800x800',
-'간단하게 칼칼 고추전', '매콤한 고추와 고기를 이용해 만든 간단하면서도 맛있는 고추전입니다. 주말 저녁이나 명절에 딱 어울리는 요리입니다.',
+'매콤하면서 술안주로 딱', '매콤한 고추와 고기를 이용해 만든 간단하면서도 맛있는 고추전입니다. 주말 저녁이나 명절에 딱 어울리는 요리입니다.',
 20, 2, 2, 'https://youtu.be/IoSwCiTghf0?si=kCGsdD3ZhO5ElycY', '한식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (3, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2328/91ec15ed-2f6a-464e-ac1b-5b08eaffda0e.jpg?size=800x800',
-'시원하고 깊은 맛의 성게미역국', '성게와 미역의 조화로 깊고 시원한 국물 맛을 내는 성게미역국 레시피입니다. 간단하면서도 영양 가득한 한 그릇 요리로, 특히 여름철 보양식으로도 좋습니다.',
+'시원하고 깊은 맛', '성게와 미역의 조화로 깊고 시원한 국물 맛을 내는 성게미역국 레시피입니다. 간단하면서도 영양 가득한 한 그릇 요리로, 특히 여름철 보양식으로도 좋습니다.',
 40, 4, 2, 'https://youtu.be/z6ZGxPUd4Ac?si=BmKii98w1dDr6Ffq', '한식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (4, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2137/d1c42852-eb66-4f04-a678-083f6608f082.jpg?size=800x800',
-'목살김치찜', '풍성한 양의 목살과 잘 익은 김치가 어우러져 부드럽고 맛있는 김치찜을 완성할 수 있습니다. 이 레시피로 감칠맛 나는 김치찜을 손쉽게 만들어 보세요.',
+'밥 한그릇 뚝딱!', '풍성한 양의 목살과 잘 익은 김치가 어우러져 부드럽고 맛있는 김치찜을 완성할 수 있습니다. 이 레시피로 감칠맛 나는 김치찜을 손쉽게 만들어 보세요.',
 90, 4, 2, 'https://www.youtube.com/watch?v=cIDqDT5RF3U&pp=ygUP6rmA7LmY66qp7IK07LCc', '한식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (5, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1532/259cb807-ada0-402b-bbd3-6ab5b1ee4767.jpg?size=800x800',
-'홍합탕', '잘 삶은 홍합은 그냥 먹어도 맛있지만 다양한 요리에도 잘 어울리죠~ 10월부터 12월이 제철인 살이 통통한 홍합으로 홍합탕을 끓이면 더욱 깊은 맛을 낸답니다. 따로 간을 하지 않아도 되기 때문에 제대로 손질만 하면 실패 없이 만들 수 있어요. 송송 썬 고추를 넣으면 국물이 시원하면서도 칼칼해서 국물이 금세 동나도록 먹게 될거예요!',
+'보기만 해도 시원해지는', '잘 삶은 홍합은 그냥 먹어도 맛있지만 다양한 요리에도 잘 어울리죠~ 10월부터 12월이 제철인 살이 통통한 홍합으로 홍합탕을 끓이면 더욱 깊은 맛을 낸답니다. 따로 간을 하지 않아도 되기 때문에 제대로 손질만 하면 실패 없이 만들 수 있어요. 송송 썬 고추를 넣으면 국물이 시원하면서도 칼칼해서 국물이 금세 동나도록 먹게 될거예요!',
 20, 4, 1, 'https://www.youtube.com/watch?v=t63aSsdvZKs&pp=ygUJ7ZmN7ZWp7YOV', '한식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (6, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1268/942a38ee-ceda-4ae7-850d-c6ba39542a07.jpg?size=800x800',
-'송로 오일 육회 스파게티', '고급스러운 송로 오일과 육회가 만난 특별한 스파게티! 진한 풍미와 부드러운 식감이 일품으로, 특별한 날에 어울리는 요리입니다.',
+'어머 이건 머야 유니크한 요리', '고급스러운 송로 오일과 육회가 만난 특별한 스파게티! 진한 풍미와 부드러운 식감이 일품으로, 특별한 날에 어울리는 요리입니다.',
 25, 2, 3, 'https://www.youtube.com/watch?v=y0ecwbUGvW4&pp=ygUT7Jyh7ZqMIOyKpO2MjOqyjO2LsA%3D%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (7, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2681/1d0a0dc0-b3d2-4784-9e99-fd0750fa97c4.jpg?size=800x800',
-'두바이 초콜릿', '두바이에서 영감을 받은 풍부한 초콜릿 맛의 디저트입니다. 달콤하고 진한 초콜릿의 맛이 일품으로, 특별한 날에 어울리는 디저트입니다.',
+'요즘 이거 안먹는 사람도 있어?', '두바이에서 영감을 받은 풍부한 초콜릿 맛의 디저트입니다. 달콤하고 진한 초콜릿의 맛이 일품으로, 특별한 날에 어울리는 디저트입니다.',
 30, 4, 2, 'https://www.youtube.com/watch?v=yVuprH1DTLg&pp=ygUd65GQ67CU7J20IOy0iOy9nOumvyDrp4zrk6TquLA%3D', '디저트', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (8, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1412/c9052b39-229d-4a42-88fd-7ea8b5a27df1.jpg?size=500x500',
-'라자냐', '풍부한 소스와 층층이 쌓인 면이 어우러지는 이탈리안 전통 요리, 라자냐입니다. 치즈와 미트 소스의 조화가 일품으로, 특별한 날에 적합한 요리입니다.',
+'이탈리아의 감성 그대로', '풍부한 소스와 층층이 쌓인 면이 어우러지는 이탈리안 전통 요리, 라자냐입니다. 치즈와 미트 소스의 조화가 일품으로, 특별한 날에 적합한 요리입니다.',
 60, 6, 4, 'https://www.youtube.com/watch?v=ZTkLFFEXQ4s&pp=ygUT65287J6Q64OQIOunjOuTpOq4sA%3D%3D', '이탈리안', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (9, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1012/0221329d-24f5-44fc-bc7d-6cd9bdd10e77.jpg?size=800x800',
-'고수 페스토 크림 파스타', '신선한 고수와 페스토를 활용한 크림 파스타로, 독특한 향과 부드러운 크림 소스가 조화를 이루는 요리입니다. 색다른 맛을 원하는 분들에게 추천합니다.',
+'고수를 좋아하는 사람이면 클릭', '신선한 고수와 페스토를 활용한 크림 파스타로, 독특한 향과 부드러운 크림 소스가 조화를 이루는 요리입니다. 색다른 맛을 원하는 분들에게 추천합니다.',
 30, 2, 3, 'https://www.youtube.com/watch?v=ivNam7sY94c&pp=ygUh6rOg7IiYIO2BrOumvCDtjpjsiqTthqAg7YyM7Iqk7YOA', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (10, 1, 'https://static.wtable.co.kr/image/production/service/recipe/992/33096f46-a8fd-4b78-ae56-bba7a012fe54.jpg?size=800x800',
-'원팬 새우 파스타', '간편하게 한 팬에서 조리할 수 있는 새우 파스타로, 신선한 새우와 풍부한 토마토 소스가 어우러져 맛을 더합니다.',
+'이거는 정말 해먹어야 되', '간편하게 한 팬에서 조리할 수 있는 새우 파스타로, 신선한 새우와 풍부한 토마토 소스가 어우러져 맛을 더합니다.',
 30, 2, 2, 'https://www.youtube.com/watch?v=shYlVEzum1g&pp=ygUX7JuQ7YysIOyDiOyasCDtjIzsiqTtg4A%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (11, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1675/0c6d386e-2ff4-4c23-8327-b2608d7cd418.jpg?size=800x800',
-'붓카케 우동', '시원한 국물과 쫄깃한 우동 면이 어우러지는 붓카케 우동입니다. 간단하게 만들 수 있으며, 뜨거운 여름 날씨에 제격인 일본식 냉우동입니다.',
+'시원하게 탱글하게', '시원한 국물과 쫄깃한 우동 면이 어우러지는 붓카케 우동입니다. 간단하게 만들 수 있으며, 뜨거운 여름 날씨에 제격인 일본식 냉우동입니다.',
 20, 2, 1, 'https://www.youtube.com/watch?v=PQQNE2dMh1U&pp=ygUa67aT7Lm07LyAIOyasOuPmSDrp4zrk6TquLA%3D', '일식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (12, 1, 'https://static.wtable.co.kr/image/production/service/recipe/719/23757871-daf5-4a3d-b6e3-87b0a975f8d8.jpg?size=800x800',
-'튀김덮밥 (텐동)', '바삭한 튀김과 부드러운 덮밥이 어우러진 일본식 텐동입니다. 다양한 해산물과 채소 튀김이 간장 소스와 함께 제공되어 맛있고 풍부한 한 끼 식사입니다.',
+'바삭하니 너무 좋아요', '바삭한 튀김과 부드러운 덮밥이 어우러진 일본식 텐동입니다. 다양한 해산물과 채소 튀김이 간장 소스와 함께 제공되어 맛있고 풍부한 한 끼 식사입니다.',
 40, 2, 3, 'https://www.youtube.com/watch?v=Qc_R4Rg2jsM&pp=ygUQ7YWQ64-ZIOunjOuTpOq4sA%3D%3D', '일식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (13, 1, 'https://static.wtable.co.kr/image/production/service/recipe/629/d3d12973-e5ce-4d73-8baa-d98922ef2937.jpg?size=800x800',
-'장어덮밥', '달콤하고 짭조름한 장어 소스가 밥과 잘 어우러지는 장어덮밥입니다. 부드러운 장어와 풍미 깊은 소스가 특징인 일식 요리입니다.',
+'스테미나에 최고', '달콤하고 짭조름한 장어 소스가 밥과 잘 어우러지는 장어덮밥입니다. 부드러운 장어와 풍미 깊은 소스가 특징인 일식 요리입니다.',
 30, 2, 3, 'https://www.youtube.com/watch?v=4VhCur_-_Xk&pp=ygUW7J6l7Ja0642u67ClIOunjOuTpOq4sA%3D%3D', '일식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (14, 1, 'https://static.wtable.co.kr/image/production/service/recipe/996/d27420df-f867-4e0d-a39e-7421a0f3bc3c.jpg?size=800x800',
+'환상의 조합', '부드러운 연어와 신선한 아보카도가 밥과 잘 어우러지는 연어 아보카도 덮밥입니다. 건강하고 맛있는 일식 덮밥으로, 간편하게 만들 수 있는 레시피입니다.',
+25, 2, 2, 'https://www.youtube.com/watch?v=9GZS3tb1Du4&pp=ygUk7Jew7Ja0IOyVhOuztOy5tOuPhCDrja7rsKUg66eM65Ok6riw', '일식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (15, 1, 'https://static.wtable.co.kr/image/production/service/recipe/948/5780ac56-3357-422f-b0ad-4240a3fff910.jpg?size=500x500',
+'길거리에서 먹던 그맛', '부드럽고 맛있는 타코야끼를 집에서도 쉽게 만들 수 있는 레시피입니다. 타코야끼는 일본의 대표적인 길거리 음식으로, 문어와 다양한 재료가 어우러진 맛있는 간식입니다.',
+30, 4, 3, 'https://www.youtube.com/watch?v=ek0y6luCQyE&pp=ygUW7YOA7L2U7JW864G8IOunjOuTpOq4sA%3D%3D', '일식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (16, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1298/425048b6-8000-45bc-978b-7c8fc0337a81.jpg?size=800x800',
+'술안주로 최고', '겉은 바삭하고 속은 촉촉한 교자 레시피입니다. 다양한 재료를 사용해 만든 교자는 간단하게 집에서도 맛있게 즐길 수 있는 일식 대표 만두입니다.',
+40, 4, 3, 'https://www.youtube.com/watch?v=znsJrojoTj4&pp=ygUQ6rWQ7J6QIOunjOuTpOq4sA%3D%3D', '일식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (17, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1217/8dd89b20-d8b4-4d10-89ee-144b510b0691.jpg?size=800x800',
+'집에서도 만들기 쉬운', '해물과 매콤한 짜장 소스가 어우러진 매운 해물짜장 레시피입니다. 다양한 해산물과 매운 맛이 잘 어우러진 요리로, 중화 요리의 매력을 한층 높여줍니다.',
+40, 4, 3, 'https://www.youtube.com/watch?v=SlY4xf8Dk1c&pp=ygUd66ek7Jq0IO2VtOusvOynnOyepSDrp4zrk6TquLA%3D', '중식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (18, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1220/8d0908bd-24e2-4e6e-982d-2c0b5594c4a8.jpg?size=800x800',
+'매콤 짭잘 탱탱한 면발', '매콤하고 칼칼한 국물 맛이 일품인 해물 볶음 짬뽕입니다. 신선한 해산물과 다양한 채소가 어우러져 풍부한 맛을 제공합니다. 집에서도 쉽게 즐길 수 있는 중화 요리입니다.',
+35, 4, 3, 'https://www.youtube.com/watch?v=Qapbhge2LvA&pp=ygUe7ZW066y8IOuztuydjCDsp6zrvZUg66eM65Ok6riw', '중식', 0);
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -105,6 +117,16 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (12, 'https://static.wtable.co.kr/image/production/service/recipe/719/5404c599-3533-407a-bb06-5e629e27ef02.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (13, 'https://static.wtable.co.kr/image/production/service/recipe/629/5efb281a-88b9-4d38-aa3e-10e2e8e41de3.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (14, 'https://static.wtable.co.kr/image/production/service/recipe/996/2801ad4d-a818-47ef-bf1a-06d624e73734.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (15, 'https://static.wtable.co.kr/image/production/service/recipe/948/eb07b9b7-450d-40d3-8e45-d42089636480.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (16, 'https://static.wtable.co.kr/image/production/service/recipe/1298/70775286-d060-42ba-b38e-7fc61bd050a7.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (17, 'https://static.wtable.co.kr/image/production/service/recipe/1217/0d6c3a78-74e7-4e75-88a1-e63e27d48f50.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (18, 'https://static.wtable.co.kr/image/production/service/recipe/1220/aa4cd5c4-a145-4ae7-b8be-94918bcb9142.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -259,6 +281,85 @@ VALUES
     (13, '식용유 적당량'),
     (13, '소금 약간'),
     (13, '후추 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (14, '연어 200g'),
+    (14, '밥 2공기'),
+    (14, '아보카도 1개'),
+    (14, '간장 2큰술'),
+    (14, '미림 1큰술'),
+    (14, '참기름 1작은술'),
+    (14, '파 1대'),
+    (14, '참깨 약간'),
+    (14, '소금 약간'),
+    (14, '후추 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (15, '타코야끼 가루 200g'),
+    (15, '물 300ml'),
+    (15, '문어 100g'),
+    (15, '파 2대'),
+    (15, '절인 생강 30g'),
+    (15, '튀김가루 1큰술'),
+    (15, '식용유 적당량'),
+    (15, '타코야끼 소스 적당량'),
+    (15, '마요네즈 적당량'),
+    (15, '부추 약간'),
+    (15, '가쓰오부시 약간'),
+    (15, '참깨 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (16, '교자피 20장'),
+    (16, '다진 돼지고기 250g'),
+    (16, '다진 양배추 1컵'),
+    (16, '다진 대파 2대'),
+    (16, '다진 마늘 1작은술'),
+    (16, '간장 2큰술'),
+    (16, '미림 1큰술'),
+    (16, '참기름 1큰술'),
+    (16, '소금 약간'),
+    (16, '후추 약간'),
+    (16, '식용유 적당량'),
+    (16, '물 1컵');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (17, '중화면 300g'),
+    (17, '오징어 100g'),
+    (17, '새우 100g'),
+    (17, '홍합 100g'),
+    (17, '양파 1개'),
+    (17, '청경채 100g'),
+    (17, '당근 1개'),
+    (17, '피망 1개'),
+    (17, '다진 마늘 1큰술'),
+    (17, '고추장 2큰술'),
+    (17, '짜장 소스 3큰술'),
+    (17, '간장 1큰술'),
+    (17, '설탕 1큰술'),
+    (17, '식용유 적당량'),
+    (17, '물 500ml'),
+    (17, '후추 약간'),
+    (17, '참기름 1큰술');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (18, '중화면 300g'),
+    (18, '오징어 100g'),
+    (18, '새우 100g'),
+    (18, '홍합 100g'),
+    (18, '양파 1개'),
+    (18, '청경채 100g'),
+    (18, '당근 1개'),
+    (18, '피망 1개'),
+    (18, '대파 2대'),
+    (18, '다진 마늘 1큰술'),
+    (18, '고추장 2큰술'),
+    (18, '굴소스 2큰술'),
+    (18, '간장 1큰술'),
+    (18, '설탕 1큰술'),
+    (18, '식용유 적당량'),
+    (18, '물 500ml'),
+    (18, '후추 약간'),
+    (18, '참기름 1큰술');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -287,6 +388,16 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (12, '튀김팬'), (12, '볼'), (12, '숟가락'), (12, '종이 타올');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (13, '팬'), (13, '그릇'), (13, '숟가락');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (14, '팬'), (14, '그릇'), (14, '칼'), (14, '숟가락');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (15, '타코야끼 팬'), (15, '볼'), (15, '숟가락'), (15, '젓가락');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (16, '팬'), (16, '볼'), (16, '숟가락'), (16, '주걱');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (17, '팬'), (17, '중국식 국자'), (17, '칼'), (17, '도마');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (18, '팬'), (18, '중국식 국자'), (18, '칼'), (18, '도마');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -315,6 +426,16 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (12, 'http://blog.naver.com/tganom/223479302800');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (13, 'http://blog.naver.com/bsy615/223542344295');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (14, 'http://blog.naver.com/jaura33/223513213193');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (15, 'http://blog.naver.com/cagycagy/223134283708?isInf=true&trackingCode=nx');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (16, 'http://blog.naver.com/mynamco/223447540567');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (17, 'http://blog.naver.com/tkfkd1219-/223371453593');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (18, 'http://blog.naver.com/tkfkd1219-/223371453593');
 
 
 -- Recipe Cooking Steps
@@ -405,9 +526,42 @@ VALUES
     (13, 2, 'https://static.wtable.co.kr/image/production/service/recipe/629/aae7d2a8-9258-4a3b-ac5b-63e3fc8273ff.jpg?size=800x800', '달군 팬에 야채를 태우듯 굽고, 냄비에 구운 야채와 간장소스 재료를 넣은 후 끓으면 불을 중약불로 줄여 15분 정도 끓여 체에 걸러주세요.'),
     (13, 3, 'https://static.wtable.co.kr/image/production/service/recipe/629/8afbd054-8d20-45ac-8785-e935aa68b4af.jpg?size=800x800', '생강은 곱게 채를 썬 후 찬물에 5분 정도 담갔다가 물기를 빼주세요. 실파는 송송 썰어주세요.'),
     (13, 4, 'https://static.wtable.co.kr/image/production/service/recipe/629/168a156e-a7d7-4f4a-8201-60afe50f755c.jpg?size=800x800', '팬에 장어를 넣고 간장소스를 발라가며 구운 후 한 입 크기로 썰어주세요.(팬에 장어의 껍질쪽을 먼저 올려 구워주세요.)');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (14, 1, 'https://static.wtable.co.kr/image/production/service/recipe/996/9885139a-c159-4400-a98d-d73cc906bced.jpg?size=800x800', '아보카도는 씨앗에 칼날이 닿도록 칼집을 넣은 후 양쪽을 잡고 서로 반대 방향으로 비틀어 자른 후, 씨앗과 과육을 분리해주세요. 껍질을 벗겨 일정한 간격으로 슬라이스해 일렬로 돌돌 말아주세요. 연어는 사방 2cm 크기의 큐브 모양으로 잘라주세요.'),
+    (14, 2, 'https://static.wtable.co.kr/image/production/service/recipe/996/67de391f-2d35-4f56-8431-9abc5fa9342c.jpg?size=800x800', '볼에 고추냉이 간장 소스 재료를 섞은 후 연어를 넣어 골고루 섞어주세요.'),
+    (14, 3, 'https://static.wtable.co.kr/image/production/service/recipe/996/e11160c9-1b5d-49a4-8059-50782470882a.jpg?size=800x800', '그릇에 밥과 밥 밑간 재료를 넣어 밑간을 한 후 재워 둔 연어를 얹고 아보카도를 가운데에 올려주세요.'),
+    (14, 4, 'https://static.wtable.co.kr/image/production/service/recipe/996/0cee147b-1d83-4800-a6f3-a0f0cf866030.jpg?size=800x800', '가운데에 달걀 노른자를 올린 후 쪽파와 통깨, 후춧가루를 뿌려주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (15, 1, 'https://static.wtable.co.kr/image/production/service/recipe/948/9c731ce5-46c4-424c-9b02-932ad64b2830.jpg?size=800x800', '반죽재료를 볼에 넣어 섞어주세요. 문어는 작게 썰고 쪽파는 송송 썰어주세요.'),
+    (15, 2, 'https://static.wtable.co.kr/image/production/service/recipe/948/bfcb021c-6290-4200-96bf-a6a2692a1a73.jpg?size=800x800', '타코야끼 틀에 열이 올라오면 기름을 칠하고 반죽을 부어주세요. 문어와 쪽파를 넣고 익혀주세요.'),
+    (15, 3, 'https://static.wtable.co.kr/image/production/service/recipe/948/64d4d049-14a3-4c87-88cb-aff676bcce47.jpg?size=800x800', '반죽이 어느 정도 익으면 젓가락으로 돌려가며 모양을 잡아주세요. ');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (16, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1298/c9734960-4424-49aa-91c6-55ada6059d8d.jpg?size=800x800', '피 반죽은 준비해두고, 부추와 대파는 다져서 볼에 담아주세요.'),
+    (16, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1298/579f0cef-3ff7-4325-9fcd-b3a58a1611c2.jpg?size=800x800', '순서 1에 분량의 소스를 넣고 치대주세요.'),
+    (16, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1298/f8f3a715-e020-4b1a-89ca-62a0d2f2d0e3.jpg?size=800x800', '동그란 피를 만들고 중앙에 속재료를 담아주세요.'),
+    (16, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1298/cb3e2c3f-66bc-49bb-9a6d-600f99b9a5ad.jpg?size=800x800', '끝에서 0.5cm만큼 눌러서 모양 만들기를 시작합니다.'),
+    (16, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1298/0ab709e3-316f-4d08-bd8a-8b25a4299730.jpg?size=800x800', '왼쪽 검지로 속을 밀고 오른쪽 검지로 눌러서 모양을 만들어주세요.'),
+    (16, 6, 'https://static.wtable.co.kr/image/production/service/recipe/1298/586a6daf-0721-48ed-b4f6-77920621b691.jpg?size=800x800', '양 끝을 눌러서 모양을 다듬어주세요.'),
+    (16, 7, 'https://static.wtable.co.kr/image/production/service/recipe/1298/f8843957-26c2-4388-9ef8-01267fb939fb.jpg?size=800x800', '찜기에서 70% 정도만 익을 만큼 쪄주세요.'),
+    (16, 8, 'https://static.wtable.co.kr/image/production/service/recipe/1298/ae69b315-1f2a-47d1-a559-a9fce85bfdca.jpg?size=800x800', '분량의 재료를 골고루 섞어서 눈꽃즙을 만들어 주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (17, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1217/f7fc8ad2-3ff2-47a3-b138-fa860dee46e5.jpg?size=800x800', '양파와 호박은 깍둑썰기하고 돼지고기와 생강, 청양고추는 잘게 썰어 부추와 함께 준비해 주세요.'),
+    (17, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1217/1e2ef32e-7378-471a-9820-209702ccc088.jpg?size=800x800', '오징어는 껍질을 벗겨 한입 크기로 썰고 알새우도 씻어서 준비해 주세요.'),
+    (17, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1217/38356a87-957c-425f-a553-380aaae3f32d.jpg?size=800x800', '달궈진 팬에 식용유를 두르고 돼지고기를 살짝 볶은 후 다진 생강과 청양고추를 함께 넣고 볶아서 향을 내주세요.'),
+    (17, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1217/c7f9df49-6d0a-402d-8c96-5b03a8b94dfc.jpg?size=800x800', '순서 3의 고기가 익으면 양파와 호박을 넣어 충분히 익혀주고 볶은 춘장을 넣어 잘 섞어줍니다.'),
+    (17, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1217/a3a4d75b-3d25-403f-abbf-008d8f76c30d.jpg?size=800x800', '순서 4에 물 1컵을 붓고 간장, 설탕, 치킨파우더를 넣어 간을 맞춰주세요. 기호에 따라 연두 청양초를 넣어 매콤한 맛을 더 살려줍니다. 그 다음 순서 2의 오징어와 알새우를 넣고 끓여주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (18, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1220/c98161ba-29da-45b8-8f85-17f5c35a0d96.jpg?size=800x800', '양파, 호박, 죽순, 대파는 채 썰고, 목이버섯은 뜨거운 물에 담가 불린 뒤 청경채와 함께 먹기 좋게 썰어놓습니다.'),
+    (18, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1220/224f86c1-ea45-4dd9-ab9a-33ce129a74f0.jpg?size=800x800', '오징어는 안쪽에 칼집을 넣어 채 썰고, 새우는 등 부분의 내장을 제거하고 손질하여 홍합과 함께 준비해 주세요.'),
+    (18, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1220/9d13d169-da00-4811-ae4b-4c2c26308d49.jpg?size=800x800', '팬에 식용유를 두르고 다진 마늘, 다진 생강, 대파를 두반장과 함께 볶아 향을 내주세요.'),
+    (18, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1220/56ada9cc-7d91-489f-8ec0-6956c1aa0dad.jpg?size=800x800', '순서 3에 1의 채소를 넣어 볶으면서 고춧가루를 넣고 채소에 잘 흡수되도록 계속 볶아주세요.'),
+    (18, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1220/d89c1647-5f04-4903-8379-1b2c02ae4d16.jpg?size=800x800', '순서 4에 물을 붓고 2의 해물을 넣어 끓여주세요. 육수가 잘 끓어오르면 분량의 물, 치킨파우더, 굴소스, 설탕, 소금, 후춧가루 를 넣어 양념을 해주세요.');
 
-
--- Recipe Finished Images
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/972/961fd6ad-a401-471a-9941-8859a7e71f81.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
@@ -434,7 +588,16 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (12, 'https://static.wtable.co.kr/image/production/service/recipe/719/e3ff91fb-f8d2-44b8-bd89-48b258b4607a.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (13, 'https://static.wtable.co.kr/image/production/service/recipe/629/33a85a2b-366d-4c65-9c8c-cf03bd0dff5e.jpg?size=800x800');
-
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (14, 'https://static.wtable.co.kr/image/production/service/recipe/996/96a9c08d-214a-4f2d-8bbf-a0939f0c88c8.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (15, 'https://static.wtable.co.kr/image/production/service/recipe/948/04674056-0da3-483b-90a7-9512ba25af4b.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (16, 'https://static.wtable.co.kr/image/production/service/recipe/1298/f31be7d4-75d0-484c-b26e-c7b8d6faf7b7.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (17, 'https://static.wtable.co.kr/image/production/service/recipe/1217/65818e8d-1a5b-41ab-8753-35387fc53f2c.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (18, 'https://static.wtable.co.kr/image/production/service/recipe/1220/1dbe5370-f4c5-43d8-88d3-70965819a926.jpg?size=800x800');
 
 -- Recipe Tags
 INSERT INTO recipe_tag (id, tags)
@@ -463,6 +626,17 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (12, '텐동'), (12, '튀김'), (12, '일식'), (12, '덮밥');
 INSERT INTO recipe_tag (id, tags)
 VALUES (13, '장어'), (13, '덮밥'), (13, '일식'), (13, '고급식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (14, '연어'), (14, '아보카도'), (14, '덮밥'), (14, '일식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (15, '타코야끼'), (15, '일식'), (15, '간식'), (15, '길거리음식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (16, '교자'), (16, '일식'), (16, '만두'), (16, '간식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (17, '해물짜장'), (17, '매운음식'), (17, '중식'), (17, '해산물');
+INSERT INTO recipe_tag (id, tags)
+VALUES (18, '해물짬뽕'), (18, '중식'), (18, '매운음식'), (18, '볶음');
+
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -530,6 +704,31 @@ VALUES
     (13, 1, '장어가 부드럽고 소스가 너무 맛있어요. 집에서 이렇게 맛있게 장어덮밥을 만들 수 있다니 좋네요.'),
     (13, 2, '장어덮밥을 이렇게 쉽게 만들 수 있어서 놀랐어요. 정말 맛있고 자주 해먹을 것 같아요.'),
     (13, 3, '소스가 밥과 장어에 잘 배어 있어서 맛이 깊고 좋았어요. 간단하면서도 고급스러운 한 끼입니다.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (14, 1, '연어와 아보카도가 정말 잘 어울려요. 간단하게 만들 수 있어서 좋습니다. 건강한 한 끼로 좋네요.'),
+    (14, 2, '맛도 좋고 비주얼도 훌륭해요. 자주 해먹을 것 같아요. 연어와 아보카도의 조화가 일품입니다.'),
+    (14, 3, '아보카도의 부드러움과 연어의 풍미가 훌륭해요. 간단하지만 맛있는 레시피입니다.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (15, 1, '타코야끼가 집에서도 이렇게 맛있게 만들 수 있다니 놀랐어요. 간편하고 맛있습니다.'),
+    (15, 2, '반죽이 부드럽고 문어와 조화가 잘 맞네요. 자주 해먹을 것 같습니다.'),
+    (15, 3, '길거리에서 먹는 타코야끼의 맛을 집에서 즐길 수 있어서 좋았어요. 간단하면서도 맛있습니다.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (16, 1, '겉은 바삭하고 속은 촉촉하게 잘 구워졌어요. 집에서 만든 교자가 정말 맛있네요.'),
+    (16, 2, '만두피가 부드럽고 속이 풍성해서 정말 맛있었어요. 자주 만들어 먹을 것 같습니다.'),
+    (16, 3, '교자 레시피가 간단하면서도 맛있네요. 외식 대신 집에서 맛있는 교자를 즐길 수 있어 좋습니다.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (17, 1, '매운 짜장면이 정말 맛있어요. 해물의 풍미가 잘 어우러져서 만족스러웠습니다.'),
+    (17, 2, '매운 맛과 해물이 조화롭게 어우러져 정말 맛있었습니다. 자주 해먹을 것 같아요.'),
+    (17, 3, '해물의 신선함과 짜장 소스의 매운 맛이 좋았어요. 집에서도 쉽게 만들 수 있어 좋네요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (18, 1, '매운 해물짬뽕이 정말 맛있어요. 해산물의 풍미가 좋고, 국물 맛이 정말 시원하네요.'),
+    (18, 2, '짬뽕이 매콤하고 진한 맛이 좋았어요. 해물과 채소가 풍부하게 들어가서 만족스럽습니다.'),
+    (18, 3, '중화면과 해물이 잘 어우러져서 맛있습니다. 매운 맛이 일품이에요. 자주 해먹을 것 같아요.');
 
 
 -- 찜 목록
@@ -559,6 +758,17 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 12);  -- 사용자가 12번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 13);  -- 사용자가 13번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 14);  -- 사용자가 14번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 15);  -- 사용자가 15번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 16);  -- 사용자가 16번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 17);  -- 사용자가 17번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 18);  -- 사용자가 18번 레시피를 찜한 경우
+
 
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;
