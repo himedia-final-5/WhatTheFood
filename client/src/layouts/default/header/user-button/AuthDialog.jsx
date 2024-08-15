@@ -75,7 +75,7 @@ export default function AuthModal() {
         <PartOfContent isDrawer />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">닫기</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
