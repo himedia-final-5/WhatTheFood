@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import "./Header.css";
-import ProfileButton from "./profile-button/ProfileButton";
+import UserButton from "./user-button/UserButton";
 
 function Header() {
   return (
@@ -22,7 +22,7 @@ function Header() {
           <div className="toptopcart">
             <img id="img" src="/images/cart.png" alt="cart" />
           </div>
-          <ProfileButton />
+          <UserButton />
         </div>
       </div>
 

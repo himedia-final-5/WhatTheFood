@@ -7,7 +7,7 @@ import ProfileMenu from "./ProfileMenu";
 import { useSelector } from "stores";
 import { useToggleElement } from "hooks";
 
-export default function ProfileButton() {
+export default function UserButton() {
   const location = useLocation();
   const user = useSelector((state) => state.user);
   const [submenuRef, showSubmenu, toggleSubmenu] = useToggleElement(false);
