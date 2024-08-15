@@ -67,7 +67,7 @@
 /* Mobile */
 @media screen and (max-width: 767px) {
   .event_banner_wrap {
-    width: 500px;
+    width: 100%;
     grid-template-columns: 1fr; /* 작은 화면에서 한 개씩 나열 */
   }
 }
