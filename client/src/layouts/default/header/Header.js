@@ -18,10 +18,6 @@ function Header() {
             &nbsp;
             <img id="img" src="/images/search.png" alt="search" />
           </div>
-
-          <div className="toptopcart">
-            <img id="img" src="/images/cart.png" alt="cart" />
-          </div>
           <UserButton />
         </div>
       </div>
