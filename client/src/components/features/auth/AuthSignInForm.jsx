@@ -40,7 +40,7 @@ export default function AuthSignInForm({ setVisible }) {
       success: {
         render({ data }) {
           dispatch(signinAction(data));
-          setVisible(false);
+          setVisible && setVisible(false);
           return "로그인에 성공했습니다";
         },
       },
