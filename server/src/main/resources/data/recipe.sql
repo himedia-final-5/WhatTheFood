@@ -73,7 +73,10 @@ INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_tim
 VALUES (12, 1, 'https://static.wtable.co.kr/image/production/service/recipe/719/23757871-daf5-4a3d-b6e3-87b0a975f8d8.jpg?size=800x800',
 '튀김덮밥 (텐동)', '바삭한 튀김과 부드러운 덮밥이 어우러진 일본식 텐동입니다. 다양한 해산물과 채소 튀김이 간장 소스와 함께 제공되어 맛있고 풍부한 한 끼 식사입니다.',
 40, 2, 3, 'https://www.youtube.com/watch?v=Qc_R4Rg2jsM&pp=ygUQ7YWQ64-ZIOunjOuTpOq4sA%3D%3D', '일식', 0);
-
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (13, 1, 'https://static.wtable.co.kr/image/production/service/recipe/629/d3d12973-e5ce-4d73-8baa-d98922ef2937.jpg?size=800x800',
+'장어덮밥', '달콤하고 짭조름한 장어 소스가 밥과 잘 어우러지는 장어덮밥입니다. 부드러운 장어와 풍미 깊은 소스가 특징인 일식 요리입니다.',
+30, 2, 3, 'https://www.youtube.com/watch?v=4VhCur_-_Xk&pp=ygUW7J6l7Ja0642u67ClIOunjOuTpOq4sA%3D%3D', '일식', 0);
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -100,6 +103,8 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (11, 'https://static.wtable.co.kr/image/production/service/recipe/1675/afcea165-b6d5-4d4c-af3e-df33b304e5f1.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (12, 'https://static.wtable.co.kr/image/production/service/recipe/719/5404c599-3533-407a-bb06-5e629e27ef02.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (13, 'https://static.wtable.co.kr/image/production/service/recipe/629/5efb281a-88b9-4d38-aa3e-10e2e8e41de3.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -241,6 +246,19 @@ VALUES
     (12, '식용유 적당량'),
     (12, '소금 약간'),
     (12, '후추 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (13, '장어 200g'),
+    (13, '밥 2공기'),
+    (13, '간장 3큰술'),
+    (13, '미림 2큰술'),
+    (13, '설탕 1큰술'),
+    (13, '물 100ml'),
+    (13, '파 1대'),
+    (13, '참깨 약간'),
+    (13, '식용유 적당량'),
+    (13, '소금 약간'),
+    (13, '후추 약간');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -267,6 +285,8 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (11, '냄비'), (11, '그릇'), (11, '숟가락');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (12, '튀김팬'), (12, '볼'), (12, '숟가락'), (12, '종이 타올');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (13, '팬'), (13, '그릇'), (13, '숟가락');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -293,6 +313,8 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (11, 'http://www.10000recipe.com/recipe/6937803');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (12, 'http://blog.naver.com/tganom/223479302800');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (13, 'http://blog.naver.com/bsy615/223542344295');
 
 
 -- Recipe Cooking Steps
@@ -377,6 +399,13 @@ VALUES
     (12, 5, 'https://static.wtable.co.kr/image/production/service/recipe/719/6338e9d4-e0e1-4b9f-9b94-a476b29dd1df.jpg?size=800x800', '물기를 제거한 생새우와 채소들에 튀김가루를 얇게 묻혀 털어낸 후, 섞어 놓은 튀김반죽을 입혀주세요.'),
     (12, 6, 'https://static.wtable.co.kr/image/production/service/recipe/719/d4e1c742-b303-45c7-8047-bf0cae4871d8.jpg?size=800x800', '170~180도로 달군 기름에 튀김옷을 입힌 새우와 야채들을 바삭하게 튀겨주세요.(tip. 새우와 채소를 튀길 때 젓가락으로 잡아 살짝 흔들어주세요. 그 때 생기는 튀김가루들을 붙여주면 튀김꽃이 핀 바삭한 튀김을 만들 수 있답니다)'),
     (12, 7, 'https://static.wtable.co.kr/image/production/service/recipe/719/b65383be-3298-4e19-80eb-c974baf3fc17.jpg?size=800x800', '그릇에 밥을 담은 후 소스를 2큰술 정도 둘러주세요. 튀겨낸 튀김들을 보기 좋게 얹어주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (13, 1, 'https://static.wtable.co.kr/image/production/service/recipe/629/20c5967c-4b88-45ef-9fd8-2fc48daf4105.jpg?size=800x800', '손질한 장어는 껍질의 미끄러운 부분을 칼등으로 긁어낸 후 찬물에 씻고 키친타월로 물기를 닦은 후 장어밑간재료에 10분 정도 재워주세요.밑간한 장어를 김 오른 찜통에서 3~5분 정도 쪄주세요.(장어의 두께에 따라 찌는 시간을 조절해주세요.)'),
+    (13, 2, 'https://static.wtable.co.kr/image/production/service/recipe/629/aae7d2a8-9258-4a3b-ac5b-63e3fc8273ff.jpg?size=800x800', '달군 팬에 야채를 태우듯 굽고, 냄비에 구운 야채와 간장소스 재료를 넣은 후 끓으면 불을 중약불로 줄여 15분 정도 끓여 체에 걸러주세요.'),
+    (13, 3, 'https://static.wtable.co.kr/image/production/service/recipe/629/8afbd054-8d20-45ac-8785-e935aa68b4af.jpg?size=800x800', '생강은 곱게 채를 썬 후 찬물에 5분 정도 담갔다가 물기를 빼주세요. 실파는 송송 썰어주세요.'),
+    (13, 4, 'https://static.wtable.co.kr/image/production/service/recipe/629/168a156e-a7d7-4f4a-8201-60afe50f755c.jpg?size=800x800', '팬에 장어를 넣고 간장소스를 발라가며 구운 후 한 입 크기로 썰어주세요.(팬에 장어의 껍질쪽을 먼저 올려 구워주세요.)');
+
 
 -- Recipe Finished Images
 INSERT INTO recipe_finished_image (id, finished_images)
@@ -403,6 +432,8 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (11, 'https://static.wtable.co.kr/image/production/service/recipe/1675/f25eddb8-daa4-4bd0-a9df-afc2c2a7fe90.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (12, 'https://static.wtable.co.kr/image/production/service/recipe/719/e3ff91fb-f8d2-44b8-bd89-48b258b4607a.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (13, 'https://static.wtable.co.kr/image/production/service/recipe/629/33a85a2b-366d-4c65-9c8c-cf03bd0dff5e.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -430,6 +461,8 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (11, '우동'), (11, '일식'), (11, '냉우동'), (11, '간편식');
 INSERT INTO recipe_tag (id, tags)
 VALUES (12, '텐동'), (12, '튀김'), (12, '일식'), (12, '덮밥');
+INSERT INTO recipe_tag (id, tags)
+VALUES (13, '장어'), (13, '덮밥'), (13, '일식'), (13, '고급식');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -492,6 +525,11 @@ VALUES
     (12, 1, '바삭한 튀김과 짭조름한 소스가 잘 어울려서 맛있어요. 덮밥으로 먹기 좋네요.'),
     (12, 2, '간단하게 만들 수 있는 텐동이라 자주 해먹을 것 같아요. 튀김이 바삭하고 맛있었습니다.'),
     (12, 3, '일식 레시피 중에서 가장 좋아하는 것 중 하나에요. 재료도 간단하고 맛도 좋습니다.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (13, 1, '장어가 부드럽고 소스가 너무 맛있어요. 집에서 이렇게 맛있게 장어덮밥을 만들 수 있다니 좋네요.'),
+    (13, 2, '장어덮밥을 이렇게 쉽게 만들 수 있어서 놀랐어요. 정말 맛있고 자주 해먹을 것 같아요.'),
+    (13, 3, '소스가 밥과 장어에 잘 배어 있어서 맛이 깊고 좋았어요. 간단하면서도 고급스러운 한 끼입니다.');
 
 
 -- 찜 목록
@@ -519,7 +557,8 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 11);  -- 사용자가 11번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 12);  -- 사용자가 12번 레시피를 찜한 경우
-
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 13);  -- 사용자가 13번 레시피를 찜한 경우
 
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;
