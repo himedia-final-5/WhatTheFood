@@ -18,7 +18,7 @@ import {
   NoticeWrite,
   NoticeUpdate,
 } from "pages/notice";
-import { TestAssets } from "pages/test";
+import { TestAssets, TestProfileGenerator } from "pages/test";
 import { RankingList } from "pages/ranking";
 import { ChefList } from "pages/chef";
 import Admin from "pages/admin/Login";
@@ -78,6 +78,7 @@ function App() {
               <Route path="/chefs" element={<ChefList />} />
 
               <Route path="/test/assets" element={<TestAssets />} />
+              <Route path="/test/profile" element={<TestProfileGenerator />} />
             </Route>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<Admin />} />
