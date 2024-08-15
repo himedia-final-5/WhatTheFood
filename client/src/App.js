@@ -42,6 +42,7 @@ import WFaq from "pages/admin/inquiry/WriteFaq";
 import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
 
 import BrandList from "pages/admin/brand/BrandList";
+import RecipeList from "pages/recipe/RecipeList";
 
 function App() {
   return (
@@ -51,6 +52,8 @@ function App() {
           <Routes>
             <Route element={<DefaultLayout />}>
               <Route path="/" element={<Main />} />
+
+              <Route path="/recipes" element={<RecipeList />} />
 
               <Route path="/events" element={<EventList />} />
               <Route path="/events/:id" element={<EventDetail />} />

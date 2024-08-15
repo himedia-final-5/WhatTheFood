@@ -29,6 +29,7 @@ public interface RecipeSummary {
     String getCategory();         // 카테고리
 
     Timestamp getCreatedDate();   // 작성 시간
+    
 
     // 작성자 정보 가져오기
     MemberSummary getMember();    // 작성자
