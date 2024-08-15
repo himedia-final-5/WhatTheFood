@@ -8,7 +8,7 @@ import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
-import today.wtfood.server.dto.recipe.RecipeInfo;
+import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.service.RecipeService;
 
@@ -27,7 +27,7 @@ public class RecipeController {
     // 레시피 리스트 (페이지네이션)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeInfo> getRecipeList(Pageable pageable) {
+    public PageResponse<RecipeSummary> getRecipeList(Pageable pageable) {
         return PageResponse.of(rs.getRecipeList(pageable));
     }
 
