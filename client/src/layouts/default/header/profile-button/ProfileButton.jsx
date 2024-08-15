@@ -1,14 +1,13 @@
 import { useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useToggle } from "@reactuses/core";
-import { toast } from "react-toastify";
 
-import { signoutAction, useDispatch, useSelector } from "stores";
+import ProfileMenu from "./ProfileMenu";
+import { useSelector } from "stores";
 import { AuthModal } from "components/modal/auth";
 import { useToggleElement } from "hooks";
 
 export default function ProfileButton() {
-  const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector((state) => state.user);
   const [submenuRef, showSubmenu, toggleSubmenu] = useToggleElement(false);
@@ -19,11 +18,6 @@ export default function ProfileButton() {
     toggleAuthForm(false);
   }, [location, user, toggleSubmenu, toggleAuthForm]);
 
-  function signout() {
-    dispatch(signoutAction());
-    toast.success("로그아웃 되었습니다");
-  }
-
   return (
     <>
       <div
@@ -32,22 +26,8 @@ export default function ProfileButton() {
       >
         <img id="img" src="/images/profile.png" alt="profile" />
       </div>
-      <AuthModal visible={showAuthForm} setVisible={toggleAuthForm} />{" "}
-      <div
-        id="submenu"
-        ref={submenuRef}
-        className={showSubmenu ? "" : "!hidden"}
-      >
-        <div className="sm">마이페이지</div>
-        <div className="sm">찜레시피</div>
-        <div className="sm">뭘로하지</div>
-        <div className="sm">
-          <Link to="/inquiries">고객문의</Link>
-        </div>
-        <div className="sm" onClick={signout}>
-          로그아웃
-        </div>
-      </div>
+      <AuthModal visible={showAuthForm} setVisible={toggleAuthForm} />
+      <ProfileMenu ref={submenuRef} className={showSubmenu ? "" : "!hidden"} />
     </>
   );
 }
