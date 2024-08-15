@@ -51,6 +51,9 @@ public class Member implements UserDetails {
     @Column(name = "nickname", length = 15)
     private String nickname;
 
+    @Column(name = "profile_image", length = 200)
+    private String profileImage;
+
     @Column(name = "introduce", length = 200)
     private String introduce;
 
