@@ -109,7 +109,7 @@ export default function AuthSignInForm({ setVisible }) {
       </div>
       <div
         aria-label="auth-submit-button"
-        className="w-16 h-full bg-green-500 rounded-e-md"
+        className="w-16 bg-green-500 rounded-e-md"
       >
         <button
           type="submit"
