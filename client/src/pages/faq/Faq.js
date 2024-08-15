@@ -36,11 +36,7 @@ function Faq() {
         <div className="faq_line"></div>
         {content.map((inquirylist, idx) => {
           return (
-            <Link
-              className="faqitem"
-              key={idx}
-              to={`/faqView/${inquirylist.id}`}
-            >
+            <Link className="faqitem" key={idx} to={`/faqs/${inquirylist.id}`}>
               <div className="fqadate">{inquirylist.date.substring(0, 10)}</div>
               <br></br>
               <div className="fqaname">{inquirylist.title}</div>

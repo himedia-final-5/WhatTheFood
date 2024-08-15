@@ -62,7 +62,7 @@ function Header() {
         <div className="sm">찜레시피</div>
         <div className="sm">뭘로하지</div>
         <div className="sm">
-          <Link to="/inquiryList">고객문의</Link>
+          <Link to="/inquiries">고객문의</Link>
         </div>
         <div className="sm" onClick={signout}>
           로그아웃
@@ -80,7 +80,7 @@ function Header() {
           <Link to="/store">매장 찾기</Link>
         </div>
         <div className="topMenu">
-          <Link to="/notice">공지사항</Link>
+          <Link to="/notices">공지사항</Link>
         </div>
         <div className="topMenu">
           <Link to="/events">이벤트</Link>

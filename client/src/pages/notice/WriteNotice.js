@@ -13,7 +13,7 @@ function WriteNotice() {
     axios
       .post("/api/notices", { title, content })
       .then(() => {
-        navigate("/notice");
+        navigate("/notices");
       })
       .catch((err) => {
         console.error(err);

@@ -29,7 +29,7 @@ function SearchIList() {
     setMounted(true);
   }
 
-  function userinquiryiew(id) {
+  function userIqView(id) {
     navigate(`/iView/${id}`);
   }
 
@@ -76,7 +76,7 @@ function SearchIList() {
               <div
                 className="admincol"
                 onClick={() => {
-                  userinquiryiew(inquirylist.id);
+                  userIqView(inquirylist.id);
                 }}
                 style={{ cursor: "pointer" }}
               >

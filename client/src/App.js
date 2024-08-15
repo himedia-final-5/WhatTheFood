@@ -61,22 +61,23 @@ function App() {
               <Route path="/signup" element={<MemberJoin />} />
               <Route path="/setting" element={<MemberUpdate />} />
 
-              <Route path="/faq" element={<FaqList />} />
-              <Route path="/faqView/:id" element={<FaqDetail />} />
-              <Route path="/faqWriteForm" element={<FaqWrite />} />
+              <Route path="/faqs" element={<FaqList />} />
+              <Route path="/faqs/:id" element={<FaqDetail />} />
+              <Route path="/faqs/write" element={<FaqWrite />} />
 
-              <Route path="/inquiryList" element={<InquiryList />} />
-              <Route path="/inquiryView/:id" element={<InquiryDetail />} />
-              <Route path="/inquiryWriteForm" element={<InquiryWrite />} />
+              <Route path="/inquiries" element={<InquiryList />} />
+              <Route path="/inquiries/:id" element={<InquiryDetail />} />
+              <Route path="/inquiries/write" element={<InquiryWrite />} />
 
-              <Route path="/notice" element={<NoticeList />} />
-              <Route path="/noticeView/:id" element={<NoticeDetail />} />
-              <Route path="/writeNotice" element={<NoticeWrite />} />
-              <Route path="/updateNotice/:id" element={<NoticeUpdate />} />
-              <Route path="/test/assets" element={<TestAssets />} />
+              <Route path="/notices" element={<NoticeList />} />
+              <Route path="/notices/:id" element={<NoticeDetail />} />
+              <Route path="/notices/write" element={<NoticeWrite />} />
+              <Route path="/notices/write/:id" element={<NoticeUpdate />} />
 
               <Route path="/ranking" element={<RankingList />} />
               <Route path="/chefs" element={<ChefList />} />
+
+              <Route path="/test/assets" element={<TestAssets />} />
             </Route>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<Admin />} />

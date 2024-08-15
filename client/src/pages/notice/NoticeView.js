@@ -35,7 +35,7 @@ function NoticeView() {
       axios
         .delete(`/api/notices/${id}`)
         .then(() => {
-          navigate("/notice");
+          navigate("/notices");
         })
         .catch((err) => {
           console.error(err);
@@ -51,7 +51,7 @@ function NoticeView() {
         <h2 class="notice_subtitle">공지사항</h2>
         <AdminFeature>
           <Link
-            to={`/UpdateNotice/${id}`}
+            to={`/notices/write/${id}`}
             class="noticeWrite-text cursor-pointer"
             style={{ left: "265px", top: "75px" }}
           >

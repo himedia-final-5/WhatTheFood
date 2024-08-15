@@ -49,7 +49,7 @@ function InquiryView() {
           </div>
         </div>
         <br></br>
-        <Link id="inquiryback" to="/inquiryList">
+        <Link id="inquiryback" to="/inquiries">
           목록으로
         </Link>
         <br></br>

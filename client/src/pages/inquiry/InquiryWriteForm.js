@@ -25,7 +25,7 @@ function InquiryWriteForm() {
         image,
       })
       .then(() => {
-        navigate("/inquiryList");
+        navigate("/inquiries");
       })
       .catch((err) => {
         console.error(err);
@@ -113,7 +113,7 @@ function InquiryWriteForm() {
             >
               작성 완료
             </div>
-            <Link id="inquirywf2" to="/inquiryList">
+            <Link id="inquirywf2" to="/inquiries">
               돌아가기
             </Link>
           </div>

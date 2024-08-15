@@ -70,7 +70,7 @@ function InquiryList() {
             <div
               className="adminrow"
               key={idx}
-              to={`/inquiryView/${inquirylist.id}`}
+              to={`/inquiries/${inquirylist.id}`}
             >
               <div className="admincol">{inquirylist.id}</div>
               <div

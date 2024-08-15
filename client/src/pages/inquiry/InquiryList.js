@@ -48,7 +48,7 @@ function InquiryList() {
           <div id="inquiry1">
             <div id="blank"></div>
             <div>내 문의 내역</div>
-            <Link to="/inquiryWriteForm" id="inquiryWrite">
+            <Link to="/inquiries/write" id="inquiryWrite">
               <img src="/images/inquirywrite.png" alt="write button" />
               문의하기
             </Link>
@@ -60,7 +60,7 @@ function InquiryList() {
               <Link
                 className="inquiryitem"
                 key={idx}
-                to={`/inquiryView/${inquirylist.id}`}
+                to={`/inquiries/${inquirylist.id}`}
               >
                 <div className="inquiryanswer">
                   {inquirylist.answer ? (

@@ -22,7 +22,7 @@ function UpdateNotice() {
     axios
       .post(`/api/notices/${id}`, { title, content })
       .then(() => {
-        navigate("/notice");
+        navigate("/notices");
       })
       .catch((err) => {
         console.error(err);

@@ -74,7 +74,7 @@ function FaqWriteForm() {
             >
               작성 완료
             </div>
-            <Link id="back" to="/faq">
+            <Link id="back" to="/faqs">
               돌아가기
             </Link>
           </div>
