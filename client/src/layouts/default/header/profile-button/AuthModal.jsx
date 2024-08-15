@@ -2,6 +2,8 @@ import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
 import { useToggle } from "@reactuses/core";
 
+import AuthSignInForm from "components/features/auth/AuthSignInForm";
+import AuthSignUpForm from "components/features/auth/AuthSignInForm";
 import {
   CloseMark,
   UndrawEatingTogether,
@@ -10,7 +12,6 @@ import {
   LogoNaver,
 } from "components/asset";
 import { Modal } from "components/util";
-import { AuthSignInForm, AuthSignUpForm } from "./index.js";
 import { cn } from "utils";
 
 /**

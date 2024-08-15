@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useToggle } from "@reactuses/core";
 
+import AuthModal from "./AuthModal";
 import ProfileMenu from "./ProfileMenu";
 import { useSelector } from "stores";
-import { AuthModal } from "components/modal/auth";
 import { useToggleElement } from "hooks";
 
 export default function ProfileButton() {

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import "./Admin.css";
-import AuthSignInForm from "components/modal/auth/signin/AuthSignInForm";
+import AuthSignInForm from "components/features/auth/AuthSignInForm";
 
 function Login() {
   const navigate = useNavigate();
