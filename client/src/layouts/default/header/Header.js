@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { MagnifyingGlassIcon, HomeIcon } from "@radix-ui/react-icons";
 
 import "./Header.css";
 import UserButton from "./user-button/UserButton";
@@ -36,23 +37,49 @@ function Header() {
       <div style={{ marginBottom: headerRef.current?.clientHeight }} />
       <header
         ref={headerRef}
-        className={cn("fixed flex-col w-full z-40", "bg-neutral-100 shadow-md")}
+        className={cn(
+          "fixed flex flex-col w-full z-40",
+          "bg-neutral-100 shadow-md",
+        )}
         style={{
           marginTop: -headerMargin,
         }}
       >
-        <div className="top">
-          <div className="toptoplogo">
-            <Link to="/">
-              <img src="/images/logo.png" alt="logo" />
-            </Link>
-          </div>
-          <div className="toptop">
-            <div className="toptopsearch">
-              <input type="text" placeholder="레시피 검색" />
-              &nbsp;
-              <img id="img" src="/images/search.png" alt="search" />
-            </div>
+        <div
+          className={cn(
+            "flex gap-8 justify-between items-center bg-white border-b border-gray-300",
+            "transition-shape py-2 px-4 md:py-2.5 md:px-8",
+          )}
+        >
+          <Link to="/">
+            <img
+              src="/images/logo.png"
+              alt="logo"
+              className="h-10 min-w-42 transition-transform hover:scale-110 object-contain"
+            />
+          </Link>
+          <div className="flex-1 flex justify-end gap-2">
+            <form
+              className={cn(
+                "relative flex flex-1 justify-center items-center rounded-full",
+                "h-10 w-full max-w-96 px-4 ",
+                "border border-solid border-neutral-600 bg-neutral-50",
+                "hidden xs:block",
+              )}
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                type="text"
+                placeholder="레시피 검색"
+                className="w-full text-base"
+              />
+              <button
+                type="submit"
+                className="absolute right-2 top-0 flex items-center h-full z-20"
+              >
+                <MagnifyingGlassIcon className="h-8 w-8" />
+              </button>
+            </form>
             <UserButton />
           </div>
         </div>
