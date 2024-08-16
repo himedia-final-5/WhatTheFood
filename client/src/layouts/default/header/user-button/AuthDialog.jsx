@@ -85,9 +85,11 @@ export default function AuthModal() {
 
 function Trigger({ className }) {
   return (
-    <span className="block px-4 py-2 text-base text-white bg-black rounded-lg text-nowrap">
-      로그인
-    </span>
+    <div className="block px-3 py-1.5  bg-primary rounded-lg">
+      <p className="text-base text-white text-nowrap font-bold drop-shadow-sm">
+        로그인
+      </p>
+    </div>
   );
 }
 
