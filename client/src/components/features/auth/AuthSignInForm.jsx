@@ -171,7 +171,7 @@ export default function AuthSignInForm({ setVisible }) {
           </div>
           <Button
             type="submit"
-            className="w-16 h-full bg-primary rounded-e-md rounded-s-none"
+            className="w-16 h-24 bg-primary rounded-e-md rounded-s-none"
           >
             <p className="text-base text-white text-nowrap font-bold drop-shadow-sm">
               로그인
