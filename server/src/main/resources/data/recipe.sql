@@ -44,11 +44,11 @@ VALUES (6, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1268/
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (7, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2681/1d0a0dc0-b3d2-4784-9e99-fd0750fa97c4.jpg?size=800x800',
 '요즘 이거 안먹는 사람도 있어?', '두바이에서 영감을 받은 풍부한 초콜릿 맛의 디저트입니다. 달콤하고 진한 초콜릿의 맛이 일품으로, 특별한 날에 어울리는 디저트입니다.',
-30, 4, 2, 'https://www.youtube.com/watch?v=yVuprH1DTLg&pp=ygUd65GQ67CU7J20IOy0iOy9nOumvyDrp4zrk6TquLA%3D', '디저트', 0);
+30, 4, 2, 'https://www.youtube.com/watch?v=yVuprH1DTLg&pp=ygUd65GQ67CU7J20IOy0iOy9nOumvyDrp4zrk6TquLA%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (8, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1412/c9052b39-229d-4a42-88fd-7ea8b5a27df1.jpg?size=500x500',
 '이탈리아의 감성 그대로', '풍부한 소스와 층층이 쌓인 면이 어우러지는 이탈리안 전통 요리, 라자냐입니다. 치즈와 미트 소스의 조화가 일품으로, 특별한 날에 적합한 요리입니다.',
-60, 6, 4, 'https://www.youtube.com/watch?v=ZTkLFFEXQ4s&pp=ygUT65287J6Q64OQIOunjOuTpOq4sA%3D%3D', '이탈리안', 0);
+60, 6, 4, 'https://www.youtube.com/watch?v=ZTkLFFEXQ4s&pp=ygUT65287J6Q64OQIOunjOuTpOq4sA%3D%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (9, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1012/0221329d-24f5-44fc-bc7d-6cd9bdd10e77.jpg?size=800x800',
 '고수를 좋아하는 사람이면 클릭', '신선한 고수와 페스토를 활용한 크림 파스타로, 독특한 향과 부드러운 크림 소스가 조화를 이루는 요리입니다. 색다른 맛을 원하는 분들에게 추천합니다.',
@@ -80,7 +80,7 @@ VALUES (15, 1, 'https://static.wtable.co.kr/image/production/service/recipe/948/
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (16, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1298/425048b6-8000-45bc-978b-7c8fc0337a81.jpg?size=800x800',
 '술안주로 최고', '겉은 바삭하고 속은 촉촉한 교자 레시피입니다. 다양한 재료를 사용해 만든 교자는 간단하게 집에서도 맛있게 즐길 수 있는 일식 대표 만두입니다.',
-40, 4, 3, 'https://www.youtube.com/watch?v=znsJrojoTj4&pp=ygUQ6rWQ7J6QIOunjOuTpOq4sA%3D%3D', '일식', 0);
+40, 4, 3, 'https://www.youtube.com/watch?v=znsJrojoTj4&pp=ygUQ6rWQ7J6QIOunjOuTpOq4sA%3D%3D', '중식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (17, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1217/8dd89b20-d8b4-4d10-89ee-144b510b0691.jpg?size=800x800',
 '집에서도 만들기 쉬운', '해물과 매콤한 짜장 소스가 어우러진 매운 해물짜장 레시피입니다. 다양한 해산물과 매운 맛이 잘 어우러진 요리로, 중화 요리의 매력을 한층 높여줍니다.',
