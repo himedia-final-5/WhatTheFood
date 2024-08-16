@@ -68,6 +68,18 @@ public class MemberService {
     }
 
     /**
+     * 회원 조회
+     *
+     * @param email 조회할 회원의 email
+     * @return 조회된 회원 정보
+     * @throws NotFoundException 회원이 존재하지 않을 때 발생
+     */
+    public <T> T getMemberByEmail(String email, Class<T> projectionType) {
+        return memberRepository.findByEmail(email, projectionType)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
+    }
+
+    /**
      * 유저네임 유효성 및 중복 검증
      *
      * @param username 검증할 유저네임
