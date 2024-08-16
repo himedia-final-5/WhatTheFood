@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { DefaultLayout, AdminLayout } from "layouts";
 import { FallbackRender } from "layouts/error";
+import NotFoundRender from "layouts/error/NotFoundRender";
 import { Main } from "pages/main";
 import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
@@ -99,6 +100,7 @@ function App() {
               <Route path="/brandList" element={<BrandList />} />
               brandList
             </Route>
+            <Route path="*" element={<NotFoundRender />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
