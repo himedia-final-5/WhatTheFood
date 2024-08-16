@@ -13,10 +13,10 @@ import {
 } from "components/shadcn/ui/dialog";
 import {
   Drawer,
-  DrawerClose,
+  //DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
+  //DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -73,11 +73,13 @@ export default function AuthModal() {
           </DrawerDescription>
         </DrawerHeader>
         <PartOfContent isDrawer setOpen={setOpen} />
+        {/*
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">닫기</Button>
           </DrawerClose>
         </DrawerFooter>
+        */}
       </DrawerContent>
     </Drawer>
   );
