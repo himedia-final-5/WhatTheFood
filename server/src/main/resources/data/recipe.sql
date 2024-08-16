@@ -20,7 +20,8 @@ DELETE FROM recipe_ingredient_image WHERE id = 1;
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (1, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/3c5e9f76-20bf-409b-a003-daba4eb60627.jpg?size=800x800',
 '간단하면서 마라마라 얼큰맛', '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
-30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '한식', 0);
+30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '분식', 0);
+
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (2, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2344/9a1bd1e4-cbf9-4e2c-857a-56c95078bf4c.jpg?size=800x800',
 '매콤하면서 술안주로 딱', '매콤한 고추와 고기를 이용해 만든 간단하면서도 맛있는 고추전입니다. 주말 저녁이나 명절에 딱 어울리는 요리입니다.',
@@ -97,10 +98,15 @@ INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_tim
 VALUES (20, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1224/59fb77e4-dc72-48f2-9b68-d39c578409bc.jpg?size=800x800',
 '쫄깃쫄깃 너무 맛있는', '바삭한 찹쌀 옷을 입힌 탕수육에 새콤달콤한 소스를 더한 요리입니다. 찹쌀가루를 사용하여 더욱 바삭한 식감을 자랑하며, 집에서도 간편하게 즐길 수 있는 중식 요리입니다.',
 40, 4, 3, 'https://www.youtube.com/watch?v=WfGs1hMSqhk&pp=ygUa7LC57IyAIO2DleyImOycoSDrp4zrk6TquLA%3D', '중식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (21, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/3c5e9f76-20bf-409b-a003-daba4eb60627.jpg?size=800x800',
+'간단하면서 마라마라 얼큰맛', '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
+30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '분식', 0);
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/972/1f30ff0e-b6c6-4936-9eed-083b4c4428e5.jpg?size=800x800');
+
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (2, 'https://static.wtable.co.kr/image/production/service/recipe/1935/ingredients/e3ce099f-2575-4762-b6ba-e7e328de70f5.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -139,6 +145,8 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (19, 'https://static.wtable.co.kr/image/production/service/recipe/1213/c2fce090-3e26-4c18-a404-7909c43ac1b4.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (20, 'https://static.wtable.co.kr/image/production/service/recipe/1224/eccdee3f-2089-40f0-9ac2-553113fbbca9.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (21, 'https://static.wtable.co.kr/image/production/service/recipe/972/1f30ff0e-b6c6-4936-9eed-083b4c4428e5.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -153,6 +161,7 @@ VALUES
     (1, '설탕 2큰술'),
     (1, '물 1큰술'),
     (1, '후춧가루 약간');
+
 INSERT INTO recipe_ingredient (id, ingredients)
 VALUES
     (2, '청양고추 10개'),
@@ -406,10 +415,23 @@ VALUES
     (20, '물 200ml'),
     (20, '후추 약간'),
     (20, '참기름 1큰술');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (21, '어묵 8장'),
+    (21, '꼬치 4개'),
+    (21, '송송 썬 쪽파 1큰술'),
+    (21, '통깨 약간'),
+    (21, '마라 소스 1큰술'),
+    (21, '고추장 2큰술'),
+    (21, '진간장 2큰술'),
+    (21, '설탕 2큰술'),
+    (21, '물 1큰술'),
+    (21, '후춧가루 약간');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (1, '꼬치'), (1, '냄비'), (1, '수저'), (1, '그릇');
+
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (2, '프라이팬'), (2, '볼'), (2, '수저'), (2, '접시');
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -448,10 +470,13 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (19, '팬'), (19, '중국식 국자'), (19, '칼'), (19, '도마');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (20, '팬'), (20, '볼'), (20, '칼'), (20, '도마'), (20, '체');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (21, '꼬치'), (21, '냄비'), (21, '수저'), (21, '그릇');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (1, 'http://post.naver.com/viewer/postView.nhn?volumeNo=30465474&memberNo=35667439&vType=VERTICAL');
+
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (2, 'http://www.10000recipe.com/recipe/4563047');
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -490,6 +515,8 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (19, 'http://blog.naver.com/weddinghsje/223104398157');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (20, 'http://blog.naver.com/bolskitchen/223474688453');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (21, 'http://post.naver.com/viewer/postView.nhn?volumeNo=30465474&memberNo=35667439&vType=VERTICAL');
 
 
 -- Recipe Cooking Steps
@@ -499,6 +526,7 @@ VALUES
     (1, 2, 'https://static.wtable.co.kr/image/production/service/recipe/972/23daf027-1c94-4d95-96c9-cdc4a337ef18.jpg?size=800x800', '끓는 물에 어묵 꼬치를 5분 정도 끓여주세요.'),
     (1, 3, 'https://static.wtable.co.kr/image/production/service/recipe/972/48f36b09-dc90-4fe6-8b06-4454eba10830.jpg?size=800x800', '볼에 소스 재료를 섞어주세요.'),
     (1, 4, 'https://static.wtable.co.kr/image/production/service/recipe/972/34e6eb8d-3cd2-4bf9-b44c-ddfdc08547b3.jpg?size=800x800', '어묵 꼬치에 소스를 발라주세요.');
+
 INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
 VALUES
     (2, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2344/377fab99-02d8-47d9-bf33-f6fe2804c5b4.jpg?size=800x800', '양파는 곱게 다지고 홍고추는 송송 썰어 준비해 주세요. 두부는 칼등으로 으깨 주세요.(tip. 수분이 많은 두부의 경우 물기를 꽉 짜주세요)'),
@@ -628,11 +656,17 @@ VALUES
     (20, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1224/916eccaa-d051-4bd9-8f34-8bca47c7a14d.jpg?size=800x800', '분량의 재료를 골고루 섞어서 소스를 만들어 주세요..'),
     (20, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1224/cbf4ac94-cb00-43b1-9537-1c589393a9ab.jpg?size=800x800', '순서 2의 튀김 반죽을 입힌 돼지고기를 가열한 기름에 하나씩 넣어 바삭하게 튀겨 주세요.'),
     (20, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1224/4d959f9a-a113-4a36-a9ef-af3c6fdba84c.jpg?size=800x800', '뜨거운 팬에 식용유을 두르고 다진 생강을 볶아 향을 내준 뒤 순서 3의 소스를 넣고 끓여주세요.');
-
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (21, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/e3ce099f-2575-4762-b6ba-e7e328de70f5.jpg?size=800x800', '어묵은 먹기 좋게 2장씩 꼬치에 꽂아주세요.'),
+    (21, 2, 'https://static.wtable.co.kr/image/production/service/recipe/972/23daf027-1c94-4d95-96c9-cdc4a337ef18.jpg?size=800x800', '끓는 물에 어묵 꼬치를 5분 정도 끓여주세요.'),
+    (21, 3, 'https://static.wtable.co.kr/image/production/service/recipe/972/48f36b09-dc90-4fe6-8b06-4454eba10830.jpg?size=800x800', '볼에 소스 재료를 섞어주세요.'),
+    (21, 4, 'https://static.wtable.co.kr/image/production/service/recipe/972/34e6eb8d-3cd2-4bf9-b44c-ddfdc08547b3.jpg?size=800x800', '어묵 꼬치에 소스를 발라주세요.');
 
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/972/961fd6ad-a401-471a-9941-8859a7e71f81.jpg?size=800x800');
+
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (2, 'https://static.wtable.co.kr/image/production/service/recipe/2344/88883df6-0bb0-41bc-b626-b9c99fd0734d.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
@@ -671,11 +705,14 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (19, 'https://static.wtable.co.kr/image/production/service/recipe/1213/151cc9ca-f219-4bdf-b1ed-6c1ad6cf1198.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (20, 'https://static.wtable.co.kr/image/production/service/recipe/1224/20bdc681-de18-486e-969a-f4fa1da58e08.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (21, 'https://static.wtable.co.kr/image/production/service/recipe/972/961fd6ad-a401-471a-9941-8859a7e71f81.jpg?size=800x800');
 
 
 -- Recipe Tags
 INSERT INTO recipe_tag (id, tags)
 VALUES (1, '마라어묵'), (1, '간단요리');
+
 INSERT INTO recipe_tag (id, tags)
 VALUES (2, '고추전'), (2, '간단요리');
 INSERT INTO recipe_tag (id, tags)
@@ -714,6 +751,8 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (19, '잡채덮밥'), (19, '중식'), (19, '간편식'), (19, '채소');
 INSERT INTO recipe_tag (id, tags)
 VALUES (20, '탕수육'), (20, '찹쌀'), (20, '중식'), (20, '튀김');
+INSERT INTO recipe_tag (id, tags)
+VALUES (21, '마라어묵'), (21, '간단요리');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -721,6 +760,7 @@ VALUES
     (1, 1, '이거 너무 간단한데 맛있어요ㅠㅠㅠㅠ 앞으로 술안주 없으면 이겁니다!!! 오늘 뭐 먹지 사랑해요'),
     (1, 2, '라조장 고추소스 있는데 그걸로 가능한건지;;ㅎ'),
     (1, 3, '마라소스 어떤건지 궁금해요!!');
+
 INSERT INTO recipe_comments (recipe_id, member_id, content)
 VALUES
     (2, 1, '간단하면서도 정말 맛있어요! 너무 좋아요.'),
@@ -816,6 +856,11 @@ VALUES
     (20, 1, '찹쌀가루 덕분에 탕수육이 정말 바삭하고 맛있어요. 소스도 너무 잘 어울립니다.'),
     (20, 2, '탕수육이 바삭하고 소스가 정말 맛있어요. 집에서 쉽게 만들 수 있어서 좋습니다.'),
     (20, 3, '찹쌀로 만든 탕수육은 정말 색다르고 맛있습니다. 자주 해먹을 것 같아요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (21, 1, '이거 너무 간단한데 맛있어요ㅠㅠㅠㅠ 앞으로 술안주 없으면 이겁니다!!! 오늘 뭐 먹지 사랑해요'),
+    (21, 2, '라조장 고추소스 있는데 그걸로 가능한건지;;ㅎ'),
+    (21, 3, '마라소스 어떤건지 궁금해요!!');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -858,6 +903,8 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 19);  -- 사용자가 19번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 20);  -- 사용자가 20번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 21);  -- 사용자가 1번 레시피를 찜한 경우
 
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;
