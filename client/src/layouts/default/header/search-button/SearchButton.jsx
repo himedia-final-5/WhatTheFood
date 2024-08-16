@@ -6,17 +6,17 @@ export default function SearchButton() {
   return (
     <form
       className={cn(
-        "relative flex flex-1 justify-center items-center rounded-full",
-        "h-10 w-full max-w-96 px-4 ",
+        "relative flex-1 justify-center items-center rounded-full",
+        "h-10 w-full max-w-96 px-4",
         "border border-solid border-neutral-600 bg-neutral-50",
-        "hidden xs:block",
+        "hidden xs:flex",
       )}
       onSubmit={(e) => e.preventDefault()}
     >
       <input
         type="text"
         placeholder="레시피 검색"
-        className="w-full text-base"
+        className="w-full text-base p-0"
       />
       <button
         type="submit"
