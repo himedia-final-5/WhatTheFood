@@ -44,8 +44,10 @@ export default function RecipeList() {
             <div className="recipe_text_wrap">
               <span className="recipe_state_name">{recipe.title}</span>
               <span className="recipe_state_tags">{recipe.tags}</span>
-              <span className="recipe_state_level">{recipe.level}단계</span>
-              <span className="recipe_state_servings">{recipe.servings}인분</span>
+              <span className="recipe_state_level">{recipe.level} level</span>
+              <span className="recipe_state_servings">
+                {recipe.servings}인분
+              </span>
             </div>
 
             <div className="recipe_imageUrl">
