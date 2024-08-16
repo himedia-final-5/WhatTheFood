@@ -39,11 +39,11 @@ VALUES (5, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1532/
 20, 4, 1, 'https://www.youtube.com/watch?v=t63aSsdvZKs&pp=ygUJ7ZmN7ZWp7YOV', '한식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (6, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1268/942a38ee-ceda-4ae7-850d-c6ba39542a07.jpg?size=800x800',
-'어머 이건 머야 유니크한 요리', '고급스러운 송로 오일과 육회가 만난 특별한 스파게티! 진한 풍미와 부드러운 식감이 일품으로, 특별한 날에 어울리는 요리입니다.',
+'고소하고 유니크한', '고급스러운 송로 오일과 육회가 만난 특별한 스파게티! 진한 풍미와 부드러운 식감이 일품으로, 특별한 날에 어울리는 요리입니다.',
 25, 2, 3, 'https://www.youtube.com/watch?v=y0ecwbUGvW4&pp=ygUT7Jyh7ZqMIOyKpO2MjOqyjO2LsA%3D%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (7, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2681/1d0a0dc0-b3d2-4784-9e99-fd0750fa97c4.jpg?size=800x800',
-'요즘 이거 안먹는 사람도 있어?', '두바이에서 영감을 받은 풍부한 초콜릿 맛의 디저트입니다. 달콤하고 진한 초콜릿의 맛이 일품으로, 특별한 날에 어울리는 디저트입니다.',
+'요즘 트렌드 초콜릿', '두바이에서 영감을 받은 풍부한 초콜릿 맛의 디저트입니다. 달콤하고 진한 초콜릿의 맛이 일품으로, 특별한 날에 어울리는 디저트입니다.',
 30, 4, 2, 'https://www.youtube.com/watch?v=yVuprH1DTLg&pp=ygUd65GQ67CU7J20IOy0iOy9nOumvyDrp4zrk6TquLA%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (8, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1412/c9052b39-229d-4a42-88fd-7ea8b5a27df1.jpg?size=500x500',
@@ -51,11 +51,11 @@ VALUES (8, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1412/
 60, 6, 4, 'https://www.youtube.com/watch?v=ZTkLFFEXQ4s&pp=ygUT65287J6Q64OQIOunjOuTpOq4sA%3D%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (9, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1012/0221329d-24f5-44fc-bc7d-6cd9bdd10e77.jpg?size=800x800',
-'고수를 좋아하는 사람이면 클릭', '신선한 고수와 페스토를 활용한 크림 파스타로, 독특한 향과 부드러운 크림 소스가 조화를 이루는 요리입니다. 색다른 맛을 원하는 분들에게 추천합니다.',
+'고수와 파스타의 만남', '신선한 고수와 페스토를 활용한 크림 파스타로, 독특한 향과 부드러운 크림 소스가 조화를 이루는 요리입니다. 색다른 맛을 원하는 분들에게 추천합니다.',
 30, 2, 3, 'https://www.youtube.com/watch?v=ivNam7sY94c&pp=ygUh6rOg7IiYIO2BrOumvCDtjpjsiqTthqAg7YyM7Iqk7YOA', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (10, 1, 'https://static.wtable.co.kr/image/production/service/recipe/992/33096f46-a8fd-4b78-ae56-bba7a012fe54.jpg?size=800x800',
-'이거는 정말 해먹어야 되', '간편하게 한 팬에서 조리할 수 있는 새우 파스타로, 신선한 새우와 풍부한 토마토 소스가 어우러져 맛을 더합니다.',
+'간편하고 맛있는', '간편하게 한 팬에서 조리할 수 있는 새우 파스타로, 신선한 새우와 풍부한 토마토 소스가 어우러져 맛을 더합니다.',
 30, 2, 2, 'https://www.youtube.com/watch?v=shYlVEzum1g&pp=ygUX7JuQ7YysIOyDiOyasCDtjIzsiqTtg4A%3D', '양식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (11, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1675/0c6d386e-2ff4-4c23-8327-b2608d7cd418.jpg?size=800x800',
