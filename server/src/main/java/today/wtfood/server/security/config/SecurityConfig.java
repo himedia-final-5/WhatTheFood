@@ -15,13 +15,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import today.wtfood.server.security.config.properties.SecurityCorsProperties;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
+import today.wtfood.server.security.handler.AuthenticationSuccessHandlerImpl;
+import today.wtfood.server.security.service.OAuth2UserServiceImpl;
 
 @Log4j2
 @Configuration
@@ -33,7 +34,8 @@ public class SecurityConfig {
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AuthenticationFailureHandler authenticationFailureHandler;
-    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+    private final OAuth2UserServiceImpl OAuth2UserServiceImpl;
     private final SecurityCorsProperties corsProperties;
 
     @Bean
@@ -45,13 +47,30 @@ public class SecurityConfig {
         http.cors(config -> config.configurationSource(corsConfigurationSource()));
 
         // 세션을 상태 유지 방식으로 사용하지 않음
-        http.sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
-        // 로그인 처리 설정
+        // 폼 로그인 처리 설정
         http.formLogin(config -> config
                 .loginPage("/auth/signin")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
+        );
+
+        // OAuth2 로그인 처리 설정
+        http.oauth2Login(config -> config
+                .successHandler((request, response, authentication) -> {
+                    log.info("OAuth2 login success: {}", authentication);
+                    response.sendRedirect("http://wtfood.today:3000/");
+                    // TODO: 로그인 성공 후 처리
+                })
+                .failureHandler((request, response, exception) -> {
+                    log.error("OAuth2 login failed: ", exception);
+                    response.sendRedirect("http://wtfood.today:3000/");
+                    // TODO: 로그인 실패 후 처리
+                })
+                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                        .userService(OAuth2UserServiceImpl)
+                )
         );
 
         // JWT 엑세스 토큰 검증 필터 설정
