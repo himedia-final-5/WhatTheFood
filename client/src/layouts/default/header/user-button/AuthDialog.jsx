@@ -52,7 +52,7 @@ export default function AuthModal() {
               <PartOfDescription />
             </DialogDescription>
           </DialogHeader>
-          <PartOfContent />
+          <PartOfContent setOpen={setOpen} />
         </DialogContent>
       </Dialog>
     );
@@ -72,7 +72,7 @@ export default function AuthModal() {
             <PartOfDescription />
           </DrawerDescription>
         </DrawerHeader>
-        <PartOfContent isDrawer />
+        <PartOfContent isDrawer setOpen={setOpen} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">닫기</Button>
@@ -103,7 +103,12 @@ function PartOfDescription() {
   return <>로그인 후 더 많은 서비스를 사용해보세요!</>;
 }
 
-function PartOfContent({ isDrawer }) {
+/**
+ *
+ * @param {{isDrawer: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
+ * @returns
+ */
+function PartOfContent({ isDrawer, setOpen }) {
   const [isSignIn, toggleSignIn] = useToggle(true);
   const modeText = isSignIn ? "로그인" : "회원가입";
 
@@ -123,7 +128,11 @@ function PartOfContent({ isDrawer }) {
         aria-label="auth-modal-main"
         className="flex flex-col gap-4 items-center w-full flex-1 mt-8"
       >
-        {isSignIn ? <AuthSignInForm /> : <AuthSignUpForm />}
+        {isSignIn ? (
+          <AuthSignInForm setVisible={setOpen} />
+        ) : (
+          <AuthSignUpForm />
+        )}
         <div
           aria-label="auth-social"
           className={cn({ "my-8": isDrawer }, "flex flex-col w-full")}
