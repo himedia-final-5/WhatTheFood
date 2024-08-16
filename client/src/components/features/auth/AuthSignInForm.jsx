@@ -1,30 +1,60 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { z } from "zod";
 
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "components/shadcn/ui/form";
+import { Button } from "components/shadcn/ui/button";
+import { Input } from "components/shadcn/ui/input";
 import { TablerCircleKeyFilled, TablerUserFilled } from "components/asset";
 import { cn, axios } from "utils";
-import { useInputs } from "hooks";
 import { useDispatch, signinAction } from "stores";
-import Input from "components/form/Input";
+
+const formSchema = z.object({
+  username: z
+    .string()
+    .regex(/^[a-zA-Z0-9_]+$/, {
+      message: "아이디는 영어, 숫자, 언더스코어(_)만 사용할 수 있습니다",
+    })
+    .min(4, {
+      message: "아이디는 최소 4자 이상이어야 합니다",
+    })
+    .max(45, {
+      message: "아이디는 최대 45자 이하여야 합니다",
+    }),
+  password: z
+    .string()
+    .min(4, {
+      message: "비밀번호는 최소 4자 이상이어야 합니다",
+    })
+    .max(45, {
+      message: "비밀번호는 최대 45자 이하여야 합니다",
+    }),
+});
 
 /**
  * @param {function(boolean)} setVisible 모달 표시 여부 변경 함수
  */
 export default function AuthSignInForm({ setVisible }) {
   const dispatch = useDispatch();
-  const { inputs, onInputChange } = useInputs({
-    username: "",
-    password: "",
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
   });
 
-  async function onFormSubmit() {
-    if (!inputs.username || inputs.username.length < 1) {
-      return toast.error("아이디를 입력하세요.");
-    }
-
-    if (!inputs.password || inputs.password.length < 1) {
-      return toast.error("패스워드를 입력하세요.");
-    }
-
+  /** @param {z.infer<typeof formSchema>} */
+  function onSubmit(inputs) {
     /** @type {(request: SignInRequest) => Promise<User>} */
     async function signIn(request) {
       /** @type {import("axios").AxiosResponse<User>} */
@@ -49,78 +79,106 @@ export default function AuthSignInForm({ setVisible }) {
   }
 
   return (
-    <form
-      aria-label="auth-input-form"
-      className="flex w-full h-fit"
-      onSubmit={(event) => {
-        event.preventDefault();
-        onFormSubmit();
-      }}
-    >
-      <div className="flex flex-col flex-1">
-        <div aria-label="auth-input-username" className="w-full h-12 flex">
-          <Input
-            name="username"
-            labelProps={{
-              className:
-                "flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-ss-md",
-            }}
-            type="text"
-            autoComplete="username"
-            autoCorrect="off"
-            placeholder="아이디"
-            defaultValue={inputs.username}
-            onChange={onInputChange}
-            required
-            className={cn(
-              "block flex-1 min-w-0 w-full p-2.5",
-              "bg-gray-50 border border-solid border-gray-300",
-              "text-gray-900 text-base focus:border-green-500",
-            )}
-          >
-            <TablerUserFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-          </Input>
-        </div>
-        <div aria-label="auth-input-password" className="w-full h-12 flex">
-          <Input
-            name="password"
-            labelProps={{
-              className: cn(
-                "flex items-center px-3",
-                "bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-es-md",
-              ),
-            }}
-            type="password"
-            autoComplete="password"
-            autoCorrect="off"
-            placeholder="비밀번호"
-            defaultValue={inputs.password}
-            onChange={onInputChange}
-            required
-            className={cn(
-              "block flex-1 min-w-0 w-full p-2.5",
-              "bg-gray-50 border border-solid border-gray-300",
-              "text-gray-900 text-base focus:border-green-500",
-            )}
-          >
-            <TablerCircleKeyFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-          </Input>
-        </div>
-      </div>
-      <div
-        aria-label="auth-submit-button"
-        className="w-16 bg-green-500 rounded-e-md"
-      >
-        <button
-          type="submit"
-          className={cn(
-            "w-full h-full",
-            "text-white text-base font-bold drop-shadow",
-          )}
+    <>
+      <Form {...form} className="mb-10">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          aria-label="auth-input-form"
+          className="flex w-full h-fit mb-10"
+          noValidate
         >
-          로그인
-        </button>
-      </div>
-    </form>
+          <div aria-label="auth-input-fields" className="flex flex-col flex-1">
+            <FormField
+              aria-label="auth-input-username"
+              className="flex w-full h-12"
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem className="relative w-full h-12">
+                  <div className="w-full h-12 flex">
+                    <FormLabel className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-ss-md">
+                      <TablerUserFilled className="w-6 h-8 opacity-70" />
+                    </FormLabel>
+                    <FormControl className="w-full h-full !m-0 rounded-none ring-primary">
+                      <Input
+                        type="text"
+                        autoComplete="username"
+                        autoCorrect="off"
+                        placeholder="아이디"
+                        required
+                        className={cn(
+                          "block flex-1 min-w-0 w-full p-2.5",
+                          "bg-gray-50 border border-solid border-gray-300",
+                          "text-gray-900 text-base focus:z-20",
+                          "aria-[invalid=false]:ring-primary aria-[invalid=true]:ring-destructive",
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                  </div>
+                  <FormDescription></FormDescription>
+                  <FormMessage
+                    className={cn(
+                      "absolute bottom-14 left-12 text-nowrap font-bold",
+                      "px-1 py-2 bg-white z-40",
+                      "border-2 border-solid border-destructive rounded-lg",
+                      "animate-head-shake",
+                    )}
+                  />
+                </FormItem>
+              )}
+            />
+            <FormField
+              aria-label="auth-input-username"
+              className="flex w-full h-12"
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="relative w-full h-12">
+                  <div className="w-full h-12 flex">
+                    <FormLabel className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-es-md">
+                      <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
+                    </FormLabel>
+                    <FormControl className="w-full h-full !m-0 rounded-none">
+                      <Input
+                        type="text"
+                        autoComplete="password"
+                        autoCorrect="off"
+                        placeholder="비밀번호"
+                        required
+                        className={cn(
+                          "block flex-1 min-w-0 w-full p-2.5",
+                          "bg-gray-50 border border-solid border-gray-300",
+                          "text-gray-900 text-base focus:z-20",
+                          "aria-[invalid=false]:ring-primary aria-[invalid=true]:ring-destructive",
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                  </div>
+                  <FormDescription></FormDescription>
+                  <FormMessage
+                    className={cn(
+                      "absolute top-12 left-12 text-nowrap font-bold",
+                      "px-1 py-2 bg-white z-40",
+                      "border-2 border-solid border-destructive rounded-lg",
+                      "animate-head-shake",
+                    )}
+                  />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button
+            type="submit"
+            className="w-16 h-full bg-primary rounded-e-md rounded-s-none"
+          >
+            <p className="text-base text-white text-nowrap font-bold drop-shadow-sm">
+              로그인
+            </p>
+          </Button>
+        </form>
+      </Form>
+    </>
   );
 }
