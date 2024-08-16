@@ -36,13 +36,15 @@ function Header() {
   };
 
   useEffect(() => {
+    if (headerRef.current) {
+      setMarginBottom(headerRef.current.clientHeight);
+    }
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      <div style={{ marginBottom: headerRef.current?.clientHeight }} />
       <header
         ref={headerRef}
         className="fixed flex flex-col w-full z-40 bg-white shadow-md"
@@ -85,6 +87,7 @@ function Header() {
           </div>
         </div>
       </header>
+      <div style={{ marginBottom: marginBottom }} />
     </>
   );
 }
