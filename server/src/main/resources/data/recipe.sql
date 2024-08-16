@@ -127,12 +127,16 @@ VALUES (27, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2338
 20, 4, 1, 'https://www.youtube.com/watch?v=6_1T8uA894E&pp=ygUW7IaM65ah7IaM65ahIOunjOuTpOq4sA%3D%3D', '간식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (28, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2276/0553d553-a0a3-4336-80bb-4f6a0fa10e38.jpg?size=500x500',
-'치즈볼', '쫀득한 식감과 고소한 치즈의 풍미가 일품인 치즈볼! 달콤한 설탕을 뿌려서 먹으면 더 맛있어요. 집에서도 간단하게 만들어 먹을 수 있는 간식입니다.',
+'고소하고 먹기 편한', '쫀득한 식감과 고소한 치즈의 풍미가 일품인 치즈볼! 달콤한 설탕을 뿌려서 먹으면 더 맛있어요. 집에서도 간단하게 만들어 먹을 수 있는 간식입니다.',
 30, 4, 2, 'https://www.youtube.com/watch?v=iFgLLF0m_Ts&pp=ygUT7LmY7KaI67O8IOunjOuTpOq4sA%3D%3D', '간식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (29, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1657/8cfe80dd-9bf5-40f9-82c0-aef06e6d497a.jpg?size=800x800',
-'아보카도 아이스크림', '크리미한 아보카도의 풍미를 가득 담은 아이스크림! 건강하고 고소한 맛으로, 디저트로 손색없는 아이스크림입니다. 아보카도와 몇 가지 재료만으로 간단하게 만들 수 있어요.',
+'건강에 좋은 아이들에게 딱', '크리미한 아보카도의 풍미를 가득 담은 아이스크림! 건강하고 고소한 맛으로, 디저트로 손색없는 아이스크림입니다. 아보카도와 몇 가지 재료만으로 간단하게 만들 수 있어요.',
 15, 4, 1, 'https://www.youtube.com/watch?v=Km9IHFX66K0&pp=ygUm7JWE67O07Lm064-EIOyVhOydtOyKpO2BrOumvCDrp4zrk6TquLA%3D', '디저트', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (30, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2667/3aaa6a5a-33b4-4b57-abea-14d6f36d82ed.jpg?size=500x500',
+'새콤달콤 여름에 시원하게', '상큼하고 시원한 과일 셔벗! 제철 과일을 이용해 간편하게 만들 수 있는 여름철 디저트입니다. 달콤함과 상큼함이 어우러져 입맛을 돋우는 데 최고입니다.',
+20, 4, 2, 'https://www.youtube.com/watch?v=JnNLlLX-6Vs&pp=ygUa6rO87J28IOyDpOuyoO2KuCDrp4zrk6TquLA%3D', '디저트', 0);
 
 
 -- 재료 사진 삽입
@@ -194,6 +198,8 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (28, 'https://static.wtable.co.kr/image/production/service/recipe/2276/bbe4a2cd-7b7b-4e13-a5ef-00c554738d91.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (29, 'https://static.wtable.co.kr/image/production/service/recipe/1657/af704f9a-bef7-4a0d-8682-68cb2a09b922.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (30, 'https://static.wtable.co.kr/image/production/service/recipe/2667/2f45ebc9-8eca-4295-9f41-cc5024bdc266.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -560,6 +566,14 @@ VALUES
      (29, '우유 100ml'),
      (29, '라임즙 1큰술'),
      (29, '꿀 2큰술');
+ INSERT INTO recipe_ingredient (id, ingredients)
+ VALUES
+     (30, '오렌지 2개'),
+     (30, '딸기 100g'),
+     (30, '키위 1개'),
+     (30, '레몬즙 1큰술'),
+     (30, '설탕 2큰술'),
+     (30, '물 100ml');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -620,6 +634,8 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (28, '볼'), (28, '프라이팬'), (28, '스푼'), (28, '종이타월');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (29, '믹서기'), (29, '볼'), (29, '스푼'), (29, '아이스크림 틀');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (30, '믹서기'), (30, '볼'), (30, '냉동용기');
 
 
 -- Recipe Guide Links
@@ -681,6 +697,8 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (28, 'http://www.10000recipe.com/recipe/6923495');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (29, 'http://blog.naver.com/pinksummer88/223546464430');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (30, 'http://www.10000recipe.com/recipe/6872518');
 
 
 -- Recipe Cooking Steps
@@ -872,6 +890,11 @@ VALUES
     (29, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1657/896b3b57-4adf-43a0-a10a-adec27018db4.jpg?size=800x800', '아보카도는 껍질과 씨를 제거하고 잘게 잘라주세요.'),
     (29, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1657/d274178e-57e7-4dda-87ea-5770a142a31e.jpg?size=800x800', '블렌더에 코코넛 밀크, 아보카도, 꿀을 넣고 곱게 갈아주세요.'),
     (29, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1657/753a4e98-436f-4b1d-bcda-c08687090d11.jpg?size=800x800', '냉동실에 순서 2를 1시간 정도 넣었다 꺼낸 후 블렌더에 다시 갈아주고 밀폐용기에 담아 하룻밤 냉동보관해주세요.먹기 20분 전에 미리 꺼내 두었다가 아이스크림컵에 담아 맛있게 즐기세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (30, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2667/f4db6a85-fa25-40fc-a8b7-252e03462b8f.jpg?size=800x800', '휴롬 착즙기에 냉동 과일을 넣고 동작해주세요.'),
+    (30, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2667/a6f3ff74-10b9-4ef6-9e35-052ae6b409b5.jpg?size=800x800', '섬유질이 나오는 홀에서 과일 셔벗이 나오기 시작하면 누름 봉으로 과일을 중간중간 눌러주세요. '),
+    (30, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2667/5083a5c8-9d30-4dcb-ab94-3ebea98e95c8.jpg?size=800x800', '용기에 냉동과일을 담아 냉동실에서 1시간 정도 두세요.완성된 셔벗은 아이스크림 스쿱으로 떠서 볼에 담아 맛있게 즐겨주세요. (tip. 허브로 장식하거나 말린 과일칩 등을 올려 장식해도 좋아요)');
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
@@ -931,6 +954,8 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (28, 'https://static.wtable.co.kr/image/production/service/recipe/2276/ba7e24a5-471a-4a4f-83b0-3fd538ab4108.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (29, 'https://static.wtable.co.kr/image/production/service/recipe/1657/ad0acd5a-0bc8-4ee4-9823-3c298b1336e6.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (30, 'https://static.wtable.co.kr/image/production/service/recipe/2667/fdc277f2-474c-4563-8aa5-b9f17caffb7e.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -992,6 +1017,8 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (28, '치즈볼'), (28, '치즈'), (28, '간식'), (28, '튀김');
 INSERT INTO recipe_tag (id, tags)
 VALUES (29, '아보카도'), (29, '아이스크림'), (29, '디저트'), (29, '여름간식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (30, '과일'), (30, '셔벗'), (30, '여름디저트'), (30, '시원한간식');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -1139,6 +1166,11 @@ VALUES
     (29, 1, '아보카도의 고소한 맛이 너무 좋아요. 크리미하고 달콤해요!'),
     (29, 2, '건강한 아이스크림이라 아이들에게도 좋을 것 같아요.'),
     (29, 3, '아보카도로 이렇게 맛있는 디저트를 만들 수 있다니 놀라워요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (30, 1, '상큼하고 시원해서 여름에 딱이에요. 과일도 다양하게 넣을 수 있어요!'),
+    (30, 2, '과일이 신선해서 너무 맛있어요. 달지 않아서 좋아요.'),
+    (30, 3, '간단하게 만들 수 있는 디저트라 자주 해먹을 것 같아요.');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -1199,6 +1231,8 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 28);  -- 사용자가 28번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 29);  -- 사용자가 29번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 30);  -- 사용자가 30번 레시피를 찜한 경우
 
 
 -- 외래키 제약조건을 다시 활성화
