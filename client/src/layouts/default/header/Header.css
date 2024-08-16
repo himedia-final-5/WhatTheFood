@@ -1,13 +1,3 @@
-.Header {
-  width: 100%;
-  display: flex;
-  /* position: absolute; */
-  flex-direction: column;
-  margin-bottom: 100px;
-  background-color: #f8f8f8; /* 밝은 배경색으로 설정 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더 아래에 미세한 그림자 추가 */
-}
-
 .top {
   display: flex;
   justify-content: space-between;
