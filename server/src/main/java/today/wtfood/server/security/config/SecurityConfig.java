@@ -47,7 +47,7 @@ public class SecurityConfig {
         http.cors(config -> config.configurationSource(corsConfigurationSource()));
 
         // 세션을 상태 유지 방식으로 사용하지 않음
-        http.sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+        http.sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         // 폼 로그인 처리 설정
         http.formLogin(config -> config
