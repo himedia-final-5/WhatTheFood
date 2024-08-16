@@ -49,7 +49,7 @@ export default function AuthModal() {
               <PartOfTitle />
             </DialogTitle>
             <DialogDescription>
-              <PArtOfDescription />
+              <PartOfDescription />
             </DialogDescription>
           </DialogHeader>
           <PartOfContent />
@@ -69,7 +69,7 @@ export default function AuthModal() {
             <PartOfTitle />
           </DrawerTitle>
           <DrawerDescription>
-            <PArtOfDescription />
+            <PartOfDescription />
           </DrawerDescription>
         </DrawerHeader>
         <PartOfContent isDrawer />
@@ -99,7 +99,7 @@ function PartOfTitle() {
   );
 }
 
-function PArtOfDescription() {
+function PartOfDescription() {
   return <>로그인 후 더 많은 서비스를 사용해보세요!</>;
 }
 
