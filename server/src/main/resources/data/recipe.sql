@@ -960,65 +960,66 @@ VALUES (30, 'https://static.wtable.co.kr/image/production/service/recipe/2667/fd
 
 -- Recipe Tags
 INSERT INTO recipe_tag (id, tags)
-VALUES (1, '멍게'), (1, '비빔밥'), (1, '한식'), (1, '해산물요리');
+VALUES (1, '#멍게'), (1, '#비빔밥'), (1, '#한식'), (1, '#해산물요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (2, '고추전'), (2, '간단요리');
+VALUES (2, '#고추전'), (2, '#간단요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (3, '성게미역국'), (3, '보양식');
+VALUES (3, '#성게미역국'), (3, '#보양식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (4, '목살김치찜'), (4, '한식'), (4, '김치요리');
+VALUES (4, '#목살김치찜'), (4, '#한식'), (4, '#김치요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (5, '홍합탕'), (5, '해장음식'), (5, '국물요리');
+VALUES (5, '#홍합탕'), (5, '#해장음식'), (5, '#국물요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (6, '송로오일'), (6, '육회'), (6, '스파게티'), (6, '특별한요리');
+VALUES (6, '#송로오일'), (6, '#육회'), (6, '#스파게티'), (6, '#특별한요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (7, '초콜릿'), (7, '디저트'), (7, '두바이'), (7, '달콤한요리');
+VALUES (7, '#초콜릿'), (7, '#디저트'), (7, '#두바이'), (7, '#달콤한요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (8, '라자냐'), (8, '이탈리안'), (8, '치즈'), (8, '미트소스');
+VALUES (8, '#라자냐'), (8, '#이탈리안'), (8, '#치즈'), (8, '#미트소스');
 INSERT INTO recipe_tag (id, tags)
-VALUES (9, '고수'), (9, '페스토'), (9, '크림파스타'), (9, '양식');
+VALUES (9, '#고수'), (9, '#페스토'), (9, '#크림파스타'), (9, '#양식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (10, '새우'), (10, '파스타'), (10, '원팬'), (10, '간편식');
+VALUES (10, '#새우'), (10, '#파스타'), (10, '#원팬'), (10, '#간편식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (11, '우동'), (11, '일식'), (11, '냉우동'), (11, '간편식');
+VALUES (11, '#우동'), (11, '#일식'), (11, '#냉우동'), (11, '#간편식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (12, '텐동'), (12, '튀김'), (12, '일식'), (12, '덮밥');
+VALUES (12, '#텐동'), (12, '#튀김'), (12, '#일식'), (12, '#덮밥');
 INSERT INTO recipe_tag (id, tags)
-VALUES (13, '장어'), (13, '덮밥'), (13, '일식'), (13, '고급식');
+VALUES (13, '#장어'), (13, '#덮밥'), (13, '#일식'), (13, '#고급식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (14, '연어'), (14, '아보카도'), (14, '덮밥'), (14, '일식');
+VALUES (14, '#연어'), (14, '#아보카도'), (14, '#덮밥'), (14, '#일식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (15, '타코야끼'), (15, '일식'), (15, '술안주'), (15, '길거리음식');
+VALUES (15, '#타코야끼'), (15, '#일식'), (15, '#술안주'), (15, '#길거리음식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (16, '교자'), (16, '일식'), (16, '만두'), (16, '술안주');
+VALUES (16, '#교자'), (16, '#일식'), (16, '#만두'), (16, '#술안주');
 INSERT INTO recipe_tag (id, tags)
-VALUES (17, '해물짜장'), (17, '매운음식'), (17, '중식'), (17, '해산물');
+VALUES (17, '#해물짜장'), (17, '#매운음식'), (17, '#중식'), (17, '#해산물');
 INSERT INTO recipe_tag (id, tags)
-VALUES (18, '해물짬뽕'), (18, '중식'), (18, '매운음식'), (18, '볶음');
+VALUES (18, '#해물짬뽕'), (18, '#중식'), (18, '#매운음식'), (18, '#볶음');
 INSERT INTO recipe_tag (id, tags)
-VALUES (19, '잡채덮밥'), (19, '중식'), (19, '간편식'), (19, '채소');
+VALUES (19, '#잡채덮밥'), (19, '#중식'), (19, '#간편식'), (19, '#채소');
 INSERT INTO recipe_tag (id, tags)
-VALUES (20, '탕수육'), (20, '찹쌀'), (20, '중식'), (20, '튀김');
+VALUES (20, '#탕수육'), (20, '#찹쌀'), (20, '#중식'), (20, '#튀김');
 INSERT INTO recipe_tag (id, tags)
-VALUES (21, '마라어묵'), (21, '간단요리');
+VALUES (21, '#마라어묵'), (21, '#간단요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (22, '떡볶이'), (22, '차돌박이'), (22, '매콤한'), (22, '한식');
+VALUES (22, '#떡볶이'), (22, '#차돌박이'), (22, '#매콤한'), (22, '#한식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (23, '김밥'), (23, '불고기'), (23, '한식'), (23, '도시락');
+VALUES (23, '#김밥'), (23, '#불고기'), (23, '#한식'), (23, '#도시락');
 INSERT INTO recipe_tag (id, tags)
-VALUES (24, '쫄면'), (24, '콩나물'), (24, '한식'), (24, '매콤한 요리');
+VALUES (24, '#쫄면'), (24, '#콩나물'), (24, '#한식'), (24, '#매콤한요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (25, '김말이'), (25, '칠리소스'), (25, '탕수'), (25, '분식');
+VALUES (25, '#김말이'), (25, '#칠리소스'), (25, '#탕수'), (25, '#분식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (26, '옥수수'), (26, '마요네즈'), (26, '간식'), (26, '중독성');
+VALUES (26, '#옥수수'), (26, '#마요네즈'), (26, '#간식'), (26, '#중독성');
 INSERT INTO recipe_tag (id, tags)
-VALUES (27, '소시지'), (27, '떡'), (27, '간식'), (27, '소떡소떡');
+VALUES (27, '#소시지'), (27, '#떡'), (27, '#간식'), (27, '#소떡소떡');
 INSERT INTO recipe_tag (id, tags)
-VALUES (28, '치즈볼'), (28, '치즈'), (28, '간식'), (28, '튀김');
+VALUES (28, '#치즈볼'), (28, '#치즈'), (28, '#간식'), (28, '#튀김');
 INSERT INTO recipe_tag (id, tags)
-VALUES (29, '아보카도'), (29, '아이스크림'), (29, '디저트'), (29, '여름간식');
+VALUES (29, '#아보카도'), (29, '#아이스크림'), (29, '#디저트'), (29, '#여름간식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (30, '과일'), (30, '셔벗'), (30, '여름디저트'), (30, '시원한간식');
+VALUES (30, '#과일'), (30, '#셔벗'), (30, '#여름디저트'), (30, '#시원한간식');
+
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
