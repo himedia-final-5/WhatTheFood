@@ -65,6 +65,10 @@ module.exports = {
           "pop-up-in var(--tw-animate-duration, 0.7s) var(--tw-animate-easing, ease) var(--tw-animate-delay, 0s) var(--tw-animate-iteration, 1) var(--tw-animate-fill, both)",
         "pop-up-out":
           "pop-up-out var(--tw-animate-duration, 0.7s) var(--tw-animate-easing, ease) var(--tw-animate-delay, 0s) var(--tw-animate-iteration, 1) var(--tw-animate-fill, both)",
+        "head-shake":
+          "head-shake var(--tw-animate-duration, 0.7s) var(--tw-animate-easing, ease) var(--tw-animate-delay, 0s) var(--tw-animate-iteration, 1) var(--tw-animate-fill, both)",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -104,6 +108,16 @@ module.exports = {
             transform: "translateY(50vh) scale(0.5)",
           },
         },
+        "head-shake": {
+          "0%": { transform: "translateX(0)" },
+          "12.5%": { transform: "translateX(-6px) rotateY(-9deg) skewY(1deg)" },
+          "37.5%": {
+            transform: "translateX(5px) rotateY(4.5deg) skewY(-1deg)",
+          },
+          "62.5%": { transform: "translateX(-3px) rotateY(-2.25deg) skewY(0)" },
+          "87.5%": { transform: "translateX(2px) rotateY(3deg)" },
+          "100%": { transform: "translateX(0)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -112,10 +126,6 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
