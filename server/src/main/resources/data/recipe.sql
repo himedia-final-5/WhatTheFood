@@ -115,8 +115,16 @@ VALUES (24, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1033
 20, 2, 2, 'https://www.youtube.com/watch?v=ddEsVpxZiYQ&pp=ygUa7L2p64KY66y8IOyrhOuptCDrp4zrk6TquLA%3D', '분식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (25, 1, 'https://static.wtable.co.kr/image/production/service/recipe/886/882096fb-aa2f-4c8e-92aa-38eeb17c9fb1.jpg?size=800x800',
-'김말이 칠리 탕수', '바삭한 김말이를 매콤달콤한 칠리 소스에 버무린 독특한 탕수 요리입니다. 아이들도 어른들도 좋아할 맛있는 간식입니다.',
+'칠리와 김말이의 만남', '바삭한 김말이를 매콤달콤한 칠리 소스에 버무린 독특한 탕수 요리입니다. 아이들도 어른들도 좋아할 맛있는 간식입니다.',
 30, 3, 2, 'https://www.youtube.com/watch?v=SPS6mKl8buk&pp=ygUh6rmA66eQ7J20IOy5oOumrCDtg5XsiJgg66eM65Ok6riw', '분식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (26, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2281/8290385a-be07-4650-9223-26ea063b044c.jpg?size=800x800',
+'중독되는 맛', '달콤하고 짭짤한 맛이 일품인 마약옥수수! 한 번 먹으면 멈출 수 없는 중독적인 맛을 자랑합니다. 간단한 재료로 손쉽게 만들 수 있어 누구나 쉽게 따라할 수 있는 간식입니다.',
+15, 2, 1, 'https://www.youtube.com/watch?v=U9aE_igKu7w&pp=ygUZ66eI7JW97Jil7IiY7IiYIOunjOuTpOq4sA%3D%3D', '간식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (27, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2338/03c9fce0-367f-489d-9f1b-27c0ed79eb10.jpg?size=800x800',
+'어린이들 입맛에 딱', '간단하면서도 맛있는 소떡소떡! 소시지와 떡을 번갈아 가며 꼬치에 끼워 구운 후, 달콤한 소스를 발라 완성하는 간식으로, 어린이들부터 어른들까지 모두가 좋아할 만한 맛입니다.',
+20, 4, 1, 'https://www.youtube.com/watch?v=6_1T8uA894E&pp=ygUW7IaM65ah7IaM65ahIOunjOuTpOq4sA%3D%3D', '간식', 0);
 
 
 -- 재료 사진 삽입
@@ -170,6 +178,11 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (24, 'https://static.wtable.co.kr/image/production/service/recipe/1033/4506a577-a8ab-4901-b406-3e1cfb9c7609.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (25, 'https://static.wtable.co.kr/image/production/service/recipe/886/a60a2f86-444d-4a00-8ea2-75c5f92e79f7.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (26, 'https://static.wtable.co.kr/image/production/service/recipe/2281/6b8a7eb7-4717-4f51-8ccb-633930d206ef.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (27, 'https://static.wtable.co.kr/image/production/service/recipe/2338/e79cb382-efcb-43d6-9255-f60416388846.jpg?size=800x800');
+
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
 VALUES
@@ -500,6 +513,25 @@ VALUES
     (25, '전분물 2큰술'),
     (25, '물 1/2컵'),
     (25, '식용유 적당량');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (26, '옥수수 2개'),
+    (26, '마요네즈 2큰술'),
+    (26, '설탕 1큰술'),
+    (26, '파마산 치즈가루 1큰술'),
+    (26, '칠리 파우더 약간'),
+    (26, '파슬리 가루 약간'),
+    (26, '버터 1큰술');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (27, '비엔나 소시지 8개'),
+    (27, '떡볶이 떡 8개'),
+    (27, '꼬치 4개'),
+    (27, '케찹 2큰술'),
+    (27, '고추장 1작은술'),
+    (27, '설탕 1큰술'),
+    (27, '물엿 1큰술'),
+    (27, '식용유 약간');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -552,6 +584,11 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (24, '냄비'), (24, '채반'), (24, '도마'), (24, '칼'), (24, '볼');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (25, '프라이팬'), (25, '도마'), (25, '칼'), (25, '볼');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (26, '냄비'), (26, '스푼'), (26, '그릴'), (26, '브러쉬');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (27, '프라이팬'), (27, '꼬치'), (27, '브러쉬'), (27, '접시');
+
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -604,6 +641,10 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (24, 'http://www.10000recipe.com/recipe/765786');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (25, 'http://www.10000recipe.com/recipe/6891719');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (26, 'http://www.10000recipe.com/recipe/6829689');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (27, 'http://www.10000recipe.com/recipe/6894810');
 
 
 -- Recipe Cooking Steps
@@ -774,6 +815,17 @@ VALUES
     (25, 2, 'https://static.wtable.co.kr/image/production/service/recipe/886/9fbf13b2-ed6d-4b0c-b7d4-cd37c17e7f46.jpg?size=800x800', '고팬에 기름을 넣고 170도로 달군 후 김말이를 넣어 바삭하게 튀겨주세요.'),
     (25, 3, 'https://static.wtable.co.kr/image/production/service/recipe/886/3411043f-9c04-492e-be56-56b712999acd.jpg?size=800x800', '달군 팬에 고추기름을 두르고 양파를 볶다가 소스 재료를 넣고 끓여주세요.'),
     (25, 4, 'https://static.wtable.co.kr/image/production/service/recipe/886/4946dcc0-1d99-47fb-b17f-e174708e4816.jpg?size=800x800', '소스가 끓으면 청피망, 파프리카를 넣어 섞어주세요. 녹말물을 넣어 걸쭉한 농도가 되면 불을 꺼주세요.접시에 김말이를 담고 소스를 곁들여 맛있게 즐겨주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (26, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2281/7d5e4820-8431-4151-b3d8-c47dbcb1878b.jpg?size=800x800', '옥수수는 껍질을 벗기고 흐르는 물에 씻은 후 물기를 제거해 주세요. (tip. 초당 옥수수가 아닌 일반 옥수수의 경우 찐 다음 사용해 주세요)'),
+    (26, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2281/7b454ba1-dba7-4c00-9a69-82e0e5eef62f.jpg?size=800x800', '실온에 둔 부드러운 버터에 나머지 소스 재료와 함께 넣어 잘 섞어주세요. '),
+    (26, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2281/becae96a-5d85-4dd1-8f2f-6e4a2ca8a237.jpg?size=800x800', '옥수수에 소스를 골고루 발라 구이 전용 팬에 올린 후 4단에 넣고 광파오븐 수동 요리 <구이>에서 17분 정도 구워주세요.완성된 마약 옥수수를 꺼내 파마산 치즈 가루, 파프리카 파우더, 파슬리를 뿌려 맛있게 즐겨주세요. ');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (27, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2338/fc39bca7-4d7d-4a55-b5a2-837ee73ae3a6.jpg?size=800x800', '용기에 떡볶이 떡을 담고 잠기도록 물을 넣어주세요. 법랑 접시에 석쇠를 놓고 내열 용기를 올려 1단에 넣고 <레인지> 기능으로 3분 정도 익혀주세요. 말랑말랑해진 떡은 물기를 빼서 준비해 주세요.(tip. 떡이 말랑말랑한 상태가 되어야 꼬치에 잘 꽂혀요)'),
+    (27, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2338/d7f6e8e3-0fe5-48ce-baf0-bb80dbcf84ee.jpg?size=800x800', '볼에 소스 재료를 넣어 섞어주세요.'),
+    (27, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2338/65fbdac9-6fdc-4b13-99ac-b59bc5d1cf37.jpg?size=800x800', '꼬치에 떡과 소시지를 번갈아 가며 끼워주세요. 남은 꼬치 부분을 알루미늄 포일로 감싸주세요.'),
+    (27, 4, 'https://static.wtable.co.kr/image/production/service/recipe/2338/6b3e3333-e1d3-45db-8f15-e2f049449f70.jpg?size=800x800', '구이 전용 팬에 소떡소떡을 올린 후 기름을 골고루 발라 4단에 넣고 광파오븐 자동 요리 <에어프라이>에서 <두부강정> 1모 분량을 선택해 조리해 주세요. 조리가 시작되면 조절 기능으로 시간을 10분으로 변경해주세요.(tip. “오븐에 전송" 버튼을 누르면 시간을 조절할 필요 없이 간단하게 설정할 수 있어요)완성된 소떡소떡을 소스에 버무려 완성해 주세요. 소떡소떡을 접시에 담고 다진 견과류와 파슬리를 뿌려 맛있게 즐겨주세요.');
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
@@ -825,6 +877,10 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (24, 'https://static.wtable.co.kr/image/production/service/recipe/1033/6c6af075-29f1-472c-a877-cff300631e6c.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (25, 'https://static.wtable.co.kr/image/production/service/recipe/886/51afc7c4-f745-4189-83dd-050fdad05c97.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (26, 'https://static.wtable.co.kr/image/production/service/recipe/2281/6a78b261-5e75-4adf-bb50-4039b76afd0d.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (27, 'https://static.wtable.co.kr/image/production/service/recipe/2338/a1614b52-6832-4aa7-aa69-a2f912573477.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -857,9 +913,9 @@ VALUES (13, '장어'), (13, '덮밥'), (13, '일식'), (13, '고급식');
 INSERT INTO recipe_tag (id, tags)
 VALUES (14, '연어'), (14, '아보카도'), (14, '덮밥'), (14, '일식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (15, '타코야끼'), (15, '일식'), (15, '간식'), (15, '길거리음식');
+VALUES (15, '타코야끼'), (15, '일식'), (15, '술안주'), (15, '길거리음식');
 INSERT INTO recipe_tag (id, tags)
-VALUES (16, '교자'), (16, '일식'), (16, '만두'), (16, '간식');
+VALUES (16, '교자'), (16, '일식'), (16, '만두'), (16, '술안주');
 INSERT INTO recipe_tag (id, tags)
 VALUES (17, '해물짜장'), (17, '매운음식'), (17, '중식'), (17, '해산물');
 INSERT INTO recipe_tag (id, tags)
@@ -877,7 +933,11 @@ VALUES (23, '김밥'), (23, '불고기'), (23, '한식'), (23, '도시락');
 INSERT INTO recipe_tag (id, tags)
 VALUES (24, '쫄면'), (24, '콩나물'), (24, '한식'), (24, '매콤한 요리');
 INSERT INTO recipe_tag (id, tags)
-VALUES (25, '김말이'), (25, '칠리소스'), (25, '탕수'), (25, '중식');
+VALUES (25, '김말이'), (25, '칠리소스'), (25, '탕수'), (25, '분식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (26, '옥수수'), (26, '마요네즈'), (26, '간식'), (26, '중독성');
+INSERT INTO recipe_tag (id, tags)
+VALUES (27, '소시지'), (27, '떡'), (27, '간식'), (27, '소떡소떡');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -1005,6 +1065,16 @@ VALUES
     (25, 1, '바삭한 김말이와 매콤한 칠리 소스의 조합이 환상적이에요! 색다른 맛이네요.'),
     (25, 2, '간단하지만 아주 맛있어요. 맥주 안주로도 좋습니다.'),
     (25, 3, '소스가 매콤달콤해서 아이들도 잘 먹어요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (26, 1, '간단하지만 정말 맛있어요! 한 번 먹으면 멈출 수 없네요.'),
+    (26, 2, '아이들이 너무 좋아해요. 쉽게 만들 수 있어서 자주 해먹을 것 같아요.'),
+    (26, 3, '달콤하고 짭짤한 맛이 일품입니다. 맥주와 함께 먹으니 최고예요!');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (27, 1, '간단한데 정말 맛있어요! 아이들 간식으로도 딱입니다.'),
+    (27, 2, '소스가 정말 맛있네요. 한 번에 다 먹어버렸어요!'),
+    (27, 3, '밖에서 사 먹는 것보다 집에서 직접 만들어 먹으니 더 맛있네요.');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -1057,6 +1127,10 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 24);  -- 사용자가 24번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 25);  -- 사용자가 25번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 26);  -- 사용자가 26번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 27);  -- 사용자가 27번 레시피를 찜한 경우
 
 
 -- 외래키 제약조건을 다시 활성화
