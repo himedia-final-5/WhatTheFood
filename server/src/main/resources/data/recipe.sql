@@ -125,6 +125,14 @@ INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_tim
 VALUES (27, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2338/03c9fce0-367f-489d-9f1b-27c0ed79eb10.jpg?size=800x800',
 '어린이들 입맛에 딱', '간단하면서도 맛있는 소떡소떡! 소시지와 떡을 번갈아 가며 꼬치에 끼워 구운 후, 달콤한 소스를 발라 완성하는 간식으로, 어린이들부터 어른들까지 모두가 좋아할 만한 맛입니다.',
 20, 4, 1, 'https://www.youtube.com/watch?v=6_1T8uA894E&pp=ygUW7IaM65ah7IaM65ahIOunjOuTpOq4sA%3D%3D', '간식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (28, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2276/0553d553-a0a3-4336-80bb-4f6a0fa10e38.jpg?size=500x500',
+'치즈볼', '쫀득한 식감과 고소한 치즈의 풍미가 일품인 치즈볼! 달콤한 설탕을 뿌려서 먹으면 더 맛있어요. 집에서도 간단하게 만들어 먹을 수 있는 간식입니다.',
+30, 4, 2, 'https://www.youtube.com/watch?v=iFgLLF0m_Ts&pp=ygUT7LmY7KaI67O8IOunjOuTpOq4sA%3D%3D', '간식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (29, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1657/8cfe80dd-9bf5-40f9-82c0-aef06e6d497a.jpg?size=800x800',
+'아보카도 아이스크림', '크리미한 아보카도의 풍미를 가득 담은 아이스크림! 건강하고 고소한 맛으로, 디저트로 손색없는 아이스크림입니다. 아보카도와 몇 가지 재료만으로 간단하게 만들 수 있어요.',
+15, 4, 1, 'https://www.youtube.com/watch?v=Km9IHFX66K0&pp=ygUm7JWE67O07Lm064-EIOyVhOydtOyKpO2BrOumvCDrp4zrk6TquLA%3D', '디저트', 0);
 
 
 -- 재료 사진 삽입
@@ -182,6 +190,10 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (26, 'https://static.wtable.co.kr/image/production/service/recipe/2281/6b8a7eb7-4717-4f51-8ccb-633930d206ef.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (27, 'https://static.wtable.co.kr/image/production/service/recipe/2338/e79cb382-efcb-43d6-9255-f60416388846.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (28, 'https://static.wtable.co.kr/image/production/service/recipe/2276/bbe4a2cd-7b7b-4e13-a5ef-00c554738d91.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (29, 'https://static.wtable.co.kr/image/production/service/recipe/1657/af704f9a-bef7-4a0d-8682-68cb2a09b922.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -532,6 +544,22 @@ VALUES
     (27, '설탕 1큰술'),
     (27, '물엿 1큰술'),
     (27, '식용유 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (28, '모짜렐라 치즈 200g'),
+    (28, '찹쌀가루 200g'),
+    (28, '설탕 2큰술'),
+    (28, '소금 1작은술'),
+    (28, '베이킹파우더 1작은술'),
+    (28, '우유 100ml'),
+    (28, '식용유 적당량');
+ INSERT INTO recipe_ingredient (id, ingredients)
+ VALUES
+     (29, '아보카도 2개'),
+     (29, '연유 100ml'),
+     (29, '우유 100ml'),
+     (29, '라임즙 1큰술'),
+     (29, '꿀 2큰술');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -588,6 +616,10 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (26, '냄비'), (26, '스푼'), (26, '그릴'), (26, '브러쉬');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (27, '프라이팬'), (27, '꼬치'), (27, '브러쉬'), (27, '접시');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (28, '볼'), (28, '프라이팬'), (28, '스푼'), (28, '종이타월');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (29, '믹서기'), (29, '볼'), (29, '스푼'), (29, '아이스크림 틀');
 
 
 -- Recipe Guide Links
@@ -645,6 +677,10 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (26, 'http://www.10000recipe.com/recipe/6829689');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (27, 'http://www.10000recipe.com/recipe/6894810');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (28, 'http://www.10000recipe.com/recipe/6923495');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (29, 'http://blog.naver.com/pinksummer88/223546464430');
 
 
 -- Recipe Cooking Steps
@@ -826,6 +862,16 @@ VALUES
     (27, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2338/d7f6e8e3-0fe5-48ce-baf0-bb80dbcf84ee.jpg?size=800x800', '볼에 소스 재료를 넣어 섞어주세요.'),
     (27, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2338/65fbdac9-6fdc-4b13-99ac-b59bc5d1cf37.jpg?size=800x800', '꼬치에 떡과 소시지를 번갈아 가며 끼워주세요. 남은 꼬치 부분을 알루미늄 포일로 감싸주세요.'),
     (27, 4, 'https://static.wtable.co.kr/image/production/service/recipe/2338/6b3e3333-e1d3-45db-8f15-e2f049449f70.jpg?size=800x800', '구이 전용 팬에 소떡소떡을 올린 후 기름을 골고루 발라 4단에 넣고 광파오븐 자동 요리 <에어프라이>에서 <두부강정> 1모 분량을 선택해 조리해 주세요. 조리가 시작되면 조절 기능으로 시간을 10분으로 변경해주세요.(tip. “오븐에 전송" 버튼을 누르면 시간을 조절할 필요 없이 간단하게 설정할 수 있어요)완성된 소떡소떡을 소스에 버무려 완성해 주세요. 소떡소떡을 접시에 담고 다진 견과류와 파슬리를 뿌려 맛있게 즐겨주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (28, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2276/4c2bed96-1e7d-422d-ac8b-9781f8e69865.jpg?size=800x800', '체에 찹쌀가루와 밀가루, 설탕, 베이킹파우더, 소금을 밭쳐 곱게 내려주세요. 따뜻한 우유를 2/3 정도 넣어 섞은 후, 반죽이 어느 정도 뭉쳐지면 나머지 우유를 넣고 손으로 반죽해 주세요.(tip. 우유는 전자레인지에서 50초 정도 돌려 따뜻한 상태로 섞어주세요)(tip. 손으로 반죽하면 설탕이 녹으면서 잘 뭉쳐져요)(tip. 찹쌀가루의 수분감에 따라 우유의 양을 조절해 주세요)'),
+    (28, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2276/d97dcf1a-6b49-4c31-b597-1fdb6fe32931.jpg?size=800x800', '반죽을 작은 크기로 떼어내고 가운데에 모짜렐라 치즈를 넣어 동그랗게 만들어주세요.(tip. 반죽은 20g 정도 적당한 양으로 분할해 주세요)(tip. 모짜렐라 치즈는 전자레인지에서 40초 정도 돌린 후 뭉치면 더 꽉 차게 넣을 수 있어요)'),
+    (28, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2276/bfdbd7d2-9e9b-43ce-878c-1b7445a8ca36.jpg?size=800x800', '냄비에 기름이 넣고 160~170도 정도의 기름에서 굴리면서 3~4분 정도 튀겨주세요. 바삭하게 튀긴 치즈볼에 설탕을 골고루 뿌려 주세요.완성된 치즈볼을 그릇에 담아 맛있게 즐겨주세요. ');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (29, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1657/896b3b57-4adf-43a0-a10a-adec27018db4.jpg?size=800x800', '아보카도는 껍질과 씨를 제거하고 잘게 잘라주세요.'),
+    (29, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1657/d274178e-57e7-4dda-87ea-5770a142a31e.jpg?size=800x800', '블렌더에 코코넛 밀크, 아보카도, 꿀을 넣고 곱게 갈아주세요.'),
+    (29, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1657/753a4e98-436f-4b1d-bcda-c08687090d11.jpg?size=800x800', '냉동실에 순서 2를 1시간 정도 넣었다 꺼낸 후 블렌더에 다시 갈아주고 밀폐용기에 담아 하룻밤 냉동보관해주세요.먹기 20분 전에 미리 꺼내 두었다가 아이스크림컵에 담아 맛있게 즐기세요.');
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
@@ -881,6 +927,10 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (26, 'https://static.wtable.co.kr/image/production/service/recipe/2281/6a78b261-5e75-4adf-bb50-4039b76afd0d.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (27, 'https://static.wtable.co.kr/image/production/service/recipe/2338/a1614b52-6832-4aa7-aa69-a2f912573477.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (28, 'https://static.wtable.co.kr/image/production/service/recipe/2276/ba7e24a5-471a-4a4f-83b0-3fd538ab4108.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (29, 'https://static.wtable.co.kr/image/production/service/recipe/1657/ad0acd5a-0bc8-4ee4-9823-3c298b1336e6.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -938,6 +988,10 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (26, '옥수수'), (26, '마요네즈'), (26, '간식'), (26, '중독성');
 INSERT INTO recipe_tag (id, tags)
 VALUES (27, '소시지'), (27, '떡'), (27, '간식'), (27, '소떡소떡');
+INSERT INTO recipe_tag (id, tags)
+VALUES (28, '치즈볼'), (28, '치즈'), (28, '간식'), (28, '튀김');
+INSERT INTO recipe_tag (id, tags)
+VALUES (29, '아보카도'), (29, '아이스크림'), (29, '디저트'), (29, '여름간식');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -1075,6 +1129,16 @@ VALUES
     (27, 1, '간단한데 정말 맛있어요! 아이들 간식으로도 딱입니다.'),
     (27, 2, '소스가 정말 맛있네요. 한 번에 다 먹어버렸어요!'),
     (27, 3, '밖에서 사 먹는 것보다 집에서 직접 만들어 먹으니 더 맛있네요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (28, 1, '쫀득쫀득하고 달콤한 맛이 최고예요!'),
+    (28, 2, '아이들이 정말 좋아해요. 금방 사라지네요.'),
+    (28, 3, '설탕을 뿌려 먹으니 정말 맛있습니다.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (29, 1, '아보카도의 고소한 맛이 너무 좋아요. 크리미하고 달콤해요!'),
+    (29, 2, '건강한 아이스크림이라 아이들에게도 좋을 것 같아요.'),
+    (29, 3, '아보카도로 이렇게 맛있는 디저트를 만들 수 있다니 놀라워요.');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -1131,6 +1195,10 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 26);  -- 사용자가 26번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 27);  -- 사용자가 27번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 28);  -- 사용자가 28번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 29);  -- 사용자가 29번 레시피를 찜한 경우
 
 
 -- 외래키 제약조건을 다시 활성화
