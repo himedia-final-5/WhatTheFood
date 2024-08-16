@@ -100,7 +100,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NoResourceFoundException.class)
     public void handleNoResourceFoundException(NoResourceFoundException exception, HttpServletResponse response) throws IOException {
-        log.error("NoResourceFoundException: ", exception);
+        log.error("NoResourceFoundException: {}", exception.getResourcePath());
 
         ResponseHelper.writeError(response, HttpStatus.NOT_FOUND, exception.getMessage());
     }
