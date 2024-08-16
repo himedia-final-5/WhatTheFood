@@ -43,7 +43,13 @@ export default function RecipeList() {
           >
             <div className="recipe_text_wrap">
               <span className="recipe_state_name">{recipe.title}</span>
-              <span className="recipe_state_tags">{recipe.tags}</span>
+              <span className="recipe_state_tags">
+                {recipe.tags.map((tag, index) => (
+                  <span key={index} className="recipe_tag">
+                    {tag}
+                  </span>
+                ))}
+              </span>
               <span className="recipe_state_level">{recipe.level} level</span>
               <span className="recipe_state_servings">
                 {recipe.servings}인분
