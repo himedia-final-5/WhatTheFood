@@ -101,6 +101,15 @@ INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_tim
 VALUES (21, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/3c5e9f76-20bf-409b-a003-daba4eb60627.jpg?size=800x800',
 '간단하면서 마라마라 얼큰맛', '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
 30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '분식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (22, 1, 'https://wtable.co.kr/recipes/Dd1vNPQNjMdhUUCqQ269QRxD?location=recipe_home',
+'차돌박이 떡볶이', '부드러운 차돌박이와 쫄깃한 떡이 어우러진 매콤달콤한 떡볶이입니다. 간단한 재료로도 깊은 맛을 내며, 특별한 날은 물론 일상적인 한 끼 식사로도 손색이 없습니다.',
+25, 2, 2, 'https://www.youtube.com/watch?v=_KojB9WA8vQ&pp=ygUg7LCo64-M67CV7J20IOuWoeuztuydtCDrp4zrk6TquLA%3D', '한식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (23, 1, 'https://static.wtable.co.kr/image/production/service/recipe/605/32cf80a5-ffaa-436f-8d15-9d581e8e662f.jpg?size=500x500',
+'불고기 김밥', '달콤하고 짭짤한 불고기를 넣어 만든 김밥으로, 풍부한 맛과 영양이 가득합니다. 누구나 쉽게 만들 수 있는 한끼 식사로, 도시락이나 피크닉에 제격입니다.',
+30, 4, 2, 'https://www.youtube.com/watch?v=YkjZCoKq6MM&pp=ygUa67aI6rOg6riwIOq5gOuwpSDrp4zrk6TquLA%3D', '한식', 0);
+
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -145,6 +154,10 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (20, 'https://static.wtable.co.kr/image/production/service/recipe/1224/eccdee3f-2089-40f0-9ac2-553113fbbca9.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (21, 'https://static.wtable.co.kr/image/production/service/recipe/972/1f30ff0e-b6c6-4936-9eed-083b4c4428e5.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (22, 'https://static.wtable.co.kr/image/production/service/recipe/765/95037a06-cbd0-40bf-baf8-448ad7d75b2b.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (23, 'https://static.wtable.co.kr/image/production/service/recipe/605/e3e41256-6c26-461e-8d47-dc7512f71170.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -423,6 +436,32 @@ VALUES
     (21, '설탕 2큰술'),
     (21, '물 1큰술'),
     (21, '후춧가루 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (22, '떡볶이 떡 300g'),
+    (22, '차돌박이 200g'),
+    (22, '어묵 100g'),
+    (22, '양배추 1/4개'),
+    (22, '대파 1대'),
+    (22, '고추장 2큰술'),
+    (22, '고춧가루 1큰술'),
+    (22, '간장 1큰술'),
+    (22, '설탕 1큰술'),
+    (22, '물 2컵'),
+    (22, '참기름 1큰술'),
+    (22, '통깨 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (23, '김밥용 김 5장'),
+    (23, '밥 3공기'),
+    (23, '불고기 200g'),
+    (23, '시금치 100g'),
+    (23, '단무지 5줄'),
+    (23, '계란 3개'),
+    (23, '당근 1/2개'),
+    (23, '참기름 2큰술'),
+    (23, '소금 약간'),
+    (23, '깨 약간');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -467,6 +506,10 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (20, '팬'), (20, '볼'), (20, '칼'), (20, '도마'), (20, '체');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (21, '꼬치'), (21, '냄비'), (21, '수저'), (21, '그릇');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (22, '냄비'), (22, '칼'), (22, '도마'), (22, '숟가락');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (23, '프라이팬'), (23, '도마'), (23, '칼'), (23, '김밥말이'), (23, '숟가락');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -511,6 +554,10 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (20, 'http://blog.naver.com/bolskitchen/223474688453');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (21, 'http://post.naver.com/viewer/postView.nhn?volumeNo=30465474&memberNo=35667439&vType=VERTICAL');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (22, 'http://www.10000recipe.com/recipe/6922391');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (23, 'http://www.10000recipe.com/recipe/6892010');
 
 
 -- Recipe Cooking Steps
@@ -654,6 +701,20 @@ VALUES
     (21, 2, 'https://static.wtable.co.kr/image/production/service/recipe/972/23daf027-1c94-4d95-96c9-cdc4a337ef18.jpg?size=800x800', '끓는 물에 어묵 꼬치를 5분 정도 끓여주세요.'),
     (21, 3, 'https://static.wtable.co.kr/image/production/service/recipe/972/48f36b09-dc90-4fe6-8b06-4454eba10830.jpg?size=800x800', '볼에 소스 재료를 섞어주세요.'),
     (21, 4, 'https://static.wtable.co.kr/image/production/service/recipe/972/34e6eb8d-3cd2-4bf9-b44c-ddfdc08547b3.jpg?size=800x800', '어묵 꼬치에 소스를 발라주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (22, 1, 'https://static.wtable.co.kr/image/production/service/recipe/765/64869f89-fa3f-4d73-a8f2-6f0bff769dbd.jpg?size=800x800', '볼에 차돌박이와 밑간 재료를 넣어 버무려 주세요.(tip. 차돌박이에 밑간을 하면 잡내를 잡아줘서 좋아요.)'),
+    (22, 2, 'https://static.wtable.co.kr/image/production/service/recipe/765/59cb7dac-96e9-4475-aff1-ce291365dbed.jpg?size=800x800', '떡볶이 떡은 찬물에 10분정도 담가두고, 어묵은 삼각형의 먹기 좋은 크기로, 대파는 어슷하게 썰어주세요. 양배추는 한입크기로 썰고, 깻잎은 돌돌 말아서 채 썰어 주세요.'),
+    (22, 3, 'https://static.wtable.co.kr/image/production/service/recipe/765/43fb350a-4585-4bc3-9b4d-18f844214bec.jpg?size=800x800', '달군 팬에 밑간 한 차돌박이를 노릇하게 구워주세요.'),
+    (22, 4, 'https://static.wtable.co.kr/image/production/service/recipe/765/2afe1480-013d-4612-b90b-c030b60c3ac9.jpg?size=800x800', '냄비에 국물재료를 넣고 센 불에 올려 끓어오르면 떡볶이 떡을 넣고 3분 정도 끓여줍니다.'),
+    (22, 5, 'https://static.wtable.co.kr/image/production/service/recipe/765/aeac387e-7972-4964-a261-57ab034631a1.jpg?size=800x800', '떡볶이 떡이 익으면 어묵과 양배추를 넣어 2~3분정도 끓인 후 삶은 달걀, 파를 넣어주세요. 구워 둔 차돌박이를 얹은 후 한 번 끓어오르면 국물의 농도를 맞춘 후 깻잎채를 얹고 불을 꺼주세요.그릇에 담고 통깨를 뿌려 맛있게 즐겨주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (23, 1, 'https://static.wtable.co.kr/image/production/service/recipe/605/2574b4e5-2911-4d0a-b1b6-2b460a1f657e.jpg?size=800x800', '적채는 얇게 채를 썰고 식초물 재료를 전자레인지에 1분 정도 돌려 설탕 입자가 녹으면 채썬 적채를 담가 20분정도 절여주세요. 당근과 오이는 곱게 채를 썰어주세요.(적채는 김밥을 쌀 때에는 물기를 꽉 짜서 사용해주세요.)'),
+    (23, 2, 'https://static.wtable.co.kr/image/production/service/recipe/605/ba7d47f3-63a7-453a-af6d-89769bfdd0e7.jpg?size=800x800', '쇠고기는 키친타월에 올려 핏물을 제거하고, 먹기 좋은 크기로 썰어 불고기 양념에 10분정도 재워주세요. '),
+    (23, 3, 'https://static.wtable.co.kr/image/production/service/recipe/605/f68a2268-a1c3-4b04-a3e6-699ba560c34e.jpg?size=800x800', '달군 팬에 기름을 두르고 당근채를 넣은 후 약간의 소금으로 밑간 해 볶아주세요. 팬을 한 번 닦고 쇠고기를 넣은 후 물기가 없어질 때까지 볶아주세요. '),
+    (23, 4, 'https://static.wtable.co.kr/image/production/service/recipe/605/4dde8e2d-f0c6-4270-bb91-d5531fea768e.jpg?size=800x800', '고슬고슬한 밥에 밥양념 재료를 넣고 밥에 밑간을 해주세요.'),
+    (23, 5, 'https://static.wtable.co.kr/image/production/service/recipe/605/d898f8c5-80d7-4f1f-b913-f16d924119ba.jpg?size=800x800', '김발 위에 김을 올리고, 밥을 고르게 편 후 상추-불고기-오이채-당근채-적채절임을 올리고 김발을 이용해서 돌돌 말아주세요.먹기 좋은 크기로 잘라 불고기 김밥을 즐겨주세요.');
 
 
 INSERT INTO recipe_finished_image (id, finished_images)
@@ -698,6 +759,10 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (20, 'https://static.wtable.co.kr/image/production/service/recipe/1224/20bdc681-de18-486e-969a-f4fa1da58e08.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (21, 'https://static.wtable.co.kr/image/production/service/recipe/972/961fd6ad-a401-471a-9941-8859a7e71f81.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (22, 'https://static.wtable.co.kr/image/production/service/recipe/765/a1d2514e-3f4a-4e11-b649-92270d842c02.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (23, 'https://static.wtable.co.kr/image/production/service/recipe/605/36e1509d-9866-4551-bcad-b6370a97e666.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -743,6 +808,10 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (20, '탕수육'), (20, '찹쌀'), (20, '중식'), (20, '튀김');
 INSERT INTO recipe_tag (id, tags)
 VALUES (21, '마라어묵'), (21, '간단요리');
+INSERT INTO recipe_tag (id, tags)
+VALUES (22, '떡볶이'), (22, '차돌박이'), (22, '매콤한'), (22, '한식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (23, '김밥'), (23, '불고기'), (23, '한식'), (23, '도시락');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -850,6 +919,16 @@ VALUES
     (21, 1, '이거 너무 간단한데 맛있어요ㅠㅠㅠㅠ 앞으로 술안주 없으면 이겁니다!!! 오늘 뭐 먹지 사랑해요'),
     (21, 2, '라조장 고추소스 있는데 그걸로 가능한건지;;ㅎ'),
     (21, 3, '마라소스 어떤건지 궁금해요!!');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (22, 1, '차돌박이가 들어가서 떡볶이가 더 풍미가 있어요! 맛있어요.'),
+    (22, 2, '매콤달콤해서 입맛에 딱 맞아요. 집에서 간편하게 만들 수 있어요.'),
+    (22, 3, '차돌박이가 정말 부드럽고 맛있어요. 새로운 떡볶이를 발견했네요!');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (23, 1, '불고기가 들어가서 정말 맛있어요! 든든하고 영양가도 많아요.'),
+    (23, 2, '집에서 간편하게 만들 수 있는 최고의 김밥 레시피에요.'),
+    (23, 3, '불고기가 달콤하고 김밥이 고소해요. 자주 해먹을 것 같아요.');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -894,6 +973,11 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 20);  -- 사용자가 20번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 21);  -- 사용자가 1번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 22);  -- 사용자가 22번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 23);  -- 사용자가 23번 레시피를 찜한 경우
+
 
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;
