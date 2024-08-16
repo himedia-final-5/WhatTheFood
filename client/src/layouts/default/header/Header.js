@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./Header.css";
 import SearchButton from "./search-button/SearchButton";
 import UserButton from "./user-button/UserButton";
 import cn from "utils/cn";
+
+const links = [
+  ["/recipes", "레시피"],
+  ["/ranking", "랭킹"],
+  ["/store", "매장 찾기"],
+  ["/notices", "공지사항"],
+  ["/events", "이벤트"],
+];
 
 function Header() {
   const headerRef = useRef(null);
@@ -39,7 +46,7 @@ function Header() {
         ref={headerRef}
         className={cn(
           "fixed flex flex-col w-full z-40",
-          "bg-neutral-100 shadow-md",
+          "bg-neutral-50 shadow-md",
         )}
         style={{
           marginTop: -headerMargin,
@@ -64,22 +71,16 @@ function Header() {
           </div>
         </div>
 
-        <div className="menu">
-          <div className="topMenu">
-            <Link to="/recipe">레시피</Link>
-          </div>
-          <div className="topMenu">
-            <Link to="/ranking">랭킹</Link>
-          </div>
-          <div className="topMenu">
-            <Link to="/store">매장 찾기</Link>
-          </div>
-          <div className="topMenu">
-            <Link to="/notices">공지사항</Link>
-          </div>
-          <div className="topMenu">
-            <Link to="/events">이벤트</Link>
-          </div>
+        <div className="flex justify-around transition-shape px-4 md:mx-auto md:gap-16 md:justify-around">
+          {links.map(([link, text]) => (
+            <Link
+              to={link}
+              key={link}
+              className="text-base transition-colors hover:drop-shadow-lg hover:font-bold px-1 py-2"
+            >
+              {text}
+            </Link>
+          ))}
         </div>
       </header>
     </>
