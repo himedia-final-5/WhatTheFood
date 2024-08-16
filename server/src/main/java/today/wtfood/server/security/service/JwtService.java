@@ -6,7 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.config.properties.JwtProperties;
+import today.wtfood.server.security.config.properties.JwtProperties;
 import today.wtfood.server.dto.member.MemberAuth;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.UnauthorizedException;

@@ -1,4 +1,4 @@
-package today.wtfood.server.security;
+package today.wtfood.server.security.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import today.wtfood.server.config.properties.SecurityCorsProperties;
+import today.wtfood.server.security.config.properties.SecurityCorsProperties;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
 
 @Log4j2

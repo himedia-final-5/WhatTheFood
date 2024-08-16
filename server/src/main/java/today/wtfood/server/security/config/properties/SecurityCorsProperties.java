@@ -1,4 +1,4 @@
-package today.wtfood.server.config.properties;
+package today.wtfood.server.security.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;

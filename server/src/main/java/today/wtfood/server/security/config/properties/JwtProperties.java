@@ -1,4 +1,4 @@
-package today.wtfood.server.config.properties;
+package today.wtfood.server.security.config.properties;
 
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;

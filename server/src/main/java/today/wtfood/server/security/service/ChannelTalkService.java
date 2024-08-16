@@ -1,4 +1,4 @@
-package today.wtfood.server.security;
+package today.wtfood.server.security.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
