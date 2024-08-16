@@ -18,10 +18,9 @@ DELETE FROM recipe_ingredient_image WHERE id = 1;
 
 -- Recipe 데이터 삽입 (member_id 추가)
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
-VALUES (1, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/3c5e9f76-20bf-409b-a003-daba4eb60627.jpg?size=800x800',
-'간단하면서 마라마라 얼큰맛', '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
-30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '분식', 0);
-
+VALUES (1, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/e9c09320-6913-4632-a77d-b35dc529012e.jpg?size=800x800',
+'멍게비빔밥', '바다의 향이 가득한 멍게와 신선한 야채들이 조화롭게 어우러진 비빔밥입니다. 상큼한 초고추장과 함께 비벼 먹는 이 요리는 간단하면서도 영양 가득한 한 끼로 손색이 없습니다.',
+20, 2, 2, 'https://www.youtube.com/watch?v=wlbWyB9cSS0&pp=ygUZ66mN6rKM67mE67mU67ClIOunjOuTpOq4sA%3D%3D', '한식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (2, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2344/9a1bd1e4-cbf9-4e2c-857a-56c95078bf4c.jpg?size=800x800',
 '매콤하면서 술안주로 딱', '매콤한 고추와 고기를 이용해 만든 간단하면서도 맛있는 고추전입니다. 주말 저녁이나 명절에 딱 어울리는 요리입니다.',
@@ -105,8 +104,7 @@ VALUES (21, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
-VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/972/1f30ff0e-b6c6-4936-9eed-083b4c4428e5.jpg?size=800x800');
-
+VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d12802d6-353e-4c93-a0f4-7ef36843d7c4.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (2, 'https://static.wtable.co.kr/image/production/service/recipe/1935/ingredients/e3ce099f-2575-4762-b6ba-e7e328de70f5.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -151,17 +149,15 @@ VALUES (21, 'https://static.wtable.co.kr/image/production/service/recipe/972/1f3
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
 VALUES
-    (1, '어묵 8장'),
-    (1, '꼬치 4개'),
-    (1, '송송 썬 쪽파 1큰술'),
-    (1, '통깨 약간'),
-    (1, '마라 소스 1큰술'),
-    (1, '고추장 2큰술'),
-    (1, '진간장 2큰술'),
-    (1, '설탕 2큰술'),
-    (1, '물 1큰술'),
-    (1, '후춧가루 약간');
-
+    (1, '밥 2공기'),
+    (1, '멍게 200g'),
+    (1, '상추 5장'),
+    (1, '깻잎 3장'),
+    (1, '오이 1/2개'),
+    (1, '당근 1/4개'),
+    (1, '초고추장 4큰술'),
+    (1, '참기름 1큰술'),
+    (1, '김가루 약간');
 INSERT INTO recipe_ingredient (id, ingredients)
 VALUES
     (2, '청양고추 10개'),
@@ -430,8 +426,7 @@ VALUES
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
-VALUES (1, '꼬치'), (1, '냄비'), (1, '수저'), (1, '그릇');
-
+VALUES (1, '칼'), (1, '도마'), (1, '볼'), (1, '숟가락');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (2, '프라이팬'), (2, '볼'), (2, '수저'), (2, '접시');
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -475,8 +470,7 @@ VALUES (21, '꼬치'), (21, '냄비'), (21, '수저'), (21, '그릇');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
-VALUES (1, 'http://post.naver.com/viewer/postView.nhn?volumeNo=30465474&memberNo=35667439&vType=VERTICAL');
-
+VALUES (1, 'http://www.10000recipe.com/recipe/6862036');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (2, 'http://www.10000recipe.com/recipe/4563047');
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -522,11 +516,9 @@ VALUES (21, 'http://post.naver.com/viewer/postView.nhn?volumeNo=30465474&memberN
 -- Recipe Cooking Steps
 INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
 VALUES
-    (1, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/e3ce099f-2575-4762-b6ba-e7e328de70f5.jpg?size=800x800', '어묵은 먹기 좋게 2장씩 꼬치에 꽂아주세요.'),
-    (1, 2, 'https://static.wtable.co.kr/image/production/service/recipe/972/23daf027-1c94-4d95-96c9-cdc4a337ef18.jpg?size=800x800', '끓는 물에 어묵 꼬치를 5분 정도 끓여주세요.'),
-    (1, 3, 'https://static.wtable.co.kr/image/production/service/recipe/972/48f36b09-dc90-4fe6-8b06-4454eba10830.jpg?size=800x800', '볼에 소스 재료를 섞어주세요.'),
-    (1, 4, 'https://static.wtable.co.kr/image/production/service/recipe/972/34e6eb8d-3cd2-4bf9-b44c-ddfdc08547b3.jpg?size=800x800', '어묵 꼬치에 소스를 발라주세요.');
-
+    (1, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/cb10c428-a67a-49e0-816c-7e2010101ff8.jpg?size=800x800', '손질된 멍게는 먹기 좋은 크기로 잘라주세요.'),
+    (1, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2329/755833d4-f455-4d2b-b23d-b5ced49e8bf8.jpg?size=800x800', '쪽파와 청양고추는 송송 썰어주세요.'),
+    (1, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2329/e5b202b0-04ee-403a-8683-9089311c47bf.jpg?size=800x800', '볼에 멍게, 양념 재료, 쪽파, 청양고추를 넣어 섞어주세요.그릇에 밥을 담은 후 멍게를 듬뿍 올려주세요.  (tip. 기호에 따라 김가루를 뿌려 맛있게 즐겨주세요) ');
 INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
 VALUES
     (2, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2344/377fab99-02d8-47d9-bf33-f6fe2804c5b4.jpg?size=800x800', '양파는 곱게 다지고 홍고추는 송송 썰어 준비해 주세요. 두부는 칼등으로 으깨 주세요.(tip. 수분이 많은 두부의 경우 물기를 꽉 짜주세요)'),
@@ -665,8 +657,7 @@ VALUES
 
 
 INSERT INTO recipe_finished_image (id, finished_images)
-VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/972/961fd6ad-a401-471a-9941-8859a7e71f81.jpg?size=800x800');
-
+VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (2, 'https://static.wtable.co.kr/image/production/service/recipe/2344/88883df6-0bb0-41bc-b626-b9c99fd0734d.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
@@ -711,8 +702,7 @@ VALUES (21, 'https://static.wtable.co.kr/image/production/service/recipe/972/961
 
 -- Recipe Tags
 INSERT INTO recipe_tag (id, tags)
-VALUES (1, '마라어묵'), (1, '간단요리');
-
+VALUES (1, '멍게'), (1, '비빔밥'), (1, '한식'), (1, '해산물요리');
 INSERT INTO recipe_tag (id, tags)
 VALUES (2, '고추전'), (2, '간단요리');
 INSERT INTO recipe_tag (id, tags)
@@ -757,10 +747,9 @@ VALUES (21, '마라어묵'), (21, '간단요리');
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
 VALUES
-    (1, 1, '이거 너무 간단한데 맛있어요ㅠㅠㅠㅠ 앞으로 술안주 없으면 이겁니다!!! 오늘 뭐 먹지 사랑해요'),
-    (1, 2, '라조장 고추소스 있는데 그걸로 가능한건지;;ㅎ'),
-    (1, 3, '마라소스 어떤건지 궁금해요!!');
-
+    (1, 1, '멍게의 신선한 맛이 그대로 살아있어요! 바다의 향이 가득한 비빔밥이네요.'),
+    (1, 2, '간단한 재료로 만들 수 있어서 좋아요. 맛도 정말 상큼하고 좋아요!'),
+    (1, 3, '멍게와 초고추장의 조화가 너무 좋아요. 자주 해먹을 것 같아요.');
 INSERT INTO recipe_comments (recipe_id, member_id, content)
 VALUES
     (2, 1, '간단하면서도 정말 맛있어요! 너무 좋아요.'),
