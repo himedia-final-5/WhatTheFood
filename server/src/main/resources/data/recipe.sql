@@ -102,13 +102,21 @@ VALUES (21, 1, 'https://static.wtable.co.kr/image/production/service/recipe/972/
 '간단하면서 마라마라 얼큰맛', '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
 30, 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '분식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
-VALUES (22, 1, 'https://wtable.co.kr/recipes/Dd1vNPQNjMdhUUCqQ269QRxD?location=recipe_home',
-'차돌박이 떡볶이', '부드러운 차돌박이와 쫄깃한 떡이 어우러진 매콤달콤한 떡볶이입니다. 간단한 재료로도 깊은 맛을 내며, 특별한 날은 물론 일상적인 한 끼 식사로도 손색이 없습니다.',
-25, 2, 2, 'https://www.youtube.com/watch?v=_KojB9WA8vQ&pp=ygUg7LCo64-M67CV7J20IOuWoeuztuydtCDrp4zrk6TquLA%3D', '한식', 0);
+VALUES (22, 1, 'https://static.wtable.co.kr/image/production/service/recipe/765/8356fd78-351a-4134-accb-255155f90263.jpg?size=500x500',
+'국민 분식 빠질수 없는', '부드러운 차돌박이와 쫄깃한 떡이 어우러진 매콤달콤한 떡볶이입니다. 간단한 재료로도 깊은 맛을 내며, 특별한 날은 물론 일상적인 한 끼 식사로도 손색이 없습니다.',
+25, 2, 2, 'https://www.youtube.com/watch?v=_KojB9WA8vQ&pp=ygUg7LCo64-M67CV7J20IOuWoeuztuydtCDrp4zrk6TquLA%3D', '분식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (23, 1, 'https://static.wtable.co.kr/image/production/service/recipe/605/32cf80a5-ffaa-436f-8d15-9d581e8e662f.jpg?size=500x500',
-'불고기 김밥', '달콤하고 짭짤한 불고기를 넣어 만든 김밥으로, 풍부한 맛과 영양이 가득합니다. 누구나 쉽게 만들 수 있는 한끼 식사로, 도시락이나 피크닉에 제격입니다.',
-30, 4, 2, 'https://www.youtube.com/watch?v=YkjZCoKq6MM&pp=ygUa67aI6rOg6riwIOq5gOuwpSDrp4zrk6TquLA%3D', '한식', 0);
+'피크닉 갈때도 유용하게', '달콤하고 짭짤한 불고기를 넣어 만든 김밥으로, 풍부한 맛과 영양이 가득합니다. 누구나 쉽게 만들 수 있는 한끼 식사로, 도시락이나 피크닉에 제격입니다.',
+30, 4, 2, 'https://www.youtube.com/watch?v=YkjZCoKq6MM&pp=ygUa67aI6rOg6riwIOq5gOuwpSDrp4zrk6TquLA%3D', '분식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (24, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1033/be94ce10-5f15-4fbd-8923-91fe2bdb7b59.jpg?size=800x800',
+'새콤달콤 맛있는', '아삭한 콩나물과 쫄깃한 쫄면의 조화가 매력적인 매콤새콤한 쫄면 요리입니다. 간단하게 만들 수 있어 가벼운 한 끼로 좋습니다.',
+20, 2, 2, 'https://www.youtube.com/watch?v=ddEsVpxZiYQ&pp=ygUa7L2p64KY66y8IOyrhOuptCDrp4zrk6TquLA%3D', '분식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (25, 1, 'https://static.wtable.co.kr/image/production/service/recipe/886/882096fb-aa2f-4c8e-92aa-38eeb17c9fb1.jpg?size=800x800',
+'김말이 칠리 탕수', '바삭한 김말이를 매콤달콤한 칠리 소스에 버무린 독특한 탕수 요리입니다. 아이들도 어른들도 좋아할 맛있는 간식입니다.',
+30, 3, 2, 'https://www.youtube.com/watch?v=SPS6mKl8buk&pp=ygUh6rmA66eQ7J20IOy5oOumrCDtg5XsiJgg66eM65Ok6riw', '분식', 0);
 
 
 -- 재료 사진 삽입
@@ -158,7 +166,10 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (22, 'https://static.wtable.co.kr/image/production/service/recipe/765/95037a06-cbd0-40bf-baf8-448ad7d75b2b.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (23, 'https://static.wtable.co.kr/image/production/service/recipe/605/e3e41256-6c26-461e-8d47-dc7512f71170.jpg?size=800x800');
-
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (24, 'https://static.wtable.co.kr/image/production/service/recipe/1033/4506a577-a8ab-4901-b406-3e1cfb9c7609.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (25, 'https://static.wtable.co.kr/image/production/service/recipe/886/a60a2f86-444d-4a00-8ea2-75c5f92e79f7.jpg?size=800x800');
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
 VALUES
@@ -462,6 +473,33 @@ VALUES
     (23, '참기름 2큰술'),
     (23, '소금 약간'),
     (23, '깨 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (24, '쫄면 200g'),
+    (24, '콩나물 150g'),
+    (24, '오이 1/2개'),
+    (24, '당근 1/3개'),
+    (24, '상추 3장'),
+    (24, '계란 1개'),
+    (24, '고추장 2큰술'),
+    (24, '식초 1큰술'),
+    (24, '설탕 1큰술'),
+    (24, '간장 1작은술'),
+    (24, '참기름 1큰술'),
+    (24, '깨 약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (25, '김말이 300g'),
+    (25, '양파 1/2개'),
+    (25, '피망 1/2개'),
+    (25, '당근 1/3개'),
+    (25, '칠리 소스 4큰술'),
+    (25, '간장 1큰술'),
+    (25, '설탕 1큰술'),
+    (25, '식초 1큰술'),
+    (25, '전분물 2큰술'),
+    (25, '물 1/2컵'),
+    (25, '식용유 적당량');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -510,6 +548,10 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (22, '냄비'), (22, '칼'), (22, '도마'), (22, '숟가락');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (23, '프라이팬'), (23, '도마'), (23, '칼'), (23, '김밥말이'), (23, '숟가락');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (24, '냄비'), (24, '채반'), (24, '도마'), (24, '칼'), (24, '볼');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (25, '프라이팬'), (25, '도마'), (25, '칼'), (25, '볼');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -558,6 +600,10 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (22, 'http://www.10000recipe.com/recipe/6922391');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (23, 'http://www.10000recipe.com/recipe/6892010');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (24, 'http://www.10000recipe.com/recipe/765786');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (25, 'http://www.10000recipe.com/recipe/6891719');
 
 
 -- Recipe Cooking Steps
@@ -715,7 +761,19 @@ VALUES
     (23, 3, 'https://static.wtable.co.kr/image/production/service/recipe/605/f68a2268-a1c3-4b04-a3e6-699ba560c34e.jpg?size=800x800', '달군 팬에 기름을 두르고 당근채를 넣은 후 약간의 소금으로 밑간 해 볶아주세요. 팬을 한 번 닦고 쇠고기를 넣은 후 물기가 없어질 때까지 볶아주세요. '),
     (23, 4, 'https://static.wtable.co.kr/image/production/service/recipe/605/4dde8e2d-f0c6-4270-bb91-d5531fea768e.jpg?size=800x800', '고슬고슬한 밥에 밥양념 재료를 넣고 밥에 밑간을 해주세요.'),
     (23, 5, 'https://static.wtable.co.kr/image/production/service/recipe/605/d898f8c5-80d7-4f1f-b913-f16d924119ba.jpg?size=800x800', '김발 위에 김을 올리고, 밥을 고르게 편 후 상추-불고기-오이채-당근채-적채절임을 올리고 김발을 이용해서 돌돌 말아주세요.먹기 좋은 크기로 잘라 불고기 김밥을 즐겨주세요.');
-
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (24, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1033/2c8a8695-2b0c-4711-83e4-7027b9b7d647.jpg?size=800x800', '쫄면은 가닥가닥 떼어 주세요. 볼에 양념 재료를 넣어 섞어주세요.(만든 양념장은 냉장고에서 하루 정도 숙성하면 맛이 더 깊어져요)'),
+    (24, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1033/932f341c-74f3-4e28-9694-74ffcc558c35.jpg?size=800x800', '끓는물에 콩나물을 넣어 1분 정도 데친 후 얼음물에 담가 식히고 채반에 받쳐 물기를 빼주세요.'),
+    (24, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1033/a39bc679-63a7-4703-bf08-6de7b52896fc.jpg?size=800x800', '끓는 물에 쫄면을 넣고 저어가며 3~4분간 삶아주세요. (물이 끓어오르면 찬물을 반 컵 정도 넣어주세요)'),
+    (24, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1033/7d8a3aaa-5eff-4b38-8174-095b2901198c.jpg?size=800x800', '찬물에 쫄면을 여러 번 씻어 전분기를 없애고 채반에 받쳐 물기를 빼주세요.'),
+    (24, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1033/7e8eba74-6439-427d-b3ff-6ad7da13e405.jpg?size=800x800', '볼에 콩나물, 쫄면, 양념장을 넣고 버무려 주세요. 삶은 달걀은 반으로 잘라주세요.그릇에 쫄면을 담고 삶은 달걀과 통깨를 올려 완성해주세요.  (기호에 따라 채를 썬 오이, 양배추 등을 곁들여도 좋아요)');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (25, 1, 'https://static.wtable.co.kr/image/production/service/recipe/886/e1842cd2-c93f-4025-954c-e397a77adc78.jpg?size=800x800', '홍피망과 청피망, 양파를 잘게 썰고, 볼에 소스 재료를 넣고 섞어주세요.'),
+    (25, 2, 'https://static.wtable.co.kr/image/production/service/recipe/886/9fbf13b2-ed6d-4b0c-b7d4-cd37c17e7f46.jpg?size=800x800', '고팬에 기름을 넣고 170도로 달군 후 김말이를 넣어 바삭하게 튀겨주세요.'),
+    (25, 3, 'https://static.wtable.co.kr/image/production/service/recipe/886/3411043f-9c04-492e-be56-56b712999acd.jpg?size=800x800', '달군 팬에 고추기름을 두르고 양파를 볶다가 소스 재료를 넣고 끓여주세요.'),
+    (25, 4, 'https://static.wtable.co.kr/image/production/service/recipe/886/4946dcc0-1d99-47fb-b17f-e174708e4816.jpg?size=800x800', '소스가 끓으면 청피망, 파프리카를 넣어 섞어주세요. 녹말물을 넣어 걸쭉한 농도가 되면 불을 꺼주세요.접시에 김말이를 담고 소스를 곁들여 맛있게 즐겨주세요.');
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
@@ -763,6 +821,10 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (22, 'https://static.wtable.co.kr/image/production/service/recipe/765/a1d2514e-3f4a-4e11-b649-92270d842c02.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (23, 'https://static.wtable.co.kr/image/production/service/recipe/605/36e1509d-9866-4551-bcad-b6370a97e666.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (24, 'https://static.wtable.co.kr/image/production/service/recipe/1033/6c6af075-29f1-472c-a877-cff300631e6c.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (25, 'https://static.wtable.co.kr/image/production/service/recipe/886/51afc7c4-f745-4189-83dd-050fdad05c97.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -812,6 +874,10 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (22, '떡볶이'), (22, '차돌박이'), (22, '매콤한'), (22, '한식');
 INSERT INTO recipe_tag (id, tags)
 VALUES (23, '김밥'), (23, '불고기'), (23, '한식'), (23, '도시락');
+INSERT INTO recipe_tag (id, tags)
+VALUES (24, '쫄면'), (24, '콩나물'), (24, '한식'), (24, '매콤한 요리');
+INSERT INTO recipe_tag (id, tags)
+VALUES (25, '김말이'), (25, '칠리소스'), (25, '탕수'), (25, '중식');
 
 -- Comments for Recipe
 INSERT INTO recipe_comments (recipe_id, member_id, content)
@@ -929,6 +995,16 @@ VALUES
     (23, 1, '불고기가 들어가서 정말 맛있어요! 든든하고 영양가도 많아요.'),
     (23, 2, '집에서 간편하게 만들 수 있는 최고의 김밥 레시피에요.'),
     (23, 3, '불고기가 달콤하고 김밥이 고소해요. 자주 해먹을 것 같아요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (24, 1, '아삭한 콩나물이 쫄면과 잘 어울려요! 양념장도 딱 맛있습니다.'),
+    (24, 2, '매콤하고 상큼한 맛이 일품입니다. 더운 날씨에 잘 어울리는 요리네요.'),
+    (24, 3, '간단하게 만들 수 있어서 좋아요. 다음에도 또 해먹고 싶네요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (25, 1, '바삭한 김말이와 매콤한 칠리 소스의 조합이 환상적이에요! 색다른 맛이네요.'),
+    (25, 2, '간단하지만 아주 맛있어요. 맥주 안주로도 좋습니다.'),
+    (25, 3, '소스가 매콤달콤해서 아이들도 잘 먹어요.');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -977,6 +1053,10 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 22);  -- 사용자가 22번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 23);  -- 사용자가 23번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 24);  -- 사용자가 24번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 25);  -- 사용자가 25번 레시피를 찜한 경우
 
 
 -- 외래키 제약조건을 다시 활성화
