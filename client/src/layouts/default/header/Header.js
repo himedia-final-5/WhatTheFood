@@ -16,6 +16,7 @@ const links = [
 function Header() {
   const headerRef = useRef(null);
   const [headerMargin, setHeaderMargin] = useState(0);
+  const [marginBottom, setMarginBottom] = useState(0);
   const prevY = useRef(window.scrollY);
 
   const handleScroll = () => {
@@ -44,43 +45,44 @@ function Header() {
       <div style={{ marginBottom: headerRef.current?.clientHeight }} />
       <header
         ref={headerRef}
-        className={cn(
-          "fixed flex flex-col w-full z-40",
-          "bg-neutral-50 shadow-md",
-        )}
+        className="fixed flex flex-col w-full z-40 bg-white shadow-md"
         style={{
           marginTop: -headerMargin,
         }}
       >
-        <div
-          className={cn(
-            "flex gap-8 justify-between items-center bg-white border-b border-gray-300",
-            "transition-shape py-2 px-4 md:py-2.5 md:px-8",
-          )}
-        >
-          <Link to="/">
-            <img
-              src="/images/logo.png"
-              alt="logo"
-              className="h-10 min-w-42 transition-transform hover:scale-110 object-contain"
-            />
-          </Link>
-          <div className="flex-1 flex justify-end gap-2">
-            <SearchButton />
-            <UserButton />
+        <div className="flex justify-around w-full border-b border-gray-300">
+          <div
+            className={cn(
+              "flex gap-8 justify-between items-center w-full max-w-screen-lg",
+              "transition-shape py-2 px-4 md:py-2.5 md:px-8",
+            )}
+          >
+            <Link to="/">
+              <img
+                src="/images/logo.png"
+                alt="logo"
+                className="h-10 min-w-42 transition-transform hover:scale-110 object-contain"
+              />
+            </Link>
+            <div className="flex-1 flex justify-end gap-2">
+              <SearchButton />
+              <UserButton />
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-around transition-shape px-4 md:mx-auto md:gap-16 md:justify-around">
-          {links.map(([link, text]) => (
-            <Link
-              to={link}
-              key={link}
-              className="text-base transition-colors hover:drop-shadow-lg hover:font-bold px-1 py-2"
-            >
-              {text}
-            </Link>
-          ))}
+        <div className="flex justify-around w-full bg-neutral-50">
+          <div className="flex justify-between w-full max-w-screen-lg transition-shape px-2 xs:px-8 sm:gap-16 md:mx-auto md:justify-around">
+            {links.map(([link, text]) => (
+              <Link
+                to={link}
+                key={link}
+                className="text-base transition-colors hover:drop-shadow-lg hover:font-bold px-1 py-2"
+              >
+                {text}
+              </Link>
+            ))}
+          </div>
         </div>
       </header>
     </>
