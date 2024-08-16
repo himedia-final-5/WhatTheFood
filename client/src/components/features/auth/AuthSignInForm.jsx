@@ -141,7 +141,7 @@ export default function AuthSignInForm({ setVisible }) {
                     </FormLabel>
                     <FormControl className="w-full h-full !m-0 rounded-none">
                       <Input
-                        type="text"
+                        type="password"
                         autoComplete="password"
                         autoCorrect="off"
                         placeholder="비밀번호"
