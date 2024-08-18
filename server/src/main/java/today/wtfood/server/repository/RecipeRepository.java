@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.recipe.RecipeDetail;
-import today.wtfood.server.dto.recipe.RecipeInfo;
+import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 
@@ -19,7 +19,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
     /**
      * 페이지네이션을 적용하여 모든 레시피를 조회합니다.
      */
-    Page<RecipeInfo> findAllBy(Pageable pageable);
+    Page<RecipeSummary> findAllBy(Pageable pageable);
 
     Optional<RecipeDetail> findDetailById(long id);
 
