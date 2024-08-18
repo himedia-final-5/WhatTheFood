@@ -21,6 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import today.wtfood.server.security.config.properties.SecurityCorsProperties;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
 import today.wtfood.server.security.handler.FormLoginResultHandler;
+import today.wtfood.server.security.handler.OAuth2LoginResultHandler;
 import today.wtfood.server.security.service.OAuth2UserServiceImpl;
 
 @Log4j2
@@ -33,6 +34,7 @@ public class SecurityConfig {
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final FormLoginResultHandler formLoginResultHandler;
+    private final OAuth2LoginResultHandler oAuth2LoginResultHandler;
     private final OAuth2UserServiceImpl OAuth2UserServiceImpl;
     private final SecurityCorsProperties corsProperties;
 
@@ -56,19 +58,9 @@ public class SecurityConfig {
 
         // OAuth2 로그인 처리 설정
         http.oauth2Login(config -> config
-                .successHandler((request, response, authentication) -> {
-                    log.info("OAuth2 login success: {}", authentication);
-                    response.sendRedirect("http://wtfood.today:3000/");
-                    // TODO: 로그인 성공 후 처리
-                })
-                .failureHandler((request, response, exception) -> {
-                    log.error("OAuth2 login failed: ", exception);
-                    response.sendRedirect("http://wtfood.today:3000/");
-                    // TODO: 로그인 실패 후 처리
-                })
-                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                        .userService(OAuth2UserServiceImpl)
-                )
+                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(OAuth2UserServiceImpl))
+                .successHandler(oAuth2LoginResultHandler)
+                .failureHandler(oAuth2LoginResultHandler)
         );
 
         // JWT 엑세스 토큰 검증 필터 설정
