@@ -117,8 +117,11 @@ function PartOfContent({ isDrawer, setOpen }) {
   const modeText = isSignIn ? "로그인" : "회원가입";
 
   async function onSocialLogin(provider) {
-    /** TODO: 소셜 로그인 기능 구현 */
-    toast.warn("소셜 로그인은 준비 중입니다.");
+    window.open(
+      `http://wtfood.today:3000/api/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(window.location.href)}`,
+      "소셜 로그인",
+      "width=500,height=800",
+    );
   }
 
   return (
