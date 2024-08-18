@@ -65,7 +65,7 @@
 
 /* 반응형 디자인 */
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 514px) and (max-width: 767px) {
   .event_banner_wrap {
     width: 100%;
     grid-template-columns: 1fr; /* 작은 화면에서 한 개씩 나열 */
@@ -75,7 +75,7 @@
 /* Tablet */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .event_banner_wrap {
-    width: 800px;
+    width: 740px;
     grid-template-columns: repeat(2, 1fr); /* 중간 크기 화면에서 두 개씩 나열 */
   }
 }
@@ -99,7 +99,7 @@
 /* Large Desktop */
 @media screen and (min-width: 1800px) {
   .event_banner_wrap {
-    width: 800px;
+    width: 1400px;
     grid-template-columns: repeat(3, 1fr); /* 큰 화면에서 세 개씩 나열 */
     margin: 0px auto;
   }

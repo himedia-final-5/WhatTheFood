@@ -8,7 +8,7 @@ export default function DefaultLayout() {
     <>
       <Header />
 
-      <div className="flex-1">
+      <div aria-label="main-container" className="flex-1 max-w-full pt-4">
         <Outlet />
       </div>
 

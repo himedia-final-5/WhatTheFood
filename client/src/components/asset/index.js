@@ -8,6 +8,7 @@ export const CloseMark = $(() => import("./CloseMark"));
 export const PaginationLeft = $(() => import("./PaginationLeft"));
 export const PaginationRight = $(() => import("./PaginationRight"));
 export const TablerCircleKeyFilled = $(() => import("./TablerCircleKeyFilled"));
+export const TablerHome = $(() => import("./TablerHome"));
 export const TablerMailFilled = $(() => import("./TablerMailFilled"));
 export const TablerUserFilled = $(() => import("./TablerUserFilled"));
 

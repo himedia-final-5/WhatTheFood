@@ -43,7 +43,16 @@
 .eventdetail_content img {
   width: 100%; /* 이미지 너비 조정 */
   height: auto; /* 이미지 비율 유지 */
-  border-radius: 8px; /* 이미지 둥글게 */
+}
+
+.eventdetail_content .eventdetail_contentdetail:first-of-type img {
+  border-top-left-radius: 8px; /* 첫번째 이미지의 윗부분 둥글게 */
+  border-top-right-radius: 8px; /* 첫번째 이미지의 윗부분 둥글게 */
+}
+
+.eventdetail_content .eventdetail_contentdetail:last-of-type img {
+  border-bottom-left-radius: 8px; /* 마지막 이미지의 아랫부분 둥글게 */
+  border-bottom-right-radius: 8px; /* 마지막 이미지의 아랫부분 둥글게 */
 }
 
 .event_custom-button_wrap {

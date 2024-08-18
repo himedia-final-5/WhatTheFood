@@ -11,6 +11,8 @@ public interface MemberAuth extends IMember {
 
     String getNickname();
 
+    String getProfileImage();
+
     Member.Role getRole();
 
 }
