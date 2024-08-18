@@ -1,4 +1,4 @@
-package today.wtfood.server.security;
+package today.wtfood.server.security.config;
 
 
 import org.springframework.context.annotation.Bean;

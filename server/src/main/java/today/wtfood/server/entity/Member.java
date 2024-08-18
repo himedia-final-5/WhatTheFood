@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.*;
 
@@ -19,7 +20,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Member implements UserDetails {
+public class Member implements UserDetails, OAuth2User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,16 @@ public class Member implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return Map.of(
+                "id", id,
+                "nickname", nickname,
+                "email", email,
+                "profile-image", profileImage
+        );
+    }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of((GrantedAuthority) () -> role.name());
@@ -73,6 +84,11 @@ public class Member implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Role role = Role.ROLE_USER;
+
+    @Override
+    public String getName() {
+        return username;
+    }
 
     @Entity
     @Table(name = "member_social_urls")

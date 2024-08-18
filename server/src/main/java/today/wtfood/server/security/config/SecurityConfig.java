@@ -1,4 +1,4 @@
-package today.wtfood.server.security;
+package today.wtfood.server.security.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -10,18 +10,18 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import today.wtfood.server.config.properties.SecurityCorsProperties;
+import today.wtfood.server.security.config.properties.SecurityCorsProperties;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
+import today.wtfood.server.security.handler.AccessExceptionHandler;
+import today.wtfood.server.security.handler.FormLoginResultHandler;
+import today.wtfood.server.security.handler.OAuth2LoginResultHandler;
+import today.wtfood.server.security.service.OAuth2UserServiceImpl;
 
 @Log4j2
 @Configuration
@@ -30,10 +30,10 @@ import today.wtfood.server.security.filter.JwtAuthenticationFilter;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final AccessDeniedHandler accessDeniedHandler;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final AuthenticationFailureHandler authenticationFailureHandler;
-    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AccessExceptionHandler accessExceptionHandler;
+    private final FormLoginResultHandler formLoginResultHandler;
+    private final OAuth2LoginResultHandler oAuth2LoginResultHandler;
+    private final OAuth2UserServiceImpl OAuth2UserServiceImpl;
     private final SecurityCorsProperties corsProperties;
 
     @Bean
@@ -47,11 +47,18 @@ public class SecurityConfig {
         // 세션을 상태 유지 방식으로 사용하지 않음
         http.sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // 로그인 처리 설정
+        // 폼 로그인 처리 설정
         http.formLogin(config -> config
                 .loginPage("/auth/signin")
-                .successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler)
+                .successHandler(formLoginResultHandler)
+                .failureHandler(formLoginResultHandler)
+        );
+
+        // OAuth2 로그인 처리 설정
+        http.oauth2Login(config -> config
+                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(OAuth2UserServiceImpl))
+                .successHandler(oAuth2LoginResultHandler)
+                .failureHandler(oAuth2LoginResultHandler)
         );
 
         // JWT 엑세스 토큰 검증 필터 설정
@@ -59,8 +66,8 @@ public class SecurityConfig {
 
         // 접근 시 발생한 예외 처리 핸들러 설정
         http.exceptionHandling(config -> config
-                .accessDeniedHandler(accessDeniedHandler)
-                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessExceptionHandler)
+                .authenticationEntryPoint(accessExceptionHandler)
         );
 
         // URL 별 권한 설정
