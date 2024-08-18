@@ -9,6 +9,10 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import today.wtfood.server.security.dto.oauth2.GoogleOAuth2Registration;
+import today.wtfood.server.security.dto.oauth2.KakaoOAuth2Registration;
+import today.wtfood.server.security.dto.oauth2.NaverOAuth2Registration;
+import today.wtfood.server.security.dto.oauth2.OAuth2Registration;
 
 import java.util.Arrays;
 
@@ -17,6 +21,18 @@ import java.util.Arrays;
 public class OAuth2Config {
 
     private final OAuth2ClientProperties oAuth2ClientProperties;
+    private final GoogleOAuth2Registration googleOAuth2Registration;
+    private final KakaoOAuth2Registration kakaoOAuth2Registration;
+    private final NaverOAuth2Registration naverOAuth2Registration;
+
+    public OAuth2Registration getOAuth2Registration(String registrationId) {
+        return switch (registrationId) {
+            case "google" -> googleOAuth2Registration;
+            case "naver" -> naverOAuth2Registration;
+            case "kakao" -> kakaoOAuth2Registration;
+            default -> throw new IllegalArgumentException("Unknown registrationId: " + registrationId);
+        };
+    }
 
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {

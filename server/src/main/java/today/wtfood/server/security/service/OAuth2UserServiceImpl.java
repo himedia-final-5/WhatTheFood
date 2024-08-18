@@ -8,15 +8,17 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.entity.Member;
 import today.wtfood.server.repository.MemberRepository;
+import today.wtfood.server.security.config.OAuth2Config;
 import today.wtfood.server.security.dto.oauth2.OAuth2Attributes;
+import today.wtfood.server.security.dto.oauth2.OAuth2Registration;
 
 @Log4j2
 @RequiredArgsConstructor
 @Service
 public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
+    private final OAuth2Config oAuth2Config;
     private final MemberRepository userRepository;
 
     @Override
@@ -27,31 +29,10 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-        OAuth2Attributes attributes = OAuth2Attributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        OAuth2Registration registration = oAuth2Config.getOAuth2Registration(registrationId);
+        OAuth2Attributes attributes = registration.createAttributes(userNameAttributeName, oAuth2User.getAttributes());
 
-        return saveOrUpdate(registrationId, attributes);
-    }
-
-    private Member saveOrUpdate(String registrationId, OAuth2Attributes attributes) {
-        Member user = (switch (registrationId) {
-            case "google" -> userRepository.findMemberByGoogleOauthId(attributes.oauth2Id());
-            case "naver" -> userRepository.findMemberByNaverOauthId(attributes.oauth2Id());
-            case "kakao" -> userRepository.findMemberByKakaoOauthId(attributes.oauth2Id());
-            default -> throw new IllegalArgumentException("Unknown registrationId: " + registrationId);
-        })
-                .map(entity -> {
-                    if (entity.getNickname() == null) {
-                        entity.setNickname(attributes.name());
-                    }
-                    if (entity.getProfileImage() == null) {
-                        entity.setProfileImage(attributes.picture());
-                    }
-
-                    return entity;
-                })
-                .orElse(attributes.toEntity(registrationId));
-
-        return userRepository.save(user);
+        return registration.createOrUpdateMember(userRepository, attributes);
     }
 
 }
