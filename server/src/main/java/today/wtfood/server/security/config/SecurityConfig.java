@@ -10,9 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import today.wtfood.server.security.config.properties.SecurityCorsProperties;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
+import today.wtfood.server.security.handler.AccessExceptionHandler;
 import today.wtfood.server.security.handler.FormLoginResultHandler;
 import today.wtfood.server.security.handler.OAuth2LoginResultHandler;
 import today.wtfood.server.security.service.OAuth2UserServiceImpl;
@@ -31,8 +30,7 @@ import today.wtfood.server.security.service.OAuth2UserServiceImpl;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final AccessDeniedHandler accessDeniedHandler;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final AccessExceptionHandler accessExceptionHandler;
     private final FormLoginResultHandler formLoginResultHandler;
     private final OAuth2LoginResultHandler oAuth2LoginResultHandler;
     private final OAuth2UserServiceImpl OAuth2UserServiceImpl;
@@ -68,8 +66,8 @@ public class SecurityConfig {
 
         // 접근 시 발생한 예외 처리 핸들러 설정
         http.exceptionHandling(config -> config
-                .accessDeniedHandler(accessDeniedHandler)
-                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessExceptionHandler)
+                .authenticationEntryPoint(accessExceptionHandler)
         );
 
         // URL 별 권한 설정
