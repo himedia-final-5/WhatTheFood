@@ -1,4 +1,4 @@
-package today.wtfood.server.security.dto;
+package today.wtfood.server.security.dto.oauth2;
 
 import lombok.Builder;
 import today.wtfood.server.entity.Member;
@@ -6,7 +6,7 @@ import today.wtfood.server.entity.Member;
 import java.util.Map;
 
 @Builder
-public record OAuthAttributes(
+public record OAuth2Attributes(
         Map<String, Object> attributes,
         String nameAttributeKey,
         String oauth2Id,
@@ -38,8 +38,8 @@ public record OAuthAttributes(
         return member;
     }
 
-    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
-        OAuthAttributesBuilder builder = OAuthAttributes.builder();
+    public static OAuth2Attributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+        OAuth2AttributesBuilder builder = OAuth2Attributes.builder();
         switch (registrationId.toLowerCase()) {
             case "google" -> viaGoogle(builder, attributes).build();
             case "naver" -> viaNaver(builder, attributes).build();
@@ -52,7 +52,7 @@ public record OAuthAttributes(
                 .build();
     }
 
-    private static OAuthAttributesBuilder viaGoogle(OAuthAttributesBuilder builder, Map<String, Object> attributes) {
+    private static OAuth2AttributesBuilder viaGoogle(OAuth2AttributesBuilder builder, Map<String, Object> attributes) {
         return builder
                 .oauth2Id((String) attributes.get("sub"))
                 .name((String) attributes.get("name"))
@@ -61,7 +61,7 @@ public record OAuthAttributes(
     }
 
     @SuppressWarnings("unchecked")
-    private static OAuthAttributesBuilder viaNaver(OAuthAttributesBuilder builder, Map<String, Object> attributes) {
+    private static OAuth2AttributesBuilder viaNaver(OAuth2AttributesBuilder builder, Map<String, Object> attributes) {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
         return builder
@@ -72,7 +72,7 @@ public record OAuthAttributes(
     }
 
     @SuppressWarnings("unchecked")
-    private static OAuthAttributesBuilder viaKakao(OAuthAttributesBuilder builder, Map<String, Object> attributes) {
+    private static OAuth2AttributesBuilder viaKakao(OAuth2AttributesBuilder builder, Map<String, Object> attributes) {
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
 

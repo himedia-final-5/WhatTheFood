@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.repository.MemberRepository;
-import today.wtfood.server.security.dto.OAuthAttributes;
+import today.wtfood.server.security.dto.oauth2.OAuth2Attributes;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -27,12 +27,12 @@ public class OAuth2UserServiceImpl implements OAuth2UserService<OAuth2UserReques
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        OAuth2Attributes attributes = OAuth2Attributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         return saveOrUpdate(registrationId, attributes);
     }
 
-    private Member saveOrUpdate(String registrationId, OAuthAttributes attributes) {
+    private Member saveOrUpdate(String registrationId, OAuth2Attributes attributes) {
         Member user = (switch (registrationId) {
             case "google" -> userRepository.findMemberByGoogleOauthId(attributes.oauth2Id());
             case "naver" -> userRepository.findMemberByNaverOauthId(attributes.oauth2Id());
