@@ -14,14 +14,13 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import today.wtfood.server.security.config.properties.SecurityCorsProperties;
 import today.wtfood.server.security.filter.JwtAuthenticationFilter;
-import today.wtfood.server.security.handler.AuthenticationSuccessHandlerImpl;
+import today.wtfood.server.security.handler.FormLoginResultHandler;
 import today.wtfood.server.security.service.OAuth2UserServiceImpl;
 
 @Log4j2
@@ -33,8 +32,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AccessDeniedHandler accessDeniedHandler;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final AuthenticationFailureHandler authenticationFailureHandler;
-    private final AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+    private final FormLoginResultHandler formLoginResultHandler;
     private final OAuth2UserServiceImpl OAuth2UserServiceImpl;
     private final SecurityCorsProperties corsProperties;
 
@@ -52,8 +50,8 @@ public class SecurityConfig {
         // 폼 로그인 처리 설정
         http.formLogin(config -> config
                 .loginPage("/auth/signin")
-                .successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler)
+                .successHandler(formLoginResultHandler)
+                .failureHandler(formLoginResultHandler)
         );
 
         // OAuth2 로그인 처리 설정
