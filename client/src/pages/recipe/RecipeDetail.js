@@ -301,6 +301,23 @@ export default function RecipeDetail() {
               )}
             </ul>
           </div>
+          <div className="recipedetail_comment">
+            <ul>
+              {Array.isArray(recipe.comments) && recipe.comments.length > 0 ? (
+                recipe.comments.map((comment, index) => (
+                  <li key={index}>
+                    <p className="comment_author">{comment.member.nickname}</p>
+                    <p className="comment_content">{comment.content}</p>
+                    <p className="comment_date">
+                      {new Date(comment.createdDate).toLocaleString()}
+                    </p>
+                  </li>
+                ))
+              ) : (
+                <p>No comments available.</p>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     )
