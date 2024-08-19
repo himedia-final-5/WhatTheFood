@@ -9,8 +9,4 @@ public interface MemberSummary extends MemberAuth {
 
     String getEmail();
 
-    default String getProfileImg() {
-        return "/profile/" + getId();
-    }
-
 }

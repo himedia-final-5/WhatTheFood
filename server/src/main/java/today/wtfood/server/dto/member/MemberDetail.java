@@ -1,7 +1,5 @@
 package today.wtfood.server.dto.member;
 
-import today.wtfood.server.entity.Member;
-
 import java.util.List;
 
 /**
@@ -13,10 +11,21 @@ public interface MemberDetail extends MemberSummary {
 
     String getIntroduce();
 
-    List<List<Member.SocialUrl>> getSocialUrls();
+    List<MemberSocialUrl> getSocialUrls();
 
     default String getBannerImg() {
         return "/banner/" + getId();
+    }
+
+    /**
+     * @implNote Projection for {@link today.wtfood.server.entity.Member.SocialUrl}
+     */
+    interface MemberSocialUrl {
+
+        String getName();
+
+        String getUrl();
+
     }
 
 }
