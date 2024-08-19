@@ -35,6 +35,8 @@ import cn from "utils/cn";
 
 export default function AuthModal() {
   const [open, setOpen] = useState(false);
+  const [isSignIn, toggleSignIn] = useToggle(true);
+  const modeText = isSignIn ? "로그인" : "회원가입";
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
@@ -46,13 +48,18 @@ export default function AuthModal() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>
-              <PartOfTitle />
+              <PartOfTitle modeText={modeText} />
             </DialogTitle>
             <DialogDescription>
-              <PartOfDescription />
+              <PartOfDescription modeText={modeText} />
             </DialogDescription>
           </DialogHeader>
-          <PartOfContent setOpen={setOpen} />
+          <PartOfContent
+            setOpen={setOpen}
+            isSignIn={isSignIn}
+            toggleSignIn={toggleSignIn}
+            modeText={modeText}
+          />
         </DialogContent>
       </Dialog>
     );
@@ -66,13 +73,19 @@ export default function AuthModal() {
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>
-            <PartOfTitle />
+            <PartOfTitle modeText={modeText} />
           </DrawerTitle>
           <DrawerDescription>
-            <PartOfDescription />
+            <PartOfDescription modeText={modeText} />
           </DrawerDescription>
         </DrawerHeader>
-        <PartOfContent isDrawer setOpen={setOpen} />
+        <PartOfContent
+          isDrawer
+          setOpen={setOpen}
+          isSignIn={isSignIn}
+          toggleSignIn={toggleSignIn}
+          modeText={modeText}
+        />
         {/*
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
@@ -95,27 +108,30 @@ function Trigger({ className }) {
   );
 }
 
-function PartOfTitle() {
+function PartOfTitle({ modeText }) {
   return (
     <>
-      <div className="text-2xl">로그인</div>
+      <div className="text-2xl">{modeText}</div>
     </>
   );
 }
 
-function PartOfDescription() {
-  return <>로그인 후 더 많은 서비스를 사용해보세요!</>;
+function PartOfDescription({ modeText }) {
+  return <>{modeText} 후 더 많은 서비스를 사용해보세요!</>;
 }
 
 /**
  *
- * @param {{isDrawer: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
+ * @param {{isDrawer: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>, isSignIn: boolean, toggleSignIn: () => void, modeText: string}} param0
  * @returns
  */
-function PartOfContent({ isDrawer, setOpen }) {
-  const [isSignIn, toggleSignIn] = useToggle(true);
-  const modeText = isSignIn ? "로그인" : "회원가입";
-
+function PartOfContent({
+  isDrawer,
+  setOpen,
+  isSignIn,
+  toggleSignIn,
+  modeText,
+}) {
   async function onSocialLogin(provider) {
     window.open(
       `http://wtfood.today:3000/api/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(window.location.href)}`,
