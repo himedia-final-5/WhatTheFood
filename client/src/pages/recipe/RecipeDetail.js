@@ -149,8 +149,8 @@ export default function RecipeDetail() {
               recipe.guideLinks.length > 0 ? (
                 recipe.guideLinks.map((link, index) => (
                   <li key={index}>
-                    <a href={link} target="_blank" rel="noopener noreferrer">
-                      가이드 링크를 참조하세요 {index + 1}
+                    <a href={link} target="#" rel="noopener noreferrer">
+                      가이드 링크를 참조하세요 : {link}
                     </a>
                   </li>
                 ))
