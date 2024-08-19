@@ -121,6 +121,7 @@ public class RecipeService {
     public List<Recipe> getFavoriteRecipes(long memberId) {
         Member member = mr.findById(memberId)
                 .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
+        List<Recipe> test = rr.findByFavoriteByMembersContains(member);
         return rr.findByFavoriteByMembersContains(member);
     }
 
