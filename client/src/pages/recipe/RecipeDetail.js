@@ -89,22 +89,7 @@ export default function RecipeDetail() {
           <p>
             <strong>{recipe.category}</strong>
           </p>
-          <div className="event_custom-button_total_wrap">
-            <div className="event_custom-button_wrap">
-              <CopyToClipboard text={currentUrl}>
-                <button
-                  type="submit"
-                  className="event_custom_button"
-                  onClick={() => setButtonPopup(true)}
-                >
-                  <img src="/images/share_copy.png" alt="linkShare" />
-                </button>
-              </CopyToClipboard>
-              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <h3>링크 복사 완료</h3>
-              </Popup>
-            </div>
-          </div>
+
           {recipe.videoLink && (
             <div className="recipedetail_video">
               <iframe
@@ -214,6 +199,22 @@ export default function RecipeDetail() {
                 <p>No tags available.</p>
               )}
             </ul>
+          </div>
+          <div className="event_custom-button_total_wrap">
+            <div className="event_custom-button_wrap">
+              <CopyToClipboard text={currentUrl}>
+                <button
+                  type="submit"
+                  className="event_custom_button"
+                  onClick={() => setButtonPopup(true)}
+                >
+                  <img src="/images/share_copy.png" alt="linkShare" />
+                </button>
+              </CopyToClipboard>
+              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <h3>링크 복사 완료</h3>
+              </Popup>
+            </div>
           </div>
         </div>
       </div>
