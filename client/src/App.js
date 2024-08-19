@@ -13,7 +13,7 @@ import {
   EmailLogin,
   MemberDetail,
   MemberUpdate,
-  OAuth2LoginPopup,
+  OAuth2Login,
 } from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
 import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
@@ -69,7 +69,7 @@ function App() {
               <Route path="/members/:id" element={<MemberDetail />} />
               <Route path="/setting" element={<MemberUpdate />} />
               <Route path="/login/email/:token" element={<EmailLogin />} />
-              <Route path="/login/oauth2" element={<OAuth2LoginPopup />} />
+              <Route path="/login/oauth2" element={<OAuth2Login />} />
 
               <Route path="/faqs" element={<FaqList />} />
               <Route path="/faqs/:id" element={<FaqDetail />} />
