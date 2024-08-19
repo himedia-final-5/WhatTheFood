@@ -31,85 +31,76 @@ export default function RecipeWrite() {
 
   function onInputChange(e) {
     const { name, value } = e.target;
-    setEvent((prevEvent) => ({
-      ...prevEvent,
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
       [name]: value,
     }));
   }
 
   function onSubmit() {
     axios
-      .post("/api/events/", {
-        ...event,
+      .post("/api/recipes/", {
+        ...recipe,
       })
       .then(() => {
-        navigate("/events");
-        console.log(event);
+        navigate("/recipes");
+        console.log(recipe);
       });
   }
 
   return (
-    <AdminFeatureContainer className="createEvent">
-      <div className="createEvent_field">
+    <AdminFeatureContainer className="createRecipe">
+      <div className="createRecipe_field">
         <label>작성자</label>
         <input type="text" value={user && user.nickname} readOnly />
       </div>
-      <div className="createEvent_field">
+      <div className="createRecipe_field">
         <label>PASS</label>
         <input
           type="password"
           name="pass"
-          value={event.pass}
+          value={recipe.pass}
           onChange={onInputChange}
         />
       </div>
-      <div className="createEvent_field">
+      <div className="createRecipe_field">
         <label>제목</label>
         <input
           type="text"
           name="title"
-          value={event.title}
+          value={recipe.title}
           onChange={onInputChange}
         />
       </div>
-      <div className="createEvent_field">
-        <label htmlFor="startDate">시작 날짜</label>
+      <div className="createRecipe_field">
+        <label htmlFor="createdDate">시작 날짜</label>
         <input
           type="date"
-          id="startDate"
-          name="startDate"
+          id="createdDate"
+          name="createdDate"
           onChange={onInputChange}
-          defaultValue={event.startDate ? event.startDate.slice(0, 10) : ""}
+          defaultValue={
+            recipe.createdDate ? recipe.createdDate.slice(0, 10) : ""
+          }
           required
         />
       </div>
-      <div className="createEvent_field">
-        <label htmlFor="endDate">종료 날짜</label>
-        <input
-          type="date"
-          id="endDate"
-          name="endDate"
-          onChange={onInputChange}
-          defaultValue={event.endDate ? event.endDate.slice(0, 10) : ""}
-          required
-        />
-      </div>
-      <div className="createEvent_field">
+      <div className="createRecipe_field">
         <label>배너 이미지</label>
         <ImageUploadInput
-          onUpload={(bannerImage) => setEvent({ ...event, bannerImage })}
-          imageSrc={event.bannerImage}
+          onUpload={(bannerImage) => setRecipe({ ...recipe, bannerImage })}
+          imageSrc={recipe.bannerImage}
           className={cn(
             "flex flex-col items-center justify-center w-full overflow-hidden",
             "border-2 border-gray-300 border-dashed rounded-lg",
           )}
         />
       </div>
-      <div className="createEvent_field">
+      <div className="createRecipe_field">
         <label>내용 이미지 목록</label>
         <div className="flex flex-wrap gap-y-2">
-          {event.contentImages.length > 0 &&
-            event.contentImages.map((contentImage, index) => (
+          {recipe.contentImages.length > 0 &&
+            recipe.contentImages.map((contentImage, index) => (
               <div
                 key={index}
                 className={cn(
@@ -125,9 +116,9 @@ export default function RecipeWrite() {
                     "bg-red-300 hover:bg-red-500",
                   )}
                   onClick={() =>
-                    setEvent({
-                      ...event,
-                      contentImages: event.contentImages.filter(
+                    setRecipe({
+                      ...recipe,
+                      contentImages: recipe.contentImages.filter(
                         (_, i) => i !== index,
                       ),
                     })
@@ -137,9 +128,9 @@ export default function RecipeWrite() {
                 </button>
                 <ImageUploadInput
                   onUpload={(contentImage) =>
-                    setEvent({
-                      ...event,
-                      contentImages: event.contentImages.map((image, i) =>
+                    setRecipe({
+                      ...recipe,
+                      contentImages: recipe.contentImages.map((image, i) =>
                         i === index ? contentImage : image,
                       ),
                     })
@@ -153,9 +144,9 @@ export default function RecipeWrite() {
             ))}
           <button
             onClick={() =>
-              setEvent({
-                ...event,
-                contentImages: [...(event.contentImages || []), ""],
+              setRecipe({
+                ...recipe,
+                contentImages: [...(recipe.contentImages || []), ""],
               })
             }
             className={cn(
@@ -169,9 +160,9 @@ export default function RecipeWrite() {
           </button>
         </div>
       </div>
-      <div className="createEvent_btns">
+      <div className="createRecipe_btns">
         <button onClick={onSubmit}>작성완료</button>
-        <Link to="/events">
+        <Link to="/recipes">
           <button>돌아가기</button>
         </Link>
       </div>
