@@ -76,12 +76,13 @@ public class AuthController {
         memberService.validateUsernameFormatAndUnique(emailToken.getUsername());
         memberService.validateEmailFormatAndUnique(emailToken.getEmail());
 
-        memberService.createMember(new MemberCreateRequest(
+        long memberId = memberService.createMember(new MemberCreateRequest(
                 emailToken.getUsername(),
                 emailToken.getPassword(),
                 emailToken.getUsername(),
                 emailToken.getEmail()
         ));
+        memberService.updateMemberProfileImage(memberId, "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=" + emailToken.getUsername());
 
         return jwtService.generateAuthToken(emailToken.getUsername());
     }
