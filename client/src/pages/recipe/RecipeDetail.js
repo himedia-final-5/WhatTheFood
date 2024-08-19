@@ -24,6 +24,14 @@ export default function RecipeDetail() {
     async () => (await axios.get(`/api/recipes/${id}`)).data,
   );
 
+  // Extract YouTube video ID from URL
+  const extractYouTubeVideoId = (url) => {
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|watch\?.+v=)?([^"&?\/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
+
   const deleteRecipe = () => {
     if (window.confirm("삭제 하시겠습니까?")) {
       toast.promise(axios.delete(`/api/recipes/${id}`), {
@@ -43,7 +51,6 @@ export default function RecipeDetail() {
     if ((!isLoading, recipe == null && recipe?.id !== id)) {
       fetchEvent();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -171,44 +178,54 @@ export default function RecipeDetail() {
             <strong>{recipe.servings}인분</strong>
           </p>
           <p>
-            <strong>{recipe.level}level</strong>
+            <strong>{recipe.level} level</strong>
+          </p>
+          <p>
+            <strong>{recipe.category}</strong>
           </p>
           {recipe.videoLink && (
-            <p>
-              <strong>Video:</strong>{" "}
-              <a
-                href={recipe.videoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Watch Video
-              </a>
-            </p>
+            <div className="recipedetail_video">
+              <iframe
+                src={`https://www.youtube.com/embed/${extractYouTubeVideoId(recipe.videoLink)}`}
+                title="Video"
+                allowFullScreen
+              ></iframe>
+            </div>
           )}
-          <p>
-            <strong>Category:</strong> {recipe.category}
-          </p>
-          <div className="recipedetail_ingredientImage">
-            <div>{recipe.ingredientImage}</div>
-          </div>
-          <div className="recipedetail_ingredients">
-            <h3>Ingredients:</h3>
-            <ul>
-              {Array.isArray(recipe.ingredients) &&
-              recipe.ingredients.length > 0 ? (
-                recipe.ingredients.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
+
+          <div className="recipedetail_ingredientWrap">
+            <div className="recipedetail_ingredientImage">
+              {Array.isArray(recipe.ingredientImage) &&
+              recipe.ingredientImage.length > 0 ? (
+                recipe.ingredientImage.map((image, index) => (
+                  <div key={index} className="recipedetail_contentdetail">
+                    <img src={image} alt={`Ingredient - ${index}`} />
+                  </div>
                 ))
               ) : (
-                <p>No ingredients listed.</p>
+                <p>No ingredient images available.</p>
               )}
-            </ul>
+            </div>
+            <div className="recipedetail_ingredients">
+              <h3>기본재료</h3>
+              {Array.isArray(recipe.ingredients) &&
+              recipe.ingredients.length > 0 ? (
+                <ul>
+                  {recipe.ingredients.map((ingredient, index) => (
+                    <li key={index}>{ingredient}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No ingredient list available.</p>
+              )}
+            </div>
           </div>
 
           <div className="recipedetail_cookingTools">
-            <h3>Cooking Tools:</h3>
+            <h3>조리도구</h3>
             <ul>
-              {recipe.cookingTools && recipe.cookingTools.length > 0 ? (
+              {Array.isArray(recipe.cookingTools) &&
+              recipe.cookingTools.length > 0 ? (
                 recipe.cookingTools.map((tool, index) => (
                   <li key={index}>{tool}</li>
                 ))
@@ -218,16 +235,63 @@ export default function RecipeDetail() {
             </ul>
           </div>
 
+          <div className="recipedetail_guideLinks">
+            <h3>가이드 링크</h3>
+            <ul>
+              {Array.isArray(recipe.guideLinks) &&
+              recipe.guideLinks.length > 0 ? (
+                recipe.guideLinks.map((link, index) => (
+                  <li key={index}>
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                      가이드 링크를 참조하세요 {index + 1}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <p>No guide links available.</p>
+              )}
+            </ul>
+          </div>
+
           <div className="recipedetail_cookingStep">
-            {recipe.cookingStep && recipe.cookingStep.length > 0 ? (
-              recipe.cookingStep.map((image, index) => (
+            {Array.isArray(recipe.cookingStep) &&
+            recipe.cookingStep.length > 0 ? (
+              recipe.cookingStep.map((step, index) => (
                 <div key={index} className="recipedetail_contentdetail">
-                  <img src={image} alt={`cookingStep - ${index}`} />
+                  {step.imageUrl ? (
+                    <img src={step.imageUrl} alt={`Cooking Step - ${index}`} />
+                  ) : (
+                    <p>No image available for this step.</p>
+                  )}
+                  {step.description && <p>{step.description}</p>}
                 </div>
               ))
             ) : (
-              <p>No cookingStep images available.</p>
+              <p>No cooking steps available.</p>
             )}
+          </div>
+          <div className="recipedetail_finishedImages">
+            <div>
+              {Array.isArray(recipe.finishedImages) &&
+              recipe.finishedImages.length > 0 ? (
+                recipe.finishedImages.map((image, index) => (
+                  <div key={index} className="recipedetail_contentdetail">
+                    <img src={image} alt={`Finished Image - ${index}`} />
+                  </div>
+                ))
+              ) : (
+                <p>No finished images available.</p>
+              )}
+            </div>
+          </div>
+          <div className="recipedetail_tags">
+            <ul>
+              {Array.isArray(recipe.tags) && recipe.tags.length > 0 ? (
+                recipe.tags.map((tag, index) => <li key={index}>{tag}</li>)
+              ) : (
+                <p>No tags available.</p>
+              )}
+            </ul>
           </div>
         </div>
 

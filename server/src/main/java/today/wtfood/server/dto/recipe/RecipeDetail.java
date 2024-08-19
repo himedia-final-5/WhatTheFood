@@ -18,17 +18,17 @@ public interface RecipeDetail extends RecipeSummary {
 
     Integer level();
 
-    String videoLink();
+    String getVideoLink();
 
     String category();
 
     List<String> ingredientImage();
 
-    List<String> ingredients();
+    List<String> getIngredients();
 
-    List<String> cookingTools();
+    List<String> getCookingTools();
 
-    List<String> guideLinks();
+    List<String> getGuideLinks();
 
     List<String> cookingStep();
 
