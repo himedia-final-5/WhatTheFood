@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
+import { UserFeatureContainer } from "components/util";
+import { toast } from "react-toastify";
+import { axios } from "utils";
+
 const { kakao } = window;
 
 function BrandList() {
@@ -65,26 +68,26 @@ function BrandList() {
   // }
 
   return (
-    <div className="mapPage" style={{ width: "100%" }}>
-      <SubMenu />
-      <div
-        className="customer"
-        style={{ flex: "4", width: "800px", height: "600px" }}
-      >
+    <UserFeatureContainer>
+      <div className="mapPage" style={{ width: "100%" }}>
         <div
-          id="map"
-          style={{ width: "100%", height: "100%", margin: "20px" }}
-        ></div>
-      </div>
-      <input
-        type="text"
-        className="adminSearch"
-        value={word}
-        onChange={(e) => {
-          setWord(e.currentTarget.value);
-        }}
-      />
-      {/* <button
+          className="customer"
+          style={{ flex: "4", width: "800px", height: "600px" }}
+        >
+          <div
+            id="map"
+            style={{ width: "100%", height: "100%", margin: "20px" }}
+          ></div>
+        </div>
+        <input
+          type="text"
+          className="adminSearch"
+          value={word}
+          onChange={(e) => {
+            setWord(e.currentTarget.value);
+          }}
+        />
+        {/* <button
           onClick={() => {
             onSearch();
           }}
@@ -92,7 +95,8 @@ function BrandList() {
         >
           위치 검색
         </button> */}
-    </div>
+      </div>
+    </UserFeatureContainer>
   );
 }
 

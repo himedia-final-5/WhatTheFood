@@ -33,6 +33,8 @@ function MView() {
         });
     }
   }
+
+  function updateMember() {}
   return (
     <div className="adminContainer">
       <SubMenu />
@@ -58,6 +60,11 @@ function MView() {
           <div className="labelcontent">{memberView.introduce}</div>
         </div>
 
+        <div className="adminfield">
+          <label className="labellabel">회원 등급</label>
+          <div className="labelcontent">{memberView.grade}</div>
+        </div>
+
         <div className="adminbtns">
           <button
             onClick={() => {
@@ -65,6 +72,13 @@ function MView() {
             }}
           >
             회원 삭제
+          </button>
+          <button
+            onClick={() => {
+              updateMember();
+            }}
+          >
+            회원 등급 설정
           </button>
           <button
             onClick={() => {

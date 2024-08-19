@@ -53,6 +53,7 @@ function SearchMList() {
           onClick={() => {
             onSearch();
           }}
+          style={{ fontSize: "25px" }}
         >
           회원 검색
         </button>
@@ -62,6 +63,7 @@ function SearchMList() {
           <div className="admincol">번호</div>
           <div className="admincol">회원 ID</div>
           <div className="admincol">회원 닉네임</div>
+          <div className="admincol">회원 등급</div>
         </div>
         {content.map((member, idx) => {
           return (
@@ -77,6 +79,7 @@ function SearchMList() {
                 {member.username}
               </div>
               <div className="admincol">{member.nickname}</div>
+              <div className="admincol">{member.grade}</div>
             </div>
           );
         })}

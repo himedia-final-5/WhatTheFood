@@ -66,6 +66,7 @@ function MemberList() {
           <div className="admincol">번호</div>
           <div className="admincol">회원 ID</div>
           <div className="admincol">회원 닉네임</div>
+          <div className="admincol">회원 등급</div>
         </div>
         {content.map((memberlist, idx) => {
           return (
@@ -82,6 +83,7 @@ function MemberList() {
               </div>
 
               <div className="admincol">{memberlist.nickname}</div>
+              <div className="admincol">{memberlist.grade}</div>
             </div>
           );
         })}
