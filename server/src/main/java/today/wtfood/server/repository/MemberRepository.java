@@ -17,6 +17,14 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
     <T> Optional<T> findByUsername(String username, Class<T> projectionType);
 
+    <T> Optional<T> findByEmail(String email, Class<T> projectionType);
+
+    Optional<Member> findMemberByGoogleOauthId(String googleOauthId);
+
+    Optional<Member> findMemberByNaverOauthId(String naverOauthId);
+
+    Optional<Member> findMemberByKakaoOauthId(String kakaoOauthId);
+
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);

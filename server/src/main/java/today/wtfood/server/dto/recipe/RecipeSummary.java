@@ -29,12 +29,15 @@ public interface RecipeSummary {
     String getCategory();         // 카테고리
 
     Timestamp getCreatedDate();   // 작성 시간
+    
 
     // 작성자 정보 가져오기
     MemberSummary getMember();    // 작성자
 
     // 조리 단계 정보를 가져오기
-    List<CookingStepSummary> getCookingSteps(); // 조리 순서
+    List<CookingStepSummary> getCookingStep(); // 조리 순서
+
+    List<String> getIngredientImage();//재료 사진
 
     // 완료된 사진 경로 가져오기
     List<String> getFinishedImages(); // 완성품 사진 경로

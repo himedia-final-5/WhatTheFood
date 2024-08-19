@@ -1,4 +1,4 @@
-#iqvbody {
+#inquirybody {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -6,14 +6,14 @@
   align-items: center;
 }
 
-#iqvcontainer {
+#inquirycontainer {
   display: flex;
   flex-direction: column;
   width: 64%;
   border: 1px solid red;
 }
 
-#iqvhead {
+#inquiryhead {
   width: 100%;
   height: 100px;
   display: flex;
@@ -21,24 +21,24 @@
   border: 1px solid blue;
 }
 
-#iqvanswer {
+#inquiryanswer {
   font-size: 20px;
   font-weight: bold;
 }
 
-#iqvtitle {
+#inquirytitle {
   font-size: 50px;
 }
 
-#iqvdate {
+#inquirydate {
   font-size: 25px;
 }
 
-#iqvcontent {
+#inquirycontent {
   font-size: 30px;
 }
 
-#iqvback {
+#inquiryback {
   cursor: pointer;
   font-size: 25px;
   border: 1px solid black;

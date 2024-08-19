@@ -6,7 +6,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 
-import "./index.css";
+import "./styles/reset.css";
+import "./styles/shadcn.css";
 import App from "./App";
 import store from "stores";
 import ChannelService from "ChannelService";

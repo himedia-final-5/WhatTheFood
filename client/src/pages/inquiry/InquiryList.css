@@ -1,10 +1,10 @@
-.iqBody {
+.inquiryBody {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.iqCenter {
+.inquiryCenter {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#iq1 {
+#inquiry1 {
   width: 90%;
   display: flex;
   justify-content: space-between;
@@ -32,7 +32,7 @@
   font-size: 30px;
   cursor: pointer;
 }
-#iq1 img {
+#inquiry1 img {
   width: 40px;
   height: 45px;
 }
@@ -41,7 +41,7 @@
   width: 120px;
 }
 
-.iqitem {
+.inquiryitem {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -53,15 +53,15 @@
   cursor: pointer;
 }
 
-.iqanswer {
+.inquiryanswer {
   font-size: 20px;
   font-weight: bold;
 }
-.iqname {
+.inquiryname {
   font-size: 30px;
 }
 
-.iqdate {
+.inquirydate {
   font-size: 20px;
   color: gray;
 }

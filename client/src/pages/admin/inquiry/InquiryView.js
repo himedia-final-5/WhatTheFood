@@ -7,22 +7,21 @@ function InquiryView() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [qnaView, setQnaView] = useState({});
+  const [inquiry, setInquiry] = useState({});
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
     axios
       .get(`/api/inquiries/${id}`)
       .then((result) => {
-        setQnaView(result.data);
+        setInquiry(result.data);
       })
-
       .catch((err) => {
         console.error(err);
       });
   }, [id]);
 
-  function iqAnswer() {
+  function submitAnswer() {
     axios
       .put(`/api/inquiries/${id}/answer`, null, { params: { answer } })
       .then(() => {
@@ -40,29 +39,29 @@ function InquiryView() {
       <div className="productTable">
         <div className="adminfield">
           <label className="labellabel">제목</label>
-          <div className="labelcontent">{qnaView.title}</div>
+          <div className="labelcontent">{inquiry.title}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">등록날짜</label>
           <div className="labelcontent">
-            {(qnaView.date + "").substring(0, 10)}
+            {(inquiry.date + "").substring(0, 10)}
           </div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">회원ID</label>
-          <div className="labelcontent">{qnaView.username}</div>
+          <div className="labelcontent">{inquiry.username}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">내용</label>
-          <div className="labelcontent">{qnaView.content}</div>
+          <div className="labelcontent">{inquiry.content}</div>
         </div>
 
         <div className="adminfield">
           <label className="labellabel">스크린샷</label>
-          <div className="labelcontent">{qnaView.image}</div>
+          <div className="labelcontent">{inquiry.image}</div>
         </div>
 
         <div className="adminfield">
@@ -72,7 +71,7 @@ function InquiryView() {
             style={{ fontSize: "20px" }}
             rows="10"
             value={answer}
-            placeholder={qnaView.answer}
+            placeholder={inquiry.answer}
             onChange={(e) => {
               setAnswer(e.currentTarget.value);
             }}
@@ -82,7 +81,7 @@ function InquiryView() {
         <div className="adminbtns">
           <button
             onClick={() => {
-              iqAnswer();
+              submitAnswer();
             }}
           >
             답변등록/수정

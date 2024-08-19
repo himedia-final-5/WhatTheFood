@@ -22,6 +22,8 @@ public interface RecipeDetail extends RecipeSummary {
 
     String category();
 
+    List<String> ingredientImage();
+
     List<String> ingredients();
 
     List<String> cookingTools();
@@ -31,6 +33,8 @@ public interface RecipeDetail extends RecipeSummary {
     List<String> cookingStep();
 
     List<String> finishedImages();
+
+    List<String> tags();
 
 
 }

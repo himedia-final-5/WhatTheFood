@@ -34,7 +34,7 @@ function Notice() {
         <AdminFeature>
           <div class="noticeWrite-container">
             <div class="background-circle"></div>
-            <Link to="/WriteNotice" class="noticeWrite-text cursor-pointer">
+            <Link to="/notices/write" class="noticeWrite-text cursor-pointer">
               게시글 쓰기
             </Link>
           </div>
@@ -64,10 +64,7 @@ function Notice() {
                     <div className="notice-date">
                       {notice.writeDate.slice(0, 10)}
                     </div>
-                    <Link
-                      to={`/noticeView/${notice.id}`}
-                      className="notice_col"
-                    >
+                    <Link to={`/notices/${notice.id}`} className="notice_col">
                       {notice.title}
                     </Link>
                   </div>

@@ -7,15 +7,14 @@ import { axios } from "utils";
 function InquiryView() {
   const { id } = useParams();
 
-  const [qnaView, setQnaView] = useState({});
+  const [inquiry, setInquiry] = useState({});
 
   useEffect(() => {
     axios
       .get(`/api/inquiries/${id}`)
       .then((result) => {
-        setQnaView(result.data);
+        setInquiry(result.data);
       })
-
       .catch((err) => {
         console.error(err);
       });
@@ -28,29 +27,29 @@ function InquiryView() {
       <br></br>
       <br></br>
       <br></br>
-      <div id="iqvbody">
-        <div id="iqvcontainer">
-          <div id="iqvhead">
-            <div id="iqvanswer">
-              {qnaView.answer ? (
+      <div id="inquirybody">
+        <div id="inquirycontainer">
+          <div id="inquiryhead">
+            <div id="inquiryanswer">
+              {inquiry.answer ? (
                 <div style={{ color: "green" }}>답변완료</div>
               ) : (
                 <div style={{ color: "grey" }}>답변처리중</div>
               )}
             </div>
-            <div id="iqvtitle">{qnaView.title}</div>
+            <div id="inquirytitle">{inquiry.title}</div>
             <hr></hr>
-            <div id="iqvdate">{(qnaView.date + "").substring(0, 10)}</div>
+            <div id="inquirydate">{(inquiry.date + "").substring(0, 10)}</div>
             <hr></hr>
           </div>
           <br></br>
-          <div id="iqvcontent">{qnaView.content}</div>
-          <div id="iqvimage">
-            {qnaView.image && <img src={qnaView.image} alt="이미지" />}
+          <div id="inquirycontent">{inquiry.content}</div>
+          <div id="inquiryimage">
+            {inquiry.image && <img src={inquiry.image} alt="이미지" />}
           </div>
         </div>
         <br></br>
-        <Link id="iqvback" to="/inquiryList">
+        <Link id="inquiryback" to="/inquiries">
           목록으로
         </Link>
         <br></br>

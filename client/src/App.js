@@ -5,10 +5,16 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { DefaultLayout, AdminLayout } from "components/layout";
-import { FallbackRender } from "components/layout/error";
+import { DefaultLayout, AdminLayout } from "layouts";
+import { FallbackRender } from "layouts/error";
+import NotFoundRender from "layouts/error/NotFoundRender";
 import { Main } from "pages/main";
-import { MemberJoin, MemberLogin, MemberUpdate } from "pages/member";
+import {
+  MemberJoin,
+  MemberLogin,
+  MemberUpdate,
+  OAuth2LoginPopup,
+} from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
 import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
 import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
@@ -18,7 +24,7 @@ import {
   NoticeWrite,
   NoticeUpdate,
 } from "pages/notice";
-import { TestAssets } from "pages/test";
+import { TestAssets, TestProfileGenerator } from "pages/test";
 import { RankingList } from "pages/ranking";
 import { ChefList } from "pages/chef";
 import Admin from "pages/admin/Login";
@@ -42,6 +48,7 @@ import WFaq from "pages/admin/inquiry/WriteFaq";
 import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
 
 import BrandList from "pages/admin/brand/BrandList";
+import RecipeList from "pages/recipe/RecipeList";
 
 function App() {
   return (
@@ -52,6 +59,8 @@ function App() {
             <Route element={<DefaultLayout />}>
               <Route path="/" element={<Main />} />
 
+              <Route path="/recipes" element={<RecipeList />} />
+
               <Route path="/events" element={<EventList />} />
               <Route path="/events/:id" element={<EventDetail />} />
               <Route path="/events/write" element={<EventWrite />} />
@@ -60,23 +69,26 @@ function App() {
               <Route path="/signin" element={<MemberLogin />} />
               <Route path="/signup" element={<MemberJoin />} />
               <Route path="/setting" element={<MemberUpdate />} />
+              <Route path="/login/oauth2" element={<OAuth2LoginPopup />} />
 
-              <Route path="/faq" element={<FaqList />} />
-              <Route path="/faqView/:id" element={<FaqDetail />} />
-              <Route path="/faqWriteForm" element={<FaqWrite />} />
+              <Route path="/faqs" element={<FaqList />} />
+              <Route path="/faqs/:id" element={<FaqDetail />} />
+              <Route path="/faqs/write" element={<FaqWrite />} />
 
-              <Route path="/inquiryList" element={<InquiryList />} />
-              <Route path="/inquiryView/:id" element={<InquiryDetail />} />
-              <Route path="/inquiryWriteForm" element={<InquiryWrite />} />
+              <Route path="/inquiries" element={<InquiryList />} />
+              <Route path="/inquiries/:id" element={<InquiryDetail />} />
+              <Route path="/inquiries/write" element={<InquiryWrite />} />
 
-              <Route path="/notice" element={<NoticeList />} />
-              <Route path="/noticeView/:id" element={<NoticeDetail />} />
-              <Route path="/writeNotice" element={<NoticeWrite />} />
-              <Route path="/updateNotice/:id" element={<NoticeUpdate />} />
-              <Route path="/test/assets" element={<TestAssets />} />
+              <Route path="/notices" element={<NoticeList />} />
+              <Route path="/notices/:id" element={<NoticeDetail />} />
+              <Route path="/notices/write" element={<NoticeWrite />} />
+              <Route path="/notices/write/:id" element={<NoticeUpdate />} />
 
               <Route path="/ranking" element={<RankingList />} />
               <Route path="/chefs" element={<ChefList />} />
+
+              <Route path="/test/assets" element={<TestAssets />} />
+              <Route path="/test/profile" element={<TestProfileGenerator />} />
             </Route>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<Admin />} />
@@ -97,6 +109,7 @@ function App() {
               <Route path="/brandList" element={<BrandList />} />
               brandList
             </Route>
+            <Route path="*" element={<NotFoundRender />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>

@@ -68,6 +68,18 @@ public class MemberService {
     }
 
     /**
+     * 회원 조회
+     *
+     * @param email 조회할 회원의 email
+     * @return 조회된 회원 정보
+     * @throws NotFoundException 회원이 존재하지 않을 때 발생
+     */
+    public <T> T getMemberByEmail(String email, Class<T> projectionType) {
+        return memberRepository.findByEmail(email, projectionType)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
+    }
+
+    /**
      * 유저네임 유효성 및 중복 검증
      *
      * @param username 검증할 유저네임
@@ -116,6 +128,32 @@ public class MemberService {
         member.setPassword(passwordEncoder.encode(requestData.password()));
         member.setEmail(requestData.email());
         member.setIntroduce(requestData.introduce());
+    }
+
+    /**
+     * 회원 소개 변경
+     * @param memberId 변경할 회원의 ID
+     * @param introduce 변경할 소개
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMemberIntroduce(long memberId, String introduce) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
+
+        member.setIntroduce(introduce);
+    }
+
+    /**
+     * 회원 프로필 이미지 변경
+     * @param memberId 변경할 회원의 ID
+     * @param profileImage 변경할 프로필 이미지
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMemberProfileImage(long memberId, String profileImage) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
+
+        member.setProfileImage(profileImage);
     }
 
     /**

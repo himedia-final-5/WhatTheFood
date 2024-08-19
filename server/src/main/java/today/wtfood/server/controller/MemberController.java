@@ -1,5 +1,6 @@
 package today.wtfood.server.controller;
 
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -110,8 +111,36 @@ public class MemberController {
         memberService.updateMember(memberId, requestData);
     }
 
+    @PostMapping("/{memberId}/introduce")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateMemberIntroduce(
+            @PathVariable
+            long memberId,
+
+            @Validated
+            @Size(max = 200, message = "소개는 200자 이하로 입력해주세요")
+            String introduce
+    ) {
+        memberService.updateMemberIntroduce(memberId, introduce);
+    }
+
+    @PostMapping("/{memberId}/profile-image")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateMemberProfileImage(
+            @PathVariable
+            long memberId,
+
+            @Validated
+            @Size(max = 200, message = "프로필 이미지 주소가 너무 깁니다")
+            String profileImage
+    ) {
+        memberService.updateMemberProfileImage(memberId, profileImage);
+    }
+
     @DeleteMapping("/{memberId}")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') and #memberId == authentication.principal.id")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(
             @PathVariable

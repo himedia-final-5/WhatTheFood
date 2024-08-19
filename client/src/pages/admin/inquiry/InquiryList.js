@@ -29,7 +29,7 @@ function InquiryList() {
     }
   }, [content, onSelectPage]);
 
-  function userIqView(id) {
+  function userinquiryiew(id) {
     navigate(`/iView/${id}`);
   }
 
@@ -70,13 +70,13 @@ function InquiryList() {
             <div
               className="adminrow"
               key={idx}
-              to={`/inquiryView/${inquirylist.id}`}
+              to={`/inquiries/${inquirylist.id}`}
             >
               <div className="admincol">{inquirylist.id}</div>
               <div
                 className="admincol"
                 onClick={() => {
-                  userIqView(inquirylist.id);
+                  userinquiryiew(inquirylist.id);
                 }}
               >
                 {inquirylist.title}

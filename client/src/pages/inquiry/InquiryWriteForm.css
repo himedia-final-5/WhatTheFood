@@ -1,4 +1,4 @@
-#iqWriteCenter {
+#inquiryWriteCenter {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#iqwf1 {
+#inquirywf1 {
   width: 90%;
   display: flex;
   justify-content: center;
@@ -18,21 +18,21 @@
   border: 1px solid black;
 }
 
-#iqwrite {
+#inquirywrite {
   width: 90%;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
 }
 
-.iqwfField {
+.inquirywfField {
   width: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
 }
 
-.iqwfField label {
+.inquirywfField label {
   font-size: 25px;
 }
 
@@ -42,7 +42,7 @@
   width: 400px;
 }
 
-.iqwf2 {
+.inquirywf2 {
   font-size: 25px;
   cursor: pointer;
   border: 1px solid black;

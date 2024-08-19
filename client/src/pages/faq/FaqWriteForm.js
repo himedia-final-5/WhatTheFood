@@ -5,7 +5,7 @@ import "./FaqWriteForm.css";
 import { useSelector } from "stores";
 import { axios } from "utils";
 
-function InquiryWriteForm() {
+function FaqWriteForm() {
   const user = useSelector((state) => state.user);
 
   const [title, setTitle] = useState("");
@@ -74,7 +74,7 @@ function InquiryWriteForm() {
             >
               작성 완료
             </div>
-            <Link id="back" to="/faq">
+            <Link id="back" to="/faqs">
               돌아가기
             </Link>
           </div>
@@ -85,4 +85,4 @@ function InquiryWriteForm() {
   );
 }
 
-export default InquiryWriteForm;
+export default FaqWriteForm;

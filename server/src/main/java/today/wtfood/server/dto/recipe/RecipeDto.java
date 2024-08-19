@@ -22,10 +22,11 @@ public class RecipeDto implements Serializable {
     Integer level;
     String videoLink;
     String category;
+    List<String> ingredientImage;
     List<String> ingredients;
     List<String> cookingTools;
     List<String> guideLinks;
-    List<Recipe.CookingStep> cookingSteps;
+    List<Recipe.CookingStep> cookingStep;
     List<String> finishedImages;
 
     public Recipe toEntity() {
@@ -38,10 +39,11 @@ public class RecipeDto implements Serializable {
         recipe.setLevel(level);
         recipe.setVideoLink(videoLink);
         recipe.setCategory(category);
+        recipe.setIngredientImage(ingredientImage);
         recipe.setIngredients(ingredients);
         recipe.setCookingTools(cookingTools);
         recipe.setGuideLinks(guideLinks);
-        recipe.setCookingSteps(cookingSteps);
+        recipe.setCookingStep(cookingStep);
         recipe.setFinishedImages(finishedImages);
         return recipe;
     }

@@ -39,7 +39,7 @@ function FaqView() {
           <div id="content">{faqiew.content}</div>
         </div>
         <br></br>
-        <Link id="back" to="/faq">
+        <Link id="back" to="/faqs">
           목록으로
         </Link>
         <br></br>

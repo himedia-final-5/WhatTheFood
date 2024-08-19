@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Notice.css";
 import { axios } from "utils";
 
-function Notice() {
+function WriteNotice() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Notice() {
     axios
       .post("/api/notices", { title, content })
       .then(() => {
-        navigate("/notice");
+        navigate("/notices");
       })
       .catch((err) => {
         console.error(err);
@@ -51,4 +51,4 @@ function Notice() {
   );
 }
 
-export default Notice;
+export default WriteNotice;
