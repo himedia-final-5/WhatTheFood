@@ -4,7 +4,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
 import "./RecipeDetail.css";
-import "../event/EventDetail.css";
 import { AdminFeature } from "components/util";
 import { axios } from "utils";
 import { usePromise } from "hooks";
@@ -183,6 +182,28 @@ export default function RecipeDetail() {
           <p>
             <strong>{recipe.category}</strong>
           </p>
+          <div className="event_custom-button_total_wrap">
+            <div className="event_custom-button_wrap">
+              <button
+                className="event_custom_button"
+                onClick={sendLinkKakaoShare}
+              >
+                <img src="/images/kakao.png" alt="KakaoShare" />
+              </button>
+              <CopyToClipboard text={currentUrl}>
+                <button
+                  type="submit"
+                  className="event_custom_button"
+                  onClick={() => setButtonPopup(true)}
+                >
+                  <img src="/images/share_copy.png" alt="linkShare" />
+                </button>
+              </CopyToClipboard>
+              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <h3>링크 복사 완료</h3>
+              </Popup>
+            </div>
+          </div>
           {recipe.videoLink && (
             <div className="recipedetail_video">
               <iframe
@@ -293,24 +314,6 @@ export default function RecipeDetail() {
               )}
             </ul>
           </div>
-        </div>
-
-        <div className="event_custom-button_wrap">
-          <button className="event_custom_button" onClick={sendLinkKakaoShare}>
-            <img src="/images/kakao.png" alt="KakaoShare" />
-          </button>
-          <CopyToClipboard text={currentUrl}>
-            <button
-              type="submit"
-              className="event_custom_button"
-              onClick={() => setButtonPopup(true)}
-            >
-              <img src="/images/share_copy.png" alt="linkShare" />
-            </button>
-          </CopyToClipboard>
-          <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <h3>링크 복사 완료</h3>
-          </Popup>
         </div>
       </div>
     )

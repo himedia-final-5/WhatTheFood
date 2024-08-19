@@ -222,27 +222,34 @@
   background: #e64a19;
 }
 
-/* 공유 버튼 스타일 */
+/* 공유 버튼 전체 래퍼 스타일 */
+.event_custom-button_total_wrap {
+  width: 100%; /* 부모 요소의 전체 너비를 차지하게 함 */
+  display: flex;
+  justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+  padding: 0 10px; /* 오른쪽 여백 추가 */
+  margin-bottom: 20px; /* 버튼 하단 여백 추가 */
+}
+
+/* 버튼 래퍼 스타일 */
 .event_custom-button_wrap {
-  width: 100px;
-  height: 50px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* 버튼 스타일 */
 .event_custom_button {
-  width: 100%;
-  height: 100%;
+  width: 50px; /* 버튼 너비 설정 */
+  height: 50px; /* 버튼 높이 설정 */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  margin-left: 10px; /* 버튼 간의 간격 추가 */
   cursor: pointer;
+  border: none;
+  background: transparent; /* 배경색 제거 */
 }
-
-
 
 /* 반응형 디자인 */
 @media screen and (max-width: 767px) {
@@ -250,11 +257,11 @@
     width: 100%;
     padding: 10px;
   }
-   .recipedetail_ingredients {
+  .recipedetail_ingredients {
     width: 100%;
     margin-bottom: 40px;
   }
-  .recipedetail_ingredients h3{
+  .recipedetail_ingredients h3 {
     margin-bottom: 40px;
   }
   .recipedetail_ingredients ul {
@@ -285,24 +292,6 @@
   .recipedetail_ingredients ul {
     margin-top: 20px; /* Add spacing above ingredients list */
   }
-  .event_custom-button_wrap {
-  width: 50px;
-  height: 50px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.event_custom_button {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  cursor: pointer;
-}
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -310,7 +299,7 @@
     width: 100%;
     margin-bottom: 40px;
   }
-  .recipedetail_ingredients h3{
+  .recipedetail_ingredients h3 {
     margin-bottom: 40px;
   }
   .recipedetail_ingredients ul {
@@ -338,7 +327,6 @@
   .recipedetail_ingredients ul {
     margin-top: 20px; /* Add spacing above ingredients list */
   }
-  
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
@@ -349,7 +337,6 @@
   .recipedetail_video iframe {
     height: 400px;
   }
-
 }
 
 @media screen and (min-width: 1280px) and (max-width: 1799px) {
