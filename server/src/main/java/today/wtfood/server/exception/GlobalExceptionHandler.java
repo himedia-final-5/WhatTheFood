@@ -112,8 +112,12 @@ public class GlobalExceptionHandler {
     public void handleResponseStatusException(ResponseStatusException exception, HttpServletResponse response) throws IOException {
         log.error("ResponseStatusException: {}", exception.getReason());
 
-        String errorMessage = exception.getReason() == null ? exception.getMessage() : exception.getReason();
-        ResponseHelper.writeError(response, exception.getStatusCode(), errorMessage);
+        if (exception instanceof BaseResponseStatusException e) {
+            ResponseHelper.write(response, exception.getStatusCode(), e.toErrorResponse());
+        } else {
+            String errorMessage = exception.getReason() == null ? exception.getMessage() : exception.getReason();
+            ResponseHelper.writeError(response, exception.getStatusCode(), errorMessage);
+        }
     }
 
     /**
