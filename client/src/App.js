@@ -47,6 +47,9 @@ import FaqView from "pages/admin/inquiry/FaqView";
 import WFaq from "pages/admin/inquiry/WriteFaq";
 import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
 
+import EList from "pages/admin/event/EventList";
+import EView from "pages/admin/event/EventView";
+
 import BrandList from "pages/admin/brand/BrandList";
 import RecipeList from "pages/recipe/RecipeList";
 
@@ -107,7 +110,9 @@ function App() {
               <Route path="/writeFaq" element={<WFaq />} />
               <Route path="/faqUpdate/:id" element={<FaqUpdate />} />
               <Route path="/brandList" element={<BrandList />} />
-              brandList
+              <Route path="/eList" element={<EList />} />
+              <Route path="/eView/:id" element={<EView />} />
+              eView
             </Route>
             <Route path="*" element={<NotFoundRender />} />
           </Routes>

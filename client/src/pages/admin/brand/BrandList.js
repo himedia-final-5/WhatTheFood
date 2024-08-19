@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SubMenu from "../SubMenu";
+
 const { kakao } = window;
 
 function BrandList() {
@@ -9,14 +10,17 @@ function BrandList() {
   useEffect(() => {
     // 카카오맵 API 스크립트가 로드된 후 실행될 수 있도록 보장
     if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
-      initializeMap();
+      window.kakao.maps.load(() => {
+        initializeMap();
+      });
     } else {
-      console.error("Kakao Maps API is not loaded.");
+      console.error("오류다 이것아.");
     }
-  }, []);
+  }, [word]);
 
   const initializeMap = () => {
     const container = document.getElementById("map");
+
     const options = {
       center: new kakao.maps.LatLng(37.5718407, 126.9872086),
       level: 3,
