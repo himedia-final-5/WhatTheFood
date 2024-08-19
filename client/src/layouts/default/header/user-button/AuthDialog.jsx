@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { toast } from "react-toastify";
 import { useMediaQuery, useToggle } from "@reactuses/core";
 
 import {
