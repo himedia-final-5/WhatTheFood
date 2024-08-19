@@ -29,7 +29,7 @@ public interface RecipeSummary {
     String getCategory();         // 카테고리
 
     Timestamp getCreatedDate();   // 작성 시간
-    
+
 
     // 작성자 정보 가져오기
     MemberSummary getMember();    // 작성자
@@ -41,6 +41,8 @@ public interface RecipeSummary {
 
     // 완료된 사진 경로 가져오기
     List<String> getFinishedImages(); // 완성품 사진 경로
+
+    List<MemberSummary> getFavoriteByMembers(); // 찜한 멤버 목록
 
     // 태그 가져오기
     List<String> getTags(); // 태그

@@ -19,8 +19,10 @@ const category = [
 export default function RecipeList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(category[0].query);
+  const [favoritedRecipes, setFavoritedRecipes] = useState(new Set());
 
   const throttle = usePromiseThrottle(throttleInterval);
+  const navigate = useNavigate();
 
   const fetchPage = async (page) => {
     /** @type {{data: PageResponse<RecipeSummary>}} */
@@ -43,7 +45,7 @@ export default function RecipeList() {
     setSelectedCategory(query);
   };
 
-  const incrementViewCount = async (recipeId) => {
+  const handleRecipeClick = async (recipeId) => {
     try {
       await axios.put(`/api/recipes/${recipeId}/incrementViewCount`);
     } catch (error) {
@@ -51,8 +53,31 @@ export default function RecipeList() {
     }
   };
 
-  const handleRecipeClick = (recipeId) => {
-    incrementViewCount(recipeId);
+  const handleFavoriteClick = async (recipeId) => {
+    const memberId = 1; // 현재 로그인한 회원의 ID를 설정합니다 (예: 1로 설정)
+    if (favoritedRecipes.has(recipeId)) {
+      try {
+        await axios.delete(`/api/recipes/${recipeId}/favorite`, {
+          params: { memberId },
+        });
+        setFavoritedRecipes((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(recipeId);
+          return newSet;
+        });
+      } catch (error) {
+        console.error("Failed to remove favorite:", error);
+      }
+    } else {
+      try {
+        await axios.post(`/api/recipes/${recipeId}/favorite`, null, {
+          params: { memberId },
+        });
+        setFavoritedRecipes((prev) => new Set(prev).add(recipeId));
+      } catch (error) {
+        console.error("Failed to add favorite:", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -71,9 +96,7 @@ export default function RecipeList() {
           <button
             key={cat.query}
             onClick={() => handleCategoryClick(cat.query)}
-            className={`category_button ${
-              selectedCategory === cat.query ? "active" : ""
-            }`}
+            className={`category_button ${selectedCategory === cat.query ? "active" : ""}`}
           >
             {cat.name}
           </button>
@@ -88,10 +111,10 @@ export default function RecipeList() {
         </Link>
       </AdminFeature>
       {content.length > 0 ? (
-        content.map((recipe, index) => (
+        content.map((recipe) => (
           <Link
             to={`/recipes/${recipe.id}`}
-            key={index}
+            key={recipe.id}
             className="recipe_state_wrap"
             onClick={() => handleRecipeClick(recipe.id)}
           >
@@ -109,11 +132,18 @@ export default function RecipeList() {
                 {recipe.servings}인분
               </span>
               <span className="recipe_state_viewcount">
-                조회수
-                {recipe.viewCount}
+                조회수 {recipe.viewCount}
               </span>
+              <button
+                className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault(); // Link의 기본 동작을 방지합니다.
+                  handleFavoriteClick(recipe.id);
+                }}
+              >
+                ❤️
+              </button>
             </div>
-
             <div className="recipe_imageUrl">
               <img src={recipe.bannerImage} alt="recipe_bannerImage" />
             </div>
