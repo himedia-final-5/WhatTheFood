@@ -37,7 +37,7 @@ function Header() {
 
   useEffect(() => {
     if (headerRef.current) {
-      setMarginBottom(headerRef.current.clientHeight);
+      setMarginBottom(headerRef.current.clientHeight + 70);
     }
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
