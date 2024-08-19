@@ -49,6 +49,7 @@ import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
 
 import BrandList from "pages/admin/brand/BrandList";
 import RecipeList from "pages/recipe/RecipeList";
+import RecipeDetail from "pages/recipe/RecipeDetail";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
               <Route path="/" element={<Main />} />
 
               <Route path="/recipes" element={<RecipeList />} />
+              <Route path="/recipes/:id" element={<RecipeDetail />} />
 
               <Route path="/events" element={<EventList />} />
               <Route path="/events/:id" element={<EventDetail />} />
