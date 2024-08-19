@@ -9,7 +9,12 @@ import { DefaultLayout, AdminLayout } from "layouts";
 import { FallbackRender } from "layouts/error";
 import NotFoundRender from "layouts/error/NotFoundRender";
 import { Main } from "pages/main";
-import { EmailLogin, MemberUpdate, OAuth2LoginPopup } from "pages/member";
+import {
+  EmailLogin,
+  MemberDetail,
+  MemberUpdate,
+  OAuth2LoginPopup,
+} from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
 import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
 import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
@@ -61,6 +66,7 @@ function App() {
               <Route path="/events/write" element={<EventWrite />} />
               <Route path="/events/write/:id" element={<EventUpdate />} />
 
+              <Route path="/members/:id" element={<MemberDetail />} />
               <Route path="/setting" element={<MemberUpdate />} />
               <Route path="/login/email/:token" element={<EmailLogin />} />
               <Route path="/login/oauth2" element={<OAuth2LoginPopup />} />

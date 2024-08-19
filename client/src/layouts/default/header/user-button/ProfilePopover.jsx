@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
@@ -14,7 +13,7 @@ import {
 } from "components/shadcn/ui/popover";
 import { Button } from "components/shadcn/ui/button";
 import { Separator } from "components/shadcn/ui/separator";
-import { signoutAction, useDispatch } from "stores";
+import { signoutAction, useDispatch, useSelector } from "stores";
 
 export default function ProfilePopover(props) {
   const dispatch = useDispatch();
@@ -39,9 +38,11 @@ export default function ProfilePopover(props) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-40 mt-1 mr-2">
-        <Button variant="none" className="w-full text-lg">
-          마이페이지
-        </Button>
+        <Link to={`/members/${user.id}`}>
+          <Button variant="none" className="w-full text-lg">
+            마이페이지
+          </Button>
+        </Link>
         <Link to="/inquiries">
           <Button variant="none" className="w-full text-lg">
             고객 문의
