@@ -55,6 +55,19 @@
   color: #666;
 }
 
+.event_custom-button_total_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
+.event_custom_button {
+  width: 35px;
+  height: 35px;
+  margin-left: 10px; /* 오른쪽으로 정렬된 버튼 간의 간격을 유지 */
+}
+
 /* 비디오 스타일 */
 .recipedetail_video {
   margin: 20px 0;
@@ -220,34 +233,6 @@
 
 .recipedetail_tags li:hover {
   background: #e64a19;
-}
-.event_custom-button_total_wrap {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically, if needed */
-  margin-top: 20px; /* Adjust the top margin as needed */
-}
-
-/* Ensure the button is styled correctly */
-.event_custom-button_wrap {
-  display: flex;
-  align-items: center;
-}
-
-/* Style for the share button */
-.event_custom_button {
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-/* Adjust image size within the button */
-.event_custom_button img {
-  width: 40px; /* Adjust as needed */
-  height: auto;
 }
 
 /* 반응형 디자인 */

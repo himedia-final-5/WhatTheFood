@@ -54,10 +54,85 @@ export default function RecipeDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  // if (isError) {
-  //   toast.error("레시피 정보를 불러오는데 실패했습니다.");
-  //   return <div></div>;
-  // }
+  //카카오 공유하기
+  useEffect(() => {
+    const loadKakaoSDK = () => {
+      if (!window.Kakao) {
+        console.error("Kakao SDK is not loaded");
+        return;
+      }
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init("1cd0714fe86698514fb7dcd40504e5bf");
+      }
+    };
+
+    const script = document.createElement("script");
+    script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+    script.integrity =
+      "sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4";
+    script.crossOrigin = "anonymous";
+    script.onload = loadKakaoSDK;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [id]);
+
+  const sendLinkKakaoShare = () => {
+    if (!window.Kakao || !window.Kakao.isInitialized()) {
+      console.error("Kakao SDK is not initialized");
+      return;
+    }
+
+    if (!window.Kakao.Share || !window.Kakao.Share.sendDefault) {
+      console.error("Kakao.Link.sendDefault is not available");
+      return;
+    }
+    //카카오톡 공유 불러올 이미지
+    const imageUrl =
+      recipe.finishedImages.length > 0
+        ? recipe.finishedImages[0]
+        : "기본 이미지 URL";
+
+    window.Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: recipe.title,
+        imageUrl: imageUrl,
+        link: {
+          mobileWebUrl: `http://wtfood.today:3000/recipes/${recipe.id}`,
+          webUrl: `http://wtfood.today:3000/recipes/${recipe.id}`,
+        },
+      },
+      social: {
+        likeCount: 777,
+        commentCount: 77,
+        sharedCount: 777,
+      },
+      buttons: [
+        {
+          title: "웹으로 보기",
+          link: {
+            mobileWebUrl: `http://wtfood.today:3000/recipes/${recipe.id}`,
+            webUrl: `http://wtfood.today:3000/recipes/${recipe.id}`,
+          },
+        },
+        {
+          title: "앱으로 보기",
+          link: {
+            mobileWebUrl: `http://wtfood.today:3000/recipes/${recipe.id}`,
+            webUrl: `http://wtfood.today:3000/recipes/${recipe.id}`,
+          },
+        },
+      ],
+    });
+  };
+
+  if (isError) {
+    toast.error("레시피 정보를 불러오는데 실패했습니다.");
+    return <div></div>;
+  }
 
   return (
     recipe && (
@@ -89,6 +164,28 @@ export default function RecipeDetail() {
           <p>
             <strong>{recipe.category}</strong>
           </p>
+          <div className="event_custom-button_total_wrap">
+            <div className="event_custom-button_wrap">
+              <button
+                className="event_custom_button"
+                onClick={sendLinkKakaoShare}
+              >
+                <img src="/images/kakao.png" alt="KakaoShare" />
+              </button>
+              <CopyToClipboard text={currentUrl}>
+                <button
+                  type="submit"
+                  className="event_custom_button"
+                  onClick={() => setButtonPopup(true)}
+                >
+                  <img src="/images/share_copy.png" alt="linkShare" />
+                </button>
+              </CopyToClipboard>
+              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <h3>링크 복사 완료</h3>
+              </Popup>
+            </div>
+          </div>
 
           {recipe.videoLink && (
             <div className="recipedetail_video">
@@ -199,22 +296,6 @@ export default function RecipeDetail() {
                 <p>No tags available.</p>
               )}
             </ul>
-          </div>
-          <div className="event_custom-button_total_wrap">
-            <div className="event_custom-button_wrap">
-              <CopyToClipboard text={currentUrl}>
-                <button
-                  type="submit"
-                  className="event_custom_button"
-                  onClick={() => setButtonPopup(true)}
-                >
-                  <img src="/images/share_copy.png" alt="linkShare" />
-                </button>
-              </CopyToClipboard>
-              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <h3>링크 복사 완료</h3>
-              </Popup>
-            </div>
           </div>
         </div>
       </div>
