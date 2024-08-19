@@ -132,11 +132,11 @@ VALUES (28, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2276
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (29, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1657/8cfe80dd-9bf5-40f9-82c0-aef06e6d497a.jpg?size=800x800',
 '건강에 좋은 아이들에게 딱', '크리미한 아보카도의 풍미를 가득 담은 아이스크림! 건강하고 고소한 맛으로, 디저트로 손색없는 아이스크림입니다. 아보카도와 몇 가지 재료만으로 간단하게 만들 수 있어요.',
-15, 4, 1, 'https://www.youtube.com/watch?v=Km9IHFX66K0&pp=ygUm7JWE67O07Lm064-EIOyVhOydtOyKpO2BrOumvCDrp4zrk6TquLA%3D', '디저트', 0);
+15, 4, 1, 'https://www.youtube.com/watch?v=Km9IHFX66K0&pp=ygUm7JWE67O07Lm064-EIOyVhOydtOyKpO2BrOumvCDrp4zrk6TquLA%3D', '간식', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (30, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2667/3aaa6a5a-33b4-4b57-abea-14d6f36d82ed.jpg?size=500x500',
 '새콤달콤 여름에 시원하게', '상큼하고 시원한 과일 셔벗! 제철 과일을 이용해 간편하게 만들 수 있는 여름철 디저트입니다. 달콤함과 상큼함이 어우러져 입맛을 돋우는 데 최고입니다.',
-20, 4, 2, 'https://www.youtube.com/watch?v=JnNLlLX-6Vs&pp=ygUa6rO87J28IOyDpOuyoO2KuCDrp4zrk6TquLA%3D', '디저트', 0);
+20, 4, 2, 'https://www.youtube.com/watch?v=JnNLlLX-6Vs&pp=ygUa6rO87J28IOyDpOuyoO2KuCDrp4zrk6TquLA%3D', '간식', 0);
 
 
 -- 재료 사진 삽입
