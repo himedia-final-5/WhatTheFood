@@ -25,7 +25,7 @@ import {
   NoticeUpdate,
 } from "pages/notice";
 import { TestAssets, TestProfileGenerator } from "pages/test";
-import { RankingList } from "pages/ranking";
+
 import { ChefList } from "pages/chef";
 import Admin from "pages/admin/Login";
 
@@ -37,19 +37,18 @@ import NList from "pages/admin/notice/NoticeList";
 import NView from "pages/admin/notice/NView";
 import WriteNotice from "pages/admin/notice/NoticeWriteForm";
 import NUpdate from "pages/admin/notice/NUpdate";
-
 import IList from "pages/admin/inquiry/InquiryList";
 import IView from "pages/admin/inquiry/InquiryView";
 import SearchIList from "pages/admin/inquiry/SearchIList";
-
 import FList from "pages/admin/inquiry/FaqList";
 import FaqView from "pages/admin/inquiry/FaqView";
 import WFaq from "pages/admin/inquiry/WriteFaq";
 import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
+import BList from "pages/admin/brand/BrandList";
 
-import BrandList from "pages/admin/brand/BrandList";
 import RecipeList from "pages/recipe/RecipeList";
 
+import BrandList from "pages/brand/BrandList";
 function App() {
   return (
     <div className="App flex flex-col w-full h-full">
@@ -84,8 +83,8 @@ function App() {
               <Route path="/notices/write" element={<NoticeWrite />} />
               <Route path="/notices/write/:id" element={<NoticeUpdate />} />
 
-              <Route path="/ranking" element={<RankingList />} />
               <Route path="/chefs" element={<ChefList />} />
+              <Route path="/brands" element={<BrandList />} />
 
               <Route path="/test/assets" element={<TestAssets />} />
               <Route path="/test/profile" element={<TestProfileGenerator />} />
@@ -106,7 +105,7 @@ function App() {
               <Route path="/fView/:id" element={<FaqView />} />
               <Route path="/writeFaq" element={<WFaq />} />
               <Route path="/faqUpdate/:id" element={<FaqUpdate />} />
-              <Route path="/brandList" element={<BrandList />} />
+              <Route path="/BList" element={<BList />} />
               brandList
             </Route>
             <Route path="*" element={<NotFoundRender />} />
