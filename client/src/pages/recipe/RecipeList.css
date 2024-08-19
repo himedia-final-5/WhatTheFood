@@ -5,6 +5,30 @@
   margin: 0 auto;
   margin-bottom: 150px;
 }
+
+/* 게시글쓰기 버튼 스타일 */
+.create_recipe_button {
+  position: absolute;
+  top: 186px; /* 상단에 위치 */
+  right: 400px; /* 오른쪽에 위치 */
+  background-color: #ffffff; /* 버튼 배경색 */
+  color: #000000; /* 버튼 글자색 */
+  border: 2px solid #d7d7d7;
+  border-radius: 10px; /* 버튼 모서리 둥글기 */
+  padding: 3px 10px; /* 버튼 안쪽 여백 */
+  font-size: 16px; /* 글자 크기 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  text-decoration: none; /* 링크 텍스트 밑줄 제거 */
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s; /* 색상과 그림자 변화 효과 */
+}
+
+.create_recipe_button:hover {
+  background-color: #b7b7b7; /* 호버 시 배경색 변경 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 효과 */
+  color: white;
+}
 .recipe_banner_wrap {
   position: relative;
   display: grid;
