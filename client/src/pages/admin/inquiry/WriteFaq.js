@@ -54,7 +54,7 @@ function WriteFaq() {
           </button>
           <button
             onClick={() => {
-              navigate("/FaqList");
+              navigate("/faqList");
             }}
           >
             돌아가기

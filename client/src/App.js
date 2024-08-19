@@ -33,6 +33,9 @@ import MemberList from "pages/admin/member/MemberList";
 import MView from "pages/admin/member/MView";
 import SearchMList from "pages/admin/member/SearchMList";
 
+import RList from "pages/admin/recipe/RecipeList";
+import RView from "pages/admin/recipe/RecipeView";
+
 import NList from "pages/admin/notice/NoticeList";
 import NView from "pages/admin/notice/NView";
 import WriteNotice from "pages/admin/notice/NoticeWriteForm";
@@ -49,6 +52,8 @@ import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
 
 import EList from "pages/admin/event/EventList";
 import EView from "pages/admin/event/EventView";
+import WEvent from "pages/admin/event/WEvent";
+import EUpdate from "pages/admin/event/EUpdate";
 
 import BrandList from "pages/admin/brand/BrandList";
 import RecipeList from "pages/recipe/RecipeList";
@@ -112,7 +117,11 @@ function App() {
               <Route path="/brandList" element={<BrandList />} />
               <Route path="/eList" element={<EList />} />
               <Route path="/eView/:id" element={<EView />} />
-              eView
+              <Route path="/wEvent" element={<WEvent />} />
+              <Route path="/eUpdate/:id" element={<EUpdate />} />
+
+              <Route path="/rList" element={<RList />} />
+              <Route path="/rView/:id" element={<RView />} />
             </Route>
             <Route path="*" element={<NotFoundRender />} />
           </Routes>

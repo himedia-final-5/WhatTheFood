@@ -51,16 +51,15 @@ function NUpdate() {
         </div>
         <div className="adminfield">
           <label className="labellabel">내용</label>
-          <div>
-            <textarea
-              rows="10"
-              style={{ fontSize: "20px" }}
-              placeholder={noiceView.content}
-              onChange={(e) => {
-                setContent(e.currentTarget.value);
-              }}
-            ></textarea>
-          </div>
+
+          <textarea
+            rows="10"
+            style={{ fontSize: "20px" }}
+            placeholder={noiceView.content}
+            onChange={(e) => {
+              setContent(e.currentTarget.value);
+            }}
+          ></textarea>
         </div>
 
         <div className="adminbtns">

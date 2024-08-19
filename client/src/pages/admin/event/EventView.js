@@ -21,14 +21,17 @@ function EventView() {
   }, [id]);
 
   function deleteEvent() {
-    axios
-      .delete(`/api/events/${id}`)
-      .then(() => {
-        navigate("/eList");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const eCheck = window.confirm("이벤트 삭제하시겠습니까?");
+    if (eCheck) {
+      axios
+        .delete(`/api/events/${id}`)
+        .then(() => {
+          navigate("/eList");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
 
   return (
@@ -37,26 +40,56 @@ function EventView() {
       <div className="adminCategory">이벤트</div>
       <div className="productTable">
         <div className="adminfield">
-          <label className="labellabel">제목</label>
+          <label className="labellabel">이벤트 진행여부</label>
           <div className="labelcontent">{eventView.title}</div>
         </div>
 
         <div className="adminfield">
-          <label className="labellabel">등록날짜</label>
+          <label className="labellabel">이벤트 기간</label>
           <div className="labelcontent">
-            {(eventView.date + "").substring(0, 10)}
+            {(eventView.startDate + "").substring(0, 10)} ~{" "}
+            {eventView.endDate && (eventView.endDate + "").substring(0, 10)}
           </div>
         </div>
-
+        <br></br>
+        <br></br>
+        <label className="labellabel">이벤트 배너</label>
         <div className="adminfield">
-          <label className="labellabel">내용</label>
-          <div className="labelcontent">{eventView.content}</div>
+          <div
+            className="admincol"
+            style={{
+              width: "50%",
+              height: "100px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={eventView.bannerImage}
+              style={{ width: "50%", height: "95px" }}
+            />
+          </div>
+        </div>
+        <br></br>
+        <br></br>
+        <label className="labellabel">이벤트 내용</label>
+        <div className="adminfield">
+          {eventView.contentImages && eventView.contentImages.length > 0 ? (
+            eventView.contentImages.map((image, index) => (
+              <div key={index} className="labelcontent">
+                <img src={image} alt={`Content - ${index}`} />
+              </div>
+            ))
+          ) : (
+            <p>No content images available.</p>
+          )}
         </div>
 
         <div className="adminbtns">
           <button
             onClick={() => {
-              navigate(`/eventUpdate/${eventView.id}`);
+              navigate(`/eUpdate/${eventView.id}`);
             }}
           >
             수정

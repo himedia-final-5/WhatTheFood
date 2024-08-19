@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
@@ -6,15 +6,16 @@ import { axios } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
-function EventList() {
+function RecipeList() {
   const navigate = useNavigate();
 
   const { content, pagination, setPageResponse } = usePageResponse();
+  const [word, setWord] = useState("");
 
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/events`, {
+        .get(`/api/recipes`, {
           params: { page },
         })
         .then((result) => setPageResponse(result.data))
@@ -29,64 +30,64 @@ function EventList() {
   }, [content, onSelectPage]);
 
   useEffect(() => {
-    axios.get(`/api/events`);
+    axios.get(`/api/recipes`);
   });
 
-  function eView(id) {
-    navigate(`/eView/${id}`);
+  function recipeView(id) {
+    navigate(`/rView/${id}`);
   }
 
+  function onSearch() {
+    navigate(`/searchRList/${word}`);
+  }
   return (
     <div className="adminContainer">
       <SubMenu />
       <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
-        {/* <input type="text" className="adminSearch" />
-        <button>검색</button> */}
-        <button
-          style={{ marginLeft: "auto", fontSize: "25px" }}
-          onClick={() => {
-            navigate("/wEvent");
+        <input
+          type="text"
+          className="adminSearch"
+          onChange={(e) => {
+            setWord(e.currentTarget.value);
           }}
+        />
+        <button
+          onClick={() => {
+            onSearch();
+          }}
+          style={{ fontSize: "25px" }}
         >
-          이벤트 등록
+          회원ID 검색
         </button>
       </div>
       <div className="productTable">
         <div className="adminrow">
           <div className="admincol">번호</div>
-          <div className="admincol">이벤트 제목</div>
-          <div className="admincol">이벤트 기간</div>
-          <div className="admincol">이벤트 진행여부</div>
+          <div className="admincol">레시피 제목</div>
+          <div className="admincol">회원ID</div>
+          <div className="admincol">등록날짜</div>
         </div>
-        {content.map((eventlist, idx) => {
+        {content.map((rcp, idx) => {
           return (
-            <div className="adminrow" key={idx} to={`/eView/${eventlist.id}`}>
-              <div className="admincol">{eventlist.id}</div>
+            <div className="adminrow" key={idx} to={`/rView/${rcp.id}`}>
+              <div className="admincol">{rcp.id}</div>
               <div
                 className="admincol"
                 onClick={() => {
-                  eView(eventlist.id);
+                  recipeView(rcp.id);
                 }}
-                style={{
-                  cursor: "pointer",
-                  width: "100%",
-                  height: "100px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
+                style={{ cursor: "pointer" }}
               >
-                <img
-                  src={eventlist.bannerImage}
-                  style={{ width: "100%", height: "95px" }}
-                />
+                {rcp.title}
               </div>
 
               <div className="admincol">
-                {(eventlist.startDate + "").substring(0, 10)} ~{" "}
-                {eventlist.endDate && (eventlist.endDate + "").substring(0, 10)}
+                {/* {(rcp.created_date + "").substring(0, 10)} */}
+                {rcp.username}
               </div>
-
-              <div className="admincol">{eventlist.title}</div>
+              <div className="admincol">
+                {(rcp.created_date + "").substring(0, 10)}
+              </div>
             </div>
           );
         })}
@@ -97,4 +98,4 @@ function EventList() {
   );
 }
 
-export default EventList;
+export default RecipeList;
