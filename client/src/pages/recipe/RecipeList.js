@@ -4,6 +4,7 @@ import "./RecipeList.css";
 import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
+import { useSelector } from "react-redux"; // Redux를 가져옵니다
 
 const category = [
   { name: "전체", query: "" },
@@ -21,11 +22,30 @@ export default function RecipeList() {
   const [selectedCategory, setSelectedCategory] = useState(category[0].query);
   const [favoritedRecipes, setFavoritedRecipes] = useState(new Set());
 
+  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
+  const memberId = user.id; // 로그인한 사용자의 ID를 가져옵니다
+
   const throttle = usePromiseThrottle(throttleInterval);
   const navigate = useNavigate();
 
+  // 초기화 시 찜한 레시피 목록을 가져옵니다
+  useEffect(() => {
+    const fetchFavoritedRecipes = async () => {
+      try {
+        const response = await axios.get(`/api/recipes/favorites`, {
+          params: { memberId },
+        });
+        const recipes = response.data.map((recipe) => recipe.id);
+        setFavoritedRecipes(new Set(recipes));
+      } catch (error) {
+        console.error("Failed to fetch favorited recipes:", error);
+      }
+    };
+
+    fetchFavoritedRecipes();
+  }, [memberId]);
+
   const fetchPage = async (page) => {
-    /** @type {{data: PageResponse<RecipeSummary>}} */
     const response = await axios.get(`/api/recipes`, {
       params: { page, size: 8, category: selectedCategory },
     });
@@ -54,7 +74,6 @@ export default function RecipeList() {
   };
 
   const handleFavoriteClick = async (recipeId) => {
-    const memberId = 1; // 현재 로그인한 회원의 ID를 설정합니다 (예: 1로 설정)
     if (favoritedRecipes.has(recipeId)) {
       try {
         await axios.delete(`/api/recipes/${recipeId}/favorite`, {
@@ -81,13 +100,11 @@ export default function RecipeList() {
   };
 
   useEffect(() => {
-    // 콘텐츠 초기화
     reset();
-    // 새 데이터 요청
     fetchPage(1).catch((error) => {
       defaultErrorHandler(error);
     });
-  }, [selectedCategory, reset]); // dependency 배열에 reset 추가
+  }, [selectedCategory, reset]);
 
   return (
     <div className="recipe_banner_wrap relative">
@@ -137,11 +154,11 @@ export default function RecipeList() {
               <button
                 className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
                 onClick={(e) => {
-                  e.preventDefault(); // Link의 기본 동작을 방지합니다.
+                  e.preventDefault();
                   handleFavoriteClick(recipe.id);
                 }}
               >
-                ❤️
+                
               </button>
             </div>
             <div className="recipe_imageUrl">
