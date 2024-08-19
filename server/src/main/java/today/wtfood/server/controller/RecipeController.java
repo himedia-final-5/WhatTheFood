@@ -69,6 +69,11 @@ public class RecipeController {
         return PageResponse.of(rs.getRecipesByTitleAndDescription(title, description, pageable));
     }
 
+    @PutMapping("{id}/incrementViewCount")
+    public void incrementViewCount(@PathVariable Long id) {
+        rs.incrementViewCount(id);
+    }
+
     // 레시피 수정
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

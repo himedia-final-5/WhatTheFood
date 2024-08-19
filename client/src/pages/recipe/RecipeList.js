@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./RecipeList.css";
 import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
@@ -43,6 +43,18 @@ export default function RecipeList() {
     setSelectedCategory(query);
   };
 
+  const incrementViewCount = async (recipeId) => {
+    try {
+      await axios.put(`/api/recipes/${recipeId}/incrementViewCount`);
+    } catch (error) {
+      console.error("Failed to increment view count:", error);
+    }
+  };
+
+  const handleRecipeClick = (recipeId) => {
+    incrementViewCount(recipeId);
+  };
+
   useEffect(() => {
     // 콘텐츠 초기화
     reset();
@@ -81,6 +93,7 @@ export default function RecipeList() {
             to={`/recipes/${recipe.id}`}
             key={index}
             className="recipe_state_wrap"
+            onClick={() => handleRecipeClick(recipe.id)}
           >
             <div className="recipe_text_wrap">
               <span className="recipe_state_name">{recipe.title}</span>
@@ -94,6 +107,10 @@ export default function RecipeList() {
               <span className="recipe_state_level">{recipe.level} level</span>
               <span className="recipe_state_servings">
                 {recipe.servings}인분
+              </span>
+              <span className="recipe_state_viewcount">
+                조회수
+                {recipe.viewCount}
               </span>
             </div>
 

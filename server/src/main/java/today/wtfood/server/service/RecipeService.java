@@ -65,6 +65,14 @@ public class RecipeService {
         return rr.findByTitleAndDescription(title, description, pageable);
     }
 
+    @Transactional
+    public void incrementViewCount(Long id) {
+        Recipe recipe = rr.findById(id)
+                .orElseThrow(() -> new NotFoundException("Recipe not found with id " + id));
+        recipe.setViewCount(recipe.getViewCount() + 1);
+        rr.save(recipe);
+    }
+
 
     // 레시피 수정
     @Transactional
