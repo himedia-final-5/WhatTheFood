@@ -139,6 +139,20 @@ public class MemberController {
         memberService.updateMemberProfileImage(memberId, profileImage);
     }
 
+    @PostMapping("/{memberId}/banner-image")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateMemberBannerImage(
+            @PathVariable
+            long memberId,
+
+            @Validated
+            @Size(max = 200, message = "배너 이미지 주소가 너무 깁니다")
+            String bannerImage
+    ) {
+        memberService.updateMemberBannerImage(memberId, bannerImage);
+    }
+
     @DeleteMapping("/{memberId}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
     @ResponseStatus(HttpStatus.NO_CONTENT)

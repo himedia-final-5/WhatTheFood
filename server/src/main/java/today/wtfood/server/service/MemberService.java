@@ -132,7 +132,8 @@ public class MemberService {
 
     /**
      * 회원 소개 변경
-     * @param memberId 변경할 회원의 ID
+     *
+     * @param memberId  변경할 회원의 ID
      * @param introduce 변경할 소개
      */
     @Transactional(rollbackFor = Exception.class)
@@ -145,7 +146,8 @@ public class MemberService {
 
     /**
      * 회원 프로필 이미지 변경
-     * @param memberId 변경할 회원의 ID
+     *
+     * @param memberId     변경할 회원의 ID
      * @param profileImage 변경할 프로필 이미지
      */
     @Transactional(rollbackFor = Exception.class)
@@ -154,6 +156,20 @@ public class MemberService {
                 .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
 
         member.setProfileImage(profileImage);
+    }
+
+    /**
+     * 회원 배너 이미지 변경
+     *
+     * @param memberId    변경할 회원의 ID
+     * @param bannerImage 변경할 배너 이미지
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMemberBannerImage(long memberId, String bannerImage) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
+
+        member.setBannerImage(bannerImage);
     }
 
     /**
