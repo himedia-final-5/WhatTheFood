@@ -151,6 +151,9 @@ export default function RecipeDetail() {
 
         <div className="recipedetail_content">
           <h1>{recipe.title}</h1>
+          <p>
+            <i>{recipe.createdDate.slice(0, 10)}</i>
+          </p>
           <p>{recipe.description}</p>
           <p>
             <strong>{recipe.cookingTime}분</strong>
@@ -164,6 +167,7 @@ export default function RecipeDetail() {
           <p>
             <strong>{recipe.category}</strong>
           </p>
+
           <div className="event_custom-button_total_wrap">
             <div className="event_custom-button_wrap">
               <button

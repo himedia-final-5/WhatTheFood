@@ -1,5 +1,6 @@
 package today.wtfood.server.dto.recipe;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -27,6 +28,8 @@ public interface RecipeDetail extends RecipeSummary {
     List<String> getIngredients();
 
     List<String> getCookingTools();
+
+    Timestamp getCreatedDate();
 
     List<String> getGuideLinks();
 

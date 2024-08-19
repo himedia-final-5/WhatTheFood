@@ -34,6 +34,7 @@
 
 /* 콘텐츠 스타일 */
 .recipedetail_content {
+  position: relative;
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -46,6 +47,16 @@
   margin-top: 0;
   color: #333;
   margin-bottom: 20px;
+  display: inline-block;
+}
+.recipedetail_content i{
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5); /* 연한 색상 */
+  font-weight: 300; /* 얇은 폰트 */
+  margin: 10px; /* 여백을 줘서 너무 딱 붙지 않게 조정 */
 }
 
 .recipedetail_content p {

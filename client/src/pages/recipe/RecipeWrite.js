@@ -6,16 +6,27 @@ import { axios, cn } from "utils";
 import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 
-export default function EventWrite() {
+export default function RecipeWrite() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
-  const [event, setEvent] = useState({
+  const [recipe, setRecipe] = useState({
     pass: "",
     title: "",
-    date: "",
+    description: "",
+    cookingTime: "",
+    servings: "",
+    level: "",
+    category: "",
+    videoLink: "",
     bannerImage: "",
-    contentImages: [],
+    ingredientImage: [],
+    ingredients: [],
+    cookingTools: [],
+    guideLinks: [],
+    cookingStep: [],
+    finishedImages: [],
+    comments: [],
   });
 
   function onInputChange(e) {
