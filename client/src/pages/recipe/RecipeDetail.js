@@ -150,7 +150,7 @@ export default function RecipeDetail() {
                 recipe.guideLinks.map((link, index) => (
                   <li key={index}>
                     <a href={link} target="#" rel="noopener noreferrer">
-                      가이드 링크를 참조하세요 : {link}
+                      클릭하시면 블로그로 이동합니다.
                     </a>
                   </li>
                 ))
