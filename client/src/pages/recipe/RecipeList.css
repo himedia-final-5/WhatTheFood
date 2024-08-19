@@ -1,9 +1,55 @@
 /* 기본 스타일 */
+.recipeList_wrap {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 150px;
+}
 .recipe_banner_wrap {
+  position: relative;
   display: grid;
   gap: 16px;
   padding: 16px;
   margin: 0 auto;
+}
+
+/* 카테고리 필터 */
+.recipe_category_wrap {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.category_filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* 카테고리 버튼 스타일 */
+.category_button {
+  background-color: #ffffff;
+  color: #333;
+  border: 0.5px solid #dddddd;
+  border-radius: 8px;
+  padding: 5px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+
+.category_button.active {
+  background-color: #ff6f61;
+  color: #ffffff;
+  border-color: #ff6f61;
+}
+
+.category_button:hover {
+  background-color: #ff6f61;
+  color: #ffffff;
 }
 
 .recipe_state_wrap {
@@ -79,19 +125,15 @@
 
 /* 찜하기 상태가 아닐 때 (빈 하트) */
 .heart-button::before {
-  content: '♡'; /* 빈 하트 문자 */
+  content: "♡"; /* 빈 하트 문자 */
   color: #ccc; /* 회색으로 표시 */
 }
 
 /* 찜하기 상태일 때 (채워진 빨간 하트) */
 .heart-button.favorited::before {
-  content: '❤️'; /* 채워진 하트 문자 */
+  content: "❤️"; /* 채워진 하트 문자 */
   color: red; /* 빨간색으로 표시 */
 }
-
-
-
-
 
 /* 반응형 스타일 */
 

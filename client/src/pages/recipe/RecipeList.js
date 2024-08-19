@@ -109,17 +109,19 @@ export default function RecipeList() {
   }, [selectedCategory, reset]);
 
   return (
-    <div className="recipe_banner_wrap relative">
-      <div className="category_filter">
-        {category.map((cat) => (
-          <button
-            key={cat.query}
-            onClick={() => handleCategoryClick(cat.query)}
-            className={`category_button ${selectedCategory === cat.query ? "active" : ""}`}
-          >
-            {cat.name}
-          </button>
-        ))}
+    <div className="recipeList_wrap">
+      <div className="recipe_category_wrap">
+        <div className="category_filter">
+          {category.map((cat) => (
+            <button
+              key={cat.query}
+              onClick={() => handleCategoryClick(cat.query)}
+              className={`category_button ${selectedCategory === cat.query ? "active" : ""}`}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
       </div>
       <AdminFeature>
         <Link
@@ -129,46 +131,48 @@ export default function RecipeList() {
           게시글쓰기
         </Link>
       </AdminFeature>
-      {content.length > 0 ? (
-        content.map((recipe) => (
-          <Link
-            to={`/recipes/${recipe.id}`}
-            key={recipe.id}
-            className="recipe_state_wrap"
-            onClick={() => handleRecipeClick(recipe.id)}
-          >
-            <div className="recipe_text_wrap">
-              <span className="recipe_state_name">{recipe.title}</span>
-              <span className="recipe_state_tags">
-                {recipe.tags.map((tag, index) => (
-                  <span key={index} className="recipe_tag">
-                    {tag}
-                  </span>
-                ))}
-              </span>
-              <span className="recipe_state_level">{recipe.level} level</span>
-              <span className="recipe_state_servings">
-                {recipe.servings}인분
-              </span>
-              <span className="recipe_state_viewcount">
-                조회수 {recipe.viewCount}
-              </span>
-              <button
-                className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleFavoriteClick(recipe.id);
-                }}
-              ></button>
-            </div>
-            <div className="recipe_imageUrl">
-              <img src={recipe.bannerImage} alt="recipe_bannerImage" />
-            </div>
-          </Link>
-        ))
-      ) : (
-        <div>No recipes found.</div>
-      )}
+      <div className="recipe_banner_wrap">
+        {content.length > 0 ? (
+          content.map((recipe) => (
+            <Link
+              to={`/recipes/${recipe.id}`}
+              key={recipe.id}
+              className="recipe_state_wrap"
+              onClick={() => handleRecipeClick(recipe.id)}
+            >
+              <div className="recipe_text_wrap">
+                <span className="recipe_state_name">{recipe.title}</span>
+                <span className="recipe_state_tags">
+                  {recipe.tags.map((tag, index) => (
+                    <span key={index} className="recipe_tag">
+                      {tag}
+                    </span>
+                  ))}
+                </span>
+                <span className="recipe_state_level">{recipe.level} level</span>
+                <span className="recipe_state_servings">
+                  {recipe.servings}인분
+                </span>
+                <span className="recipe_state_viewcount">
+                  조회수 {recipe.viewCount}
+                </span>
+                <button
+                  className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleFavoriteClick(recipe.id);
+                  }}
+                ></button>
+              </div>
+              <div className="recipe_imageUrl">
+                <img src={recipe.bannerImage} alt="recipe_bannerImage" />
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div>No recipes found.</div>
+        )}
+      </div>
       <div aria-label="scroll-trigger" ref={ref} />
     </div>
   );

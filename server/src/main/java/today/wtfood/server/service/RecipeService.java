@@ -102,7 +102,6 @@ public class RecipeService {
         if (!rr.existsById(id)) {
             throw new NotFoundException("레시피를 찾을 수 없습니다", "id");
         }
-
         rr.deleteById(id);
     }
 
