@@ -39,5 +39,20 @@ public interface RecipeDetail extends RecipeSummary {
 
     List<String> tags();
 
+    List<CommentSummary> getComments();
+
+    /**
+     * 댓글 정보 DTO
+     */
+    interface CommentSummary {
+        Long getId();               // 댓글 ID
+
+        String getContent();        // 댓글 내용
+
+        Timestamp getCreatedDate(); // 댓글 작성 시간
+
+        MemberSummary getMember();  // 댓글 작성자 정보
+    }
+
 
 }
