@@ -135,4 +135,8 @@ public class RecipeService {
         mr.save(member);
     }
 
+    public Page<RecipeSummary> getRecipesByCategory(String category, Pageable pageable) {
+        return rr.findByCategory(category, pageable);
+    }
+
 }

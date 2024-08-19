@@ -53,4 +53,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
 
     // 찜하기목록
     List<Recipe> findByFavoriteByMembersContains(Member member);
+
+    Page<RecipeSummary> findByCategory(String category, Pageable pageable);
 }

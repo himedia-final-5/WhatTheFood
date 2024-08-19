@@ -61,8 +61,10 @@ export default function RecipeList() {
     },
   );
 
-  const handleCategoryClick = (query) => {
+  const handleCategoryClick = async (query) => {
     setSelectedCategory(query);
+    reset();
+    fetchPage(0);
   };
 
   const handleRecipeClick = async (recipeId) => {
@@ -101,7 +103,7 @@ export default function RecipeList() {
 
   useEffect(() => {
     reset();
-    fetchPage(1).catch((error) => {
+    fetchPage(0).catch((error) => {
       defaultErrorHandler(error);
     });
   }, [selectedCategory, reset]);
@@ -157,9 +159,7 @@ export default function RecipeList() {
                   e.preventDefault();
                   handleFavoriteClick(recipe.id);
                 }}
-              >
-                
-              </button>
+              ></button>
             </div>
             <div className="recipe_imageUrl">
               <img src={recipe.bannerImage} alt="recipe_bannerImage" />

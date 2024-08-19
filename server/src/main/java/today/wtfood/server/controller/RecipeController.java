@@ -27,8 +27,12 @@ public class RecipeController {
     // 레시피 리스트 (페이지네이션)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> getRecipeList(Pageable pageable) {
-        return PageResponse.of(rs.getRecipeList(pageable));
+    public PageResponse<RecipeSummary> getRecipeList(@RequestParam("category") String category, Pageable pageable) {
+        if (category == null || category.isEmpty()) {
+            return PageResponse.of(rs.getRecipeList(pageable));
+        } else {
+            return PageResponse.of(rs.getRecipesByCategory(category, pageable));
+        }
     }
 
     // 레시피 리스트 //레시피번호(id)
@@ -68,6 +72,7 @@ public class RecipeController {
     ) {
         return PageResponse.of(rs.getRecipesByTitleAndDescription(title, description, pageable));
     }
+    //제목 설명 카테고리 한코드로 해서 검색으로 뭉쳐서 보내고 한번에 받는 코드로 수정하기
 
     @PutMapping("{id}/incrementViewCount")
     public void incrementViewCount(@PathVariable Long id) {
@@ -122,4 +127,6 @@ public class RecipeController {
     public void deleteFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
+
+
 }
