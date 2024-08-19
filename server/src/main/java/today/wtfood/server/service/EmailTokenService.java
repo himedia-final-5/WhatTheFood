@@ -19,9 +19,17 @@ public class EmailTokenService {
     /**
      * 이메일 토큰 생성
      */
-    public EmailToken createEmailToken(EmailToken.TokenPurpose tokenPurpose, String email, long expiration) {
+    public EmailToken createEmailToken(
+            EmailToken.TokenPurpose tokenPurpose,
+            String username,
+            String password,
+            String email,
+            long expiration
+    ) {
         return emailTokenRepository.save(EmailToken.builder()
                 .purpose(tokenPurpose)
+                .username(username)
+                .password(password)
                 .email(email)
                 .expiryDate(new Timestamp(System.currentTimeMillis() + expiration))
                 .build());

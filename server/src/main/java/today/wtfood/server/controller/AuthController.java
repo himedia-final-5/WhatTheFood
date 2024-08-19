@@ -48,15 +48,20 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/signup/verify-email")
+    @PostMapping("/signup/email")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void sendVerifyEmail(
+            @RequestParam("username")
+            String username,
+            @RequestParam("password")
+            String password,
             @RequestParam("email")
             String email
     ) {
+        memberService.validateUsernameFormatAndUnique(username);
         memberService.validateEmailFormatAndUnique(email);
 
-        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, email, 1000 * 60 * 60 * 24);
+        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, username, password, email, 1000 * 60 * 60 * 24);
         emailSendService.sendSignUpEmail(email, emailToken.getToken());
     }
 
