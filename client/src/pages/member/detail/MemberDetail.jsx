@@ -36,7 +36,7 @@ export default function MemberDetail() {
           >
             <GearIcon
               className={cn(
-                "w-6 h-6 text-neutral-400 transition-transform duration-500 ease-in-out",
+                "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
                 "hover:rotate-45 hover:scale-125",
                 dialogOpen ? "rotate-45 scale-125" : "",
               )}
@@ -47,32 +47,42 @@ export default function MemberDetail() {
           <img
             src={member?.profileImage || "/images/member/default_profile.png"}
             alt="profile"
-            className="w-20 h-20 mt-2 ml-2 rounded-full object-cover"
+            className="w-16 h-16 mt-2 ml-2 rounded-full object-cover"
           />
           <div className="flex flex-col text-white text-lg ml-2">
             <div className="flex flex-col text-white text-lg ml-2">
               {member?.nickname}
             </div>
-            <div className="flex text-neutral-300 text-base ml-2 [&>span]:mx-1 [&>span]:text-primary">
-              팔로워 <span>{member?.followerCount || 0}</span>| 팔로잉
-              <span>{member?.followingCount || 0}</span>| 누적조회수
-              <span>{member?.totalViewCount || 0}</span>
+            <div className="flex flex-wrap text-neutral-300 text-sm ml-2 [&_span]:mx-1 [&_span]:text-primary">
+              <button className="text-neutral-300">
+                팔로워 <span>{member?.followerCount || 0}</span>
+              </button>
+              <div className="mx-1">|</div>
+              <button className="text-neutral-300">
+                팔로잉
+                <span>{member?.followingCount || 0}</span>
+              </button>
+              <div className="mx-1">|</div>
+              <button className="text-neutral-300">
+                누적조회수
+                <span>{member?.totalViewCount || 0}</span>
+              </button>
             </div>
           </div>
         </div>
         <div className="flex flex-col text-neutral-300 text-base my-2 ml-6 justify-center items-start">
           <div>{member?.introduce || "안녕하세요"}</div>
         </div>
-        <div className="flex justify-start items-center mb-3 ml-4 gap-2">
+        <div className="flex justify-end items-center gap-2 mb-2 mr-2">
           {member?.socialUrls?.map(({ name, url }) => (
             <a
               key={name}
               href={url}
               target="_blank"
               rel="noreferrer"
-              className="p-1 bg-neutral-500 rounded-full"
+              className="p-1 bg-neutral-600 rounded-full"
             >
-              <Link2Icon className="w-6 h-6 text-white" />
+              <Link2Icon className="w-5 h-5 text-neutral-300" />
             </a>
           ))}
         </div>
