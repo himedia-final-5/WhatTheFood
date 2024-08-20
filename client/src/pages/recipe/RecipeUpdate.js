@@ -384,28 +384,15 @@ export default function RecipeUpdate() {
                   onUpload={(image) =>
                     setRecipe({
                       ...recipe,
-                      cookingStep: recipe.cookingStep.map((item, i) =>
+                      cookingStep: recipe.imageUrl.map((item, i) =>
                         i === index ? { ...item, image } : item,
                       ),
                     })
                   }
-                  imageSrc={step.image}
+                  imageSrc={step.imageUrl}
                   className={cn(
                     "flex flex-col items-center justify-center w-full h-full overflow-hidden",
                   )}
-                />
-                <textarea
-                  placeholder="조리 순서 내용"
-                  value={step.text || ""}
-                  onChange={(e) => {
-                    const newSteps = [...recipe.cookingStep];
-                    newSteps[index] = {
-                      ...newSteps[index],
-                      text: e.target.value,
-                    };
-                    setRecipe({ ...recipe, cookingStep: newSteps });
-                  }}
-                  className="mt-2 w-full border border-gray-300 rounded-md px-2 py-1"
                 />
               </div>
             ))}
