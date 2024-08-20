@@ -12,14 +12,13 @@ export default function MemberDetail() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const { id } = useParams();
   const user = useSelector((state) => state.user);
-  const isMe = user?.id === Number(id);
+  const isMe = user?.id === Number(id) ? user : null;
 
   useEffect(() => {
     axios.get(`/api/members/${id}`).then((response) => {
       setMember(response.data);
     });
-    setDialogOpen(false);
-  }, [id]);
+  }, [id, isMe]);
 
   return (
     <div className="flex flex-col w-full h-hit">
