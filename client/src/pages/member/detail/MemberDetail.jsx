@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link2Icon, ImageIcon, PlusIcon } from "@radix-ui/react-icons";
+import { Link2Icon, GearIcon } from "@radix-ui/react-icons";
 
 import axios from "utils/jwtUtil";
+import cn from "utils/cn";
 import { useSelector } from "stores";
 
 export default function MemberDetail() {
   /** @type {[MemberDetail, React.Dispatch<React.SetStateAction<MemberDetail>>]} */
   const [member, setMember] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const { id } = useParams();
   const user = useSelector((state) => state.user);
   const isMe = user?.id === Number(id);
@@ -16,17 +18,8 @@ export default function MemberDetail() {
     axios.get(`/api/members/${id}`).then((response) => {
       setMember(response.data);
     });
+    setDialogOpen(false);
   }, [id]);
-
-  function openEditProfilePopup() {
-    // TODO: 프로필 수정 팝업 열기
-    console.log("openEditProfilePopup");
-  }
-
-  function openEditSocialPopup() {
-    // TODO: 소셜 수정 팝업 열기
-    console.log("openEditSocialPopup");
-  }
 
   return (
     <div className="flex flex-col w-full h-hit">
@@ -38,28 +31,24 @@ export default function MemberDetail() {
         />
         {isMe && (
           <button
-            className="absolute bottom-2 right-2 p-2 bg-neutral-400 rounded-full"
-            onClick={openEditProfilePopup}
+            className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full"
+            onClick={setDialogOpen.bind(null, true)}
           >
-            <ImageIcon className="w-full h-full text-black" />
+            <GearIcon
+              className={cn(
+                "w-6 h-6 text-neutral-400 transition-transform duration-500 ease-in-out",
+                "hover:rotate-45 hover:scale-125",
+                dialogOpen ? "rotate-45 scale-125" : "",
+              )}
+            />
           </button>
         )}
         <div className="flex justify-start items-center">
-          <div className="relative w-20 h-20 mt-2 ml-2 ">
-            <img
-              src={member?.profileImage || "/images/member/default_profile.png"}
-              alt="profile"
-              className="w-full h-full rounded-full object-cover"
-            />
-            {isMe && (
-              <button
-                className="absolute bottom-0 right-0 p-1 bg-neutral-400 rounded-full"
-                onClick={openEditProfilePopup}
-              >
-                <ImageIcon className="w-full h-full text-black" />
-              </button>
-            )}
-          </div>
+          <img
+            src={member?.profileImage || "/images/member/default_profile.png"}
+            alt="profile"
+            className="w-20 h-20 mt-2 ml-2 rounded-full object-cover"
+          />
           <div className="flex flex-col text-white text-lg ml-2">
             <div className="flex flex-col text-white text-lg ml-2">
               {member?.nickname}
@@ -72,13 +61,7 @@ export default function MemberDetail() {
           </div>
         </div>
         <div className="flex flex-col text-neutral-300 text-base my-2 ml-6 justify-center items-start">
-          {isMe ? (
-            <button onClick={openEditProfilePopup}>
-              {member?.introduce || "안녕하세요"}
-            </button>
-          ) : (
-            <div>{member?.introduce || "안녕하세요"}</div>
-          )}
+          <div>{member?.introduce || "안녕하세요"}</div>
         </div>
         <div className="flex justify-start items-center mb-3 ml-4 gap-2">
           {member?.socialUrls?.map(({ name, url }) => (
@@ -92,14 +75,6 @@ export default function MemberDetail() {
               <Link2Icon className="w-6 h-6 text-white" />
             </a>
           ))}
-          {isMe && (
-            <button
-              className="p-1 bg-neutral-300 rounded-full"
-              onClick={openEditSocialPopup}
-            >
-              <PlusIcon className="w-6 h-6 text-neutral-500" />
-            </button>
-          )}
         </div>
       </div>
       <div className="flex flex-col w-full h-hit">
