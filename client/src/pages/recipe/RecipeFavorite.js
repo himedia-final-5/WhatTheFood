@@ -1,31 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { axios, defaultErrorHandler } from "utils";
 import { useSelector } from "react-redux";
 import "./RecipeFavorite.css"; // 스타일 파일
+import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
 export default function RecipeFavorite() {
-  const [favoritedRecipes, setFavoritedRecipes] = useState([]);
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
   const memberId = user.id; // 로그인한 사용자의 ID를 가져옵니다
-
-  useEffect(() => {
-    const fetchFavoritedRecipes = async () => {
-      try {
-        const response = await axios.get(`/api/recipes/favorites`, {
-          params: { memberId },
-        });
-        console.log("Fetched favorited recipes:", response.data); // 로그 추가
-        setFavoritedRecipes(response.data);
-      } catch (error) {
-        console.error("Failed to fetch favorited recipes:", error);
-        defaultErrorHandler(error);
-      }
-    };
-
-    fetchFavoritedRecipes();
-  }, [memberId]);
-
+  const [throttleInterval, setThrottleInterval] = useState(0);
+  const throttle = usePromiseThrottle(throttleInterval);
+  const { ref, content:favoritedRecipes } = useInfiniteScroll(
+    throttle(async (page) => {
+      /** @type {{data: PageResponse<RecipeSummary>}} */
+      const response = await axios.get(`/api/recipes/favorites`, {
+        params: { page, size: 8, memberId },
+      });
+      setThrottleInterval(0);
+      return response.data;
+    }),
+    (error) => {
+      setThrottleInterval(3000);
+      defaultErrorHandler(error);
+    },
+  );
 
   return (
     <div className="favorite-recipes-page">
@@ -50,6 +48,7 @@ export default function RecipeFavorite() {
       ) : (
         <p>찜한 레시피가 없습니다.</p>
       )}
+      <div aria-label="scroll-trigger" ref={ref} />
     </div>
   );
 }
