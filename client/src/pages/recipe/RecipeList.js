@@ -6,6 +6,7 @@ import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 import { useSelector } from "react-redux"; // Redux를 가져옵니다
+import { toast } from "react-toastify";
 
 const category = [
   { name: "전체", query: "" },
@@ -30,6 +31,11 @@ export default function RecipeList() {
   // 초기화 시 찜한 레시피 목록을 가져옵니다
   useEffect(() => {
     const fetchFavoritedRecipes = async () => {
+      if (!user) {
+        setFavoritedRecipes(new Set());
+        return;
+      }
+
       try {
         const response = await axios.get(`/api/recipes/favorites`);
         const recipes = response.data.content.map((recipe) => recipe.id);
@@ -40,7 +46,7 @@ export default function RecipeList() {
     };
 
     fetchFavoritedRecipes();
-  }, [memberId]);
+  }, [user]);
 
   const fetchPage = async (page) => {
     const response = await axios.get(`/api/recipes`, {
@@ -73,6 +79,11 @@ export default function RecipeList() {
   };
 
   const handleFavoriteClick = async (recipeId) => {
+    if (!user) {
+      toast.warn("로그인이 필요합니다.");
+      return;
+    }
+
     if (favoritedRecipes.has(recipeId)) {
       try {
         await axios.delete(`/api/recipes/${recipeId}/favorite`);
