@@ -48,4 +48,13 @@
 margin-bottom: 20px; /* 이벤트 항목 간 간격 조정 */
 position:relative;
 }
+.active {
+  
+  border: 1px solid #bbb;
+  font-weight: bold;
+  border-bottom:1px solid #fff;
+  margin-bottom:-1px;
+  cursor:default;
+}
+
 
