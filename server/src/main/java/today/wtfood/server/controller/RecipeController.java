@@ -10,6 +10,7 @@ import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
 import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
 @RestController
@@ -89,17 +90,14 @@ public class RecipeController {
     // 레시피 찜하기
     @PostMapping("/{recipeId}/favorite")
     @PreAuthorize("isAuthenticated()")
-    public void addFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
+    public void addFavoriteRecipe(@PathVariable long recipeId, @CurrentUser long memberId) {
         rs.addFavoriteRecipe(memberId, recipeId);
     }
 
     // 찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
     @PreAuthorize("isAuthenticated()")
-    public PageResponse<RecipeSummary> getFavoriteRecipes(
-            @RequestParam long memberId,
-            Pageable pageable
-    ) {
+    public PageResponse<RecipeSummary> getFavoriteRecipes(Pageable pageable, @CurrentUser long memberId) {
         return PageResponse.of(rs.getFavoriteRecipes(memberId, pageable));
     }
 
@@ -107,7 +105,7 @@ public class RecipeController {
     @DeleteMapping("/{recipeId}/favorite")
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
+    public void deleteFavoriteRecipe(@PathVariable long recipeId, @CurrentUser long memberId) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
 

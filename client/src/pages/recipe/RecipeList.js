@@ -24,7 +24,6 @@ export default function RecipeList() {
   const [favoritedRecipes, setFavoritedRecipes] = useState(new Set());
 
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
-  const memberId = user.id; // 로그인한 사용자의 ID를 가져옵니다
 
   const throttle = usePromiseThrottle(throttleInterval);
 
@@ -32,9 +31,7 @@ export default function RecipeList() {
   useEffect(() => {
     const fetchFavoritedRecipes = async () => {
       try {
-        const response = await axios.get(`/api/recipes/favorites`, {
-          params: { memberId },
-        });
+        const response = await axios.get(`/api/recipes/favorites`);
         const recipes = response.data.content.map((recipe) => recipe.id);
         setFavoritedRecipes(new Set(recipes));
       } catch (error) {
@@ -78,9 +75,7 @@ export default function RecipeList() {
   const handleFavoriteClick = async (recipeId) => {
     if (favoritedRecipes.has(recipeId)) {
       try {
-        await axios.delete(`/api/recipes/${recipeId}/favorite`, {
-          params: { memberId },
-        });
+        await axios.delete(`/api/recipes/${recipeId}/favorite`);
         setFavoritedRecipes((prev) => {
           const newSet = new Set(prev);
           newSet.delete(recipeId);
@@ -91,9 +86,7 @@ export default function RecipeList() {
       }
     } else {
       try {
-        await axios.post(`/api/recipes/${recipeId}/favorite`, null, {
-          params: { memberId },
-        });
+        await axios.post(`/api/recipes/${recipeId}/favorite`);
         setFavoritedRecipes((prev) => new Set(prev).add(recipeId));
       } catch (error) {
         console.error("Failed to add favorite:", error);
