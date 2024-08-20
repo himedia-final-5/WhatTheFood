@@ -61,6 +61,7 @@ function EventView() {
             <img
               src={eventView.bannerImage}
               // style={{ width: "50%", height: "95px" }}
+              alt="event banner"
             />
           </div>
         </div>

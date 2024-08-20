@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { UserFeatureContainer } from "components/util";
-import { toast } from "react-toastify";
-import { axios } from "utils";
 import "./SearchingStore.css";
 
 const { kakao } = window;

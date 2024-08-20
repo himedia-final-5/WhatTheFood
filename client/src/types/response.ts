@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 declare type GeneratedId = {
   id: number;
 };

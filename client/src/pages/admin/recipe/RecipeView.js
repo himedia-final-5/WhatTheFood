@@ -61,6 +61,7 @@ function RecipeView() {
             <img
               src={recipe.finishedImages}
               style={{ width: "300px", height: "200px" }}
+              alt="recipe finished"
             />
           </div>
         </div>

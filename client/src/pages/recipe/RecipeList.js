@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import "./RecipeList.css";
 import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
@@ -26,7 +27,6 @@ export default function RecipeList() {
   const memberId = user.id; // 로그인한 사용자의 ID를 가져옵니다
 
   const throttle = usePromiseThrottle(throttleInterval);
-  const navigate = useNavigate();
 
   // 초기화 시 찜한 레시피 목록을 가져옵니다
   useEffect(() => {

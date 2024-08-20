@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubMenu from "../SubMenu";
 import { axios, cn } from "utils";
-import { AdminFeatureContainer, ImageUploadInput } from "components/util";
+import { ImageUploadInput } from "components/util";
 
 function WEvent() {
   const navigate = useNavigate();

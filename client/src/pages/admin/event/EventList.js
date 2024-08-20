@@ -78,6 +78,7 @@ function EventList() {
                 <img
                   src={eventlist.bannerImage}
                   style={{ width: "100%", height: "95px" }}
+                  alt="event banner"
                 />
               </div>
 

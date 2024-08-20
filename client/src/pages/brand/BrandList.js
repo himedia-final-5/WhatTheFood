@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+
 import "./Brand.css";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
@@ -28,14 +29,14 @@ export default function BrandList() {
   );
 
   // 랜덤으로 항목을 선택하는 함수
-  const RandomItem = () => {
+  const randomItem = useCallback(() => {
     const randomId = Math.floor(Math.random() * items.length);
     setActiveId(randomId);
     if (randomId === 0) setKeyword("cp");
     else if (randomId === 1) setKeyword("gm");
     else if (randomId === 2) setKeyword("mall");
     else setKeyword("");
-  };
+  }, [items.length]);
 
   // 클릭된 항목에 따라 필터 키워드를 설정
   const handleClick = (id) => {
@@ -53,15 +54,15 @@ export default function BrandList() {
 
   useEffect(() => {
     // 브랜드 리스트 페이지 들어갈때 랜덤으로 항목 선택
-    RandomItem();
-  }, []);
+    randomItem();
+  }, [randomItem]);
 
   return (
     <div>
       <div>
         <div>
           <ul className="relative flex right-28 top-10 border-b ml-96 mr-44 pb-0 text-lg">
-            //("식품회사", "단체/기관", "쇼핑몰") 생성 및 클릭 시 css 변화//
+            {/*("식품회사", "단체/기관", "쇼핑몰") 생성 및 클릭 시 css 변화*/}
             {items.map((item, index) => (
               <li
                 key={index}
@@ -73,7 +74,7 @@ export default function BrandList() {
             ))}
           </ul>
           <div className="chef_banner_wrap">
-            // ROLE_BRAND 만 출력, 페이지 들어올 때 항목 랜덤으로 선택
+            {/* ROLE_BRAND 만 출력, 페이지 들어올 때 항목 랜덤으로 선택 */}
             {filterContent.length > 0 ? (
               filterContent
                 .filter((member) => member.role === "ROLE_BRAND")

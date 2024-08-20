@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 declare interface Pageable<T = any> {
   page: number;
   size: number;

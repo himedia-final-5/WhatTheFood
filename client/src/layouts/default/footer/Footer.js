@@ -1,13 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Footer.css";
 
 function Footer() {
-  const navigate = useNavigate();
-
   function onTerms() {
-    window.open("/localhost:3000/terms");
+    window.open("/terms", "_blank", "width=600,height=800");
   }
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -21,7 +20,7 @@ function Footer() {
                 <Link to="/about">회사소개</Link>
               </li>
               <li>
-                <Link to="/terms">이용약관</Link>
+                <button onClick={onTerms}>이용약관</button>
               </li>
               <li>
                 <Link to="/privacy">개인정보처리방침</Link>

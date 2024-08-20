@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
 import { axios, cn } from "utils";
-import { AdminFeatureContainer, ImageUploadInput } from "components/util";
-import { useSelector } from "stores";
+import { ImageUploadInput } from "components/util";
 import { useInputs } from "hooks";
 
 function EUpdate() {

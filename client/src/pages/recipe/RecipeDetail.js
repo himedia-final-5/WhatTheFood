@@ -27,7 +27,7 @@ export default function RecipeDetail() {
   // Extract YouTube video ID from URL
   const extractYouTubeVideoId = (url) => {
     const regex =
-      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|watch\?.+v=)?([^"&?\/\s]{11})/;
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|watch\?.+v=)?([^"&?/\s]{11})/;
     const match = url.match(regex);
     return match ? match[1] : null;
   };
@@ -278,14 +278,14 @@ export default function RecipeDetail() {
               <p>No cooking steps available.</p>
             )}
           </div>
-          
+
           <div className="recipedetail_finishedImages">
             <div>
               {Array.isArray(recipe.finishedImages) &&
               recipe.finishedImages.length > 0 ? (
                 recipe.finishedImages.map((image, index) => (
                   <div key={index} className="recipedetail_contentdetail">
-                    <img src={image} alt={`Finished Image - ${index}`} />
+                    <img src={image} alt={`Finished - ${index}`} />
                   </div>
                 ))
               ) : (

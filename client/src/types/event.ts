@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 declare type EventSummary = {
   id: number;
   title: string;
