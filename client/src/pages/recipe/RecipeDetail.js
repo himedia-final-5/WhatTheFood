@@ -19,7 +19,7 @@ export default function RecipeDetail() {
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  const [fetchEvent, recipe, isLoading, isError] = usePromise(
+  const [fetchRecipe, recipe, isLoading, isError] = usePromise(
     DEFAULT_RECIPE,
     async () => (await axios.get(`/api/recipes/${id}`)).data,
   );
@@ -49,7 +49,7 @@ export default function RecipeDetail() {
 
   useEffect(() => {
     if (!isLoading && (recipe == null || recipe?.id !== id)) {
-      fetchEvent();
+      fetchRecipe();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -278,6 +278,7 @@ export default function RecipeDetail() {
               <p>No cooking steps available.</p>
             )}
           </div>
+          
           <div className="recipedetail_finishedImages">
             <div>
               {Array.isArray(recipe.finishedImages) &&
