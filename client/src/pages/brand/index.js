@@ -1,3 +1,3 @@
 import { lazyLoading as $ } from "utils";
 
-export const ChefList = $(() => import("./ChefList"));
+export const BrandList = $(() => import("./BrandList"));
