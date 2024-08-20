@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeSummary;
@@ -48,7 +50,16 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
      * @param pageable    페이지네이션 정보
      * @return 페이지네이션된 레시피 목록
      */
-    Page<Recipe> findByTitleAndDescription(String title, String description, Pageable pageable);
+    @Query("SELECT r FROM Recipe r WHERE " +
+            "(:title IS NULL OR r.title LIKE %:title%) AND " +
+            "(:category IS NULL OR r.category LIKE %:category%) AND " +
+            "(:description IS NULL OR r.description LIKE %:description%)")
+    Page<Recipe> findByTitleContainingAndCategoryContainingAndDescriptionContaining(
+            @Param("title") String title,
+            @Param("category") String category,
+            @Param("description") String description,
+            Pageable pageable
+    );
 
     // 찜하기목록
     Page<RecipeSummary> findByFavoriteByMembersContains(Member member, Pageable pageable);

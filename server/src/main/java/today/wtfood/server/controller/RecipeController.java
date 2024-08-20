@@ -40,38 +40,20 @@ public class RecipeController {
         return rs.getRecipeById(id);
     }
 
-    // 제목으로 레시피 검색
-    @GetMapping("/search/title")
-    @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipesByTitle(
-            @RequestParam("title") String title,
-            Pageable pageable
-    ) {
-        return PageResponse.of(rs.getRecipesByTitle(title, pageable));
-    }
-
-    // 설명으로 레시피 검색
-    @GetMapping("/search/description")
-    @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipesByDescription(
-            @RequestParam("description") String description,
-            Pageable pageable
-    ) {
-        return PageResponse.of(rs.getRecipesByDescription(description, pageable));
-    }
-
-    // 제목과 설명으로 레시피 검색
+    // 통합 레시피 검색
     @GetMapping("/search")
     @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipesByTitleAndDescription(
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
+    public PageResponse<Recipe> searchRecipes(
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "description", required = false) String description,
             Pageable pageable
     ) {
-        return PageResponse.of(rs.getRecipesByTitleAndDescription(title, description, pageable));
+        return PageResponse.of(rs.searchRecipes(title, category, description, pageable));
     }
     //제목 설명 카테고리 한코드로 해서 검색으로 뭉쳐서 보내고 한번에 받는 코드로 수정하기
 
+    //조회수
     @PutMapping("{id}/incrementViewCount")
     public void incrementViewCount(@PathVariable Long id) {
         rs.incrementViewCount(id);
