@@ -110,13 +110,13 @@ export default function RecipeList() {
 
   return (
     <div className="recipeList_wrap">
-      <AdminFeature>
-        <Link to="/recipes/write" className="create_recipe_button">
-          게시글쓰기
-        </Link>
-      </AdminFeature>
       <div className="recipe_category_wrap">
         <div className="category_filter">
+          <AdminFeature>
+            <Link to="/recipes/write" className="create_recipe_button">
+              게시글쓰기
+            </Link>
+          </AdminFeature>
           {category.map((cat) => (
             <button
               key={cat.query}

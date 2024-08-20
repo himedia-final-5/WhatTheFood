@@ -8,9 +8,6 @@
 
 /* 게시글쓰기 버튼 스타일 */
 .create_recipe_button {
-  position: absolute;
-  top: 186px; /* 상단에 위치 */
-  right: 400px; /* 오른쪽에 위치 */
   background-color: #ffffff; /* 버튼 배경색 */
   color: #000000; /* 버튼 글자색 */
   border: 2px solid #d7d7d7;
@@ -39,13 +36,14 @@
 
 /* 카테고리 필터 */
 .recipe_category_wrap {
-  width: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
 }
 
 .category_filter {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -166,6 +164,24 @@
   .recipe_banner_wrap {
     width: 100%;
     grid-template-columns: 1fr; /* 작은 화면에서 한 개씩 나열 */
+  }
+  .recipe_category_wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .category_filter {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4개씩 나열 */
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .category_button {
+    width: 100%; /* 버튼이 grid 아이템을 꽉 채우도록 */
+    text-align: center;
   }
 }
 
