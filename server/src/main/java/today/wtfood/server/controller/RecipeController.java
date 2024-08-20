@@ -52,7 +52,6 @@ public class RecipeController {
     ) {
         return PageResponse.of(rs.searchRecipes(title, category, description, hashtag, pageable));
     }
-    //제목 설명 카테고리 한코드로 해서 검색으로 뭉쳐서 보내고 한번에 받는 코드로 수정하기
 
     //조회수
     @PutMapping("{id}/incrementViewCount")
