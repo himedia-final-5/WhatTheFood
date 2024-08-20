@@ -32,7 +32,7 @@ function Header() {
       );
     }
 
-    setMarginBottom(headerRef.current.clientHeight);
+    setMarginBottom(headerRef.current.clientHeight + 70);
     prevY.current = y;
   };
 
