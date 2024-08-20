@@ -50,19 +50,17 @@ public class RecipeService {
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
     }
 
-    // 제목으로 레시피 검색
-    public Page<Recipe> getRecipesByTitle(String title, Pageable pageable) {
-        return rr.findByTitle(title, pageable);
+    public Page<Recipe> searchRecipes(String title, String category, String description, String hashtag, Pageable pageable) {
+        return rr.searchRecipes(title, category, description, hashtag, pageable);
     }
 
-    // 설명으로 레시피 검색
-    public Page<Recipe> getRecipesByDescription(String description, Pageable pageable) {
-        return rr.findByDescription(description, pageable);
-    }
-
-    // 제목과 설명으로 레시피 검색
-    public Page<Recipe> getRecipesByTitleAndDescription(String title, String description, Pageable pageable) {
-        return rr.findByTitleAndDescription(title, description, pageable);
+    // 조회수
+    @Transactional
+    public void incrementViewCount(Long id) {
+        Recipe recipe = rr.findById(id)
+                .orElseThrow(() -> new NotFoundException("Recipe not found with id " + id));
+        recipe.setViewCount(recipe.getViewCount() + 1);
+        rr.save(recipe);
     }
 
 
@@ -94,7 +92,6 @@ public class RecipeService {
         if (!rr.existsById(id)) {
             throw new NotFoundException("레시피를 찾을 수 없습니다", "id");
         }
-
         rr.deleteById(id);
     }
 
@@ -110,10 +107,11 @@ public class RecipeService {
     }
 
     // 찜한 레시피 목록 조회
-    public List<Recipe> getFavoriteRecipes(long memberId) {
+    public Page<RecipeSummary> getFavoriteRecipes(long memberId, Pageable pageable) {
         Member member = mr.findById(memberId)
                 .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
-        return rr.findByFavoriteByMembersContains(member);
+        Page<RecipeSummary> test = rr.findByFavoriteByMembersContains(member, pageable);
+        return rr.findByFavoriteByMembersContains(member, pageable);
     }
 
     // 찜하기 제거
@@ -125,6 +123,10 @@ public class RecipeService {
 
         member.getFavoriteRecipes().remove(recipe);
         mr.save(member);
+    }
+
+    public Page<RecipeSummary> getRecipesByCategory(String category, Pageable pageable) {
+        return rr.findByCategory(category, pageable);
     }
 
 }

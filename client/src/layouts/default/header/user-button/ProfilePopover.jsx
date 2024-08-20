@@ -48,9 +48,11 @@ export default function ProfilePopover(props) {
             고객 문의
           </Button>
         </Link>
-        <Button variant="none" className="w-full text-lg">
-          찜레시피
-        </Button>
+        <Link to="/recipes/favorites">
+          <Button variant="none" className="w-full text-lg" onClick>
+            찜레시피
+          </Button>
+        </Link>
         <Separator className="w-full my-2" />
         <Button variant="none" className="w-full text-lg" onClick={signout}>
           로그아웃

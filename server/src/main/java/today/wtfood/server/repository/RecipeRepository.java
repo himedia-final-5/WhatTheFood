@@ -4,13 +4,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -49,8 +50,21 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
      * @param pageable    페이지네이션 정보
      * @return 페이지네이션된 레시피 목록
      */
-    Page<Recipe> findByTitleAndDescription(String title, String description, Pageable pageable);
+    @Query("SELECT r FROM Recipe r WHERE " +
+            "(:title IS NULL OR r.title LIKE %:title%) AND " +
+            "(:category IS NULL OR r.category LIKE %:category%) AND " +
+            "(:description IS NULL OR r.description LIKE %:description%) AND " +
+            "(:hashtag IS NULL OR :hashtag MEMBER OF r.tags)")
+    Page<Recipe> searchRecipes(
+            @Param("title") String title,
+            @Param("category") String category,
+            @Param("description") String description,
+            @Param("hashtag") String hashtag,
+            Pageable pageable
+    );
 
     // 찜하기목록
-    List<Recipe> findByFavoriteByMembersContains(Member member);
+    Page<RecipeSummary> findByFavoriteByMembersContains(Member member, Pageable pageable);
+
+    Page<RecipeSummary> findByCategory(String category, Pageable pageable);
 }

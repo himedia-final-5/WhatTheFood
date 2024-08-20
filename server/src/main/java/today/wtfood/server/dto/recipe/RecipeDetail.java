@@ -1,5 +1,6 @@
 package today.wtfood.server.dto.recipe;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -18,23 +19,40 @@ public interface RecipeDetail extends RecipeSummary {
 
     Integer level();
 
-    String videoLink();
+    String getVideoLink();
 
     String category();
 
     List<String> ingredientImage();
 
-    List<String> ingredients();
+    List<String> getIngredients();
 
-    List<String> cookingTools();
+    List<String> getCookingTools();
 
-    List<String> guideLinks();
+    Timestamp getCreatedDate();
+
+    List<String> getGuideLinks();
 
     List<String> cookingStep();
 
     List<String> finishedImages();
 
     List<String> tags();
+
+    List<CommentSummary> getComments();
+
+    /**
+     * 댓글 정보 DTO
+     */
+    interface CommentSummary {
+        Long getId();               // 댓글 ID
+
+        String getContent();        // 댓글 내용
+
+        Timestamp getCreatedDate(); // 댓글 작성 시간
+
+        MemberSummary getMember();  // 댓글 작성자 정보
+    }
 
 
 }

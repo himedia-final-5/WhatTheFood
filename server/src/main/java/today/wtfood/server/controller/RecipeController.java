@@ -12,8 +12,6 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.service.RecipeService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
@@ -27,8 +25,12 @@ public class RecipeController {
     // 레시피 리스트 (페이지네이션)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> getRecipeList(Pageable pageable) {
-        return PageResponse.of(rs.getRecipeList(pageable));
+    public PageResponse<RecipeSummary> getRecipeList(@RequestParam("category") String category, Pageable pageable) {
+        if (category == null || category.isEmpty()) {
+            return PageResponse.of(rs.getRecipeList(pageable));
+        } else {
+            return PageResponse.of(rs.getRecipesByCategory(category, pageable));
+        }
     }
 
     // 레시피 리스트 //레시피번호(id)
@@ -38,35 +40,23 @@ public class RecipeController {
         return rs.getRecipeById(id);
     }
 
-    // 제목으로 레시피 검색
-    @GetMapping("/search/title")
-    @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipesByTitle(
-            @RequestParam("title") String title,
-            Pageable pageable
-    ) {
-        return PageResponse.of(rs.getRecipesByTitle(title, pageable));
-    }
-
-    // 설명으로 레시피 검색
-    @GetMapping("/search/description")
-    @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipesByDescription(
-            @RequestParam("description") String description,
-            Pageable pageable
-    ) {
-        return PageResponse.of(rs.getRecipesByDescription(description, pageable));
-    }
-
-    // 제목과 설명으로 레시피 검색
+    // 제목, 카테고리, 설명, 해시태그로 레시피 검색
     @GetMapping("/search")
     @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipesByTitleAndDescription(
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
+    public PageResponse<Recipe> searchRecipes(
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "hashtag", required = false) String hashtag,
             Pageable pageable
     ) {
-        return PageResponse.of(rs.getRecipesByTitleAndDescription(title, description, pageable));
+        return PageResponse.of(rs.searchRecipes(title, category, description, hashtag, pageable));
+    }
+
+    //조회수
+    @PutMapping("{id}/incrementViewCount")
+    public void incrementViewCount(@PathVariable Long id) {
+        rs.incrementViewCount(id);
     }
 
     // 레시피 수정
@@ -103,11 +93,14 @@ public class RecipeController {
         rs.addFavoriteRecipe(memberId, recipeId);
     }
 
-    // 찜한 레시피 목록 조회
+    // 찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
     @PreAuthorize("isAuthenticated()")
-    public List<Recipe> getFavoriteRecipes(@RequestParam long memberId) {
-        return rs.getFavoriteRecipes(memberId);
+    public PageResponse<RecipeSummary> getFavoriteRecipes(
+            @RequestParam long memberId,
+            Pageable pageable
+    ) {
+        return PageResponse.of(rs.getFavoriteRecipes(memberId, pageable));
     }
 
     // 찜하기 취소
@@ -117,4 +110,6 @@ public class RecipeController {
     public void deleteFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
+
+
 }

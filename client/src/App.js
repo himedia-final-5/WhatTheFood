@@ -60,6 +60,12 @@ import EUpdate from "pages/admin/event/EUpdate";
 
 import BrandList from "pages/admin/brand/BrandList";
 import RecipeList from "pages/recipe/RecipeList";
+import RecipeDetail from "pages/recipe/RecipeDetail";
+import RecipeWrite from "pages/recipe/RecipeWrite";
+import RecipeUpdate from "pages/recipe/RecipeUpdate";
+import RecipeFavorite from "pages/recipe/RecipeFavorite";
+import SearchRList from "pages/recipe/SearchRList";
+import ResultsPage from "pages/recipe/ResultsPage";
 
 function App() {
   return (
@@ -71,6 +77,12 @@ function App() {
               <Route path="/" element={<Main />} />
 
               <Route path="/recipes" element={<RecipeList />} />
+              <Route path="/recipes/:id" element={<RecipeDetail />} />
+              <Route path="/recipes/write" element={<RecipeWrite />} />
+              <Route path="/recipes/write/:id" element={<RecipeUpdate />} />
+              <Route path="/recipes/favorites" element={<RecipeFavorite />} />
+              <Route path="/" element={<SearchRList />} />
+              <Route path="/recipes/results" element={<ResultsPage />} />
 
               <Route path="/events" element={<EventList />} />
               <Route path="/events/:id" element={<EventDetail />} />
