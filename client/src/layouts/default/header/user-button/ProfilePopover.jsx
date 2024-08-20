@@ -49,7 +49,7 @@ export default function ProfilePopover(props) {
           </Button>
         </Link>
         <Link to="/recipes/favorites">
-          <Button variant="none" className="w-full text-lg" onClick>
+          <Button variant="none" className="w-full text-lg">
             찜레시피
           </Button>
         </Link>
