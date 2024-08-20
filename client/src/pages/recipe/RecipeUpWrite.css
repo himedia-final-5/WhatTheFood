@@ -1,6 +1,6 @@
 /* EventCreate.css */
 
-.createEvent {
+.createRecipe {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
@@ -11,21 +11,21 @@
   margin-bottom: 100px;
 }
 
-.createEvent_field {
+.createRecipe_field {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
-.createEvent_field label {
+.createRecipe_field label {
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 8px;
 }
 
-.createEvent_field input[type="text"],
-.createEvent_field input[type="password"],
-.createEvent_field input[type="file"] {
+.createRecipe_field input[type="text"],
+.createRecipe_field input[type="password"],
+.createRecipe_field input[type="file"] {
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -33,23 +33,23 @@
   box-sizing: border-box;
 }
 
-.createEvent_field input[type="file"] {
+.createRecipe_field input[type="file"] {
   padding: 0;
 }
 
-.createEvent_field img {
+.createRecipe_field img {
   max-width: 100%;
   border-radius: 4px;
 }
 
-.createEvent_btns {
+.createRecipe_btns {
   width: 60%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
 }
 
-.createEvent_btns button {
+.createRecipe_btns button {
   width: 150px;
   padding: 10px 20px;
   font-size: 1rem;
@@ -61,14 +61,14 @@
   transition: background-color 0.3s ease;
 }
 
-.createEvent_btns button:hover {
+.createRecipe_btns button:hover {
   background-color: #45a049;
 }
 
-.createEvent_btns button:last-child {
+.createRecipe_btns button:last-child {
   background-color: #f44336;
 }
 
-.createEvent_btns button:last-child:hover {
+.createRecipe_btns button:last-child:hover {
   background-color: #e53935;
 }
