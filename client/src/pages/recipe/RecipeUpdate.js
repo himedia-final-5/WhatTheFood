@@ -109,7 +109,18 @@ export default function RecipeUpdate() {
         />
       </div>
       <div className="createRecipe_field">
-        <label htmlFor="servings">소요 시간(분)</label>
+        <label htmlFor="cookingTime">조리시간</label>
+        <input
+          type="text"
+          id="cookingTime"
+          name="cookingTime"
+          onChange={onInputChange}
+          value={inputs.cookingTime || recipe.cookingTime || ""}
+          required
+        />
+      </div>
+      <div className="createRecipe_field">
+        <label htmlFor="servings">음식량</label>
         <input
           type="text"
           id="servings"

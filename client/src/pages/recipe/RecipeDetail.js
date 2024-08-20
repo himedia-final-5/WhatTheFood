@@ -156,7 +156,7 @@ export default function RecipeDetail() {
           </p>
           <p>{recipe.description}</p>
           <p>
-            <strong>{recipe.cookingTime}분</strong>
+            <strong>{recipe.cookingTime}</strong>
           </p>
           <p>
             <strong>{recipe.servings}인분</strong>
