@@ -390,6 +390,17 @@ export default function RecipeUpdate() {
                     "border-2 border-gray-300 border-dashed rounded-lg",
                   )}
                 />
+                <div className="createRecipe_field w-full">
+                  <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    onChange={onInputChange}
+                    value={inputs.description || cookingStep.description || ""}
+                    className="w-full" // 이 부분 추가
+                    required
+                  />
+                </div>
               </div>
             ))}
           <button
@@ -398,7 +409,7 @@ export default function RecipeUpdate() {
                 ...recipe,
                 cookingStep: [
                   ...(recipe.cookingStep || []),
-                  { image: "", text: "" },
+                  { imageUrl: "", description: "" },
                 ],
               })
             }

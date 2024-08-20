@@ -12,6 +12,8 @@
 }
 
 .createRecipe_field {
+  width: 100%;
+  flex-direction: column; /* 또는 row */
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
