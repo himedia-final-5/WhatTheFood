@@ -140,12 +140,23 @@ VALUES (30, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2667
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 VALUES (31, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1920/6d82db45-4439-403f-b6e1-e519c87cc8e8.jpg?size=500x500',
 '우리 강아지를 위한 특별한 선물', '반려견과 함께하는 분들이라면 주목! 소중한 우리 강아지의 생일을 특별한 순간으로 장식해줄 반려견 생일 케이크 레시피 소개해요.',
-'40분', 1, 2, 'http://video.wtable.co.kr/video/production/service/recipe/1920/b8fef8c1-efb0-48c6-ae8d-1cfb54221f12.mp4', '베이킹', 0);
+'40분', 1, 2, 'https://www.youtube.com/watch?v=l9M60-5dxEU&pp=ygUd6rCV7JWE7KeAIOy8gOydtO2BrCDrp4zrk6TquLA%3D', '베이킹', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
-VALUES (32, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1920/6d82db45-4439-403f-b6e1-e519c87cc8e8.jpg?size=500x500',
-'우리 강아지를 위한 특별한 선물', '반려견과 함께하는 분들이라면 주목! 소중한 우리 강아지의 생일을 특별한 순간으로 장식해줄 반려견 생일 케이크 레시피 소개해요.',
-'40분', 1, 2, 'http://video.wtable.co.kr/video/production/service/recipe/1920/b8fef8c1-efb0-48c6-ae8d-1cfb54221f12.mp4', '베이킹', 0);
-
+VALUES (32, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2560/0430c30b-fb6f-48f8-acb4-56f0bfd4534b.jpg?size=800x800',
+'거북이 메론빵', '달콤하고 바삭한 메론빵에 귀여운 거북이 모양을 더한 레시피입니다. 부드러운 반죽과 고소한 메론 크림이 잘 어우러져 모든 연령층이 좋아할 맛입니다.',
+'60분', 6, 2, 'https://www.youtube.com/watch?v=ZpSgjYxJNEQ&pp=ygUd6rGw67aB7J20IOuplOuhoOu5tSDrp4zrk6TquLA%3D', '베이킹', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (33, 1, 'https://static.wtable.co.kr/image/production/service/recipe/822/1dc498fd-46cb-46e6-9ac3-3be7e66e8593.jpg?size=800x800',
+'딸기 초콜릿', '상큼한 딸기와 부드러운 초콜릿이 만나 완성된 디저트입니다. 초콜릿의 달콤함과 딸기의 상큼함이 조화를 이루며, 입안에서 사르르 녹는 맛이 매력적입니다.',
+'30분', 4, 1, 'https://www.youtube.com/watch?v=fI2TnEY3S5A&pp=ygUa65S46riwIOy0iOy9nOumvyDrp4zrk6TquLA%3D', '베이킹', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (34, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1653/fbe52a9a-b9f9-4321-9d6b-c3e565311741.jpg?size=800x800',
+'아보카도 브라우니', '부드럽고 진한 초콜릿 맛이 특징인 브라우니에 아보카도를 더하여 건강하게 즐길 수 있는 레시피입니다. 아보카도의 크리미한 식감이 브라우니를 더욱 풍부하게 만들어줍니다.',
+'45분', 8, 2, 'https://www.youtube.com/watch?v=WyT0uN-U7lU&pp=ygUj7JWE67O07Lm064-EIOu4jOudvOyasOuLiCDrp4zrk6TquLA%3D', '베이킹', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (35, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1092/0a2bb178-ac96-4c04-85e9-bd424f4d849b.jpg?size=800x800',
+'레어 치즈케이크', '부드럽고 풍부한 치즈 맛이 일품인 레어 치즈케이크입니다. 상큼한 레몬과 크림치즈의 조화로 입안에서 부드럽고 고소한 맛이 느껴지는 디저트입니다.',
+'4시간', 8, 2, 'https://www.youtube.com/watch?v=Kh9Tdukm0qA&pp=ygUg66CI7Ja0IOy5mOymiOy8gOydtO2BrCDrp4zrk6TquLA%3D', '베이킹', 0);
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -211,7 +222,13 @@ VALUES (30, 'https://static.wtable.co.kr/image/production/service/recipe/2667/2f
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (31, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e6d2ec01-4745-4cef-99c1-00e0935b02e9.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
-VALUES (32, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e6d2ec01-4745-4cef-99c1-00e0935b02e9.jpg?size=800x800');
+VALUES (32, 'https://static.wtable.co.kr/image/production/service/recipe/2560/6da1ee3c-0c9e-4941-b587-8a4d853a38b4.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (33, 'https://static.wtable.co.kr/image/production/service/recipe/822/a2f36864-e488-41ae-9808-bbf56a3ad8f5.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (34, 'https://static.wtable.co.kr/image/production/service/recipe/1653/42eaa243-ddb5-4092-b1a3-dca15c807aa9.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (35, 'https://static.wtable.co.kr/image/production/service/recipe/1092/84f6defa-6529-4295-84e3-3c301175cbc0.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -921,32 +938,86 @@ VALUES
 
 INSERT INTO recipe_ingredient (id, ingredients)
   VALUES
-      (32, '케이크 틀'),
+      (32, '강력분'),
+          (32, '300g'),
+          (32, '이스트'),
+          (32, '7g'),
+          (32, '설탕'),
+          (32, '50g'),
+          (32, '소금'),
+          (32, '5g'),
+          (32, '버터'),
+          (32, '50g'),
+          (32, '우유'),
+          (32, '150ml'),
           (32, '계란'),
-          (32, '2개'),
-          (32, '쌀가루 분말'),
-          (32, '70g'),
-          (32, '코코넛오일'),
-          (32, '15g'),
-          (32, '락토프리 우유'),
-          (32, '30g'),
-          (32, '꿀'),
-          (32, '1큰술'),
-          (32, '찐 단호박'),
-          (32, '35g'),
-          (32, '두부'),
-          (32, '1모(300g)'),
-          (32, '락토프리 우유'),
-          (32, '1팩(930ml)'),
-          (32, '락토프리 우유 여유분'),
+          (32, '1개'),
+          (32, '메론 크림'),
           (32, '100g'),
-          (32, '식초'),
-          (32, '2큰술'),
-          (32, '꿀'),
-          (32, '1큰술'),
-          (32, '천연 분말'),
-          (32, '블루베리'),
-          (32, '단호박');
+          (32, '토핑용 설탕'),
+          (32, '약간'),
+          (32, '식용유'),
+          (32, '약간');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (33, '딸기'),
+    (33, '10개'),
+    (33, '다크 초콜릿'),
+    (33, '200g'),
+    (33, '생크림'),
+    (33, '100ml'),
+    (33, '설탕'),
+    (33, '30g'),
+    (33, '버터'),
+    (33, '20g'),
+    (33, '장식용 설탕'),
+    (33, '약간'),
+    (33, '바닐라 익스트랙'),
+    (33, '1작은술');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (34, '아보카도'),
+    (34, '1개'),
+    (34, '다크 초콜릿'),
+    (34, '150g'),
+    (34, '설탕'),
+    (34, '100g'),
+    (34, '버터'),
+    (34, '50g'),
+    (34, '계란'),
+    (34, '2개'),
+    (34, '밀가루'),
+    (34, '100g'),
+    (34, '코코아 가루'),
+    (34, '30g'),
+    (34, '베이킹 파우더'),
+    (34, '1작은술'),
+    (34, '소금'),
+    (34, '약간'),
+    (34, '바닐라 익스트랙'),
+    (34, '1작은술');
+INSERT INTO recipe_ingredient (id, ingredients)
+VALUES
+    (35, '크림치즈'),
+    (35, '250g'),
+    (35, '사워크림'),
+    (35, '150g'),
+    (35, '설탕'),
+    (35, '100g'),
+    (35, '레몬즙'),
+    (35, '2큰술'),
+    (35, '젤라틴'),
+    (35, '10g'),
+    (35, '물'),
+    (35, '50ml'),
+    (35, '비스킷'),
+    (35, '150g'),
+    (35, '버터'),
+    (35, '50g'),
+    (35, '계란'),
+    (35, '2개'),
+    (35, '바닐라 익스트랙'),
+    (35, '1작은술');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -1012,8 +1083,13 @@ VALUES (30, '믹서기'), (30, '볼'), (30, '냉동용기');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (31, '냄비'), (31, '그릇'), (31, '주걱'), (31, '유산지');
 INSERT INTO recipe_tool (id, cooking_tools)
-VALUES (32, '냄비'), (32, '그릇'), (32, '주걱'), (32, '유산지');
-
+VALUES (32, '오븐'), (32, '반죽용 볼'), (32, '밀대'), (32, '굽기용 종이');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (33, '중탕용 볼'), (33, '주걱'), (33, '냉장고'), (33, '스푼');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (34, '오븐'), (34, '믹서기'), (34, '혼합볼'), (34, '베이킹 팬');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (35, '믹서기'), (35, '혼합볼'), (35, '베이킹 팬'), (35, '냉장고');
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -1079,7 +1155,13 @@ VALUES (30, 'http://www.10000recipe.com/recipe/6872518');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (31, 'http://www.10000recipe.com/recipe/6893533');
 INSERT INTO recipe_guide_link (id, guide_links)
-VALUES (32, 'http://www.10000recipe.com/recipe/6893533');
+VALUES (32, 'https://www.10000recipe.com/recipe/6958231');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (33, 'https://www.10000recipe.com/recipe/6862101');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (34, 'https://blog.naver.com/jeemiyoung/222224728004');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (35, 'https://www.10000recipe.com/recipe/6920803');
 
 
 -- Recipe Cooking Steps
@@ -1290,16 +1372,55 @@ VALUES
     (31, 9, 'https://static.wtable.co.kr/image/production/service/recipe/1920/b1d99f66-c96e-4668-a499-cde4abfabc10.jpg?size=800x800', '강아지 얼굴과 문구 장식으로 완성해 주세요.케이크 12cm 기준으로 1회 급식은,  5kg대 강아지들은 케이크 크기의 1/4, 2~3kg대 강아지들은 케이크 크기의 1/6 정도 나눠 급여해 주세요.(tip.처음 먹이는 간식은 소량만 급여해 알레르기 반응 여부를 확인해 주세요.)(tip. 차가운 간식은 설사 및 구토를 유발할 수 있어, 급여 전 충분히 해동한 후 전자레인지에 5-10초 돌리거나, 실온에서 찬기를 제거한 후 급여해 주세요.) ');
 INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
 VALUES
-    (32, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1920/b5a5acc9-f91d-47c7-b5e8-6f2bc589263f.jpg?size=800x800', '두부를 차가운 물에 30분 이상 담근 후, 끓는 물에 5분 정도 데쳐 염분을 완전히 제거해 주세요. 데친 두부를 면포로 꾹 짜서 수분을 제거해 주세요.'),
-    (32, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1920/4c9fea8d-00ea-4070-9f92-71a54f9a28e4.jpg?size=800x800', '락토프리 우유를 냄비에 넣고 저어가며 약불에서 끓여주세요. 우유가 끓기 시작하면 불을 끄고 식초를 넣어 잘 섞어주세요. 덩어리가 생기고 테두리 부분에 맑은 물이 생기면  면포에 걸러 코티지치즈를 완성해 주세요. '),
-    (32, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1920/61a96889-9a49-4502-8e67-443a468bd4e7.jpg?size=800x800', '볼에 두부와 코티지치즈를 담고 락토프리 우유 여유분 100g과 꿀을 넣어주세요. 핸드믹서로 부드러운 크림 제형이 될 때까지 곱게 갈아 주세요. 완성된 생크림은 냉장고에 넣어 주세요.(tip. 생크림의 농도를 확인하면서 우유 여유분을 조절해 주세요.) '),
-    (32, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1920/82b165b8-6c40-433e-99ab-9ce90e513419.jpg?size=800x800', '계란의 흰자와 노른자를 분리한 후, 흰자에 꿀을 넣고 핸드믹서로 머랭을 단단히 만들어주세요.'),
-    (32, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1920/90df461e-873a-4060-aeeb-6cde2e794599.jpg?size=800x800', '코코넛오일과 락토프리 우유를 섞어 전자레인지에 20초 정도 데워주세요. (tip. 전자레인지 사양에 따라 시간을 조절해 주세요. 코코넛오일이 녹을 정도로만 데워주세요.)'),
-    (32, 6, 'https://static.wtable.co.kr/image/production/service/recipe/1920/9c62f8bc-ad8a-4f4b-9c5c-b4b09537ad80.jpg?size=800x800', '분리해 놓은 노른자와 섞어놓은 코코넛오일, 락토프리 우유를 섞어 주세요. 쌀가루 분말을 체에 내려 함께 섞어주세요. 흰자 머랭의 1/3 분량을 넣어 섞어준 후, 머랭이 꺼지지 않도록 나머지 분량을 모두 섞어 주세요. 깍둑 모양의 찐 단호박을 넣어 섞어주세요.'),
-    (32, 7, 'https://static.wtable.co.kr/image/production/service/recipe/1920/a26bd5b5-efdd-456f-a123-583cb7e1bbeb.jpg?size=800x800', '케이크 틀에 유산지를 깔고 반죽을 부어주세요. 170도로 예열한 오븐에 25분간 구워주세요. 완성한 시트는 한 김 식혀 준비해 주세요.'),
-    (32, 8, 'https://static.wtable.co.kr/image/production/service/recipe/1920/1b7cf50a-509f-479b-b689-2dc139c56e4d.jpg?size=800x800', '준비한 크림에 천연 분말을 넣어 원하는 색을 만들어주세요.(노란색- 단호박가루, 검은색-오징어 먹물 가루, 분홍색- 비트 가루)'),
-    (32, 9, 'https://static.wtable.co.kr/image/production/service/recipe/1920/830ad758-2a1b-42a7-a860-76e54dba19bc.jpg?size=800x800', '케이크 박스 밑판 위에 만들어 둔 시트를 올리고 아이싱을 해주세요.'),
-    (32, 9, 'https://static.wtable.co.kr/image/production/service/recipe/1920/b1d99f66-c96e-4668-a499-cde4abfabc10.jpg?size=800x800', '강아지 얼굴과 문구 장식으로 완성해 주세요.케이크 12cm 기준으로 1회 급식은,  5kg대 강아지들은 케이크 크기의 1/4, 2~3kg대 강아지들은 케이크 크기의 1/6 정도 나눠 급여해 주세요.(tip.처음 먹이는 간식은 소량만 급여해 알레르기 반응 여부를 확인해 주세요.)(tip. 차가운 간식은 설사 및 구토를 유발할 수 있어, 급여 전 충분히 해동한 후 전자레인지에 5-10초 돌리거나, 실온에서 찬기를 제거한 후 급여해 주세요.) ');
+    (32, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2560/5b6b71ca-78ec-440a-9a03-b76eeb05e13c.jpg?size=800x800', '볼에 강력분을 넣고 한쪽에 이스트, 반대 쪽에 설탕, 소금을 각각 넣어 섞어주세요.'),
+    (32, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2560/de7670f8-a998-44e0-a461-70e91c8b7f9a.jpg?size=800x800', '우유와 달걀을 넣어 한 덩어리가 될 때까지 반죽기로 돌려주세요.(tip. 빵 반죽기가 없을 경우 핸드 믹서로 반죽이 가능해요)'),
+    (32, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2560/549997b4-344e-47f2-a3ab-83cb98fe52ed.jpg?size=800x800', '버터를 넣어 매끈한 반죽이 되도록 반죽을 해주세요. 볼에 담은 후 랩을 싸서 1시간 정도 따뜻한 실온에 발효를 시켜주세요.'),
+    (32, 4, 'https://static.wtable.co.kr/image/production/service/recipe/2560/1d48a978-f230-41f9-944b-a6934b1ee4e9.jpg?size=800x800', '볼에 쿠키 반죽 재료인 버터를 풀어준 후 설탕을 넣어 섞어주세요.'),
+    (32, 5, 'https://static.wtable.co.kr/image/production/service/recipe/2560/c84cd5cb-e95a-4437-aef4-875e8df79357.jpg?size=800x800', '달걀을 여러 번 나눠 넣으며 섞은 후 초록색 식용 색소를 넣어 섞어주세요.'),
+    (32, 6, 'https://static.wtable.co.kr/image/production/service/recipe/2560/35555e6d-d346-4f80-b79f-36c55d4c3a7d.jpg?size=800x800', '박력분을 체에 쳐서 넣어 한 덩어리가 되도록 섞어주세요. 지퍼백에 넣어 납작하게 만들어 냉장고에 넣고 휴지시켜 주세요. '),
+    (32, 7, 'https://static.wtable.co.kr/image/production/service/recipe/2560/f4e5a323-cebe-4dc5-ae8b-63916d447240.jpg?size=800x800', '1차 발효가 끝난 빵 반죽은 덧가루를 뿌려 반죽을 하며 공기를 빼주세요. '),
+    (32, 8, 'https://static.wtable.co.kr/image/production/service/recipe/2560/1862946f-9127-4db8-bbba-27d8c41d7c8b.jpg?size=800x800', '반죽을 몸통 45g 6개, 팔, 다리, 꼬리 2g 30개, 얼굴 5g 6개로 나눠 둥글리기 해주세요. 랩을 덮어 2차 발효를 시켜주세요. '),
+    (32, 9, 'https://static.wtable.co.kr/image/production/service/recipe/2560/98940004-f770-4e15-b5a9-4f3464c4937c.jpg?size=800x800', '발효가 끝난 쿠키 반죽을 6분할로 나눠 둥글리기 해주세요. '),
+    (32, 10, 'https://static.wtable.co.kr/image/production/service/recipe/2560/e1641864-4ed0-4163-9b53-448a50023c9c.jpg?size=800x800', '차가운 쿠키 반죽을 얇게 펴서 몸통 반죽을 꼼꼼하게 덮어주세요.'),
+    (32, 11, 'https://static.wtable.co.kr/image/production/service/recipe/2560/c0466a85-4e2e-45cf-a5a3-65473736b332.jpg?size=800x800', '트레이에 설탕을 넣어 감싼 반죽을 굴려주세요. '),
+    (32, 12, 'https://static.wtable.co.kr/image/production/service/recipe/2560/b2a54198-4934-42da-ad04-1f215a8b223b.jpg?size=800x800', '거북이 등 모양으로 칼집을 내주세요. 오븐팬에 머리, 팔다리와 합쳐 몸통을 올려주세요. '),
+    (32, 13, 'https://static.wtable.co.kr/image/production/service/recipe/2560/129fa690-7415-475c-87ff-810a77d7c1e0.jpg?size=800x800', '180도로 예열된 오븐에 넣어 20분 정도 구워주세요.기호에 따라 초코펜이나 검은깨 등으로 거북이의 얼굴을 그려 완성해 주세요. ');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (33, 1, 'https://static.wtable.co.kr/image/production/service/recipe/822/e3d37dab-a20b-4b8f-ad87-9f939bbeb81a.jpg?size=800x800', '깨끗이 씻은 딸기는 꼭지를 제거한 후 키친타월로 물기를 완전히 제거해주세요.'),
+    (33, 2, 'https://static.wtable.co.kr/image/production/service/recipe/822/b4a954c5-9175-4f7d-bc43-4135e37db105.jpg?size=800x800', '볼에 밀크초콜릿을 담은 후 초콜릿을 담은 볼보다 큰 볼에 60도 이하의 따뜻한 물을 넣고, 저어주며 중탕으로 녹여주세요.'),
+    (33, 3, 'https://static.wtable.co.kr/image/production/service/recipe/822/b9daa468-b7ae-44e6-9268-b35af00b4be2.jpg?size=800x800', '얼음틀 안쪽에 녹인 초콜릿을 묻힌 후 냉장고에 넣어 3분 정도 굳혀주세요.'),
+    (33, 4, 'https://static.wtable.co.kr/image/production/service/recipe/822/6564fccf-24cf-4c32-8451-17195ce4b179.jpg?size=800x800', '마쉬멜로우를 볼에 담아 전자레인지에 넣어 30초 정도 녹인 후 짤주머니에 담아주세요. (마쉬멜로우는 금방 굳을 수 있으니 최대한 빨리 넣어서 만드시는 게 좋아요.)'),
+    (33, 5, 'https://static.wtable.co.kr/image/production/service/recipe/822/e60c9925-dd3a-4e14-9bd0-23c3e18c1c25.jpg?size=800x800', '굳은 초콜릿 위에 마시멜로우를 약간씩 짜 넣은 후 딸기를 올리고 남은 초콜릿으로 덮어주세요.'),
+    (33, 6, 'https://static.wtable.co.kr/image/production/service/recipe/822/eb04ad67-e77b-43d5-b66e-0eed85b20e78.jpg?size=800x800', '냉장고에 20분 정도 넣어 완전히 굳혀주세요.얼음틀에서 꺼낸 후 적당한 크기로 잘라 맛있게즐겨주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (34, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1653/15f7d0bc-ef96-43cc-9b5b-bdf47054e62c.jpg?size=800x800', '아보카도는 껍질과 씨를 제거하고 블렌더에 아보카도 과육과 메이플시럽을 넣어 곱게 갈아주세요.'),
+    (34, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1653/53395d82-784e-4972-8437-0d1920af40cc.jpg?size=800x800', '볼에 시판용 브라우니 믹스와 물을 넣고 잘 섞어 반죽을 만들어주세요.'),
+    (34, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1653/3dc434da-779e-49fd-93e5-6ba6e1e75e8d.jpg?size=800x800', '브라우니 반죽에 순서 1을 넣고 잘 섞은 후 1cm 높이의 납작한 직육면체 모양을 만든 뒤 전자레인지에 4분간 돌려주세요.'),
+    (34, 4, 'https://static.wtable.co.kr/image/production/service/recipe/N2XJNavrHC14E4NHBNdCgmYZ/step4.jpg?size=800x800', '녹인 초콜릿과 버터 혼합물, 밀가루, 코코아 가루, 베이킹 파우더, 소금을 넣고 잘 섞어줍니다.잘 구워진 브라우니에 슈가파우더를 뿌려 완성해 주세요.');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (35, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1092/b23fd045-a406-48d4-a985-13173ef035c2.jpg?size=800x800', '
+                                                                                                                                       1. 통밀쿠키를 비닐 팩에 넣고 밀대로 밀어 최대한 곱게 부숴주세요.
+                                                                                                                                       (Tip! 통밀쿠키는 시중에서 판매하는 것을 사용해도 괜찮습니다.)
+                                                                                                                                       2. 곱게 부서진 통밀쿠키를 볼에 넣고 미리 녹여둔 버터를 부어 잘 섞어주세요.
+                                                                                                                                       3. 유산지를 깐 팬에 순서2를 붓고 밀대의 동그란 부분을 이용해 평평하게 펴준 뒤 냉장고에 넣 어주세요.
+                                                                                                                                       4. 볼에 크림치즈를 담고 부드럽게 풀어주다가 설탕을 더해 마요네즈 상태가 될 때까지 섞어 주세요.'),
+    (35, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1092/9b35504c-b0e9-4f34-8d56-c348dff54cfb.jpg?size=800x800', '5. 물에 젤라틴을 넣고 충분히 불려주세요.
+                                                                                                                                       (Tip! 젤라틴을 처음 불려줄 때 사용할 물은 반드시 차가운 것으로 합니다.)
+                                                                                                                                       6. 그사이 플레인 요거트를 순서4에 붓고 잘 섞어주세요.
+                                                                                                                                       7. 순서6에 준비한 생크림의 절반만 넣어 저어주다가 나머지 생크림을 모두 붓고 골고루 믹싱합니다.
+                                                                                                                                       (Tip! 거품기를 들어 올렸을 때 끝에 묻은 반죽이 아래로 떨어져 바로 사라지지 않고 몇 초 동안 남아 있으면 완성입니다.)'),
+    (35, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1092/4accaee9-1575-471d-902d-62e610915d48.jpg?size=800x800', '8. 찬물에 불려 놓았던 젤라틴의 물기를 꽉 짜서 작은 그릇에 넣어주세요.
+                                                                                                                                       9. 커다란 냄비에 뜨거운 물을 붓고 순서8을 올려 중탕으로 젤라틴을 완전히 녹여주세요.
+                                                                                                                                       10. 순서7에 녹은 젤라틴을 넣고 잘 저어준 다음 레몬즙을 더해 골고루 섞어줍니다.'),
+    (35, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1092/7fe49adc-14b0-4da2-bdf3-04afdbef5533.jpg?size=800x800', '11. 냉장고에 넣어두었던 순서3을 꺼내 통밀쿠키 반죽 위에 순서10을 부어주세요.
+                                                                                                                                       12. 젓가락으로 표면에 발생한 기포를 없애준 뒤 냉장고에 다시 넣어 3시간 이상 굳힙니다.
+                                                                                                                                       13. 순서12를 냉장고에서 꺼낸 뒤 뜨거운 행주로 틀을 감싸주세요.
+                                                                                                                                       (Tip! 너무 오랫동안 감싸고 있으면 케이크가 다 녹아내릴 수 있으니 주의합니다.)
+                                                                                                                                       14. 원형 통 위에 순서13을 올려두고 팬을 제거합니다.15. 우유, 커피 등과 함께 맛있게 즐겨주세요!');
+
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
@@ -1364,7 +1485,13 @@ VALUES (30, 'https://static.wtable.co.kr/image/production/service/recipe/2667/fd
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (31, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e79a3dbe-28fb-4643-a22c-2a2205973afa.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
-VALUES (32, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e79a3dbe-28fb-4643-a22c-2a2205973afa.jpg?size=800x800');
+VALUES (32, 'https://static.wtable.co.kr/image/production/service/recipe/2560/a8f9cbc9-3134-4bf7-ab99-91ec25f015f9.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (33, 'https://static.wtable.co.kr/image/production/service/recipe/822/bc903391-fa77-4f87-a5da-c68637a44c04.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (34, 'https://static.wtable.co.kr/image/production/service/recipe/1653/f6a04a92-56da-4ab0-86ab-d426e03318f3.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (35, 'https://static.wtable.co.kr/image/production/service/recipe/1092/bf2af94a-69d6-4a0f-a46b-b4ffcb7af121.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -1431,7 +1558,13 @@ VALUES (30, '#과일'), (30, '#셔벗'), (30, '#여름디저트'), (30, '#시원
 INSERT INTO recipe_tag (id, tags)
 VALUES (31, '#강아지케이크'), (31, '#반려견케이크'), (31, '#반려견음식'), (31, '#반려견생일');
 INSERT INTO recipe_tag (id, tags)
-VALUES (32, '#강아지케이크'), (32, '#반려견케이크'), (32, '#반려견음식'), (32, '#반려견생일');
+VALUES (32, '메론빵'), (32, '디저트'), (32, '거북이 모양'), (32, '바삭한');
+INSERT INTO recipe_tag (id, tags)
+VALUES (33, '딸기'), (33, '초콜릿'), (33, '디저트'), (33, '달콤한');
+INSERT INTO recipe_tag (id, tags)
+VALUES (34, '브라우니'), (34, '아보카도'), (34, '디저트'), (34, '초콜릿');
+INSERT INTO recipe_tag (id, tags)
+VALUES (35, '치즈케이크'), (35, '레어 치즈케이크'), (35, '디저트'), (35, '레몬');
 
 
 -- Comments for Recipe
@@ -1592,9 +1725,24 @@ VALUES
     (31, 3, '이거 진짜 너무 추천해요. 울강아지 냠냠 잘먹음!');
 INSERT INTO recipe_comments (recipe_id, member_id, content)
 VALUES
-    (32, 1, '너무 좋아요 우리 강아지 생일날 해줘야 겠어요!'),
-    (32, 2, '댕댕이가 좋아합니다'),
-    (32, 3, '이거 진짜 너무 추천해요. 울강아지 냠냠 잘먹음!');
+    (32, 1, '거북이 모양이 귀엽고 맛도 정말 좋네요!'),
+    (32, 2, '아이들과 함께 만들기 좋은 레시피입니다. 메론빵을 이렇게 만들 수 있군요!'),
+    (32, 3, '부드럽고 달콤한 메론빵, 집에서 쉽게 만들 수 있어 좋았습니다.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (33, 1, '딸기와 초콜릿의 조화가 정말 좋아요! 간단하게 만들 수 있어 좋습니다.'),
+    (33, 2, '초콜릿이 부드럽고 딸기가 상큼해서 너무 맛있네요.'),
+    (33, 3, '아이들과 함께 만들기 좋은 레시피입니다. 예쁘게 꾸며서 파티에도 잘 어울려요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (34, 1, '아보카도가 들어가서 더욱 부드럽고 풍부한 맛이 납니다! 건강하게 즐길 수 있는 브라우니네요.'),
+    (34, 2, '브라우니에 아보카도라니, 신선한 느낌이네요. 초콜릿과 잘 어우러져서 맛있어요.'),
+    (34, 3, '건강한 디저트를 찾고 있었는데 이 레시피가 딱이에요. 아보카도가 이렇게 맛있게 변하다니!');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (35, 1, '부드럽고 상큼한 맛이 일품입니다! 레몬의 향이 정말 좋네요.'),
+    (35, 2, '만들기 쉽고, 맛도 훌륭해요. 가족 모두가 좋아했습니다.'),
+    (35, 3, '치즈케이크가 이렇게 가벼울 수 있다니 놀라워요. 자주 만들어 먹을 것 같아요.');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -1660,8 +1808,13 @@ VALUES (1, 30);  -- 사용자가 30번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 31);  -- 사용자가 30번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
-VALUES (1, 32);  -- 사용자가 30번 레시피를 찜한 경우
-
+VALUES (1, 32);  -- 사용자가 32번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 33);  -- 사용자가 33번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 34);  -- 사용자가 33번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 35);  -- 사용자가 33번 레시피를 찜한 경우
 
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;
