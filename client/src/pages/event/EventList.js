@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Link } from "react-router-dom";
 
 import "./EventList.css";
@@ -35,25 +35,7 @@ export default function EventList() {
         </Link>
       </AdminFeature>
       {content.length > 0 ? (
-        content.map((event, index) => (
-          <Link
-            to={`/events/${event.id}`}
-            key={index}
-            className="event_state_wrap"
-          >
-            <div className="event_text_wrap">
-              <span className="event_state_name">{event.title}</span>
-              <span className="event_date">
-                {event.startDate.slice(0, 10)}&nbsp;&nbsp;
-                {event.endDate && event.endDate.slice(0, 10)}
-              </span>
-            </div>
-
-            <div className="event_imageUrl">
-              <img src={event.bannerImage} alt="event_bannerImage"></img>
-            </div>
-          </Link>
-        ))
+        content.map((event) => <EventCard event={event} key={event.id} />)
       ) : (
         <div>No events found.</div>
       )}
@@ -61,3 +43,19 @@ export default function EventList() {
     </div>
   );
 }
+
+const EventCard = memo(({ event }) => (
+  <Link to={`/events/${event.id}`} className="event_state_wrap">
+    <div className="event_text_wrap">
+      <span className="event_state_name">{event.title}</span>
+      <span className="event_date">
+        {event.startDate.slice(0, 10)}&nbsp;&nbsp;
+        {event.endDate && event.endDate.slice(0, 10)}
+      </span>
+    </div>
+
+    <div className="event_imageUrl">
+      <img src={event.bannerImage} alt="event_bannerImage"></img>
+    </div>
+  </Link>
+));
