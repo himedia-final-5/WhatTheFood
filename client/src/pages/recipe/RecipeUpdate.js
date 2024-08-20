@@ -354,7 +354,7 @@ export default function RecipeUpdate() {
         <div className="flex flex-wrap gap-y-2">
           {recipe.cookingStep &&
             recipe.cookingStep.length > 0 &&
-            recipe.cookingStep.map((step, index) => (
+            recipe.cookingStep.map((cookingStep, index) => (
               <div
                 key={index}
                 className={cn(
@@ -381,17 +381,13 @@ export default function RecipeUpdate() {
                   X
                 </button>
                 <ImageUploadInput
-                  onUpload={(image) =>
-                    setRecipe({
-                      ...recipe,
-                      cookingStep: recipe.imageUrl.map((item, i) =>
-                        i === index ? { ...item, image } : item,
-                      ),
-                    })
+                  onUpload={(cookingStepImages) =>
+                    setRecipe({ ...recipe, cookingStepImages })
                   }
-                  imageSrc={step.imageUrl}
+                  imageSrc={cookingStep.imageUrl}
                   className={cn(
-                    "flex flex-col items-center justify-center w-full h-full overflow-hidden",
+                    "flex flex-col items-center justify-center w-full overflow-hidden",
+                    "border-2 border-gray-300 border-dashed rounded-lg",
                   )}
                 />
               </div>
