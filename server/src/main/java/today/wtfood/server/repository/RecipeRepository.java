@@ -53,11 +53,13 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
     @Query("SELECT r FROM Recipe r WHERE " +
             "(:title IS NULL OR r.title LIKE %:title%) AND " +
             "(:category IS NULL OR r.category LIKE %:category%) AND " +
-            "(:description IS NULL OR r.description LIKE %:description%)")
-    Page<Recipe> findByTitleContainingAndCategoryContainingAndDescriptionContaining(
+            "(:description IS NULL OR r.description LIKE %:description%) AND " +
+            "(:hashtag IS NULL OR :hashtag MEMBER OF r.tags)")
+    Page<Recipe> searchRecipes(
             @Param("title") String title,
             @Param("category") String category,
             @Param("description") String description,
+            @Param("hashtag") String hashtag,
             Pageable pageable
     );
 

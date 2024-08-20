@@ -50,14 +50,8 @@ public class RecipeService {
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
     }
 
-    public Page<Recipe> searchRecipes(String title, String category, String description, Pageable pageable) {
-        // 레시피를 검색하기 위해 조건에 맞는 쿼리를 호출합니다.
-        return rr.findByTitleContainingAndCategoryContainingAndDescriptionContaining(
-                title != null ? title : "",
-                category != null ? category : "",
-                description != null ? description : "",
-                pageable
-        );
+    public Page<Recipe> searchRecipes(String title, String category, String description, String hashtag, Pageable pageable) {
+        return rr.searchRecipes(title, category, description, hashtag, pageable);
     }
 
     // 조회수

@@ -40,16 +40,17 @@ public class RecipeController {
         return rs.getRecipeById(id);
     }
 
-    // 통합 레시피 검색
+    // 제목, 카테고리, 설명, 해시태그로 레시피 검색
     @GetMapping("/search")
     @PreAuthorize("permitAll()")
     public PageResponse<Recipe> searchRecipes(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "hashtag", required = false) String hashtag,
             Pageable pageable
     ) {
-        return PageResponse.of(rs.searchRecipes(title, category, description, pageable));
+        return PageResponse.of(rs.searchRecipes(title, category, description, hashtag, pageable));
     }
     //제목 설명 카테고리 한코드로 해서 검색으로 뭉쳐서 보내고 한번에 받는 코드로 수정하기
 
