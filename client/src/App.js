@@ -52,7 +52,7 @@ import RecipeList from "pages/recipe/RecipeList";
 
 function App() {
   return (
-    <div className="App flex flex-col w-full h-full">
+    <div className="App flex flex-col w-full h-full min-h-screen">
       <ErrorBoundary FallbackComponent={FallbackRender}>
         <Suspense fallback={<FallbackRender />}>
           <Routes>
