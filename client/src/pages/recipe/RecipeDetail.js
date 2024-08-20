@@ -15,7 +15,7 @@ const DEFAULT_RECIPE = null;
 export default function RecipeDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const [commentText, setCommentText] = useState("");
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
 
@@ -301,22 +301,46 @@ export default function RecipeDetail() {
               )}
             </ul>
           </div>
-          <div className="recipedetail_comment">
-            <ul>
+          {/* 댓글 섹션 */}
+          <div className="recipedetail_comment_wrap">
+            <div className="recipedetail_comment">
+              <h3>댓글</h3>
               {Array.isArray(recipe.comments) && recipe.comments.length > 0 ? (
                 recipe.comments.map((comment, index) => (
-                  <li key={index}>
-                    <p className="comment_author">{comment.member.nickname}</p>
-                    <p className="comment_content">{comment.content}</p>
-                    <p className="comment_date">
-                      {new Date(comment.createdDate).toLocaleString()}
-                    </p>
-                  </li>
+                  <div key={index} className="comment-card">
+                    <div className="comment-header">
+                      <img
+                        src={
+                          comment.member.profileImage || "/default-profile.png"
+                        }
+                        alt="Profile"
+                        className="comment-profile-image"
+                      />
+                      <span className="comment-nickname">
+                        {comment.member.nickname}
+                      </span>
+                      <span className="comment-date">
+                        {new Date(comment.createdDate).toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="comment-content">{comment.content}</div>
+                  </div>
                 ))
               ) : (
                 <p>No comments available.</p>
               )}
-            </ul>
+            </div>
+          </div>
+
+          {/* 댓글 입력란 */}
+          <div className="comment-input-wrap">
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="댓글을 입력하세요..."
+              rows="3"
+            />
+            <button>댓글 추가</button>
           </div>
         </div>
       </div>

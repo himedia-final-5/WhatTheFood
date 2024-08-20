@@ -245,37 +245,147 @@
   background: #e64a19;
 }
 
-/* 댓글 섹션 */
-.recipedetail_comment {
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-radius: 12px;
-}
-
-.recipedetail_comment ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.recipedetail_comment li {
-  background-color: #ffffff;
-  padding: 15px;
-  margin-bottom: 15px;
+/* 댓글 섹션 전체 감싸는 컨테이너 */
+.recipedetail_comment_wrap {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* 댓글 리스트 컨테이너 */
+.recipedetail_comment {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 개별 댓글 카드 */
+.comment-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.recipedetail_comment p {
-  margin: 0;
-  line-height: 1.6;
+/* 댓글 섹션 전체 감싸는 컨테이너 */
+.recipedetail_comment_wrap {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.recipedetail_comment strong {
+/* 댓글 섹션 제목 */
+.comment-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 12px;
   color: #333;
 }
 
+/* 댓글 리스트 컨테이너 */
+.recipedetail_comment {
+  width: 100%;
+}
+
+/* 개별 댓글 카드 */
+.comment-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* 댓글 카드 hover 효과 */
+.comment-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 댓글 카드 */
+.comment-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 댓글 헤더 */
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* 댓글 프로필 이미지 */
+.comment-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+/* 댓글 닉네임 */
+.comment-nickname {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #333;
+}
+
+/* 댓글 날짜 */
+.comment-date {
+  color: #888;
+}
+
+/* 댓글 내용 */
+.comment-content {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* 댓글 입력란 */
+.comment-input-wrap {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-input-wrap textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: none;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.comment-input-wrap button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.comment-input-wrap button:hover {
+  background-color: #0056b3;
+}
 
 /* 반응형 디자인 */
 @media screen and (max-width: 767px) {
@@ -317,13 +427,6 @@
 
   .recipedetail_ingredients ul {
     margin-top: 20px; /* Add spacing above ingredients list */
-  }
- .recipedetail_comment {
-    padding: 15px;
-  }
-
-  .recipedetail_comment li {
-    padding: 10px;
   }
 }
 
