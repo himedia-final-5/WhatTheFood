@@ -137,6 +137,14 @@ INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_tim
 VALUES (30, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2667/3aaa6a5a-33b4-4b57-abea-14d6f36d82ed.jpg?size=500x500',
 '새콤달콤 여름에 시원하게', '상큼하고 시원한 과일 셔벗! 제철 과일을 이용해 간편하게 만들 수 있는 여름철 디저트입니다. 달콤함과 상큼함이 어우러져 입맛을 돋우는 데 최고입니다.',
 20, 4, 2, 'https://www.youtube.com/watch?v=JnNLlLX-6Vs&pp=ygUa6rO87J28IOyDpOuyoO2KuCDrp4zrk6TquLA%3D', '간식', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (31, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1920/6d82db45-4439-403f-b6e1-e519c87cc8e8.jpg?size=500x500',
+'우리 강아지를 위한 특별한 선물', '반려견과 함께하는 분들이라면 주목! 소중한 우리 강아지의 생일을 특별한 순간으로 장식해줄 반려견 생일 케이크 레시피 소개해요.',
+40, 1, 2, 'http://video.wtable.co.kr/video/production/service/recipe/1920/b8fef8c1-efb0-48c6-ae8d-1cfb54221f12.mp4', '베이킹', 0);
+INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
+VALUES (32, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1920/6d82db45-4439-403f-b6e1-e519c87cc8e8.jpg?size=500x500',
+'우리 강아지를 위한 특별한 선물', '반려견과 함께하는 분들이라면 주목! 소중한 우리 강아지의 생일을 특별한 순간으로 장식해줄 반려견 생일 케이크 레시피 소개해요.',
+40, 1, 2, 'http://video.wtable.co.kr/video/production/service/recipe/1920/b8fef8c1-efb0-48c6-ae8d-1cfb54221f12.mp4', '베이킹', 0);
 
 
 -- 재료 사진 삽입
@@ -200,6 +208,10 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (29, 'https://static.wtable.co.kr/image/production/service/recipe/1657/af704f9a-bef7-4a0d-8682-68cb2a09b922.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (30, 'https://static.wtable.co.kr/image/production/service/recipe/2667/2f45ebc9-8eca-4295-9f41-cc5024bdc266.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (31, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e6d2ec01-4745-4cef-99c1-00e0935b02e9.jpg?size=800x800');
+INSERT INTO recipe_ingredient_image (id, ingredient_image)
+VALUES (32, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e6d2ec01-4745-4cef-99c1-00e0935b02e9.jpg?size=800x800');
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -878,6 +890,63 @@ VALUES
          (30, '2큰술'),
          (30, '물'),
          (30, '100ml');
+  INSERT INTO recipe_ingredient (id, ingredients)
+  VALUES
+      (31, '케이크 틀'),
+          (31, '계란'),
+          (31, '2개'),
+          (31, '쌀가루 분말'),
+          (31, '70g'),
+          (31, '코코넛오일'),
+          (31, '15g'),
+          (31, '락토프리 우유'),
+          (31, '30g'),
+          (31, '꿀'),
+          (31, '1큰술'),
+          (31, '찐 단호박'),
+          (31, '35g'),
+          (31, '두부'),
+          (31, '1모(300g)'),
+          (31, '락토프리 우유'),
+          (31, '1팩(930ml)'),
+          (31, '락토프리 우유 여유분'),
+          (31, '100g'),
+          (31, '식초'),
+          (31, '2큰술'),
+          (31, '꿀'),
+          (31, '1큰술'),
+          (31, '천연 분말'),
+          (31, '블루베리'),
+          (31, '단호박');
+
+INSERT INTO recipe_ingredient (id, ingredients)
+  VALUES
+      (32, '케이크 틀'),
+          (32, '계란'),
+          (32, '2개'),
+          (32, '쌀가루 분말'),
+          (32, '70g'),
+          (32, '코코넛오일'),
+          (32, '15g'),
+          (32, '락토프리 우유'),
+          (32, '30g'),
+          (32, '꿀'),
+          (32, '1큰술'),
+          (32, '찐 단호박'),
+          (32, '35g'),
+          (32, '두부'),
+          (32, '1모(300g)'),
+          (32, '락토프리 우유'),
+          (32, '1팩(930ml)'),
+          (32, '락토프리 우유 여유분'),
+          (32, '100g'),
+          (32, '식초'),
+          (32, '2큰술'),
+          (32, '꿀'),
+          (32, '1큰술'),
+          (32, '천연 분말'),
+          (32, '블루베리'),
+          (32, '단호박');
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -940,6 +1009,10 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (29, '믹서기'), (29, '볼'), (29, '스푼'), (29, '아이스크림 틀');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (30, '믹서기'), (30, '볼'), (30, '냉동용기');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (31, '냄비'), (31, '그릇'), (31, '주걱'), (31, '유산지');
+INSERT INTO recipe_tool (id, cooking_tools)
+VALUES (32, '냄비'), (32, '그릇'), (32, '주걱'), (32, '유산지');
 
 
 -- Recipe Guide Links
@@ -1003,6 +1076,10 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (29, 'http://blog.naver.com/pinksummer88/223546464430');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (30, 'http://www.10000recipe.com/recipe/6872518');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (31, 'http://www.10000recipe.com/recipe/6893533');
+INSERT INTO recipe_guide_link (id, guide_links)
+VALUES (32, 'http://www.10000recipe.com/recipe/6893533');
 
 
 -- Recipe Cooking Steps
@@ -1199,6 +1276,30 @@ VALUES
     (30, 1, 'https://static.wtable.co.kr/image/production/service/recipe/2667/f4db6a85-fa25-40fc-a8b7-252e03462b8f.jpg?size=800x800', '휴롬 착즙기에 냉동 과일을 넣고 동작해주세요.'),
     (30, 2, 'https://static.wtable.co.kr/image/production/service/recipe/2667/a6f3ff74-10b9-4ef6-9e35-052ae6b409b5.jpg?size=800x800', '섬유질이 나오는 홀에서 과일 셔벗이 나오기 시작하면 누름 봉으로 과일을 중간중간 눌러주세요. '),
     (30, 3, 'https://static.wtable.co.kr/image/production/service/recipe/2667/5083a5c8-9d30-4dcb-ab94-3ebea98e95c8.jpg?size=800x800', '용기에 냉동과일을 담아 냉동실에서 1시간 정도 두세요.완성된 셔벗은 아이스크림 스쿱으로 떠서 볼에 담아 맛있게 즐겨주세요. (tip. 허브로 장식하거나 말린 과일칩 등을 올려 장식해도 좋아요)');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (31, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1920/b5a5acc9-f91d-47c7-b5e8-6f2bc589263f.jpg?size=800x800', '두부를 차가운 물에 30분 이상 담근 후, 끓는 물에 5분 정도 데쳐 염분을 완전히 제거해 주세요. 데친 두부를 면포로 꾹 짜서 수분을 제거해 주세요.'),
+    (31, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1920/4c9fea8d-00ea-4070-9f92-71a54f9a28e4.jpg?size=800x800', '락토프리 우유를 냄비에 넣고 저어가며 약불에서 끓여주세요. 우유가 끓기 시작하면 불을 끄고 식초를 넣어 잘 섞어주세요. 덩어리가 생기고 테두리 부분에 맑은 물이 생기면  면포에 걸러 코티지치즈를 완성해 주세요. '),
+    (31, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1920/61a96889-9a49-4502-8e67-443a468bd4e7.jpg?size=800x800', '볼에 두부와 코티지치즈를 담고 락토프리 우유 여유분 100g과 꿀을 넣어주세요. 핸드믹서로 부드러운 크림 제형이 될 때까지 곱게 갈아 주세요. 완성된 생크림은 냉장고에 넣어 주세요.(tip. 생크림의 농도를 확인하면서 우유 여유분을 조절해 주세요.) '),
+    (31, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1920/82b165b8-6c40-433e-99ab-9ce90e513419.jpg?size=800x800', '계란의 흰자와 노른자를 분리한 후, 흰자에 꿀을 넣고 핸드믹서로 머랭을 단단히 만들어주세요.'),
+    (31, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1920/90df461e-873a-4060-aeeb-6cde2e794599.jpg?size=800x800', '코코넛오일과 락토프리 우유를 섞어 전자레인지에 20초 정도 데워주세요. (tip. 전자레인지 사양에 따라 시간을 조절해 주세요. 코코넛오일이 녹을 정도로만 데워주세요.)'),
+    (31, 6, 'https://static.wtable.co.kr/image/production/service/recipe/1920/9c62f8bc-ad8a-4f4b-9c5c-b4b09537ad80.jpg?size=800x800', '분리해 놓은 노른자와 섞어놓은 코코넛오일, 락토프리 우유를 섞어 주세요. 쌀가루 분말을 체에 내려 함께 섞어주세요. 흰자 머랭의 1/3 분량을 넣어 섞어준 후, 머랭이 꺼지지 않도록 나머지 분량을 모두 섞어 주세요. 깍둑 모양의 찐 단호박을 넣어 섞어주세요.'),
+    (31, 7, 'https://static.wtable.co.kr/image/production/service/recipe/1920/a26bd5b5-efdd-456f-a123-583cb7e1bbeb.jpg?size=800x800', '케이크 틀에 유산지를 깔고 반죽을 부어주세요. 170도로 예열한 오븐에 25분간 구워주세요. 완성한 시트는 한 김 식혀 준비해 주세요.'),
+    (31, 8, 'https://static.wtable.co.kr/image/production/service/recipe/1920/1b7cf50a-509f-479b-b689-2dc139c56e4d.jpg?size=800x800', '준비한 크림에 천연 분말을 넣어 원하는 색을 만들어주세요.(노란색- 단호박가루, 검은색-오징어 먹물 가루, 분홍색- 비트 가루)'),
+    (31, 9, 'https://static.wtable.co.kr/image/production/service/recipe/1920/830ad758-2a1b-42a7-a860-76e54dba19bc.jpg?size=800x800', '케이크 박스 밑판 위에 만들어 둔 시트를 올리고 아이싱을 해주세요.'),
+    (31, 9, 'https://static.wtable.co.kr/image/production/service/recipe/1920/b1d99f66-c96e-4668-a499-cde4abfabc10.jpg?size=800x800', '강아지 얼굴과 문구 장식으로 완성해 주세요.케이크 12cm 기준으로 1회 급식은,  5kg대 강아지들은 케이크 크기의 1/4, 2~3kg대 강아지들은 케이크 크기의 1/6 정도 나눠 급여해 주세요.(tip.처음 먹이는 간식은 소량만 급여해 알레르기 반응 여부를 확인해 주세요.)(tip. 차가운 간식은 설사 및 구토를 유발할 수 있어, 급여 전 충분히 해동한 후 전자레인지에 5-10초 돌리거나, 실온에서 찬기를 제거한 후 급여해 주세요.) ');
+INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
+VALUES
+    (32, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1920/b5a5acc9-f91d-47c7-b5e8-6f2bc589263f.jpg?size=800x800', '두부를 차가운 물에 30분 이상 담근 후, 끓는 물에 5분 정도 데쳐 염분을 완전히 제거해 주세요. 데친 두부를 면포로 꾹 짜서 수분을 제거해 주세요.'),
+    (32, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1920/4c9fea8d-00ea-4070-9f92-71a54f9a28e4.jpg?size=800x800', '락토프리 우유를 냄비에 넣고 저어가며 약불에서 끓여주세요. 우유가 끓기 시작하면 불을 끄고 식초를 넣어 잘 섞어주세요. 덩어리가 생기고 테두리 부분에 맑은 물이 생기면  면포에 걸러 코티지치즈를 완성해 주세요. '),
+    (32, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1920/61a96889-9a49-4502-8e67-443a468bd4e7.jpg?size=800x800', '볼에 두부와 코티지치즈를 담고 락토프리 우유 여유분 100g과 꿀을 넣어주세요. 핸드믹서로 부드러운 크림 제형이 될 때까지 곱게 갈아 주세요. 완성된 생크림은 냉장고에 넣어 주세요.(tip. 생크림의 농도를 확인하면서 우유 여유분을 조절해 주세요.) '),
+    (32, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1920/82b165b8-6c40-433e-99ab-9ce90e513419.jpg?size=800x800', '계란의 흰자와 노른자를 분리한 후, 흰자에 꿀을 넣고 핸드믹서로 머랭을 단단히 만들어주세요.'),
+    (32, 5, 'https://static.wtable.co.kr/image/production/service/recipe/1920/90df461e-873a-4060-aeeb-6cde2e794599.jpg?size=800x800', '코코넛오일과 락토프리 우유를 섞어 전자레인지에 20초 정도 데워주세요. (tip. 전자레인지 사양에 따라 시간을 조절해 주세요. 코코넛오일이 녹을 정도로만 데워주세요.)'),
+    (32, 6, 'https://static.wtable.co.kr/image/production/service/recipe/1920/9c62f8bc-ad8a-4f4b-9c5c-b4b09537ad80.jpg?size=800x800', '분리해 놓은 노른자와 섞어놓은 코코넛오일, 락토프리 우유를 섞어 주세요. 쌀가루 분말을 체에 내려 함께 섞어주세요. 흰자 머랭의 1/3 분량을 넣어 섞어준 후, 머랭이 꺼지지 않도록 나머지 분량을 모두 섞어 주세요. 깍둑 모양의 찐 단호박을 넣어 섞어주세요.'),
+    (32, 7, 'https://static.wtable.co.kr/image/production/service/recipe/1920/a26bd5b5-efdd-456f-a123-583cb7e1bbeb.jpg?size=800x800', '케이크 틀에 유산지를 깔고 반죽을 부어주세요. 170도로 예열한 오븐에 25분간 구워주세요. 완성한 시트는 한 김 식혀 준비해 주세요.'),
+    (32, 8, 'https://static.wtable.co.kr/image/production/service/recipe/1920/1b7cf50a-509f-479b-b689-2dc139c56e4d.jpg?size=800x800', '준비한 크림에 천연 분말을 넣어 원하는 색을 만들어주세요.(노란색- 단호박가루, 검은색-오징어 먹물 가루, 분홍색- 비트 가루)'),
+    (32, 9, 'https://static.wtable.co.kr/image/production/service/recipe/1920/830ad758-2a1b-42a7-a860-76e54dba19bc.jpg?size=800x800', '케이크 박스 밑판 위에 만들어 둔 시트를 올리고 아이싱을 해주세요.'),
+    (32, 9, 'https://static.wtable.co.kr/image/production/service/recipe/1920/b1d99f66-c96e-4668-a499-cde4abfabc10.jpg?size=800x800', '강아지 얼굴과 문구 장식으로 완성해 주세요.케이크 12cm 기준으로 1회 급식은,  5kg대 강아지들은 케이크 크기의 1/4, 2~3kg대 강아지들은 케이크 크기의 1/6 정도 나눠 급여해 주세요.(tip.처음 먹이는 간식은 소량만 급여해 알레르기 반응 여부를 확인해 주세요.)(tip. 차가운 간식은 설사 및 구토를 유발할 수 있어, 급여 전 충분히 해동한 후 전자레인지에 5-10초 돌리거나, 실온에서 찬기를 제거한 후 급여해 주세요.) ');
 
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
@@ -1260,6 +1361,10 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (29, 'https://static.wtable.co.kr/image/production/service/recipe/1657/ad0acd5a-0bc8-4ee4-9823-3c298b1336e6.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (30, 'https://static.wtable.co.kr/image/production/service/recipe/2667/fdc277f2-474c-4563-8aa5-b9f17caffb7e.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (31, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e79a3dbe-28fb-4643-a22c-2a2205973afa.jpg?size=800x800');
+INSERT INTO recipe_finished_image (id, finished_images)
+VALUES (32, 'https://static.wtable.co.kr/image/production/service/recipe/1920/e79a3dbe-28fb-4643-a22c-2a2205973afa.jpg?size=800x800');
 
 
 -- Recipe Tags
@@ -1323,6 +1428,10 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (29, '#아보카도'), (29, '#아이스크림'), (29, '#디저트'), (29, '#여름간식');
 INSERT INTO recipe_tag (id, tags)
 VALUES (30, '#과일'), (30, '#셔벗'), (30, '#여름디저트'), (30, '#시원한간식');
+INSERT INTO recipe_tag (id, tags)
+VALUES (31, '#강아지케이크'), (31, '#반려견케이크'), (31, '#반려견음식'), (31, '#반려견생일');
+INSERT INTO recipe_tag (id, tags)
+VALUES (32, '#강아지케이크'), (32, '#반려견케이크'), (32, '#반려견음식'), (32, '#반려견생일');
 
 
 -- Comments for Recipe
@@ -1338,9 +1447,9 @@ VALUES
     (2, 3, '다음엔 청양고추 대신 풋고추로도 시도해봐야겠어요.');
 INSERT INTO recipe_comments (recipe_id, member_id, content)
 VALUES
-        (3, 1, '성게와 미역의 조화가 정말 일품이에요! 여름철 보양식으로 추천합니다.'),
-        (3, 2, '성게가 생각보다 많이 들어가네요. 근데 정말 맛있습니다.'),
-        (3, 3, '미역을 불리는 시간이 좀 걸리지만, 그만큼 보람 있는 요리입니다.');
+     (3, 1, '성게와 미역의 조화가 정말 일품이에요! 여름철 보양식으로 추천합니다.'),
+     (3, 2, '성게가 생각보다 많이 들어가네요. 근데 정말 맛있습니다.'),
+     (3, 3, '미역을 불리는 시간이 좀 걸리지만, 그만큼 보람 있는 요리입니다.');
 INSERT INTO recipe_comments (recipe_id, member_id, content)
 VALUES
     (4, 1, '이거 너무 맛있어요! 가족 모두 좋아했어요.'),
@@ -1476,6 +1585,16 @@ VALUES
     (30, 1, '상큼하고 시원해서 여름에 딱이에요. 과일도 다양하게 넣을 수 있어요!'),
     (30, 2, '과일이 신선해서 너무 맛있어요. 달지 않아서 좋아요.'),
     (30, 3, '간단하게 만들 수 있는 디저트라 자주 해먹을 것 같아요.');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (31, 1, '너무 좋아요 우리 강아지 생일날 해줘야 겠어요!'),
+    (31, 2, '댕댕이가 좋아합니다'),
+    (31, 3, '이거 진짜 너무 추천해요. 울강아지 냠냠 잘먹음!');
+INSERT INTO recipe_comments (recipe_id, member_id, content)
+VALUES
+    (32, 1, '너무 좋아요 우리 강아지 생일날 해줘야 겠어요!'),
+    (32, 2, '댕댕이가 좋아합니다'),
+    (32, 3, '이거 진짜 너무 추천해요. 울강아지 냠냠 잘먹음!');
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -1538,6 +1657,10 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 29);  -- 사용자가 29번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 30);  -- 사용자가 30번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 31);  -- 사용자가 30번 레시피를 찜한 경우
+INSERT INTO favorite_recipes (member_id, recipe_id)
+VALUES (1, 32);  -- 사용자가 30번 레시피를 찜한 경우
 
 
 -- 외래키 제약조건을 다시 활성화
