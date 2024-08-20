@@ -27,6 +27,9 @@ import {
 import { TestAssets, TestProfileGenerator } from "pages/test";
 import { RankingList } from "pages/ranking";
 import { ChefList } from "pages/chef";
+
+import SearcingStore from "pages/store/SearchingStore";
+
 import Admin from "pages/admin/Login";
 
 import MemberList from "pages/admin/member/MemberList";
@@ -94,6 +97,8 @@ function App() {
 
               <Route path="/ranking" element={<RankingList />} />
               <Route path="/chefs" element={<ChefList />} />
+
+              <Route path="/store" element={<SearcingStore />} />
 
               <Route path="/test/assets" element={<TestAssets />} />
               <Route path="/test/profile" element={<TestProfileGenerator />} />

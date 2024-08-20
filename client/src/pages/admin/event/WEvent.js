@@ -39,7 +39,7 @@ function WEvent() {
       <div className="productTableEvent">
         <div className="adminfield">
           <label className="labellabel">이벤트 진행여부</label>
-
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="title"
@@ -52,6 +52,7 @@ function WEvent() {
           <label htmlFor="startDate" className="labellabel">
             시작 날짜
           </label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="date"
             id="startDate"
@@ -66,6 +67,7 @@ function WEvent() {
           <label htmlFor="endDate" className="labellabel">
             종료 날짜
           </label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="date"
             id="endDate"

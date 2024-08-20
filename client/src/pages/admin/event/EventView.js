@@ -35,16 +35,18 @@ function EventView() {
   }
 
   return (
-    <div className="adminContainer">
+    <div className="adminContainerEvent">
       <SubMenu />
       <div className="adminCategory">이벤트</div>
-      <div className="productTable">
-        <div className="adminfield">
+      <br></br>
+      <div className="productTableEvent">
+        <div className="adminfieldEvent">
           <label className="labellabel">이벤트 진행여부</label>
+
           <div className="labelcontent">{eventView.title}</div>
         </div>
-
-        <div className="adminfield">
+        <br></br>
+        <div className="adminfieldEvent">
           <label className="labellabel">이벤트 기간</label>
           <div className="labelcontent">
             {(eventView.startDate + "").substring(0, 10)} ~{" "}
@@ -54,20 +56,11 @@ function EventView() {
         <br></br>
         <br></br>
         <label className="labellabel">이벤트 배너</label>
-        <div className="adminfield">
-          <div
-            className="admincol"
-            style={{
-              width: "50%",
-              height: "100px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+        <div className="adminfieldEvent">
+          <div className="admincol">
             <img
               src={eventView.bannerImage}
-              style={{ width: "50%", height: "95px" }}
+              // style={{ width: "50%", height: "95px" }}
             />
           </div>
         </div>

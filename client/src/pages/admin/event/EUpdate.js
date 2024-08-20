@@ -34,6 +34,7 @@ function EUpdate() {
       <div className="productTableEvent">
         <div className="adminfield">
           <label className="labellabel">이밴트 진행여부</label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="title"
@@ -47,10 +48,12 @@ function EUpdate() {
           <label htmlFor="startDate" className="labellabel">
             시작 날짜
           </label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="date"
             id="startDate"
             name="startDate"
+            className="adminSearch"
             onChange={onInputChange}
             defaultValue={event.startDate ? event.startDate.slice(0, 10) : ""}
             required
@@ -60,10 +63,12 @@ function EUpdate() {
           <label htmlFor="endDate" className="labellabel">
             종료 날짜
           </label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="date"
             id="endDate"
             name="endDate"
+            className="adminSearch"
             onChange={onInputChange}
             defaultValue={event.endDate ? event.endDate.slice(0, 10) : ""}
             required
