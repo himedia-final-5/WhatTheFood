@@ -10,7 +10,6 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -52,7 +51,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
     Page<Recipe> findByTitleAndDescription(String title, String description, Pageable pageable);
 
     // 찜하기목록
-    List<Recipe> findByFavoriteByMembersContains(Member member);
+    Page<RecipeSummary> findByFavoriteByMembersContains(Member member, Pageable pageable);
 
     Page<RecipeSummary> findByCategory(String category, Pageable pageable);
 }

@@ -12,8 +12,6 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.service.RecipeService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
@@ -113,11 +111,14 @@ public class RecipeController {
         rs.addFavoriteRecipe(memberId, recipeId);
     }
 
-    // 찜한 레시피 목록 조회
+    // 찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
     @PreAuthorize("isAuthenticated()")
-    public List<Recipe> getFavoriteRecipes(@RequestParam long memberId) {
-        return rs.getFavoriteRecipes(memberId);
+    public PageResponse<RecipeSummary> getFavoriteRecipes(
+            @RequestParam long memberId,
+            Pageable pageable
+    ) {
+        return PageResponse.of(rs.getFavoriteRecipes(memberId, pageable));
     }
 
     // 찜하기 취소

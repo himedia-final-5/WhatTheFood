@@ -117,11 +117,11 @@ public class RecipeService {
     }
 
     // 찜한 레시피 목록 조회
-    public List<Recipe> getFavoriteRecipes(long memberId) {
+    public Page<RecipeSummary> getFavoriteRecipes(long memberId, Pageable pageable) {
         Member member = mr.findById(memberId)
                 .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
-        List<Recipe> test = rr.findByFavoriteByMembersContains(member);
-        return rr.findByFavoriteByMembersContains(member);
+        Page<RecipeSummary> test = rr.findByFavoriteByMembersContains(member, pageable);
+        return rr.findByFavoriteByMembersContains(member, pageable);
     }
 
     // 찜하기 제거
