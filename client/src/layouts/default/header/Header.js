@@ -8,7 +8,7 @@ import cn from "utils/cn";
 const links = [
   ["/recipes", "레시피"],
   ["/ranking", "랭킹"],
-  ["/store", "매장 찾기"],
+  ["/store", "오프라인 매장"],
   ["/notices", "공지사항"],
   ["/events", "이벤트"],
 ];

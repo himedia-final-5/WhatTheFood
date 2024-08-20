@@ -1,8 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Footer.css";
 
 function Footer() {
+  const navigate = useNavigate();
+
+  function onTerms() {
+    window.open("/localhost:3000/terms");
+  }
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -21,9 +26,9 @@ function Footer() {
               <li>
                 <Link to="/privacy">개인정보처리방침</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/contact">광고/제휴</Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/faqs">FAQ</Link>
               </li>
@@ -60,8 +65,12 @@ function Footer() {
             책임자4 : 김재연
           </p>
           <p>
-            본 콘텐츠의 저작권은 제공처 또는 WhatTheFood에 있으며, 이를 무단
-            이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 없습니다.
+            E-mail : help@wtf.com / Fax : 02-123-4567 / 서울시 종로구 인사동 /
+            문의전화(운영시간 평일 10:00~18:00) : 02-1111-2222 / 서비스 이용문의
+            : 070-1234-4321 / 광고 및 제휴 문의 : WTF@wtf.com / (주)오늘뭐먹지?
+            / &nbsp;&nbsp;&nbsp;&nbsp; 사업자등록번호 000-00-00000 / 본 콘텐츠의
+            저작권은 제공처 또는 WhatTheFood에 있으며, 이를 무단 이용하는 경우
+            저작권법 등에 따라 법적 책임을 질 수 없습니다.
           </p>
           <p>© WhatTheFood Corp.</p>
         </div>

@@ -103,6 +103,7 @@ function App() {
               <Route path="/test/assets" element={<TestAssets />} />
               <Route path="/test/profile" element={<TestProfileGenerator />} />
             </Route>
+
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<Admin />} />
               <Route path="/memberList" element={<MemberList />} />

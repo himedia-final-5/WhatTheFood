@@ -301,6 +301,10 @@ function SearchingStore() {
       <br></br>
       <br></br>
       <p style={{ fontSize: "30px" }}>오프라인 매장 안내</p>
+      <p>
+        제휴 브랜드 제품 및 주방용품들을 취급하는 오프라인 매장에서 더욱 가깝게
+        만나보세요!
+      </p>
       <br></br>
       <div className="mapContainer">
         <div className="customer">
