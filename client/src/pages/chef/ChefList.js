@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "./Chef.css";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
 export default function ChefList() {
-  const navigate = useNavigate();
-
+  // 쿼리 파라미터
+  const [searchParams, setSearchParams] = useSearchParams();
+  const items = ["일간", "주간", "월간"];
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
   const { ref, content } = useInfiniteScroll(
@@ -29,15 +30,14 @@ export default function ChefList() {
       <div>
         <div>
           <ul className="relative flex justify-end right-28 top-10 border-b ml-96 mr-44 pb-10">
-            <li className="border  px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg ">
-              일간
-            </li>
-            <li className="border  px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg">
-              주간
-            </li>
-            <li className="border  px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg">
-              월간
-            </li>
+            {items.map((item, index) => (
+              <li
+                key={index}
+                className="border  px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg"
+              >
+                {item}
+              </li>
+            ))}
           </ul>
           <div className="chef_banner_wrap">
             {content.length > 0 ? (
@@ -48,7 +48,7 @@ export default function ChefList() {
                     <p className="chef_num">
                       <b>{index + 1}</b>
                     </p>
-
+                    <p></p>
                     <Link to={`/events/${member.id}`}>
                       <div className="chef_imageUrl">
                         <img
@@ -58,7 +58,6 @@ export default function ChefList() {
                         />
                       </div>
                     </Link>
-
                     <div className="flex justify-center py-2 text-base font-bold">
                       <p>{member.nickname}</p>
                     </div>
