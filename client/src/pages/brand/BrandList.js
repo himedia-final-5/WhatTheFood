@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import "./Chef.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Brand.css";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
-export default function ChefList() {
-  // 쿼리 파라미터
-  const [searchParams, setSearchParams] = useSearchParams();
-  const items = ["일간", "주간", "월간"];
+export default function BrandList() {
+  const [activeId, setActiveId] = useState(null);
+  const [keyword, setKeyword] = useState("");
+  const items = ["식품회사", "단체/기관", "쇼핑몰"];
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
+
+  // 무한 스크롤 및 데이터 가져오기
   const { ref, content } = useInfiniteScroll(
     throttle(async (page) => {
       /** @type {{data: PageResponse<User>}} */
@@ -25,30 +27,61 @@ export default function ChefList() {
     },
   );
 
+  // 랜덤으로 항목을 선택하는 함수
+  const RandomItem = () => {
+    const randomId = Math.floor(Math.random() * items.length);
+    setActiveId(randomId);
+    if (randomId === 0) setKeyword("cp");
+    else if (randomId === 1) setKeyword("gm");
+    else if (randomId === 2) setKeyword("mall");
+    else setKeyword("");
+  };
+
+  // 클릭된 항목에 따라 필터 키워드를 설정
+  const handleClick = (id) => {
+    setActiveId(id);
+    if (id === 0) setKeyword("cp");
+    else if (id === 1) setKeyword("gm");
+    else if (id === 2) setKeyword("mall");
+    else setKeyword("");
+  };
+
+  // 필터링 로직
+  const filterContent = content.filter((member) =>
+    keyword ? member.username.includes(keyword) : true,
+  );
+
+  useEffect(() => {
+    // 브랜드 리스트 페이지 들어갈때 랜덤으로 항목 선택
+    RandomItem();
+  }, []);
+
   return (
     <div>
       <div>
         <div>
-          <ul className="relative flex justify-end right-28 top-10 border-b ml-96 mr-44 pb-10">
+          <ul className="relative flex right-28 top-10 border-b ml-96 mr-44 pb-0 text-lg">
+            //("식품회사", "단체/기관", "쇼핑몰") 생성 및 클릭 시 css 변화//
             {items.map((item, index) => (
               <li
                 key={index}
-                className="border  px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg"
+                className={`cursor-pointer border-s-transparent px-6 py-2 ${activeId === index ? "active" : ""}`}
+                onClick={() => handleClick(index)}
               >
                 {item}
               </li>
             ))}
           </ul>
           <div className="chef_banner_wrap">
-            {content.length > 0 ? (
-              content
-                .filter((member) => member.role === "ROLE_CHEF")
+            // ROLE_BRAND 만 출력, 페이지 들어올 때 항목 랜덤으로 선택
+            {filterContent.length > 0 ? (
+              filterContent
+                .filter((member) => member.role === "ROLE_BRAND")
                 .map((member, index) => (
                   <div key={index} className="chef_container">
                     <p className="chef_num">
                       <b>{index + 1}</b>
                     </p>
-                    <p></p>
                     <Link to={`/events/${member.id}`}>
                       <div className="chef_imageUrl">
                         <img

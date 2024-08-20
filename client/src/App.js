@@ -25,7 +25,7 @@ import {
   NoticeUpdate,
 } from "pages/notice";
 import { TestAssets, TestProfileGenerator } from "pages/test";
-import { RankingList } from "pages/ranking";
+
 import { ChefList } from "pages/chef";
 
 import SearchingStore from "pages/store/SearchingStore";
@@ -43,15 +43,14 @@ import NList from "pages/admin/notice/NoticeList";
 import NView from "pages/admin/notice/NView";
 import WriteNotice from "pages/admin/notice/NoticeWriteForm";
 import NUpdate from "pages/admin/notice/NUpdate";
-
 import IList from "pages/admin/inquiry/InquiryList";
 import IView from "pages/admin/inquiry/InquiryView";
 import SearchIList from "pages/admin/inquiry/SearchIList";
-
 import FList from "pages/admin/inquiry/FaqList";
 import FaqView from "pages/admin/inquiry/FaqView";
 import WFaq from "pages/admin/inquiry/WriteFaq";
 import FaqUpdate from "pages/admin/inquiry/FaqUpdate";
+import BList from "pages/admin/brand/BrandList";
 
 import EList from "pages/admin/event/EventList";
 import EView from "pages/admin/event/EventView";
@@ -107,8 +106,8 @@ function App() {
               <Route path="/notices/write" element={<NoticeWrite />} />
               <Route path="/notices/write/:id" element={<NoticeUpdate />} />
 
-              <Route path="/ranking" element={<RankingList />} />
               <Route path="/chefs" element={<ChefList />} />
+              <Route path="/brands" element={<BrandList />} />
 
               <Route path="/store" element={<SearchingStore />} />
 
@@ -132,14 +131,15 @@ function App() {
               <Route path="/fView/:id" element={<FaqView />} />
               <Route path="/writeFaq" element={<WFaq />} />
               <Route path="/faqUpdate/:id" element={<FaqUpdate />} />
-              <Route path="/brandList" element={<BrandList />} />
+              <Route path="/brandList" element={<BList />} />
               <Route path="/eList" element={<EList />} />
               <Route path="/eView/:id" element={<EView />} />
               <Route path="/wEvent" element={<WEvent />} />
               <Route path="/eUpdate/:id" element={<EUpdate />} />
-
               <Route path="/rList" element={<RList />} />
               <Route path="/rView/:id" element={<RView />} />
+              <Route path="/BList" element={<BList />} />
+              brandList
             </Route>
             <Route path="*" element={<NotFoundRender />} />
           </Routes>
