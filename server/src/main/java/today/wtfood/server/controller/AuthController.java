@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.entity.EmailToken;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
@@ -48,16 +49,42 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/signup/verify-email")
+    @PostMapping("/signup/email")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void sendVerifyEmail(
+            @RequestParam("username")
+            String username,
+            @RequestParam("password")
+            String password,
             @RequestParam("email")
             String email
     ) {
+        memberService.validateUsernameFormatAndUnique(username);
         memberService.validateEmailFormatAndUnique(email);
 
-        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, email, 1000 * 60 * 60 * 24);
+        EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, username, password, email, 1000 * 60 * 60 * 24);
         emailSendService.sendSignUpEmail(email, emailToken.getToken());
+    }
+
+    @PostMapping("/signup/email/verify")
+    @ResponseStatus(HttpStatus.CREATED)
+    public JwtAuthResponse verifyEmail(
+            @RequestParam("token")
+            String token
+    ) {
+        EmailToken emailToken = emailTokenService.getEmailToken(token);
+        memberService.validateUsernameFormatAndUnique(emailToken.getUsername());
+        memberService.validateEmailFormatAndUnique(emailToken.getEmail());
+
+        long memberId = memberService.createMember(new MemberCreateRequest(
+                emailToken.getUsername(),
+                emailToken.getPassword(),
+                emailToken.getUsername(),
+                emailToken.getEmail()
+        ));
+        memberService.updateMemberProfileImage(memberId, "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=" + emailToken.getUsername());
+
+        return jwtService.generateAuthToken(emailToken.getUsername());
     }
 
 }

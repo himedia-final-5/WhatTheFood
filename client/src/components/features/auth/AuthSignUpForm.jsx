@@ -1,31 +1,152 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { toast } from "react-toastify";
 
-import { TablerCircleKeyFilled, TablerMailFilled } from "components/asset";
-import { cn, axios } from "utils";
-import useInput from "hooks/useInput";
+import {
+  TablerCircleKeyFilled,
+  TablerUserFilled,
+  TablerMailFilled,
+} from "components/asset";
+import { cn, axios, debounce, memoize } from "utils";
 import usePromise from "hooks/usePromise";
-import Input from "components/form/Input";
+
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "components/shadcn/ui/form";
+import { Button } from "components/shadcn/ui/button";
+import { Input } from "components/shadcn/ui/input";
+
+const formSchema = z
+  .object({
+    username: z
+      .string()
+      .regex(/^[a-zA-Z0-9_]+$/, "아이디는 영숫자와 _만 사용할 수 있습니다")
+      .min(4, "아이디는 최소 4자 이상이어야 합니다")
+      .max(45, "아이디는 최대 45자 이하여야 합니다")
+      .refine(
+        debounce(
+          memoize(async (username) => {
+            try {
+              await axios.get("/api/members/check-username", {
+                params: { username },
+              });
+              return true;
+            } catch (error) {
+              console.error(error);
+              return false;
+            }
+          }),
+          300,
+        ),
+        "이미 사용중인 아이디입니다",
+      ),
+    password: z
+      .string()
+      .min(4, "비밀번호는 최소 4자 이상이어야 합니다")
+      .max(45, "비밀번호는 최대 45자 이하여야 합니다"),
+    confirmPassword: z
+      .string()
+      .min(4, "비밀번호 확인은 최소 4자 이상이어야 합니다")
+      .max(45, "비밀번호 확인은 최대 45자 이하여야 합니다"),
+    email: z
+      .string()
+      .email("이메일 형식이 아닙니다")
+      .max(45, "이메일은 최대 45자 이하여야 합니다"),
+  })
+  .refine(
+    debounce(async (data) => data.password === data.confirmPassword, 100),
+    {
+      message: "비밀번호와 비밀번호 확인이 일치하지 않습니다",
+      path: ["confirmPassword"],
+    },
+  );
+
+function InputFormField({ control, name, children, ...props }) {
+  return (
+    <FormField
+      aria-label={`auth-input-${name}`}
+      className="flex w-full h-12"
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className="relative w-full h-12">
+          <div className="w-full h-12 flex">
+            <FormLabel className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300">
+              {children}
+            </FormLabel>
+            <FormControl className="w-full h-full !m-0 rounded-none">
+              <Input
+                required
+                className={cn(
+                  "block flex-1 min-w-0 w-full p-2.5",
+                  "bg-gray-50 border border-solid border-gray-300",
+                  "text-gray-900 text-base focus:z-20",
+                  "aria-[invalid=false]:ring-primary aria-[invalid=true]:ring-destructive",
+                )}
+                {...props}
+                {...field}
+              />
+            </FormControl>
+          </div>
+          <FormDescription></FormDescription>
+          <FormMessage
+            className={cn(
+              "absolute right-80 -top-1 text-nowrap font-bold",
+              "px-1 py-2 bg-white z-40",
+              "border-2 border-solid border-destructive rounded-lg",
+              "animate-head-shake duration-500",
+            )}
+          />
+        </FormItem>
+      )}
+    />
+  );
+}
 
 export default function AuthSignUpForm() {
-  const [email, onEmailInputChange] = useInput("");
-  const [token, onTokenInputChange] = useInput("");
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+      confirmPassword: "",
+      email: "",
+    },
+  });
 
   const [sendEmail, emailSent, isEmailSendingInProgress] = usePromise(
     false,
-    async () =>
+    async (inputs) =>
       (
-        await axios.post("/api/auth/signup/verify-email", null, {
-          params: { email },
+        await axios.post("/api/auth/signup/email", null, {
+          params: inputs,
         })
       )?.status === 204,
+    (error) => {
+      if (error.response.data.field) {
+        form.setError(error.response.data.field, {
+          type: "server",
+          message: error.response.data.message,
+        });
+      }
+    },
   );
 
-  async function onRequireSendMail() {
+  /** @param {z.infer<typeof formSchema>} inputs */
+  function onSubmit(inputs) {
     if (emailSent || isEmailSendingInProgress) {
       toast.warn("이메일이 이미 전송되었거나 전송 중입니다.");
       return;
     }
-    toast.promise(sendEmail(), {
+
+    toast.promise(sendEmail(inputs), {
       pending: "회원가입 메일을 전송 중입니다.",
       success: "이메일이 전송되었습니다. 확인해주세요.",
       error: {
@@ -37,102 +158,69 @@ export default function AuthSignUpForm() {
   }
 
   return (
-    <div
-      className={cn(
-        "w-full h-fit transition-shape",
-        emailSent ? "mb-0" : "mb-12",
-      )}
-    >
-      <form
-        aria-label="auth-input-form"
-        className="flex w-full h-full"
-        onSubmit={(event) => {
-          event.preventDefault();
-
-          // 이메일이 전송되지 않았을 때 이메일 전송 요청
-          if (!emailSent && !isEmailSendingInProgress) {
-            onRequireSendMail();
-          }
-        }}
-      >
-        <div className="flex flex-col flex-1">
-          <div aria-label="auth-input-email" className="flex w-full h-12 z-20">
-            <Input
-              name="email"
-              labelProps={{
-                className: cn(
-                  "flex items-center px-3 transition-shape",
-                  "bg-neutral-50 border border-solid border-e-0 border-gray-300",
-                  emailSent ? "rounded-ss-md" : "rounded-l-md",
-                ),
-              }}
-              type={emailSent || isEmailSendingInProgress ? "none" : "email"}
-              autoComplete={
-                emailSent || isEmailSendingInProgress ? "none" : "email"
-              }
-              autoCorrect="off"
-              placeholder="회원가입할 이메일"
-              onChange={onEmailInputChange}
-              readOnly={emailSent || isEmailSendingInProgress}
-              disabled={emailSent || isEmailSendingInProgress}
-              required
-              className={cn(
-                "block flex-1 min-w-0 w-full p-2.5",
-                "bg-gray-50 border border-solid border-gray-300",
-                "text-gray-900 text-base focus:border-green-500",
-              )}
-            >
-              <TablerMailFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-            </Input>
-          </div>
-          <div
-            aria-label="auth-input-token"
-            className={cn(
-              "flex w-full h-12 transition-shape z-10",
-              emailSent ? "mt-0" : "-mt-12",
-            )}
-          >
-            <Input
-              name="token"
-              labelProps={{
-                className: cn(
-                  "flex items-center px-3 transition-shape",
-                  "bg-neutral-50 border border-solid border-e-0 border-gray-300",
-                  emailSent ? "rounded-es-md" : "rounded-l-md",
-                ),
-              }}
-              type="token"
-              autoComplete="none"
-              autoCorrect="off"
-              placeholder="메일로 전송된 토큰"
-              onChange={onTokenInputChange}
-              required
-              readOnly={!emailSent}
-              className={cn(
-                "block flex-1 min-w-0 w-full p-2.5",
-                "bg-gray-50 border border-solid border-gray-300",
-                "text-gray-900 text-base focus:border-green-500",
-              )}
-            >
-              <TablerCircleKeyFilled className="w-6 h-8 text-neutral-900 text-opacity-50" />
-            </Input>
-          </div>
-        </div>
-        <div
-          aria-label="auth-submit-button"
-          className="w-16 bg-green-500 rounded-e-md"
+    <>
+      <Form {...form} className="mb-10">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          aria-label="auth-input-form"
+          className="flex w-full h-fit mb-10"
+          noValidate
         >
-          <button
-            type="submit"
-            className={cn(
-              "w-full h-full",
-              "text-white text-base font-bold drop-shadow",
-            )}
+          <div
+            aria-label="auth-input-fields"
+            className="relative flex flex-col flex-1 [&_label]:first:*:rounded-ss-lg [&_label]:last:*:rounded-es-lg"
           >
-            회원가입
-          </button>
-        </div>
-      </form>
-    </div>
+            <InputFormField
+              name="username"
+              control={form.control}
+              type="text"
+              autoComplete="username"
+              autoCorrect="off"
+              placeholder="아이디"
+            >
+              <TablerUserFilled className="w-6 h-8 opacity-70" />
+            </InputFormField>
+            <InputFormField
+              name="password"
+              control={form.control}
+              type="password"
+              autoComplete="password"
+              autoCorrect="off"
+              placeholder="비밀번호"
+            >
+              <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
+            </InputFormField>
+            <InputFormField
+              name="confirmPassword"
+              control={form.control}
+              type="password"
+              autoComplete="confirmPassword"
+              autoCorrect="off"
+              placeholder="비밀번호 확인"
+            >
+              <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
+            </InputFormField>
+            <InputFormField
+              name="email"
+              control={form.control}
+              type="email"
+              autoComplete="email"
+              autoCorrect="off"
+              placeholder="이메일"
+            >
+              <TablerMailFilled className="w-6 h-8 opacity-70" />
+            </InputFormField>
+          </div>
+          <Button
+            type="submit"
+            className="w-16 h-full bg-primary rounded-e-md rounded-s-none"
+          >
+            <p className="text-base text-white text-nowrap font-bold drop-shadow-sm">
+              회원가입
+            </p>
+          </Button>
+        </form>
+      </Form>
+    </>
   );
 }

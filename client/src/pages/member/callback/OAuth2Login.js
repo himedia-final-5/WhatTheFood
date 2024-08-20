@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { axios } from "utils";
 import store, { signinAction } from "stores";
 
-export default function TestCallback() {
+export default function OAuth2LoginPopup() {
   const [searchParams] = useSearchParams();
   const error = searchParams.get("error");
   const code = searchParams.get("code");

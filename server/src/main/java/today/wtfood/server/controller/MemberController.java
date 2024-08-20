@@ -105,6 +105,7 @@ public class MemberController {
             @PathVariable
             long memberId,
 
+            @RequestParam
             @Validated
             MemberUpdateRequest requestData
     ) {
@@ -118,6 +119,7 @@ public class MemberController {
             @PathVariable
             long memberId,
 
+            @RequestParam
             @Validated
             @Size(max = 200, message = "소개는 200자 이하로 입력해주세요")
             String introduce
@@ -132,11 +134,27 @@ public class MemberController {
             @PathVariable
             long memberId,
 
+            @RequestParam
             @Validated
             @Size(max = 200, message = "프로필 이미지 주소가 너무 깁니다")
             String profileImage
     ) {
         memberService.updateMemberProfileImage(memberId, profileImage);
+    }
+
+    @PostMapping("/{memberId}/banner-image")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateMemberBannerImage(
+            @PathVariable
+            long memberId,
+
+            @RequestParam
+            @Validated
+            @Size(max = 200, message = "배너 이미지 주소가 너무 깁니다")
+            String bannerImage
+    ) {
+        memberService.updateMemberBannerImage(memberId, bannerImage);
     }
 
     @DeleteMapping("/{memberId}")

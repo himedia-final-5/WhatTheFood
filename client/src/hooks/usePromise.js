@@ -27,6 +27,7 @@ export default function usePromise(
       if (!onError(error)) {
         setError(true);
       }
+      throw error;
     } finally {
       setError(false);
       setLoading(false);

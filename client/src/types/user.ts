@@ -13,3 +13,17 @@ declare type User = {
   accessToken: string;
   refreshToken: string;
 };
+
+declare type MemberDetail = {
+  id: number;
+  username: string;
+  nickname: string;
+  role: Role;
+  profileImage: string;
+  bannerImage: string;
+  introduce: string;
+  socialUrls: {
+    name: string;
+    url: string;
+  };
+};

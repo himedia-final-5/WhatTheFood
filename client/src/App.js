@@ -10,10 +10,10 @@ import { FallbackRender } from "layouts/error";
 import NotFoundRender from "layouts/error/NotFoundRender";
 import { Main } from "pages/main";
 import {
-  MemberJoin,
-  MemberLogin,
+  EmailLogin,
+  MemberDetail,
   MemberUpdate,
-  OAuth2LoginPopup,
+  OAuth2Login,
 } from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
 import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
@@ -63,7 +63,7 @@ import RecipeList from "pages/recipe/RecipeList";
 
 function App() {
   return (
-    <div className="App flex flex-col w-full h-full">
+    <div className="App flex flex-col w-full h-full min-h-screen">
       <ErrorBoundary FallbackComponent={FallbackRender}>
         <Suspense fallback={<FallbackRender />}>
           <Routes>
@@ -77,10 +77,10 @@ function App() {
               <Route path="/events/write" element={<EventWrite />} />
               <Route path="/events/write/:id" element={<EventUpdate />} />
 
-              <Route path="/signin" element={<MemberLogin />} />
-              <Route path="/signup" element={<MemberJoin />} />
+              <Route path="/members/:id" element={<MemberDetail />} />
               <Route path="/setting" element={<MemberUpdate />} />
-              <Route path="/login/oauth2" element={<OAuth2LoginPopup />} />
+              <Route path="/login/email/:token" element={<EmailLogin />} />
+              <Route path="/login/oauth2" element={<OAuth2Login />} />
 
               <Route path="/faqs" element={<FaqList />} />
               <Route path="/faqs/:id" element={<FaqDetail />} />

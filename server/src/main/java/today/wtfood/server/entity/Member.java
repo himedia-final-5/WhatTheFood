@@ -65,6 +65,9 @@ public class Member implements UserDetails, OAuth2User {
     @Column(name = "profile_image", length = 200)
     private String profileImage;
 
+    @Column(name = "banner_image", length = 200)
+    private String bannerImage;
+
     @Column(name = "introduce", length = 200)
     private String introduce;
 
@@ -92,19 +95,23 @@ public class Member implements UserDetails, OAuth2User {
 
     @Entity
     @Table(name = "member_social_urls")
-    public record SocialUrl(
-            @Id
-            @ManyToOne
-            @JoinColumn(name = "member_id", nullable = false)
-            Member member,
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static final class SocialUrl {
 
-            @Id
-            @Column(name = "name", length = 45, nullable = false)
-            String name,
+        @Id
+        @ManyToOne
+        @JoinColumn(name = "member_id", nullable = false)
+        private Member member;
 
-            @Column(name = "url", length = 200, nullable = false)
-            String url
-    ) {
+        @Id
+        @Column(name = "name", length = 45, nullable = false)
+        private String name;
+
+        @Column(name = "url", length = 200, nullable = false)
+        private String url;
+
     }
 
     public enum Role {

@@ -19,7 +19,7 @@ function Header() {
   const [marginBottom, setMarginBottom] = useState(0);
   const prevY = useRef(window.scrollY);
 
-  const handleScroll = () => {
+  const handleScreenUpdate = () => {
     if (!headerRef.current) return;
 
     const y = window.scrollY;
@@ -32,6 +32,7 @@ function Header() {
       );
     }
 
+    setMarginBottom(headerRef.current.clientHeight);
     prevY.current = y;
   };
 
@@ -39,8 +40,14 @@ function Header() {
     if (headerRef.current) {
       setMarginBottom(headerRef.current.clientHeight);
     }
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScreenUpdate);
+    window.addEventListener("resize", handleScreenUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", handleScreenUpdate);
+      window.removeEventListener("resize", handleScreenUpdate);
+    };
   }, []);
 
   return (
@@ -87,7 +94,7 @@ function Header() {
           </div>
         </div>
       </header>
-      <div style={{ marginBottom: marginBottom }} />
+      <div aria-label="header-margin" style={{ marginBottom: marginBottom }} />
     </>
   );
 }
