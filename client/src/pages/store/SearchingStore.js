@@ -312,34 +312,49 @@ function SearchingStore() {
           <div className="mapFixed">
             <p>서울특별시 종로구 인사동길 12</p>
             <p>서울특별시 종로구 인사동 43</p>
+            <p className="bmw">
+              지하철 : 1호선 종로3가(1번 출구), 3호선 종로3가, 5호선
+              종로3가(5번출구)
+            </p>
+            <p className="bmw">버스 : 종로2가 또는 종로3가에서 하차</p>
             <br></br>
             <p>서울특별시 구로구 경인로 557</p>
             <p>서울특별시 구로구 구로동 606-4</p>
+            <p className="bmw">지하철 : 1호선 구로역(3번 출구)</p>
+            <p className="bmw">
+              버스 : 구로공구상가 또는 구로역(구로기계공구상가)에서 하차
+            </p>
             <br></br>
             <p>서울특별시 노원구 상계로5길 32</p>
             <p>서울특별시 노원구 상계동 357-2</p>
+            <p className="bmw">지하철 : 4호선 노원역(9번 출구)</p>
+            <p className="bmw">버스 : 지하철 4호선 노원역 9번출구에서 하차</p>
             <br></br>
             <p>서울특별시 서대문구 연세로 8-1</p>
             <p>서울특별시 서대문구 창천동 18-29</p>
+            <p className="bmw">지하철 : 2호선 신촌역(2번 출구 또는 3번 출구)</p>
+            <p className="bmw">
+              버스 : 연세로 문학의거리 또는 연세로 스타광장에서 하차
+            </p>
           </div>
           <br></br>
           <br></br>
           <div className="mapSearchInput">
-            <p>내 위치 검색</p>
             <input
               type="text"
-              style={{ border: "1px solid black", width: "400px" }}
+              placeholder="내 위치 검색"
+              style={{ border: "1px solid grey", width: "400px" }}
               value={word}
               onChange={(e) => {
                 setWord(e.currentTarget.value);
               }}
             />
-            <p>
+            <p id="searchEx">
               {" "}
               *검색 예시 <br />
-              "서울시 성북구 동소문동"
+              "(서울시) 성북구 동소문동"
               <br />
-              "서울시 성북구 동소문로 1길"{" "}
+              "(서울시) 성북구 동소문로 1길"{" "}
             </p>
           </div>
         </div>

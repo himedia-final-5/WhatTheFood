@@ -13,8 +13,12 @@
 
 .customer {
   width: 50%;
-  height: 800px;
+  height: 860px;
   border: 1px solid black;
+}
+
+.bmw {
+  font-size: 17px;
 }
 
 .mapSearch {
@@ -29,6 +33,13 @@
 
 .mapSearchInput {
   width: 400px;
+}
 
-  border: 1px solid black;
+.mapSearchInput input {
+  border-radius: 10px;
+}
+
+#searchEx {
+  font-size: 17px;
+  color: grey;
 }
