@@ -42,7 +42,7 @@ public class Recipe {
     private String description; // 설명
 
     @Column(name = "cooking_time")
-    private Integer cookingTime; // 조리시간
+    private String cookingTime; // 조리시간
 
     @Column(name = "servings")
     private Integer servings; // 인원

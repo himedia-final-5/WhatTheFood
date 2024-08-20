@@ -22,7 +22,7 @@ public interface RecipeInfo {
 
     String getDescription();
 
-    Integer getCookingTime();
+    String getCookingTime();
 
     Integer getServings();
 

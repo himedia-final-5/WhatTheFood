@@ -17,7 +17,7 @@ public class RecipeDto implements Serializable {
     String bannerImage;
     String title;
     String description;
-    Integer cookingTime;
+    String cookingTime;
     Integer servings;
     Integer level;
     String videoLink;

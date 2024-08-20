@@ -20,7 +20,7 @@ public interface RecipeSummary {
 
     Integer getViewCount();       // 조회수
 
-    Integer getCookingTime();     // 조리 시간
+    String getCookingTime();     // 조리 시간
 
     Integer getServings();        // 인원
 
