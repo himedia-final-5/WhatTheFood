@@ -35,7 +35,7 @@ export default function RecipeList() {
         const response = await axios.get(`/api/recipes/favorites`, {
           params: { memberId },
         });
-        const recipes = response.data.map((recipe) => recipe.id);
+        const recipes = response.data.content.map((recipe) => recipe.id);
         setFavoritedRecipes(new Set(recipes));
       } catch (error) {
         console.error("Failed to fetch favorited recipes:", error);
