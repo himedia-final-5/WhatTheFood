@@ -60,10 +60,14 @@ public interface RecipeSummary {
      * 조리 단계 정보 DTO
      */
     interface CookingStepSummary {
-        Integer getStepNumber(); // 조리 순서 번호
+        Long getId();                // 조리 단계 ID
 
-        String getImageUrl();   // 이미지 URL
+        Integer getStepNumber();     // 조리 순서 번호
 
-        String getDescription(); // 조리 내용
+        String getImageUrl();        // 이미지 URL
+
+        String getDescription();     // 조리 내용
+
+        Long getRecipeId();          // 레시피 ID
     }
 }
