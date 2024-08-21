@@ -50,14 +50,6 @@ export default function RecipeList() {
     }
   }, [memberId]);
 
-  // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
-  useEffect(() => {
-    reset();
-    fetchPage(0).catch((error) => {
-      defaultErrorHandler(error);
-    });
-  }, [selectedCategory, searchTerm, reset]);
-
   // 페이지 번호와 카테고리/검색어에 따라 레시피 목록을 서버에서 가져옵니다.
   const fetchPage = async (page) => {
     let response = null;
@@ -124,6 +116,15 @@ export default function RecipeList() {
       }
     }
   };
+
+  // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
+  // 맨 아래 위치해야 오류가 안남
+  useEffect(() => {
+    reset();
+    fetchPage(0).catch((error) => {
+      defaultErrorHandler(error);
+    });
+  }, [selectedCategory, searchTerm, reset]);
 
   return (
     <div className="recipeList_wrap">
