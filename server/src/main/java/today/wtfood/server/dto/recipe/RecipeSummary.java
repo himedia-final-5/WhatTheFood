@@ -60,7 +60,6 @@ public interface RecipeSummary {
      * 조리 단계 정보 DTO
      */
     interface CookingStepSummary {
-        Long getId();                // 조리 단계 ID
 
         Integer getStepNumber();     // 조리 순서 번호
 
