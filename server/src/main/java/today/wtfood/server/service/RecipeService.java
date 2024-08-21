@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
@@ -18,7 +17,6 @@ import today.wtfood.server.repository.MemberRepository;
 import today.wtfood.server.repository.RecipeRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -135,18 +133,18 @@ public class RecipeService {
         return rr.findByCategory(category, pageable);
     }
 
-    public void insertComment(Recipe.Comment comment) {
-        cr.save(comment);
-    }
-
-    public void deleteComment(long id) {
-        Optional<Recipe.Comment> cec = cr.findById(id);
-        if (cec.isPresent()) {
-            rr.delete((Specification<Recipe>) cec.get());
-        }
-    }
-
-    public List<Recipe.Comment> getComments(long recipeId) {
-        return cr.findByRecipeIdOrderByIdDesc(recipeId);
-    }
+//    public void insertComment(Recipe.Comment comment) {
+//        cr.save(comment);
+//    }
+//
+//    public void deleteComment(long id) {
+//        Optional<Recipe.Comment> cec = cr.findById(id);
+//        if (cec.isPresent()) {
+//            rr.delete((Specification<Recipe>) cec.get());
+//        }
+//    }
+//
+//    public List<Recipe.Comment> getComments(long recipeId) {
+//        return cr.findByRecipeIdOrderByIdDesc(recipeId);
+//    }
 }

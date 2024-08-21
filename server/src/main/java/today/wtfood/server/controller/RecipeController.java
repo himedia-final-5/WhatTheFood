@@ -12,9 +12,6 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.service.RecipeService;
 
-import java.util.HashMap;
-import java.util.List;
-
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
@@ -111,26 +108,26 @@ public class RecipeController {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
 
-    // 댓글 가져오기
-    @GetMapping("/getComments/{recipeid}")
-    public List<Recipe.Comment> getReplys(@PathVariable("recipeId") long recipeId) {
-        List<Recipe.Comment> list = rs.getComments(recipeId);
-        return list;
-    }
-
-    // 댓글 추가
-    @PostMapping("/addComment")
-    public HashMap<String, Object> addComment(@RequestBody Recipe.Comment comment) {
-        rs.insertComment(comment);
-        return null;
-    }
-
-    // 댓글 삭제
-    @DeleteMapping("/deleteComment/{id}")
-    public HashMap<String, Object> deleteComment(@PathVariable("id") long id) {
-        rs.deleteComment(id);
-        return null;
-    }
+//    // 댓글 가져오기
+//    @GetMapping("/getComments/{recipeid}")
+//    public List<Recipe.Comment> getReplys(@PathVariable("recipeId") long recipeId) {
+//        List<Recipe.Comment> list = rs.getComments(recipeId);
+//        return list;
+//    }
+//
+//    // 댓글 추가
+//    @PostMapping("/addComment")
+//    public HashMap<String, Object> addComment(@RequestBody Recipe.Comment comment) {
+//        rs.insertComment(comment);
+//        return null;
+//    }
+//
+//    // 댓글 삭제
+//    @DeleteMapping("/deleteComment/{id}")
+//    public HashMap<String, Object> deleteComment(@PathVariable("id") long id) {
+//        rs.deleteComment(id);
+//        return null;
+//    }
 
 
 }
