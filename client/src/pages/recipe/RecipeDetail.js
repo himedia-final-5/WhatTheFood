@@ -17,14 +17,34 @@ export default function RecipeDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [commentText, setCommentText] = useState([]); //댓글
+  const [commentContent, setCommentContent] = useState("");
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
-  let lUser = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
+  const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
 
   const [fetchRecipe, recipe, isLoading, isError] = usePromise(
     DEFAULT_RECIPE,
     async () => (await axios.get(`/api/recipes/${id}`)).data,
   );
+
+  useEffect(() => {
+    if (!isLoading && (recipe == null || recipe?.id !== id)) {
+      fetchRecipe();
+    }
+    const fetchComments = async () => {
+      try {
+        const result = await axios.get(`/api/recipes/getComments/${id}`);
+        setCommentText(result.data || []); // Ensure commentText is an array
+      } catch (error) {
+        console.error("Failed to fetch comments:", error);
+      }
+    };
+
+    fetchComments();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   // Extract YouTube video ID from URL
   const extractYouTubeVideoId = (url) => {
@@ -48,13 +68,6 @@ export default function RecipeDetail() {
       });
     }
   };
-
-  useEffect(() => {
-    if (!isLoading && (recipe == null || recipe?.id !== id)) {
-      fetchRecipe();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
 
   //카카오 공유하기
   useEffect(() => {
@@ -138,19 +151,25 @@ export default function RecipeDetail() {
 
   async function addComment() {
     try {
+      if (!memberId) {
+        toast.error("로그인 후 댓글을 작성할 수 있습니다.");
+        return;
+      }
+
       await axios.post("/api/recipes/addComment", {
-        writer: lUser.nickname,
-        content: commentText,
+        writer: user.nickname,
+        content: commentContent,
         recipeId: recipe.id,
+        memberId: memberId, // memberId를 추가합니다
       });
 
       const result = await axios.get(`/api/recipes/getComments/${recipe.id}`);
-
-      setCommentText(result.data);
+      setCommentText(result.data || []);
+      setCommentContent(""); // 댓글 작성 후 입력란 비우기
     } catch (err) {
       console.error(err);
+      toast.error("댓글 작성에 실패했습니다.");
     }
-    setCommentText("");
   }
 
   async function deleteComment(id) {
@@ -158,10 +177,15 @@ export default function RecipeDetail() {
       await axios.delete(`/api/recipes/deleteComment/${id}`);
 
       const result = await axios.get(`/api/recipes/getComments/${recipe.id}`);
-      setCommentText(result.data);
+      setCommentText(result.data || []);
     } catch (err) {
       console.error(err);
     }
+  }
+
+  if (isError) {
+    toast.error("레시피 정보를 불러오는데 실패했습니다.");
+    return <div></div>;
   }
 
   return (
@@ -337,25 +361,37 @@ export default function RecipeDetail() {
           </div>
           {/* 댓글 섹션 */}
           <div className="recipedetail_comment_wrap">
+            <h3 className="comment-title">댓글</h3>
             <div className="recipedetail_comment">
-              <h3>댓글</h3>
-              {commentText && commentText.length >= 1 ? (
+              {Array.isArray(commentText) && commentText.length > 0 ? (
                 commentText.map((comment, index) => (
-                  <div key={index}>
-                    <div>{comment.member.nickname}&nbsp;</div>
-                    <div>{comment.content}</div>
-                    <div>
-                      {comment.member.nickname === lUser.nickname ? (
-                        <button
-                          onClick={() => {
-                            deleteComment(comment.id);
-                          }}
-                          style={{ width: "100%" }}
-                        >
-                          삭제
-                        </button>
-                      ) : null}
+                  <div key={index} className="comment-card">
+                    <div className="comment-header">
+                      {/* 프로필 이미지 (예제이므로 실제 이미지는 대체 필요) */}
+                      <img
+                        src={
+                          comment.member.profileImage ||
+                          "/images/default-profile.png"
+                        }
+                        alt={`${comment.member.nickname}'s profile`}
+                        className="comment-profile-image"
+                      />
+                      <span className="comment-nickname">
+                        {comment.member.nickname}
+                      </span>
+                      <span className="comment-date">
+                        {new Date(comment.createdDate).toLocaleDateString()}
+                      </span>
                     </div>
+                    <p className="comment-content">{comment.content}</p>
+                    {comment.member.nickname === user.nickname && (
+                      <button
+                        onClick={() => deleteComment(comment.id)}
+                        style={{ width: "100%" }}
+                      >
+                        삭제
+                      </button>
+                    )}
                   </div>
                 ))
               ) : (
@@ -365,17 +401,14 @@ export default function RecipeDetail() {
           </div>
 
           {/* 댓글 입력란 */}
-          <div>
+          <div className="comment-input-wrap">
             <textarea
-              style={{ flex: "5" }}
-              value={commentText}
-              onChange={(e) => setCommentText(e.currentTarget.value)}
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.currentTarget.value)}
               placeholder="댓글을 입력하세요..."
               rows="3"
             />
-            <button style={{ flex: "1" }} onClick={() => addComment()}>
-              댓글 입력
-            </button>
+            <button onClick={() => addComment()}>댓글 입력</button>
           </div>
         </div>
       </div>
