@@ -101,10 +101,6 @@ public class Recipe {
 
         @Column(name = "description", length = 1000)
         private String description; // 조리 내용
-
-        @CreationTimestamp
-        @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL")
-        private Timestamp createdDate; // 생성 시간
     }
 
     @ElementCollection
