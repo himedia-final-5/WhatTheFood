@@ -82,7 +82,7 @@ export default function RecipeUpdate() {
           type="text"
           name="title"
           onChange={onInputChange}
-          value={inputs.title || recipe.title || ""}
+          value={inputs.title !== undefined ? inputs.title : recipe.title || ""}
           required
         />
       </div>
@@ -104,7 +104,11 @@ export default function RecipeUpdate() {
           id="description"
           name="description"
           onChange={onInputChange}
-          value={inputs.description || recipe.description || ""}
+          value={
+            inputs.description !== undefined
+              ? inputs.description
+              : recipe.description || ""
+          }
           required
         />
       </div>
@@ -115,7 +119,11 @@ export default function RecipeUpdate() {
           id="cookingTime"
           name="cookingTime"
           onChange={onInputChange}
-          value={inputs.cookingTime || recipe.cookingTime || ""}
+          value={
+            inputs.cookingTime !== undefined
+              ? inputs.cookingTime
+              : recipe.cookingTime || ""
+          }
           required
         />
       </div>
@@ -126,7 +134,11 @@ export default function RecipeUpdate() {
           id="servings"
           name="servings"
           onChange={onInputChange}
-          value={inputs.servings || recipe.servings || ""}
+          value={
+            inputs.servings !== undefined
+              ? inputs.servings
+              : recipe.servings || ""
+          }
           required
         />
       </div>
@@ -355,7 +367,11 @@ export default function RecipeUpdate() {
           id="guideLinks"
           name="guideLinks"
           onChange={onInputChange}
-          value={inputs.guideLinks || recipe.guideLinks || ""}
+          value={
+            inputs.guideLinks !== undefined
+              ? inputs.guideLinks
+              : recipe.guideLinks || ""
+          }
           required
         />
       </div>
@@ -365,7 +381,7 @@ export default function RecipeUpdate() {
         <div className="flex flex-wrap gap-y-2">
           {recipe.cookingStep &&
             recipe.cookingStep.length > 0 &&
-            recipe.cookingStep.map((cookingStep, index) => (
+            recipe.cookingStep.map((step, index) => (
               <div
                 key={index}
                 className={cn(
@@ -380,22 +396,22 @@ export default function RecipeUpdate() {
                     "text-2xl text-red-500 hover:text-red-700",
                     "bg-red-300 hover:bg-red-500",
                   )}
-                  onClick={() =>
-                    setRecipe({
-                      ...recipe,
-                      cookingStep: recipe.cookingStep.filter(
-                        (_, i) => i !== index,
-                      ),
-                    })
-                  }
+                  onClick={() => {
+                    const newSteps = recipe.cookingStep.filter(
+                      (_, i) => i !== index,
+                    );
+                    setRecipe({ ...recipe, cookingStep: newSteps });
+                  }}
                 >
                   X
                 </button>
                 <ImageUploadInput
-                  onUpload={(cookingStepImages) =>
-                    setRecipe({ ...recipe, cookingStepImages })
-                  }
-                  imageSrc={cookingStep.imageUrl}
+                  onUpload={(imageUrl) => {
+                    const newSteps = [...recipe.cookingStep];
+                    newSteps[index].imageUrl = imageUrl;
+                    setRecipe({ ...recipe, cookingStep: newSteps });
+                  }}
+                  imageSrc={step.imageUrl}
                   className={cn(
                     "flex flex-col items-center justify-center w-full overflow-hidden",
                     "border-2 border-gray-300 border-dashed rounded-lg",
@@ -404,11 +420,15 @@ export default function RecipeUpdate() {
                 <div className="createRecipe_field w-full">
                   <input
                     type="text"
-                    id="description"
-                    name="description"
-                    onChange={onInputChange}
-                    value={inputs.description || cookingStep.description || ""}
-                    className="w-full" // 이 부분 추가
+                    id={`description-${index}`}
+                    name={`description-${index}`}
+                    onChange={(e) => {
+                      const newSteps = [...recipe.cookingStep];
+                      newSteps[index].description = e.target.value;
+                      setRecipe({ ...recipe, cookingStep: newSteps });
+                    }}
+                    value={step.description || ""}
+                    className="w-full"
                     required
                   />
                 </div>
