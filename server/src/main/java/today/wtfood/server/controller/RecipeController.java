@@ -46,14 +46,11 @@ public class RecipeController {
     // 제목, 카테고리, 설명, 해시태그로 레시피 검색
     @GetMapping("/search")
     @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipes(
-            @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "category", required = false) String category,
-            @RequestParam(value = "description", required = false) String description,
-            @RequestParam(value = "hashtag", required = false) String hashtag,
+    public PageResponse<RecipeSummary> searchRecipes(
+            @RequestParam(value = "term", required = false) String term,
             Pageable pageable
     ) {
-        return PageResponse.of(rs.searchRecipes(title, category, description, hashtag, pageable));
+        return PageResponse.of(rs.searchRecipes(term, pageable));
     }
 
     //조회수
@@ -114,18 +111,21 @@ public class RecipeController {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
 
+    // 댓글 가져오기
     @GetMapping("/getComments/{recipeid}")
-    public List<Recipe.Comment> getReplys(@PathVariable("recipeid") long recipeid) {
-        List<Recipe.Comment> list = rs.getComments(recipeid);
+    public List<Recipe.Comment> getReplys(@PathVariable("recipeId") long recipeId) {
+        List<Recipe.Comment> list = rs.getComments(recipeId);
         return list;
     }
 
+    // 댓글 추가
     @PostMapping("/addComment")
     public HashMap<String, Object> addComment(@RequestBody Recipe.Comment comment) {
         rs.insertComment(comment);
         return null;
     }
 
+    // 댓글 삭제
     @DeleteMapping("/deleteComment/{id}")
     public HashMap<String, Object> deleteComment(@PathVariable("id") long id) {
         rs.deleteComment(id);
