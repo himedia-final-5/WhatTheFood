@@ -141,12 +141,10 @@ export default function RecipeDetail() {
       await axios.post("/api/recipes/addComment", {
         writer: lUser.nickname,
         content: commentText,
-        recipeid: props.recipe.id,
+        recipeId: recipe.id,
       });
 
-      const result = await jaxios.get(
-        `/api/recipes/getComments/${props.recipe.id}`,
-      );
+      const result = await axios.get(`/api/recipes/getComments/${recipe.id}`);
 
       setCommentText(result.data);
     } catch (err) {
@@ -159,9 +157,7 @@ export default function RecipeDetail() {
     try {
       await axios.delete(`/api/recipes/deleteComment/${id}`);
 
-      const result = await axios.get(
-        `/api/recipes/getComments/${props.recipe.id}`,
-      );
+      const result = await axios.get(`/api/recipes/getComments/${recipe.id}`);
       setCommentText(result.data);
     } catch (err) {
       console.error(err);
