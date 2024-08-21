@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import Popup from "../event/PopUp";
+
 import "./RecipeDetail.css";
+import { AdminFeature } from "components/util";
+import { axios } from "utils";
+import { usePromise } from "hooks";
+import Popup from "../event/PopUp";
 
 /** @type {?RecipeDetail} */
 const DEFAULT_RECIPE = null;
@@ -12,98 +16,86 @@ const DEFAULT_RECIPE = null;
 export default function RecipeDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [recipe, setRecipe] = useState(DEFAULT_RECIPE);
-  const [commentText, setCommentText] = useState([]);
+  const [commentText, setCommentText] = useState([]); // 댓글
   const [commentContent, setCommentContent] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
-  const [editingContent, setEditingContent] = useState("");
   const [buttonPopup, setButtonPopup] = useState(false);
-  const user = useSelector((state) => state.user);
-  const memberId = user ? user.id : null;
+  const [editingContent, setEditingContent] = useState("");
   const currentUrl = window.location.href;
+  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
+  const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
 
-  // 레시피와 댓글을 가져오는 함수
-  const fetchRecipeAndComments = async () => {
+  const [fetchRecipe, recipe, isLoading, isError] = usePromise(
+    DEFAULT_RECIPE,
+    async () => (await axios.get(`/api/recipes/${id}`)).data,
+  );
+
+  // 댓글 목록을 가져오는 함수
+  const fetchComments = async () => {
     try {
-      const recipeResult = await axios.get(`/api/recipes/${id}`);
-      setRecipe(recipeResult.data);
-
-      const commentsResult = await axios.get(`/api/recipes/${id}/comments`);
-      setCommentText(commentsResult.data || []);
+      const result = await axios.get(`/api/recipes/${id}/comments`);
+      setCommentText(result.data || []); // commentText가 배열임을 보장
     } catch (error) {
-      console.error("Failed to fetch recipe or comments:", error);
-      toast.error("레시피 정보를 불러오는데 실패했습니다.");
+      console.error("Failed to fetch comments:", error);
     }
   };
 
   useEffect(() => {
-    fetchRecipeAndComments();
+    if (!isLoading && (recipe == null || recipe?.id !== id)) {
+      fetchRecipe();
+    }
+    fetchComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  // 댓글을 추가하는 함수
-  const addComment = async () => {
-    try {
-      if (!memberId) {
-        toast.error("로그인 후 댓글을 작성할 수 있습니다.");
+  // Extract YouTube video ID from URL
+  const extractYouTubeVideoId = (url) => {
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|watch\?.+v=)?([^"&?/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
+
+  const deleteRecipe = () => {
+    if (window.confirm("삭제 하시겠습니까?")) {
+      toast.promise(axios.delete(`/api/recipes/${id}`), {
+        pending: "레시피 삭제 중...",
+        success: {
+          render() {
+            navigate("/recipes");
+            return "레시피가 삭제되었습니다.";
+          },
+        },
+        error: "레시피 삭제에 실패했습니다.",
+      });
+    }
+  };
+
+  // 카카오 공유하기
+  useEffect(() => {
+    const loadKakaoSDK = () => {
+      if (!window.Kakao) {
+        console.error("Kakao SDK is not loaded");
         return;
       }
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init("1cd0714fe86698514fb7dcd40504e5bf");
+      }
+    };
 
-      await axios.post(`/api/recipes/${recipe.id}/comments`, {
-        memberId: memberId,
-        content: commentContent,
-      });
+    const script = document.createElement("script");
+    script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+    script.integrity =
+      "sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4";
+    script.crossOrigin = "anonymous";
+    script.onload = loadKakaoSDK;
+    document.head.appendChild(script);
 
-      fetchRecipeAndComments();
-      setCommentContent("");
-    } catch (err) {
-      console.error(err);
-      toast.error("댓글 작성에 실패했습니다.");
-    }
-  };
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [id]);
 
-  // 댓글을 삭제하는 함수
-  const deleteComment = async (commentId) => {
-    try {
-      await axios.delete(`/api/recipes/${recipe.id}/comments/${commentId}`, {
-        params: { memberId },
-      });
-
-      fetchRecipeAndComments();
-    } catch (err) {
-      console.error(err);
-      toast.error("댓글 삭제에 실패했습니다.");
-    }
-  };
-
-  // 댓글을 수정하는 함수
-  const updateComment = async (commentId, newContent) => {
-    try {
-      await axios.put(`/api/recipes/${recipe.id}/comments/${commentId}`, {
-        memberId: memberId,
-        content: newContent,
-      });
-
-      fetchRecipeAndComments();
-      setEditingCommentId(null);
-      setEditingContent("");
-    } catch (err) {
-      console.error(err);
-      toast.error("댓글 수정에 실패했습니다.");
-    }
-  };
-
-  // 댓글 수정 버튼 클릭 핸들러
-  const handleEditClick = (comment) => {
-    setEditingCommentId(comment.id);
-    setEditingContent(comment.content);
-  };
-
-  // 댓글 수정 완료 핸들러
-  const handleUpdateComment = () => {
-    updateComment(editingCommentId, editingContent);
-  };
-
-  // 카카오 공유하기 함수
   const sendLinkKakaoShare = () => {
     if (!window.Kakao || !window.Kakao.isInitialized()) {
       console.error("Kakao SDK is not initialized");
@@ -114,6 +106,8 @@ export default function RecipeDetail() {
       console.error("Kakao.Link.sendDefault is not available");
       return;
     }
+
+    // 카카오톡 공유 불러올 이미지
     const imageUrl =
       recipe.finishedImages.length > 0
         ? recipe.finishedImages[0]
@@ -153,162 +147,317 @@ export default function RecipeDetail() {
     });
   };
 
-  // 레시피 삭제 함수
-  const deleteRecipe = () => {
-    if (window.confirm("삭제 하시겠습니까?")) {
-      axios
-        .delete(`/api/recipes/${id}`)
-        .then(() => {
-          navigate("/recipes");
-          toast.success("레시피가 삭제되었습니다.");
-        })
-        .catch(() => {
-          toast.error("레시피 삭제에 실패했습니다.");
-        });
+  async function addComment() {
+    try {
+      if (!memberId) {
+        toast.error("로그인 후 댓글을 작성할 수 있습니다.");
+        return;
+      }
+
+      await axios.post(`/api/recipes/${recipe.id}/comments`, {
+        memberId: memberId,
+        content: commentContent,
+      });
+
+      // 댓글 추가 후 새로 고침
+      fetchComments();
+      setCommentContent(""); // 댓글 작성 후 입력란 비우기
+    } catch (err) {
+      console.error(err);
+      toast.error("댓글 작성에 실패했습니다.");
+    }
+  }
+
+  async function deleteComment(commentId) {
+    try {
+      await axios.delete(`/api/recipes/${recipe.id}/comments/${commentId}`, {
+        params: { memberId },
+      });
+
+      // 댓글 삭제 후 새로 고침
+      fetchComments();
+    } catch (err) {
+      console.error(err);
+      toast.error("댓글 삭제에 실패했습니다.");
+    }
+  }
+
+  async function updateComment(commentId, newContent) {
+    try {
+      await axios.put(`/api/recipes/${recipe.id}/comments/${commentId}`, {
+        memberId: memberId,
+        content: newContent,
+      });
+
+      // 댓글 수정 후 새로 고침
+      fetchComments();
+    } catch (err) {
+      console.error(err);
+      toast.error("댓글 수정에 실패했습니다.");
+    }
+  }
+
+  const handleEditClick = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditingContent(comment.content);
+  };
+
+  const handleUpdateClick = () => {
+    if (editingCommentId && editingContent.trim() !== "") {
+      updateComment(editingCommentId, editingContent);
+      setEditingCommentId(null);
+      setEditingContent("");
+    } else {
+      toast.error("댓글 내용을 입력하세요.");
     }
   };
 
-  if (!recipe) {
-    return <div>Loading...</div>;
+  if (isError) {
+    toast.error("레시피 정보를 불러오는데 실패했습니다.");
+    return <div></div>;
   }
 
   return (
-    <div className="recipedetail_wrap">
-      <div className="recipedetail_btn_wrap">
-        {/* 관리자 기능 */}
-        {user && user.role === "ROLE_ADMIN" && (
-          <>
-            <button onClick={() => navigate(`/recipes/write/${recipe.id}`)}>
-              수정
-            </button>
+    recipe && (
+      <div className="recipedetail_wrap">
+        <div className="recipedetail_btn_wrap">
+          <AdminFeature>
+            <Link to={`/recipes/write/${recipe.id}`}>
+              <button>수정</button>
+            </Link>
             <button onClick={deleteRecipe}>삭제</button>
-          </>
-        )}
-        <button onClick={() => navigate("/recipes")}>돌아가기</button>
-      </div>
-
-      <div className="recipedetail_content">
-        <h1>{recipe.title}</h1>
-        <p>
-          <i>{new Date(recipe.createdDate).toLocaleDateString()}</i>
-        </p>
-        <p>{recipe.description}</p>
-        <p>
-          <strong>{recipe.cookingTime}</strong>
-        </p>
-        <p>
-          <strong>{recipe.servings}인분</strong>
-        </p>
-        <p>
-          <strong>{recipe.level} level</strong>
-        </p>
-        <p>
-          <strong>{recipe.category}</strong>
-        </p>
-
-        <div className="event_custom-button_total_wrap">
-          <div className="event_custom-button_wrap">
-            <button
-              className="event_custom_button"
-              onClick={sendLinkKakaoShare}
-            >
-              <img src="/images/kakao.png" alt="KakaoShare" />
-            </button>
-            <CopyToClipboard text={currentUrl}>
-              <button
-                className="event_custom_button"
-                onClick={() => setButtonPopup(true)}
-              >
-                <img src="/images/share_copy.png" alt="linkShare" />
-              </button>
-            </CopyToClipboard>
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-              <h3>링크 복사 완료</h3>
-            </Popup>
-          </div>
+          </AdminFeature>
+          <Link to="/recipes">
+            <button>돌아가기</button>
+          </Link>
         </div>
 
-        {recipe.videoLink && (
-          <div className="recipedetail_video">
-            <iframe
-              src={`https://www.youtube.com/embed/${extractYouTubeVideoId(recipe.videoLink)}`}
-              title="Video"
-              allowFullScreen
-            ></iframe>
+        <div className="recipedetail_content">
+          <h1>{recipe.title}</h1>
+          <p>
+            <i>{recipe.createdDate.slice(0, 10)}</i>
+          </p>
+          <p>{recipe.description}</p>
+          <p>
+            <strong>{recipe.cookingTime}</strong>
+          </p>
+          <p>
+            <strong>{recipe.servings}인분</strong>
+          </p>
+          <p>
+            <strong>{recipe.level} level</strong>
+          </p>
+          <p>
+            <strong>{recipe.category}</strong>
+          </p>
+
+          <div className="event_custom-button_total_wrap">
+            <div className="event_custom-button_wrap">
+              <button
+                className="event_custom_button"
+                onClick={sendLinkKakaoShare}
+              >
+                <img src="/images/kakao.png" alt="KakaoShare" />
+              </button>
+              <CopyToClipboard text={currentUrl}>
+                <button
+                  type="submit"
+                  className="event_custom_button"
+                  onClick={() => setButtonPopup(true)}
+                >
+                  <img src="/images/share_copy.png" alt="linkShare" />
+                </button>
+              </CopyToClipboard>
+              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <h3>링크 복사 완료</h3>
+              </Popup>
+            </div>
           </div>
-        )}
 
-        {/* 기타 레시피 내용 표시 */}
-        {/* 생략: 재료, 조리도구, 가이드 링크, 조리 단계, 완성 이미지 등 */}
+          {recipe.videoLink && (
+            <div className="recipedetail_video">
+              <iframe
+                src={`https://www.youtube.com/embed/${extractYouTubeVideoId(recipe.videoLink)}`}
+                title="Video"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
 
-        {/* 댓글 섹션 */}
-        <div className="recipedetail_comment_wrap">
-          <h3 className="comment-title">댓글</h3>
-          <div className="recipedetail_comment">
-            {commentText.length > 0 ? (
-              commentText.map((comment) => (
-                <div key={comment.id} className="comment-card">
-                  <div className="comment-header">
-                    <img
-                      src={
-                        comment.member.profileImage ||
-                        "/images/default-profile.png"
-                      }
-                      alt={`${comment.member.nickname}'s profile`}
-                      className="comment-profile-image"
-                    />
-                    <span className="comment-nickname">
-                      {comment.member.nickname}
-                    </span>
-                    <span className="comment-date">
-                      {new Date(comment.createdDate).toLocaleDateString()}
-                    </span>
+          <div className="recipedetail_ingredientWrap">
+            <div className="recipedetail_ingredientImage">
+              {Array.isArray(recipe.ingredientImage) &&
+              recipe.ingredientImage.length > 0 ? (
+                recipe.ingredientImage.map((image, index) => (
+                  <div key={index} className="recipedetail_contentdetail">
+                    <img src={image} alt={`Ingredient - ${index}`} />
                   </div>
-                  {editingCommentId === comment.id ? (
-                    <div>
-                      <textarea
-                        value={editingContent}
-                        onChange={(e) => setEditingContent(e.target.value)}
-                      />
-                      <button onClick={handleUpdateComment}>수정 완료</button>
-                      <button onClick={() => setEditingCommentId(null)}>
-                        취소
-                      </button>
-                    </div>
+                ))
+              ) : (
+                <p>No ingredient images available.</p>
+              )}
+            </div>
+            <div className="recipedetail_ingredients">
+              <h3>기본재료</h3>
+              {Array.isArray(recipe.ingredients) &&
+              recipe.ingredients.length > 0 ? (
+                <ul>
+                  {recipe.ingredients.map((ingredient, index) => (
+                    <li key={index}>{ingredient}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No ingredient list available.</p>
+              )}
+            </div>
+          </div>
+
+          <div className="recipedetail_cookingTools">
+            <h3>조리도구</h3>
+            <ul>
+              {Array.isArray(recipe.cookingTools) &&
+              recipe.cookingTools.length > 0 ? (
+                recipe.cookingTools.map((tool, index) => (
+                  <li key={index}>{tool}</li>
+                ))
+              ) : (
+                <p>No cooking tools listed.</p>
+              )}
+            </ul>
+          </div>
+
+          <div className="recipedetail_guideLinks">
+            <h3>가이드 링크</h3>
+            <ul>
+              {Array.isArray(recipe.guideLinks) &&
+              recipe.guideLinks.length > 0 ? (
+                recipe.guideLinks.map((link, index) => (
+                  <li key={index}>
+                    <a href={link} target="#" rel="noopener noreferrer">
+                      클릭하시면 블로그로 이동합니다.
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <p>No guide links available.</p>
+              )}
+            </ul>
+          </div>
+
+          <div className="recipedetail_cookingStep">
+            {Array.isArray(recipe.cookingStep) &&
+            recipe.cookingStep.length > 0 ? (
+              recipe.cookingStep.map((step, index) => (
+                <div key={index} className="recipedetail_contentdetail">
+                  <p>{step.stepNumber}번</p>
+                  {step.imageUrl ? (
+                    <img src={step.imageUrl} alt={`Cooking Step - ${index}`} />
                   ) : (
-                    <>
-                      <p className="comment-content">{comment.content}</p>
-                      {comment.member.nickname === user.nickname && (
-                        <div className="comment-actions">
-                          <button onClick={() => handleEditClick(comment)}>
-                            수정
-                          </button>
-                          <button onClick={() => deleteComment(comment.id)}>
-                            삭제
-                          </button>
-                        </div>
-                      )}
-                    </>
+                    <p>No image available for this step.</p>
                   )}
+                  {step.description && <p>{step.description}</p>}
                 </div>
               ))
             ) : (
-              <div>아직 댓글이 없습니다</div>
+              <p>No cooking steps available.</p>
             )}
           </div>
 
-          {memberId && (
-            <div className="add-comment">
-              <textarea
-                value={commentContent}
-                onChange={(e) => setCommentContent(e.target.value)}
-                placeholder="댓글을 작성하세요"
-              />
-              <button onClick={addComment}>댓글 작성</button>
+          <div className="recipedetail_finishedImages">
+            <div>
+              {Array.isArray(recipe.finishedImages) &&
+              recipe.finishedImages.length > 0 ? (
+                recipe.finishedImages.map((image, index) => (
+                  <div key={index} className="recipedetail_contentdetail">
+                    <p>완성!</p>
+                    <img src={image} alt={`Finished - ${index}`} />
+                  </div>
+                ))
+              ) : (
+                <p>No finished images available.</p>
+              )}
             </div>
-          )}
+          </div>
+          <div className="recipedetail_tags">
+            <ul>
+              {Array.isArray(recipe.tags) && recipe.tags.length > 0 ? (
+                recipe.tags.map((tag, index) => <li key={index}>{tag}</li>)
+              ) : (
+                <p>No tags available.</p>
+              )}
+            </ul>
+          </div>
+          {/* 댓글 섹션 */}
+          <div className="recipedetail_comment_wrap">
+            <h3 className="comment-title">댓글</h3>
+            <div className="recipedetail_comment">
+              {Array.isArray(commentText) && commentText.length > 0 ? (
+                commentText.map((comment, index) => (
+                  <div key={index} className="comment-card">
+                    <div className="comment-header">
+                      <img
+                        src={
+                          comment.member.profileImage ||
+                          "/images/default-profile.png"
+                        }
+                        alt={`${comment.member.nickname}'s profile`}
+                        className="comment-profile-image"
+                      />
+                      <span className="comment-nickname">
+                        {comment.member.nickname}
+                      </span>
+                      <span className="comment-date">
+                        {new Date(comment.createdDate).toLocaleDateString()}
+                      </span>
+                    </div>
+                    {editingCommentId === comment.id ? (
+                      <div className="comment-edit">
+                        <textarea
+                          value={editingContent}
+                          onChange={(e) =>
+                            setEditingContent(e.currentTarget.value)
+                          }
+                          placeholder="댓글을 입력하세요..."
+                          rows="3"
+                        />
+                        <button onClick={handleUpdateClick}>수정 완료</button>
+                        <button onClick={() => setEditingCommentId(null)}>
+                          취소
+                        </button>
+                      </div>
+                    ) : (
+                      <p className="comment-content">{comment.content}</p>
+                    )}
+                    {comment.member.nickname === user.nickname && (
+                      <div className="comment-actions">
+                        <button onClick={() => handleEditClick(comment)}>
+                          수정
+                        </button>
+                        <button onClick={() => deleteComment(comment.id)}>
+                          삭제
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div>아직 댓글이 없습니다</div>
+              )}
+            </div>
+          </div>
+
+          {/* 댓글 입력란 */}
+          <div className="comment-input-wrap">
+            <textarea
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.currentTarget.value)}
+              placeholder="댓글을 입력하세요..."
+              rows="3"
+            />
+            <button onClick={addComment}>댓글 입력</button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
