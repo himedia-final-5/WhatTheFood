@@ -234,16 +234,63 @@ export default function RecipeUpdate() {
 
       <div className="createRecipe_field">
         <label>재료 이미지</label>
-        <ImageUploadInput
-          onUpload={(ingredientImage) =>
-            setRecipe({ ...recipe, ingredientImage })
-          }
-          imageSrc={recipe.ingredientImage}
-          className={cn(
-            "flex flex-col items-center justify-center w-full overflow-hidden",
-            "border-2 border-gray-300 border-dashed rounded-lg",
+        <div className="flex flex-col gap-2">
+          {recipe.ingredientImage && recipe.ingredientImage.length > 0 ? (
+            recipe.ingredientImage.map((image, index) => (
+              <div key={index} className="relative">
+                <ImageUploadInput
+                  onUpload={(newImage) => {
+                    const newImages = [...recipe.ingredientImage];
+                    newImages[index] = newImage;
+                    setRecipe({ ...recipe, ingredientImage: newImages });
+                  }}
+                  imageSrc={image}
+                  className={cn(
+                    "flex flex-col items-center justify-center w-full overflow-hidden",
+                    "border-2 border-gray-300 border-dashed rounded-lg",
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setRecipe({
+                      ...recipe,
+                      ingredientImage: recipe.ingredientImage.filter(
+                        (_, i) => i !== index,
+                      ),
+                    })
+                  }
+                  className={cn(
+                    "absolute top-2 right-2 text-red-500 hover:text-red-700",
+                    "bg-red-300 hover:bg-red-500",
+                    "w-8 h-8 rounded-md",
+                  )}
+                >
+                  X
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No ingredient images available.</p>
           )}
-        />
+          <button
+            type="button"
+            onClick={() =>
+              setRecipe({
+                ...recipe,
+                ingredientImage: [...(recipe.ingredientImage || []), ""],
+              })
+            }
+            className={cn(
+              "w-full py-2 rounded-md transition-colors",
+              "text-center items-center",
+              "text-2xl text-green-700 hover:text-green-200",
+              "bg-green-300 hover:bg-green-500",
+            )}
+          >
+            재료 이미지 추가 +
+          </button>
+        </div>
       </div>
 
       <div className="createRecipe_field">
@@ -361,19 +408,63 @@ export default function RecipeUpdate() {
       </div>
 
       <div className="createRecipe_field">
-        <label htmlFor="guideLinks">가이드 링크</label>
-        <input
-          type="text"
-          id="guideLinks"
-          name="guideLinks"
-          onChange={onInputChange}
-          value={
-            inputs.guideLinks !== undefined
-              ? inputs.guideLinks
-              : recipe.guideLinks || ""
-          }
-          required
-        />
+        <label>가이드 링크</label>
+        <div className="flex flex-col gap-2">
+          {recipe.guideLinks && recipe.guideLinks.length > 0 ? (
+            recipe.guideLinks.map((link, index) => (
+              <div key={index} className="relative">
+                <input
+                  type="text"
+                  value={link}
+                  onChange={(e) => {
+                    const newLinks = [...recipe.guideLinks];
+                    newLinks[index] = e.target.value;
+                    setRecipe({ ...recipe, guideLinks: newLinks });
+                  }}
+                  className="w-full"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setRecipe({
+                      ...recipe,
+                      guideLinks: recipe.guideLinks.filter(
+                        (_, i) => i !== index,
+                      ),
+                    })
+                  }
+                  className={cn(
+                    "absolute top-2 right-2 text-red-500 hover:text-red-700",
+                    "bg-red-300 hover:bg-red-500",
+                    "w-8 h-8 rounded-md",
+                  )}
+                >
+                  X
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No guide links available.</p>
+          )}
+          <button
+            type="button"
+            onClick={() =>
+              setRecipe({
+                ...recipe,
+                guideLinks: [...(recipe.guideLinks || []), ""],
+              })
+            }
+            className={cn(
+              "w-full py-2 rounded-md transition-colors",
+              "text-center items-center",
+              "text-2xl text-green-700 hover:text-green-200",
+              "bg-green-300 hover:bg-green-500",
+            )}
+          >
+            가이드 링크 추가 +
+          </button>
+        </div>
       </div>
 
       <div className="createRecipe_field">
@@ -457,16 +548,69 @@ export default function RecipeUpdate() {
 
         <div className="createRecipe_field">
           <label>완성 이미지</label>
-          <ImageUploadInput
-            onUpload={(finishedImages) =>
-              setRecipe({ ...recipe, finishedImages })
-            }
-            imageSrc={recipe.finishedImages}
-            className={cn(
-              "flex flex-col items-center justify-center w-full overflow-hidden",
-              "border-2 border-gray-300 border-dashed rounded-lg",
+          <div className="flex flex-col gap-2">
+            {recipe.finishedImages && recipe.finishedImages.length > 0 ? (
+              recipe.finishedImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    "relative flex flex-col items-center justify-center w-full overflow-hidden",
+                    "border-2 border-gray-300 border-dashed rounded-lg",
+                  )}
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setRecipe({
+                        ...recipe,
+                        finishedImages: recipe.finishedImages.filter(
+                          (_, i) => i !== index,
+                        ),
+                      })
+                    }
+                    className={cn(
+                      "absolute top-2 right-2 text-red-500 hover:text-red-700",
+                      "bg-red-300 hover:bg-red-500",
+                      "w-8 h-8 rounded-md",
+                    )}
+                  >
+                    X
+                  </button>
+                  <ImageUploadInput
+                    onUpload={(imageUrl) => {
+                      const newImages = [...recipe.finishedImages];
+                      newImages[index] = imageUrl;
+                      setRecipe({ ...recipe, finishedImages: newImages });
+                    }}
+                    imageSrc={image}
+                    className={cn(
+                      "flex flex-col items-center justify-center w-full overflow-hidden",
+                      "border-2 border-gray-300 border-dashed rounded-lg",
+                    )}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No finished images available.</p>
             )}
-          />
+            <button
+              type="button"
+              onClick={() =>
+                setRecipe({
+                  ...recipe,
+                  finishedImages: [...(recipe.finishedImages || []), ""],
+                })
+              }
+              className={cn(
+                "w-full py-2 rounded-md transition-colors",
+                "text-center items-center",
+                "text-2xl text-green-700 hover:text-green-200",
+                "bg-green-300 hover:bg-green-500",
+              )}
+            >
+              완성 이미지 추가 +
+            </button>
+          </div>
         </div>
       </div>
 
