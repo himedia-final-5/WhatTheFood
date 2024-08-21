@@ -267,6 +267,7 @@ export default function RecipeDetail() {
               recipe.cookingStep.map((step, index) => (
                 <div key={index} className="recipedetail_contentdetail">
                   <p>{step.stepNumber}번</p>
+                  {/* <p>레시피 ID: {step.recipeId}</p> */}
                   {step.imageUrl ? (
                     <img src={step.imageUrl} alt={`Cooking Step - ${index}`} />
                   ) : (

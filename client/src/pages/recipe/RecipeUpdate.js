@@ -521,6 +521,21 @@ export default function RecipeUpdate() {
                     value={step.description || ""}
                     className="w-full"
                     required
+                    placeholder="조리 내용 입력"
+                  />
+                  <input
+                    type="number"
+                    id={`stepNumber-${index}`}
+                    name={`stepNumber-${index}`}
+                    onChange={(e) => {
+                      const newSteps = [...recipe.cookingStep];
+                      newSteps[index].stepNumber = parseInt(e.target.value, 10);
+                      setRecipe({ ...recipe, cookingStep: newSteps });
+                    }}
+                    value={step.stepNumber || ""}
+                    className="w-full mt-2"
+                    required
+                    placeholder="조리 순서 번호"
                   />
                 </div>
               </div>
@@ -531,7 +546,7 @@ export default function RecipeUpdate() {
                 ...recipe,
                 cookingStep: [
                   ...(recipe.cookingStep || []),
-                  { imageUrl: "", description: "" },
+                  { imageUrl: "", description: "", stepNumber: 1 },
                 ],
               })
             }
