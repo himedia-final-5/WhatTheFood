@@ -24,25 +24,27 @@ export default function RecipeList() {
   const [favoritedRecipes, setFavoritedRecipes] = useState(new Set());
 
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
-  const memberId = user.id; // 로그인한 사용자의 ID를 가져옵니다
+  const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
 
   const throttle = usePromiseThrottle(throttleInterval);
 
   // 초기화 시 찜한 레시피 목록을 가져옵니다
   useEffect(() => {
-    const fetchFavoritedRecipes = async () => {
-      try {
-        const response = await axios.get(`/api/recipes/favorites`, {
-          params: { memberId },
-        });
-        const recipes = response.data.content.map((recipe) => recipe.id);
-        setFavoritedRecipes(new Set(recipes));
-      } catch (error) {
-        console.error("Failed to fetch favorited recipes:", error);
-      }
-    };
+    if (memberId) {
+      const fetchFavoritedRecipes = async () => {
+        try {
+          const response = await axios.get(`/api/recipes/favorites`, {
+            params: { memberId },
+          });
+          const recipes = response.data.content.map((recipe) => recipe.id);
+          setFavoritedRecipes(new Set(recipes));
+        } catch (error) {
+          console.error("Failed to fetch favorited recipes:", error);
+        }
+      };
 
-    fetchFavoritedRecipes();
+      fetchFavoritedRecipes();
+    }
   }, [memberId]);
 
   const fetchPage = async (page) => {
@@ -154,13 +156,15 @@ export default function RecipeList() {
                 <span className="recipe_state_viewcount">
                   조회수 {recipe.viewCount}
                 </span>
-                <button
-                  className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleFavoriteClick(recipe.id);
-                  }}
-                ></button>
+                {user && (
+                  <button
+                    className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleFavoriteClick(recipe.id);
+                    }}
+                  ></button>
+                )}
               </div>
               <div className="recipe_imageUrl">
                 <img src={recipe.bannerImage} alt="recipe_bannerImage" />
