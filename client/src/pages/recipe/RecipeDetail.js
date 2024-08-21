@@ -266,6 +266,7 @@ export default function RecipeDetail() {
             recipe.cookingStep.length > 0 ? (
               recipe.cookingStep.map((step, index) => (
                 <div key={index} className="recipedetail_contentdetail">
+                  <p>{step.stepNumber}번</p>
                   {step.imageUrl ? (
                     <img src={step.imageUrl} alt={`Cooking Step - ${index}`} />
                   ) : (
@@ -285,6 +286,7 @@ export default function RecipeDetail() {
               recipe.finishedImages.length > 0 ? (
                 recipe.finishedImages.map((image, index) => (
                   <div key={index} className="recipedetail_contentdetail">
+                    <p>완성!</p>
                     <img src={image} alt={`Finished - ${index}`} />
                   </div>
                 ))

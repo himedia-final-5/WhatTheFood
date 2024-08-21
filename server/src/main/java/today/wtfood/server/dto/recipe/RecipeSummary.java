@@ -67,7 +67,5 @@ public interface RecipeSummary {
         String getImageUrl();        // 이미지 URL
 
         String getDescription();     // 조리 내용
-
-        Long getRecipeId();          // 레시피 ID
     }
 }
