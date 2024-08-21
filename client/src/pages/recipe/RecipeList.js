@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
 import { AdminFeature } from "components/util";
@@ -27,8 +27,11 @@ export default function RecipeList() {
   const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
 
   const throttle = usePromiseThrottle(throttleInterval);
+  const location = useLocation();
+  const navigate = useNavigate();
+  let searchTerm = location.state?.searchTerm || "";
 
-  // 초기화 시 찜한 레시피 목록을 가져옵니다
+  // 레시피 목록 및 찜한 레시피 불러오기
   useEffect(() => {
     if (memberId) {
       const fetchFavoritedRecipes = async () => {
@@ -47,14 +50,30 @@ export default function RecipeList() {
     }
   }, [memberId]);
 
-  const fetchPage = async (page) => {
-    const response = await axios.get(`/api/recipes`, {
-      params: { page, size: 8, category: selectedCategory },
+  // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
+  useEffect(() => {
+    reset();
+    fetchPage(0).catch((error) => {
+      defaultErrorHandler(error);
     });
+  }, [selectedCategory, searchTerm, reset]);
+
+  // 페이지 번호와 카테고리/검색어에 따라 레시피 목록을 서버에서 가져옵니다.
+  const fetchPage = async (page) => {
+    let response = null;
+    if (searchTerm) {
+      response = await axios.get(`/api/recipes/search`, {
+        params: { term: searchTerm, page: 0, size: 8 },
+      });
+    } else {
+      response = await axios.get(`/api/recipes`, {
+        params: { page, size: 8, category: selectedCategory },
+      });
+    }
     setThrottleInterval(0);
     return response.data;
   };
-
+  // 무한 스크롤 기능
   const { ref, content, reset } = useInfiniteScroll(
     throttle(fetchPage),
     (error) => {
@@ -62,13 +81,16 @@ export default function RecipeList() {
       defaultErrorHandler(error);
     },
   );
-
+  // 카테고리 및 레시피 클릭 이벤트
   const handleCategoryClick = async (query) => {
     setSelectedCategory(query);
+    navigate("/recipes", { state: { searchTerm: "" } });
+
     reset();
     fetchPage(0);
   };
 
+  // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
   const handleRecipeClick = async (recipeId) => {
     try {
       await axios.put(`/api/recipes/${recipeId}/incrementViewCount`);
@@ -102,13 +124,6 @@ export default function RecipeList() {
       }
     }
   };
-
-  useEffect(() => {
-    reset();
-    fetchPage(0).catch((error) => {
-      defaultErrorHandler(error);
-    });
-  }, [selectedCategory, reset]);
 
   return (
     <div className="recipeList_wrap">
