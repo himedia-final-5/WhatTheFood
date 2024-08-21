@@ -60,14 +60,14 @@ public class RecipeController {
     }
 
     // 레시피 수정
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateRecipe(
             @PathVariable("id") long id,
-            @RequestBody RecipeDto recipeDto
+            @RequestBody RecipeDto recipe
     ) {
-        Recipe updatedRecipe = recipeDto.toEntity();
+        Recipe updatedRecipe = recipe.toEntity();
         rs.updateRecipe(id, updatedRecipe);
     }
 
