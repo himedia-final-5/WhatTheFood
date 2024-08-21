@@ -6,5 +6,5 @@ import today.wtfood.server.entity.Recipe;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Recipe.Comment, Long> {
-    List<Recipe.Comment> findByRecipeidOrderByIdDesc(long id);
+    List<Recipe.Comment> findByRecipeIdOrderByIdDesc(long id);
 }
