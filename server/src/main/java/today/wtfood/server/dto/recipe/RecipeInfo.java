@@ -64,7 +64,6 @@ public interface RecipeInfo {
 
         String getDescription();
 
-        Timestamp getCreatedDate();
     }
 
     /**
