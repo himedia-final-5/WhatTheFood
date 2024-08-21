@@ -56,8 +56,8 @@ public class RecipeService {
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
     }
 
-    public Page<Recipe> searchRecipes(String title, String category, String description, String hashtag, Pageable pageable) {
-        return rr.searchRecipes(title, category, description, hashtag, pageable);
+    public Page<RecipeSummary> searchRecipes(String term, Pageable pageable) {
+        return rr.searchRecipes(term, pageable);
     }
 
     // 조회수
@@ -146,7 +146,7 @@ public class RecipeService {
         }
     }
 
-    public List<Recipe.Comment> getComments(long recipeid) {
-        return cr.findByRecipeidOrderByIdDesc(recipeid);
+    public List<Recipe.Comment> getComments(long recipeId) {
+        return cr.findByRecipeIdOrderByIdDesc(recipeId);
     }
 }
