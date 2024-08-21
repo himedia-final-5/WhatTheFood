@@ -12,6 +12,9 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.service.RecipeService;
 
+import java.util.HashMap;
+import java.util.List;
+
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
@@ -109,6 +112,24 @@ public class RecipeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
+    }
+
+    @GetMapping("/getComments/{recipeid}")
+    public List<Recipe.Comment> getReplys(@PathVariable("recipeid") long recipeid) {
+        List<Recipe.Comment> list = rs.getComments(recipeid);
+        return list;
+    }
+
+    @PostMapping("/addComment")
+    public HashMap<String, Object> addComment(@RequestBody Recipe.Comment comment) {
+        rs.insertComment(comment);
+        return null;
+    }
+
+    @DeleteMapping("/deleteComment/{id}")
+    public HashMap<String, Object> deleteComment(@PathVariable("id") long id) {
+        rs.deleteComment(id);
+        return null;
     }
 
 

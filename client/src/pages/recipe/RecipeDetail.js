@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 import "./RecipeDetail.css";
 import { AdminFeature } from "components/util";
@@ -15,9 +16,10 @@ const DEFAULT_RECIPE = null;
 export default function RecipeDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [commentText, setCommentText] = useState("");
+  const [commentText, setCommentText] = useState([]); //댓글
   const currentUrl = window.location.href;
   const [buttonPopup, setButtonPopup] = useState(false);
+  let lUser = useSelector((state) => state.user);
 
   const [fetchRecipe, recipe, isLoading, isError] = usePromise(
     DEFAULT_RECIPE,
@@ -132,6 +134,38 @@ export default function RecipeDetail() {
   if (isError) {
     toast.error("레시피 정보를 불러오는데 실패했습니다.");
     return <div></div>;
+  }
+
+  async function addComment() {
+    try {
+      await axios.post("/api/recipes/addComment", {
+        writer: lUser.nickname,
+        content: commentText,
+        recipeid: props.recipe.id,
+      });
+
+      const result = await jaxios.get(
+        `/api/recipes/getComments/${props.recipe.id}`,
+      );
+
+      setCommentText(result.data);
+    } catch (err) {
+      console.error(err);
+    }
+    setCommentText("");
+  }
+
+  async function deleteComment(id) {
+    try {
+      await axios.delete(`/api/recipes/deleteComment/${id}`);
+
+      const result = await axios.get(
+        `/api/recipes/getComments/${props.recipe.id}`,
+      );
+      setCommentText(result.data);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -309,42 +343,43 @@ export default function RecipeDetail() {
           <div className="recipedetail_comment_wrap">
             <div className="recipedetail_comment">
               <h3>댓글</h3>
-              {Array.isArray(recipe.comments) && recipe.comments.length > 0 ? (
-                recipe.comments.map((comment, index) => (
-                  <div key={index} className="comment-card">
-                    <div className="comment-header">
-                      <img
-                        src={
-                          comment.member.profileImage || "/default-profile.png"
-                        }
-                        alt="Profile"
-                        className="comment-profile-image"
-                      />
-                      <span className="comment-nickname">
-                        {comment.member.nickname}
-                      </span>
-                      <span className="comment-date">
-                        {new Date(comment.createdDate).toLocaleString()}
-                      </span>
+              {commentText && commentText.length >= 1 ? (
+                commentText.map((comment, index) => (
+                  <div key={index}>
+                    <div>{comment.member.nickname}&nbsp;</div>
+                    <div>{comment.content}</div>
+                    <div>
+                      {comment.member.nickname === lUser.nickname ? (
+                        <button
+                          onClick={() => {
+                            deleteComment(comment.id);
+                          }}
+                          style={{ width: "100%" }}
+                        >
+                          삭제
+                        </button>
+                      ) : null}
                     </div>
-                    <div className="comment-content">{comment.content}</div>
                   </div>
                 ))
               ) : (
-                <p>No comments available.</p>
+                <div>아직 댓글이 없습니다</div>
               )}
             </div>
           </div>
 
           {/* 댓글 입력란 */}
-          <div className="comment-input-wrap">
+          <div>
             <textarea
+              style={{ flex: "5" }}
               value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
+              onChange={(e) => setCommentText(e.currentTarget.value)}
               placeholder="댓글을 입력하세요..."
               rows="3"
             />
-            <button>댓글 추가</button>
+            <button style={{ flex: "1" }} onClick={() => addComment()}>
+              댓글 입력
+            </button>
           </div>
         </div>
       </div>
