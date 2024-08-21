@@ -2,7 +2,9 @@ package today.wtfood.server.controller;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
@@ -10,7 +12,10 @@ import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
 import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.repository.CommentRepository;
 import today.wtfood.server.service.RecipeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/recipes")
@@ -108,26 +113,63 @@ public class RecipeController {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
 
-//    // 댓글 가져오기
-//    @GetMapping("/getComments/{recipeid}")
-//    public List<Recipe.Comment> getReplys(@PathVariable("recipeId") long recipeId) {
-//        List<Recipe.Comment> list = rs.getComments(recipeId);
-//        return list;
-//    }
-//
-//    // 댓글 추가
-//    @PostMapping("/addComment")
-//    public HashMap<String, Object> addComment(@RequestBody Recipe.Comment comment) {
-//        rs.insertComment(comment);
-//        return null;
-//    }
-//
-//    // 댓글 삭제
-//    @DeleteMapping("/deleteComment/{id}")
-//    public HashMap<String, Object> deleteComment(@PathVariable("id") long id) {
-//        rs.deleteComment(id);
-//        return null;
-//    }
+    // 댓글 가져오기
+    @GetMapping("/{recipeId}/comments")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<List<Recipe.Comment>> getComments(@PathVariable long recipeId) {
+        List<Recipe.Comment> comments = rs.getComments(recipeId);
+        return ResponseEntity.ok(comments);
+    }
 
+    // 댓글 추가
+    @PostMapping("/{recipeId}/comments")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<String> addComment(
+            @PathVariable long recipeId,
+            @RequestParam long memberId,
+            @RequestBody Recipe.Comment comment) {
+        comment.setRecipe(rs.getRecipeByIdEntity(recipeId));
+        comment.setMember(rs.getMemberById(memberId));
+        rs.insertComment(comment);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Comment added successfully");
+    }
+
+    // 댓글 수정
+    @PutMapping("/{recipeId}/comments/{commentId}")
+    @PreAuthorize("isAuthenticated() and @securityService.isCommentOwner(#commentId, #memberId)")
+    public ResponseEntity<String> updateComment(
+            @PathVariable long recipeId,
+            @PathVariable long commentId,
+            @RequestParam long memberId,
+            @RequestBody Recipe.Comment updatedComment) {
+        rs.updateComment(commentId, updatedComment);
+        return ResponseEntity.ok("Comment updated successfully");
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/{recipeId}/comments/{commentId}")
+    @PreAuthorize("isAuthenticated() and @securityService.isCommentOwner(#commentId, #memberId)")
+    public ResponseEntity<String> deleteComment(
+            @PathVariable long recipeId,
+            @PathVariable long commentId,
+            @RequestParam long memberId) {
+        rs.deleteComment(commentId);
+        return ResponseEntity.ok("Comment deleted successfully");
+    }
+
+    @Service
+    public class SecurityService {
+
+        private final CommentRepository commentRepository;
+
+        public SecurityService(CommentRepository commentRepository) {
+            this.commentRepository = commentRepository;
+        }
+
+        public boolean isCommentOwner(long commentId, long memberId) {
+            Recipe.Comment comment = commentRepository.findById(commentId).orElse(null);
+            return comment != null && comment.getMember().getId() == memberId;
+        }
+    }
 
 }

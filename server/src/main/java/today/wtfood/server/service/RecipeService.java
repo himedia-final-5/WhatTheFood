@@ -24,8 +24,7 @@ public class RecipeService {
 
     private final RecipeRepository rr;
     private final MemberRepository mr;
-
-    private final CommentRepository cr;
+    private final CommentRepository cr; // CommentRepository 주입
 
     public RecipeService(RecipeRepository rr, MemberRepository mr, CommentRepository cr) {
         this.rr = rr;
@@ -66,7 +65,6 @@ public class RecipeService {
         recipe.setViewCount(recipe.getViewCount() + 1);
         rr.save(recipe);
     }
-
 
     // 레시피 수정
     @Transactional
@@ -114,7 +112,6 @@ public class RecipeService {
     public Page<RecipeSummary> getFavoriteRecipes(long memberId, Pageable pageable) {
         Member member = mr.findById(memberId)
                 .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
-        Page<RecipeSummary> test = rr.findByFavoriteByMembersContains(member, pageable);
         return rr.findByFavoriteByMembersContains(member, pageable);
     }
 
@@ -129,22 +126,47 @@ public class RecipeService {
         mr.save(member);
     }
 
+    // 카테고리
     public Page<RecipeSummary> getRecipesByCategory(String category, Pageable pageable) {
         return rr.findByCategory(category, pageable);
     }
 
-//    public void insertComment(Recipe.Comment comment) {
-//        cr.save(comment);
-//    }
-//
-//    public void deleteComment(long id) {
-//        Optional<Recipe.Comment> cec = cr.findById(id);
-//        if (cec.isPresent()) {
-//            rr.delete((Specification<Recipe>) cec.get());
-//        }
-//    }
-//
-//    public List<Recipe.Comment> getComments(long recipeId) {
-//        return cr.findByRecipeIdOrderByIdDesc(recipeId);
-//    }
+    // 댓글 가져오기
+    public List<Recipe.Comment> getComments(long recipeId) {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
+        return cr.findByRecipeIdOrderByIdDesc(recipe.getId());
+    }
+
+    // 댓글 추가
+    public void insertComment(Recipe.Comment comment) {
+        cr.save(comment);
+    }
+
+    // 댓글 수정
+    public void updateComment(long commentId, Recipe.Comment updatedComment) {
+        Recipe.Comment existingComment = cr.findById(commentId)
+                .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다", "commentId"));
+
+        existingComment.setContent(updatedComment.getContent());
+        cr.save(existingComment);
+    }
+
+    // 댓글 삭제
+    public void deleteComment(long commentId) {
+        if (!cr.existsById(commentId)) {
+            throw new NotFoundException("댓글을 찾을 수 없습니다", "commentId");
+        }
+        cr.deleteById(commentId);
+    }
+
+    public Recipe getRecipeByIdEntity(long id) {
+        return rr.findById(id)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
+    }
+
+    public Member getMemberById(long id) {
+        return mr.findById(id)
+                .orElseThrow(() -> new NotFoundException("회원을 찾을 수 없습니다", "id"));
+    }
 }
