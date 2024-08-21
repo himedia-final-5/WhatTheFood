@@ -32,4 +32,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
     <T> Optional<T> findGenericById(long id, Class<T> projectionType);
 
     Page<MemberSummary> findAllByUsername(String username, Pageable pageable);
+
+    Member findByUsername(String username);
 }

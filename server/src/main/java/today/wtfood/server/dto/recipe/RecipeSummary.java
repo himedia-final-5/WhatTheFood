@@ -11,7 +11,7 @@ import java.util.List;
 public interface RecipeSummary {
 
     Long getId();                  // 레시피 ID
-
+    
     String getTitle();            // 제목
 
     String getDescription();      // 설명
@@ -27,6 +27,7 @@ public interface RecipeSummary {
     Integer getLevel();           // 난이도
 
     String getCategory();         // 카테고리
+
 
     Timestamp getCreatedDate();   // 작성 시간
 
@@ -53,7 +54,9 @@ public interface RecipeSummary {
     interface MemberSummary {
         Long getId();          // 회원 ID
 
-        String getNickname();  // 닉네임
+        String getNickname();
+
+        String getUsername();  // 닉네임
     }
 
     /**

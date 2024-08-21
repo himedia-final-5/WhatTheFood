@@ -67,4 +67,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
     Page<RecipeSummary> findByFavoriteByMembersContains(Member member, Pageable pageable);
 
     Page<RecipeSummary> findByCategory(String category, Pageable pageable);
+
+
 }

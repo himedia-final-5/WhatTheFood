@@ -34,6 +34,17 @@ public class RecipeController {
         }
     }
 
+//    @GetMapping("/username/{username}")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public PageResponse<RecipeSummary> getUserRecipeList(
+//            @PathVariable("username")
+//            String username,
+//            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+//            Pageable pageable
+//    ) {
+//        return PageResponse.of(rs.getUserRecipeList(username, pageable));
+//    }
+
     // 레시피 리스트 //레시피번호(id)
     @GetMapping("/{id}")
     @PreAuthorize("permitAll()")
@@ -53,6 +64,7 @@ public class RecipeController {
     ) {
         return PageResponse.of(rs.searchRecipes(title, category, description, hashtag, pageable));
     }
+
 
     //조회수
     @PutMapping("{id}/incrementViewCount")

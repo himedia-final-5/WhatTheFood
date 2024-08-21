@@ -231,3 +231,25 @@ textarea {
   align-items: center;
   justify-content: center;
 }
+
+.admin_recipedetail_ingredients {
+  width: 10%;
+}
+
+.admin_recipedetail_ingredients ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* 항목 간의 간격 */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin_recipedetail_ingredients li {
+  width: calc(50% - 10px); /* 50% 너비에서 간격을 제외한 너비 설정 */
+
+  margin-bottom: 10px;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}

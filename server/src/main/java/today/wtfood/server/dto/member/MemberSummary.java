@@ -9,4 +9,8 @@ public interface MemberSummary extends MemberAuth {
 
     String getEmail();
 
+    String getUsername();
+
+    String getNickname();
+
 }

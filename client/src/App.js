@@ -58,12 +58,13 @@ import WEvent from "pages/admin/event/WEvent";
 import EUpdate from "pages/admin/event/EUpdate";
 
 import BrandList from "pages/admin/brand/BrandList";
+import SearchRList from "pages/admin/recipe/SearchRecipeList";
 import RecipeList from "pages/recipe/RecipeList";
 import RecipeDetail from "pages/recipe/RecipeDetail";
 import RecipeWrite from "pages/recipe/RecipeWrite";
 import RecipeUpdate from "pages/recipe/RecipeUpdate";
 import RecipeFavorite from "pages/recipe/RecipeFavorite";
-import SearchRList from "pages/recipe/SearchRList";
+
 import ResultsPage from "pages/recipe/ResultsPage";
 
 function App() {
@@ -80,7 +81,7 @@ function App() {
               <Route path="/recipes/write" element={<RecipeWrite />} />
               <Route path="/recipes/write/:id" element={<RecipeUpdate />} />
               <Route path="/recipes/favorites" element={<RecipeFavorite />} />
-              <Route path="/" element={<SearchRList />} />
+
               <Route path="/recipes/results" element={<ResultsPage />} />
 
               <Route path="/events" element={<EventList />} />
@@ -138,6 +139,7 @@ function App() {
               <Route path="/eUpdate/:id" element={<EUpdate />} />
               <Route path="/rList" element={<RList />} />
               <Route path="/rView/:id" element={<RView />} />
+              <Route path="/searchRList/:username" element={<SearchRList />} />
               <Route path="/BList" element={<BList />} />
               brandList
             </Route>

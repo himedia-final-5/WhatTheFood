@@ -8,6 +8,7 @@ import today.wtfood.server.entity.Member;
  * @implNote Projection for {@link Member}
  */
 public interface MemberAuth extends IMember {
+    String getUsername();
 
     String getNickname();
 
