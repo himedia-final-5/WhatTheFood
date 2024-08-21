@@ -166,7 +166,7 @@ VALUES (36, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1092
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d12802d6-353e-4c93-a0f4-7ef36843d7c4.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
-VALUES (2, 'https://static.wtable.co.kr/image/production/service/recipe/1935/ingredients/e3ce099f-2575-4762-b6ba-e7e328de70f5.jpg?size=800x800');
+VALUES (2, 'https://static.wtable.co.kr/image/production/service/recipe/2344/01fa738a-61df-40dc-b597-7fdc29ff91a4.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (3, 'https://static.wtable.co.kr/image/production/service/recipe/2328/e841d965-b3f5-4b02-baac-461a39b03534.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
