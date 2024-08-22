@@ -135,11 +135,15 @@ public class RecipeService {
     }
 
     // 댓글 추가
-    public void addComment(CommentDto commentDto, long recipeId) {
+    public void addComment(CommentDto commentDto, long recipeId, long memberId) {
         Recipe recipe = rr.findById(recipeId)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원정보를 찾을 수 없습니다", "memberId"));
+
 
         Recipe.Comment comment = commentDto.toEntity(recipe);
+        comment.setMember(member);
         cr.save(comment);
     }
 
