@@ -640,8 +640,11 @@ export default function RecipeUpdate() {
                         type="text"
                         value={link}
                         onChange={(e) => {
+                          const newTag = e.target.value.startsWith("#")
+                            ? e.target.value
+                            : `#${e.target.value}`;
                           const newLinks = [...recipe.tags];
-                          newLinks[index] = e.target.value;
+                          newLinks[index] = newTag;
                           setRecipe({ ...recipe, tags: newLinks });
                         }}
                         className="w-full"
