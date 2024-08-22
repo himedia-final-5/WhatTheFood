@@ -215,7 +215,11 @@ export default function RecipeUpdate() {
           id="videoLink"
           name="videoLink"
           onChange={onInputChange}
-          value={inputs.videoLink || recipe.videoLink || ""}
+          value={
+            inputs.videoLink !== undefined
+              ? inputs.videoLink
+              : recipe.videoLink || ""
+          }
           required
         />
       </div>
