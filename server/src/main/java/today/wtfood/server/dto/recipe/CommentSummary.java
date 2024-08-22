@@ -1,6 +1,6 @@
 package today.wtfood.server.dto.recipe;
 
-import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.dto.member.MemberSummary;
 
 import java.sql.Timestamp;
 
@@ -14,11 +14,9 @@ public interface CommentSummary {
 
     long getId();
 
-    String getMember();
+    MemberSummary getMember();
 
     String getContent();
-
-    Recipe getRecipe();
 
     Timestamp getCreatedDate();
 }
