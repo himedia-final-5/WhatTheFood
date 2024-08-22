@@ -9,6 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
+import today.wtfood.server.exception.GlobalExceptionHandler;
 import today.wtfood.server.util.ResponseHelper;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class AccessExceptionHandler implements AccessDeniedHandler, Authenticati
     ) throws IOException {
         log.error("Access Denied : {}", exception.getMessage());
 
-        ResponseHelper.writeError(response, HttpStatus.FORBIDDEN, "권한이 없습니다");
+        ResponseHelper.write(response, GlobalExceptionHandler.createResponseEntity(HttpStatus.FORBIDDEN, "권한이 없습니다"));
     }
 
     /**
@@ -44,7 +45,7 @@ public class AccessExceptionHandler implements AccessDeniedHandler, Authenticati
     ) throws IOException {
         log.error("Authentication Failed : {}", exception.getMessage());
 
-        ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, "인증이 필요합니다");
+        ResponseHelper.write(response, GlobalExceptionHandler.createResponseEntity(HttpStatus.UNAUTHORIZED, "인증이 필요합니다"));
     }
 
 }

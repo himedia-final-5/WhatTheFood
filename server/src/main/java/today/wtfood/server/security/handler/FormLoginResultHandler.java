@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import today.wtfood.server.entity.Member;
+import today.wtfood.server.exception.GlobalExceptionHandler;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.service.JwtService;
 import today.wtfood.server.util.ResponseHelper;
@@ -53,7 +54,7 @@ public class FormLoginResultHandler implements AuthenticationSuccessHandler, Aut
     ) throws IOException {
         log.error("FormLogin Failed : {}", exception.getMessage());
 
-        ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, "로그인 실패");
+        ResponseHelper.write(response, GlobalExceptionHandler.createResponseEntity(HttpStatus.UNAUTHORIZED, "인증이 필요합니다"));
     }
 
 }

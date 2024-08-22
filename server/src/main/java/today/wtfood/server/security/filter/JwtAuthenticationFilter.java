@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,6 +22,7 @@ import today.wtfood.server.entity.Member;
 import today.wtfood.server.exception.GlobalExceptionHandler;
 import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.service.JwtService;
+import today.wtfood.server.util.ResponseHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -79,11 +81,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // 다음 필터로 이동
             filterChain.doFilter(request, response);
         } catch (JwtException jwtException) {
-            globalExceptionHandler.handleJwtException(jwtException, response);
+            ResponseHelper.write(response, globalExceptionHandler.handleJwtException(jwtException));
         } catch (ResponseStatusException responseStatusException) {
-            globalExceptionHandler.handleResponseStatusException(responseStatusException, response);
+            ResponseHelper.write(response, globalExceptionHandler.handleResponseStatusException(responseStatusException));
+        } catch (UsernameNotFoundException usernameNotFoundException) {
+            ResponseHelper.write(response, globalExceptionHandler.handleUsernameNotFoundException(usernameNotFoundException));
         } catch (Exception exception) {
-            globalExceptionHandler.handleException(exception, response);
+            ResponseHelper.write(response, globalExceptionHandler.handleException(exception));
         }
     }
 
