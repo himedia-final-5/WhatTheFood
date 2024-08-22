@@ -1,10 +1,11 @@
 package today.wtfood.server.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import today.wtfood.server.dto.recipe.CommentSummary;
 import today.wtfood.server.entity.Recipe;
 
-import java.util.List;
-
 public interface CommentRepository extends JpaRepository<Recipe.Comment, Long> {
-    List<Recipe.Comment> findByRecipeIdOrderByIdDesc(long recipeId);
+    Page<CommentSummary> findByRecipeIdOrderByIdDesc(Pageable pageable, long recipeId);
 }
