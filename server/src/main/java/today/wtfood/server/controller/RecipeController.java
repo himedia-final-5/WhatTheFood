@@ -111,7 +111,7 @@ public class RecipeController {
     }
 
     // 댓글 가져오기
-    @GetMapping("/{recipeId}/getComments")
+    @GetMapping("/{recipeId}/comments")
     @PreAuthorize("permitAll()")
     public PageResponse<CommentSummary> getCommentsList(@PathVariable long recipeId, Pageable pageable) {
         return PageResponse.of(rs.getCommentsList(recipeId, pageable));
@@ -122,9 +122,11 @@ public class RecipeController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<HashMap<String, Object>> addComment(
             @RequestBody CommentDto commentDto,
-            @PathVariable long recipeId) {
+            @PathVariable long recipeId,
+            @CurrentUser long memberId
+    ) {
 
-        rs.addComment(commentDto, recipeId);
+        rs.addComment(commentDto, recipeId, memberId);
 
         HashMap<String, Object> response = new HashMap<>();
 
