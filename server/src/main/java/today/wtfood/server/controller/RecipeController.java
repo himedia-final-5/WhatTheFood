@@ -63,9 +63,9 @@ public class RecipeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateRecipe(
             @PathVariable("id") long id,
-            @RequestBody RecipeDto recipe
+            @RequestBody RecipeDto recipedto
     ) {
-        rs.updateRecipe(id, recipe);
+        rs.updateRecipe(id, recipedto);
     }
 
     // 레시피 삭제
