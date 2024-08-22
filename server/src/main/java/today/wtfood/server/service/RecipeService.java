@@ -85,6 +85,7 @@ public class RecipeService {
         recipedto.getCookingStep().forEach(step -> step.setRecipe(recipe));
         recipe.setCookingStep(recipedto.getCookingStep());
         recipe.setFinishedImages(recipedto.getFinishedImages());
+        recipe.setTags(recipedto.getTags());
     }
 
     // 레시피 삭제
