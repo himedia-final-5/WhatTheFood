@@ -2,12 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "react-toastify";
-
 import {
-  TablerCircleKeyFilled,
-  TablerUserFilled,
-  TablerMailFilled,
-} from "components/asset";
+  IconCircleKeyFilled,
+  IconUserFilled,
+  IconMailFilled,
+} from "@tabler/icons-react";
+
 import { cn, axios, debounce, memoize } from "utils";
 import usePromise from "hooks/usePromise";
 
@@ -178,7 +178,7 @@ export default function AuthSignUpForm() {
               autoCorrect="off"
               placeholder="아이디"
             >
-              <TablerUserFilled className="w-6 h-8 opacity-70" />
+              <IconUserFilled className="w-6 h-8 opacity-70" />
             </InputFormField>
             <InputFormField
               name="password"
@@ -188,7 +188,7 @@ export default function AuthSignUpForm() {
               autoCorrect="off"
               placeholder="비밀번호"
             >
-              <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
+              <IconCircleKeyFilled className="w-6 h-8 opacity-70" />
             </InputFormField>
             <InputFormField
               name="confirmPassword"
@@ -198,7 +198,7 @@ export default function AuthSignUpForm() {
               autoCorrect="off"
               placeholder="비밀번호 확인"
             >
-              <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
+              <IconCircleKeyFilled className="w-6 h-8 opacity-70" />
             </InputFormField>
             <InputFormField
               name="email"
@@ -208,7 +208,7 @@ export default function AuthSignUpForm() {
               autoCorrect="off"
               placeholder="이메일"
             >
-              <TablerMailFilled className="w-6 h-8 opacity-70" />
+              <IconMailFilled className="w-6 h-8 opacity-70" />
             </InputFormField>
           </div>
           <Button
