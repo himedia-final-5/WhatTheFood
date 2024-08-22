@@ -26,8 +26,9 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
 
         return parameter.getParameterAnnotation(CurrentUser.class) != null && (
                 IMember.class.isAssignableFrom(parameterType) // IMember 인터페이스를 구현한 클래스
+                || parameterType.equals(Member.class) // Member (entity)
                 || parameterType.equals(String.class) // String (username)
-                || parameterType.equals(Long.class) || parameterType.equals(long.class) // Long (id)
+                || parameterType.equals(Long.class) || parameterType.equals(long.class) // Long (userid)
         );
     }
 
@@ -39,10 +40,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
             WebDataBinderFactory binderFactory
     ) {
         Class<?> parameterType = parameter.getParameterType();
-        Member userDetails = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (parameterType.equals(Member.class)) {
-            return userDetails;
-        }
+        IMember userDetails = (IMember) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (parameterType.equals(String.class)) {
             return userDetails.getUsername();
         }

@@ -9,6 +9,7 @@ import today.wtfood.server.dto.member.IMember;
 import today.wtfood.server.dto.member.MemberAuth;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
+import today.wtfood.server.entity.Member;
 import today.wtfood.server.security.annotation.CurrentUser;
 
 import java.util.List;
@@ -32,7 +33,8 @@ public class TestController {
             @CurrentUser IMember memberInterface,
             @CurrentUser MemberAuth memberAuth,
             @CurrentUser MemberSummary memberSummary,
-            @CurrentUser MemberDetail memberDetail
+            @CurrentUser MemberDetail memberDetail,
+            @CurrentUser Member member
     ) {
         return Map.of(
                 "username", username,
@@ -40,7 +42,8 @@ public class TestController {
                 "interface", memberInterface,
                 "auth", memberAuth,
                 "summary", memberSummary,
-                "detail", memberDetail
+                "detail", memberDetail,
+                "member", member
         ).getOrDefault(
                 type,
                 Map.of(

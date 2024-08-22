@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
+import today.wtfood.server.dto.member.MemberPrincipal;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.exception.GlobalExceptionHandler;
 import today.wtfood.server.security.enums.TokenPurpose;
@@ -67,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 인증 객체 생성 후 SecurityContext 에 저장
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    member,
+                    new MemberPrincipal(member),
                     member.getPassword(),
                     member.getAuthorities()
             );

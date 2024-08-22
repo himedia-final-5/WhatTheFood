@@ -1,5 +1,6 @@
 package today.wtfood.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -9,7 +10,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name = "member")
@@ -30,9 +34,11 @@ public class Member implements UserDetails, OAuth2User {
     @Column(name = "username", length = 45, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
     @Override
     public Map<String, Object> getAttributes() {
         return Map.of(
@@ -43,6 +49,7 @@ public class Member implements UserDetails, OAuth2User {
         );
     }
 
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of((GrantedAuthority) () -> role.name());
     }
@@ -116,12 +123,6 @@ public class Member implements UserDetails, OAuth2User {
 
     public enum Role {
         ROLE_USER, ROLE_CHEF, ROLE_BRAND, ROLE_ADMIN
-    }
-
-    public Map<String, Object> getClaims() {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username);
-        return claims;
     }
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
