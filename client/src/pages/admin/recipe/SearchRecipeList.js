@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
@@ -8,6 +8,7 @@ import { PaginationNav } from "components/util";
 
 function SearchRecipeList() {
   const navigate = useNavigate();
+
   const [isMounted, setMounted] = useState(false);
   const { username } = useParams();
   const { content, pagination, setPageResponse } = usePageResponse();
@@ -85,6 +86,7 @@ function SearchRecipeList() {
             </div>
           );
         })}
+
         <br></br>
         <PaginationNav {...{ pagination, onSelectPage }} />
       </div>

@@ -40,7 +40,7 @@ function FaqUpdate() {
       <div className="adminCategory">FAQ 수정</div>
       <div className="productTable">
         <div className="adminfield">
-          <label>FAQ 제목</label>
+          <label className="labellabel">FAQ 제목</label>
           <input
             type="text"
             style={{ fontSize: "20px" }}
@@ -51,7 +51,7 @@ function FaqUpdate() {
           />
         </div>
         <div className="adminfield">
-          <label>FAQ 내용</label>
+          <label className="labellabel">FAQ 내용</label>
 
           <textarea
             rows="10"

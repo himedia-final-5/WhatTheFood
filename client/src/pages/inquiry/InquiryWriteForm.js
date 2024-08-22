@@ -48,22 +48,19 @@ function InquiryWriteForm() {
   }
 
   return (
-    <div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div className="inquiryBody">
-        <div id="inquiryWriteCenter">
+    <div className="inquiryBody">
+      <div id="inquiryWriteCenter">
+        <br></br>
+        <div id="inquiryWriteForm">
           <div id="inquirywf1">문의 작성</div>
+          <div className="iqwf_line"></div>
           <br></br>
           <div id="inquirywrite">
             <div className="inquirywfField">
               <input
                 type="text"
                 placeholder="제목"
-                style={{ fontSize: "30px" }}
+                style={{ fontSize: "200%" }}
                 onChange={(e) => {
                   setTitle(e.currentTarget.value);
                 }}
@@ -75,7 +72,7 @@ function InquiryWriteForm() {
               <textarea
                 rows="20"
                 placeholder="문의내용을 작성해주세요."
-                style={{ fontSize: "30px" }}
+                style={{ fontSize: "200%" }}
                 onChange={(e) => {
                   setContent(e.currentTarget.value);
                 }}
@@ -83,42 +80,23 @@ function InquiryWriteForm() {
             </div>
             <br></br>
             <br></br>
-            <div className="inquirywfField">
-              <label>사진 첨부</label>
-              <br />
-              <input
-                type="file"
-                style={{ fontSize: "20px" }}
-                onChange={(e) => {
-                  onFileUpload(e);
-                }}
-              />
-              <br />
-              <div>
-                <img
-                  src={appendImageSrc}
-                  style={appendImageStyle}
-                  alt="appendImage"
-                />
-              </div>
-            </div>
           </div>
-          <br></br>
-          <div className="inquiryinquiry">
-            <div
-              className="inquirywf2"
-              onClick={() => {
-                onSubmit();
-              }}
-            >
-              작성 완료
-            </div>
-            <Link id="inquirywf2" to="/inquiries">
-              돌아가기
-            </Link>
-          </div>
-          <br></br>
         </div>
+        <br></br>
+        <div className="inquiryinquiry">
+          <div
+            id="inquirywf2"
+            onClick={() => {
+              onSubmit();
+            }}
+          >
+            작성 완료
+          </div>
+          <Link id="inquirywf2" to="/inquiries">
+            돌아가기
+          </Link>
+        </div>
+        <br></br>
       </div>
     </div>
   );

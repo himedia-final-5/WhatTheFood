@@ -38,13 +38,9 @@ function InquiryList() {
 
   return (
     <UserFeatureContainer>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
       <div className="inquiryBody">
         <div className="inquiryCenter">
+          <br></br>
           <div id="inquiry1">
             <div id="blank"></div>
             <div>내 문의 내역</div>
@@ -53,8 +49,7 @@ function InquiryList() {
               문의하기
             </Link>
           </div>
-          <br></br>
-
+          <div className="faq_line"></div>
           {content.map((inquirylist, idx) => {
             return (
               <Link
@@ -78,6 +73,7 @@ function InquiryList() {
           })}
           <br></br>
           <PaginationNav {...{ pagination, onSelectPage }} />
+          <br></br>
         </div>
       </div>
       <br></br>

@@ -141,7 +141,6 @@ function App() {
               <Route path="/rView/:id" element={<RView />} />
               <Route path="/searchRList/:username" element={<SearchRList />} />
               <Route path="/BList" element={<BList />} />
-              brandList
             </Route>
             <Route path="*" element={<NotFoundRender />} />
           </Routes>

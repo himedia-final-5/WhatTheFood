@@ -53,8 +53,9 @@ function SearchIList() {
           onClick={() => {
             onSearch();
           }}
+          style={{ fontSize: "25px" }}
         >
-          유저ID 검색
+          회원ID 검색
         </button>
       </div>
       <div className="productTable">
@@ -88,7 +89,9 @@ function SearchIList() {
               </div>
               <div className="admincol">
                 {inquirylist.answer ? (
-                  <div style={{ color: "green" }}>답변완료</div>
+                  <div style={{ color: "green", fontWeight: "bold" }}>
+                    답변완료
+                  </div>
                 ) : (
                   <div style={{ color: "grey" }}>답변처리중</div>
                 )}

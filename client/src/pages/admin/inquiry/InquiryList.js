@@ -60,7 +60,7 @@ function InquiryList() {
       <div className="productTable">
         <div className="adminrow">
           <div className="admincol">번호</div>
-          <div className="admincol">문의제목</div>
+          <div className="admincol">문의 제목</div>
           <div className="admincol">회원ID</div>
           <div className="admincol">등록날짜</div>
           <div className="admincol">답변여부</div>
@@ -78,6 +78,7 @@ function InquiryList() {
                 onClick={() => {
                   userinquiryiew(inquirylist.id);
                 }}
+                style={{ cursor: "pointer" }}
               >
                 {inquirylist.title}
               </div>

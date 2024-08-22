@@ -130,4 +130,8 @@ public class RecipeService {
     }
 
 
+    public Page<RecipeSummary> getUserRecipeList(String username, Pageable pageable) {
+        Member member = mr.findByUsername(username);
+        return rr.findAllByMember_Id(member.getId(), pageable);
+    }
 }

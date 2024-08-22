@@ -1,6 +1,8 @@
 package today.wtfood.server.controller;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -34,16 +36,16 @@ public class RecipeController {
         }
     }
 
-//    @GetMapping("/username/{username}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public PageResponse<RecipeSummary> getUserRecipeList(
-//            @PathVariable("username")
-//            String username,
-//            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-//            Pageable pageable
-//    ) {
-//        return PageResponse.of(rs.getUserRecipeList(username, pageable));
-//    }
+    @GetMapping("/username/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public PageResponse<RecipeSummary> getUserRecipeList(
+            @PathVariable("username")
+            String username,
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        return PageResponse.of(rs.getUserRecipeList(username, pageable));
+    }
 
     // 레시피 리스트 //레시피번호(id)
     @GetMapping("/{id}")

@@ -68,5 +68,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
 
     Page<RecipeSummary> findByCategory(String category, Pageable pageable);
 
-
+    Page<RecipeSummary> findAllByMember_Id(Long id, Pageable pageable);
 }
