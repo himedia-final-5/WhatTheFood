@@ -146,4 +146,9 @@ public class Recipe {
     // 찜한 멤버들 목록
     @ManyToMany(mappedBy = "favoriteRecipes")
     private Set<Member> favoriteByMembers; // 이 레시피를 찜한 멤버 목록
+
+    public void setCookingStep(List<CookingStep> cookingStep) {
+        this.cookingStep.clear();
+        this.cookingStep.addAll(cookingStep);
+    }
 }
