@@ -31,8 +31,8 @@ public class RecipeService {
     }
 
     // 레시피 생성
-    public Recipe createRecipe(RecipeDto recipe) {
-        return rr.save(recipe.toEntity());
+    public Recipe createRecipe(RecipeDto recipedto) {
+        return rr.save(recipedto.toEntity());
     }
 
     // 레시피 리스트 (페이지네이션)
@@ -66,25 +66,24 @@ public class RecipeService {
 
     // 레시피 수정
     @Transactional
-    public void updateRecipe(long id, Recipe updatedRecipe) {
+    public void updateRecipe(long id, RecipeDto recipedto) {
         Recipe recipe = rr.findById(id)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
 
-        recipe.setTitle(updatedRecipe.getTitle());
-        recipe.setDescription(updatedRecipe.getDescription());
-        recipe.setBannerImage(updatedRecipe.getBannerImage());
-        recipe.setCookingTime(updatedRecipe.getCookingTime());
-        recipe.setServings(updatedRecipe.getServings());
-        recipe.setLevel(updatedRecipe.getLevel());
-        recipe.setVideoLink(updatedRecipe.getVideoLink());
-        recipe.setCategory(updatedRecipe.getCategory());
-        recipe.setIngredientImage(updatedRecipe.getIngredientImage());
-        recipe.setIngredients(updatedRecipe.getIngredients());
-        recipe.setCookingTools(updatedRecipe.getCookingTools());
-        recipe.setGuideLinks(updatedRecipe.getGuideLinks());
-        recipe.setCookingStep(updatedRecipe.getCookingStep());
-        recipe.setFinishedImages(updatedRecipe.getFinishedImages());
-        recipe.setTags(updatedRecipe.getTags());
+        recipe.setTitle(recipedto.getTitle());
+        recipe.setDescription(recipedto.getDescription());
+        recipe.setBannerImage(recipedto.getBannerImage());
+        recipe.setCookingTime(recipedto.getCookingTime());
+        recipe.setServings(recipedto.getServings());
+        recipe.setLevel(recipedto.getLevel());
+        recipe.setVideoLink(recipedto.getVideoLink());
+        recipe.setCategory(recipedto.getCategory());
+        recipe.setIngredientImage(recipedto.getIngredientImage());
+        recipe.setIngredients(recipedto.getIngredients());
+        recipe.setCookingTools(recipedto.getCookingTools());
+        recipe.setGuideLinks(recipedto.getGuideLinks());
+        recipe.setCookingStep(recipedto.getCookingStep());
+        recipe.setFinishedImages(recipedto.getFinishedImages());
     }
 
     // 레시피 삭제

@@ -47,6 +47,4 @@ public class RecipeDto implements Serializable {
         recipe.setFinishedImages(finishedImages);
         return recipe;
     }
-
-
 }

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.recipe.*;
-import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
@@ -66,8 +65,7 @@ public class RecipeController {
             @PathVariable("id") long id,
             @RequestBody RecipeDto recipe
     ) {
-        Recipe updatedRecipe = recipe.toEntity();
-        rs.updateRecipe(id, updatedRecipe);
+        rs.updateRecipe(id, recipe);
     }
 
     // 레시피 삭제
@@ -81,8 +79,8 @@ public class RecipeController {
     // 새로운 레시피 생성
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipeDto) {
-        return GeneratedId.of(rs.createRecipe(recipeDto).getId());
+    public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipedto) {
+        return GeneratedId.of(rs.createRecipe(recipedto).getId());
     }
 
     // 레시피 찜하기
