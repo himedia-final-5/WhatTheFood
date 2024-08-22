@@ -390,6 +390,60 @@
 .comment-input-wrap button:hover {
   background-color: #0056b3;
 }
+.comment-actions {
+  width: 100%;
+  text-align: right;
+}
+.comment-actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.comment-actions button:last-child {
+  background-color: #919191;
+  margin-right: 0px;
+}
+
+.comment-edit textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+}
+
+.comment-edit button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.comment-edit button:last-child {
+  background-color: #6c757d;
+}
+
+.comment-edit button:hover {
+  opacity: 0.9;
+}
+
+.comment-actions button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Hide edit and delete buttons when editing */
+.comment-edit ~ .comment-actions {
+  display: none;
+}
 
 /* 반응형 디자인 */
 @media screen and (max-width: 767px) {
