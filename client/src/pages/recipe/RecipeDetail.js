@@ -16,8 +16,9 @@ const DEFAULT_RECIPE = null;
 export default function RecipeDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [commentText, setCommentText] = useState([]); // 댓글
-  const [commentContent, setCommentContent] = useState("");
+
+  const [commentText, setCommentText] = useState("");
+  const [commentContent, setCommentContent] = useState([]);
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [editingContent, setEditingContent] = useState("");
@@ -34,7 +35,7 @@ export default function RecipeDetail() {
   const fetchComments = async () => {
     try {
       const result = await axios.get(`/api/recipes/${id}/comments`);
-      setCommentText(result.data || []); // commentText가 배열임을 보장
+      setCommentContent(result.data.content || []); // commentText가 배열임을 보장
     } catch (error) {
       console.error("Failed to fetch comments:", error);
     }
@@ -45,7 +46,6 @@ export default function RecipeDetail() {
       fetchRecipe();
     }
     fetchComments();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // Extract YouTube video ID from URL
@@ -148,29 +148,28 @@ export default function RecipeDetail() {
   };
 
   async function addComment() {
-    try {
-      if (!memberId) {
-        toast.error("로그인 후 댓글을 작성할 수 있습니다.");
-        return;
+    if (commentText) {
+      try {
+        if (!memberId) {
+          toast.error("로그인 후 댓글을 작성할 수 있습니다.");
+          return;
+        }
+
+        await axios.post(`/api/recipes/${recipe.id}/addComment`, {
+          memberId,
+          content: commentText,
+        });
+        fetchComments();
+      } catch (err) {
+        console.error(err);
+        toast.error("댓글 작성에 실패했습니다.");
       }
-
-      await axios.post(`/api/recipes/${recipe.id}/comments`, {
-        memberId: memberId,
-        content: commentContent,
-      });
-
-      // 댓글 추가 후 새로 고침
-      fetchComments();
-      setCommentContent(""); // 댓글 작성 후 입력란 비우기
-    } catch (err) {
-      console.error(err);
-      toast.error("댓글 작성에 실패했습니다.");
     }
   }
 
   async function deleteComment(commentId) {
     try {
-      await axios.delete(`/api/recipes/${recipe.id}/comments/${commentId}`, {
+      await axios.delete(`/api/recipes/${commentId}/deleteComment`, {
         params: { memberId },
       });
 
@@ -184,7 +183,7 @@ export default function RecipeDetail() {
 
   async function updateComment(commentId, newContent) {
     try {
-      await axios.put(`/api/recipes/${recipe.id}/comments/${commentId}`, {
+      await axios.put(`/api/recipes/${commentId}/editComment`, {
         memberId: memberId,
         content: newContent,
       });
@@ -216,7 +215,6 @@ export default function RecipeDetail() {
     toast.error("레시피 정보를 불러오는데 실패했습니다.");
     return <div></div>;
   }
-
   return (
     recipe && (
       <div className="recipedetail_wrap">
@@ -391,8 +389,8 @@ export default function RecipeDetail() {
           <div className="recipedetail_comment_wrap">
             <h3 className="comment-title">댓글</h3>
             <div className="recipedetail_comment">
-              {Array.isArray(commentText) && commentText.length > 0 ? (
-                commentText.map((comment, index) => (
+              {Array.isArray(commentContent) && commentContent.length > 0 ? (
+                commentContent.map((comment, index) => (
                   <div key={index} className="comment-card">
                     <div className="comment-header">
                       <img
@@ -449,8 +447,8 @@ export default function RecipeDetail() {
           {/* 댓글 입력란 */}
           <div className="comment-input-wrap">
             <textarea
-              value={commentContent}
-              onChange={(e) => setCommentContent(e.currentTarget.value)}
+              defaultValue={commentText}
+              onChange={(e) => setCommentText(e.currentTarget.value)}
               placeholder="댓글을 입력하세요..."
               rows="3"
             />
