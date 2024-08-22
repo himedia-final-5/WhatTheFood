@@ -82,6 +82,7 @@ public class RecipeService {
         recipe.setIngredients(recipedto.getIngredients());
         recipe.setCookingTools(recipedto.getCookingTools());
         recipe.setGuideLinks(recipedto.getGuideLinks());
+        recipedto.getCookingStep().forEach(step -> step.setRecipe(recipe));
         recipe.setCookingStep(recipedto.getCookingStep());
         recipe.setFinishedImages(recipedto.getFinishedImages());
     }
