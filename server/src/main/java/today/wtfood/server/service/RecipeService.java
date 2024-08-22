@@ -5,9 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.dto.recipe.RecipeDetail;
-import today.wtfood.server.dto.recipe.RecipeDto;
-import today.wtfood.server.dto.recipe.RecipeSummary;
+import today.wtfood.server.dto.recipe.*;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.exception.NotFoundException;
@@ -131,42 +129,34 @@ public class RecipeService {
         return rr.findByCategory(category, pageable);
     }
 
-    // 댓글 가져오기
-    public List<Recipe.Comment> getComments(long recipeId) {
-        Recipe recipe = rr.findById(recipeId)
-                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
-        return cr.findByRecipeIdOrderByIdDesc(recipe.getId());
+    // 댓글 목록 조회
+    public Page<CommentSummary> getCommentsList(long recipeId, Pageable pageable) {
+        return cr.findByRecipeIdOrderByIdDesc(pageable, recipeId);
     }
 
     // 댓글 추가
-    public void insertComment(Recipe.Comment comment) {
+    public void addComment(CommentDto commentDto, long recipeId) {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
+
+        Recipe.Comment comment = commentDto.toEntity(recipe);
         cr.save(comment);
     }
 
     // 댓글 수정
-    public void updateComment(long commentId, Recipe.Comment updatedComment) {
-        Recipe.Comment existingComment = cr.findById(commentId)
+    public void updateComment(long commentId, CommentDto commentDto) {
+        Recipe.Comment comment = cr.findById(commentId)
                 .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다", "commentId"));
 
-        existingComment.setContent(updatedComment.getContent());
-        cr.save(existingComment);
+        comment.setContent(commentDto.getContent());
+        cr.save(comment);
     }
 
     // 댓글 삭제
     public void deleteComment(long commentId) {
-        if (!cr.existsById(commentId)) {
-            throw new NotFoundException("댓글을 찾을 수 없습니다", "commentId");
-        }
-        cr.deleteById(commentId);
-    }
+        Recipe.Comment comment = cr.findById(commentId)
+                .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다", "commentId"));
 
-    public Recipe getRecipeByIdEntity(long id) {
-        return rr.findById(id)
-                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
-    }
-
-    public Member getMemberById(long id) {
-        return mr.findById(id)
-                .orElseThrow(() -> new NotFoundException("회원을 찾을 수 없습니다", "id"));
+        cr.delete(comment);
     }
 }
