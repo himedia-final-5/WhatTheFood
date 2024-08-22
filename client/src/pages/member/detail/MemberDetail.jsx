@@ -21,7 +21,7 @@ export default function MemberDetail() {
   }, [id, isMe]);
 
   return (
-    <div className="flex flex-col w-full h-hit mt-[-70px]">
+    <div className="flex flex-col w-full h-hit mt-[-86px]">
       <div className="relative flex flex-col w-full h-hit">
         <img
           src={member?.bannerImage || "/images/member/default_banner.png"}
