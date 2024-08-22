@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -93,6 +94,16 @@ public class GlobalExceptionHandler {
         log.error("IllegalArgumentException: ", exception);
 
         ResponseHelper.writeError(response, HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    /**
+     * @implNote 사용자 이름을 찾을 수 없을 때 발생하는 예외
+     */
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public void handleUsernameNotFoundException(UsernameNotFoundException exception, HttpServletResponse response) throws IOException {
+        log.error("UsernameNotFoundException: ", exception);
+
+        ResponseHelper.writeError(response, HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 
     /**
