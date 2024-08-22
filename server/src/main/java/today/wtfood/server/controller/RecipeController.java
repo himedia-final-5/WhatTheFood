@@ -4,18 +4,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
-import today.wtfood.server.dto.recipe.RecipeDetail;
-import today.wtfood.server.dto.recipe.RecipeDto;
-import today.wtfood.server.dto.recipe.RecipeSummary;
+import today.wtfood.server.dto.recipe.*;
 import today.wtfood.server.entity.Recipe;
-import today.wtfood.server.repository.CommentRepository;
+import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
-import java.util.List;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/recipes")
@@ -114,62 +111,46 @@ public class RecipeController {
     }
 
     // 댓글 가져오기
-    @GetMapping("/{recipeId}/comments")
+    @GetMapping("/{recipeId}/getComments")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<List<Recipe.Comment>> getComments(@PathVariable long recipeId) {
-        List<Recipe.Comment> comments = rs.getComments(recipeId);
-        return ResponseEntity.ok(comments);
+    public PageResponse<CommentSummary> getCommentsList(@PathVariable long recipeId, Pageable pageable) {
+        return PageResponse.of(rs.getCommentsList(recipeId, pageable));
     }
 
     // 댓글 추가
-    @PostMapping("/{recipeId}/comments")
+    @PostMapping("/{recipeId}/addComment")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<String> addComment(
-            @PathVariable long recipeId,
-            @RequestParam long memberId,
-            @RequestBody Recipe.Comment comment) {
-        comment.setRecipe(rs.getRecipeByIdEntity(recipeId));
-        comment.setMember(rs.getMemberById(memberId));
-        rs.insertComment(comment);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Comment added successfully");
+    public ResponseEntity<HashMap<String, Object>> addComment(
+            @RequestBody CommentDto commentDto,
+            @PathVariable long recipeId) {
+
+        rs.addComment(commentDto, recipeId);
+
+        HashMap<String, Object> response = new HashMap<>();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     // 댓글 수정
-    @PutMapping("/{recipeId}/comments/{commentId}")
-    @PreAuthorize("isAuthenticated() and @securityService.isCommentOwner(#commentId, #memberId)")
+    @PutMapping("/{commentId}/editComment")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> updateComment(
-            @PathVariable long recipeId,
             @PathVariable long commentId,
-            @RequestParam long memberId,
-            @RequestBody Recipe.Comment updatedComment) {
-        rs.updateComment(commentId, updatedComment);
+            @RequestBody CommentDto commentDto,
+            @CurrentUser long memberId
+    ) {
+        rs.updateComment(commentId, commentDto);
         return ResponseEntity.ok("Comment updated successfully");
     }
 
     // 댓글 삭제
-    @DeleteMapping("/{recipeId}/comments/{commentId}")
-    @PreAuthorize("isAuthenticated() and @securityService.isCommentOwner(#commentId, #memberId)")
+    @DeleteMapping("/{commentId}/deleteComment")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> deleteComment(
-            @PathVariable long recipeId,
             @PathVariable long commentId,
-            @RequestParam long memberId) {
+            @CurrentUser long memberId
+    ) {
         rs.deleteComment(commentId);
         return ResponseEntity.ok("Comment deleted successfully");
     }
-
-    @Service
-    public class SecurityService {
-
-        private final CommentRepository commentRepository;
-
-        public SecurityService(CommentRepository commentRepository) {
-            this.commentRepository = commentRepository;
-        }
-
-        public boolean isCommentOwner(long commentId, long memberId) {
-            Recipe.Comment comment = commentRepository.findById(commentId).orElse(null);
-            return comment != null && comment.getMember().getId() == memberId;
-        }
-    }
-
 }
