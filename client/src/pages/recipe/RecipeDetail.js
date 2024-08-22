@@ -426,7 +426,7 @@ export default function RecipeDetail() {
                     ) : (
                       <p className="comment-content">{comment.content}</p>
                     )}
-                    {comment.member.nickname === user.nickname && (
+                    {comment.member.nickname === user?.nickname && (
                       <div className="comment-actions">
                         <button onClick={() => handleEditClick(comment)}>
                           수정
