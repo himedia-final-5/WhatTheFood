@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
 import { AdminFeature } from "components/util";
@@ -25,37 +25,48 @@ export default function RecipeList() {
   const [favoritedRecipes, setFavoritedRecipes] = useState(new Set());
 
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
+  const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
 
   const throttle = usePromiseThrottle(throttleInterval);
+  const location = useLocation();
+  const navigate = useNavigate();
+  let searchTerm = location.state?.searchTerm || "";
 
-  // 초기화 시 찜한 레시피 목록을 가져옵니다
+  // 레시피 목록 및 찜한 레시피 불러오기
   useEffect(() => {
-    const fetchFavoritedRecipes = async () => {
-      if (!user) {
-        setFavoritedRecipes(new Set());
-        return;
-      }
+    if (memberId) {
+      const fetchFavoritedRecipes = async () => {
+        try {
+          const response = await axios.get(`/api/recipes/favorites`, {
+            params: { memberId },
+          });
+          const recipes = response.data.content.map((recipe) => recipe.id);
+          setFavoritedRecipes(new Set(recipes));
+        } catch (error) {
+          console.error("Failed to fetch favorited recipes:", error);
+        }
+      };
 
-      try {
-        const response = await axios.get(`/api/recipes/favorites`);
-        const recipes = response.data.content.map((recipe) => recipe.id);
-        setFavoritedRecipes(new Set(recipes));
-      } catch (error) {
-        console.error("Failed to fetch favorited recipes:", error);
-      }
-    };
+      fetchFavoritedRecipes();
+    }
+  }, [memberId]);
 
-    fetchFavoritedRecipes();
-  }, [user]);
-
+  // 페이지 번호와 카테고리/검색어에 따라 레시피 목록을 서버에서 가져옵니다.
   const fetchPage = async (page) => {
-    const response = await axios.get(`/api/recipes`, {
-      params: { page, size: 8, category: selectedCategory },
-    });
+    let response = null;
+    if (searchTerm) {
+      response = await axios.get(`/api/recipes/search`, {
+        params: { term: searchTerm, page: 0, size: 8 },
+      });
+    } else {
+      response = await axios.get(`/api/recipes`, {
+        params: { page, size: 8, category: selectedCategory },
+      });
+    }
     setThrottleInterval(0);
     return response.data;
   };
-
+  // 무한 스크롤 기능
   const { ref, content, reset } = useInfiniteScroll(
     throttle(fetchPage),
     (error) => {
@@ -63,13 +74,16 @@ export default function RecipeList() {
       defaultErrorHandler(error);
     },
   );
-
+  // 카테고리 및 레시피 클릭 이벤트
   const handleCategoryClick = async (query) => {
     setSelectedCategory(query);
+    navigate("/recipes", { state: { searchTerm: "" } });
+
     reset();
     fetchPage(0);
   };
 
+  // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
   const handleRecipeClick = async (recipeId) => {
     try {
       await axios.put(`/api/recipes/${recipeId}/incrementViewCount`);
@@ -105,12 +119,14 @@ export default function RecipeList() {
     }
   };
 
+  // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
+  //
   useEffect(() => {
     reset();
     fetchPage(0).catch((error) => {
       defaultErrorHandler(error);
     });
-  }, [selectedCategory, reset]);
+  }, [selectedCategory, searchTerm, reset]);
 
   return (
     <div className="recipeList_wrap">
@@ -158,13 +174,15 @@ export default function RecipeList() {
                 <span className="recipe_state_viewcount">
                   조회수 {recipe.viewCount}
                 </span>
-                <button
-                  className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleFavoriteClick(recipe.id);
-                  }}
-                ></button>
+                {user && (
+                  <button
+                    className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleFavoriteClick(recipe.id);
+                    }}
+                  ></button>
+                )}
               </div>
               <div className="recipe_imageUrl">
                 <img src={recipe.bannerImage} alt="recipe_bannerImage" />

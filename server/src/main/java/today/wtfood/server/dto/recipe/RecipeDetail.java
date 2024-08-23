@@ -13,7 +13,7 @@ public interface RecipeDetail extends RecipeSummary {
 
     String description();
 
-    Integer cookingTime();
+    String cookingTime();
 
     Integer servings();
 

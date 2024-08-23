@@ -3,31 +3,30 @@ import { useNavigate } from "react-router-dom";
 import cn from "utils/cn";
 import { useState } from "react";
 
-export default function SearchButton({ value, onChange }) {
+export default function SearchButton() {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSearch = async () => {
-    const searchTerm = value.trim();
+    const trimTerm = searchTerm.trim();
 
-    if (searchTerm) {
+    if (trimTerm) {
       setLoading(true);
       setError(null);
 
       try {
         // 서버의 검색 API를 호출합니다.
-        const response = await fetch(
-          `/api/recipes/search?title=${encodeURIComponent(searchTerm)}`,
-        );
+        // const response = await axios.get(`/api/recipes/search`, {
+        //   params: { term: trimTerm, page: 0, size: 8 },
+        // });
 
-        if (!response.ok) {
-          throw new Error("error");
-        }
-
-        const data = await response.json();
-
-        navigate(`/api/recipes/`, { state: { searchResults: data } });
+        // if (response.statusText.toUpperCase() != 'OK') {
+        //   throw new Error("error");
+        // }
+        setSearchTerm("");
+        navigate(`/recipes/`, { state: { searchTerm: trimTerm } });
       } catch (err) {
         setError(err.message);
       } finally {
@@ -52,8 +51,8 @@ export default function SearchButton({ value, onChange }) {
       <input
         type="search"
         placeholder="레시피 검색"
-        value={value}
-        onChange={onChange}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
         className="w-full text-base p-0"
       />
       <button

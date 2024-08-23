@@ -48,21 +48,16 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
     /**
      * 제목과 설명으로 레시피를 검색합니다.
      *
-     * @param title       제목
-     * @param description 설명
-     * @param pageable    페이지네이션 정보
+     * @param term 단어
      * @return 페이지네이션된 레시피 목록
      */
-    @Query("SELECT r FROM Recipe r WHERE " +
-           "(:title IS NULL OR r.title LIKE %:title%) AND " +
-           "(:category IS NULL OR r.category LIKE %:category%) AND " +
-           "(:description IS NULL OR r.description LIKE %:description%) AND " +
-           "(:hashtag IS NULL OR :hashtag MEMBER OF r.tags)")
-    Page<Recipe> searchRecipes(
-            @Param("title") String title,
-            @Param("category") String category,
-            @Param("description") String description,
-            @Param("hashtag") String hashtag,
+    @Query("SELECT DISTINCT r FROM Recipe r WHERE " +
+           "(:term IS NULL OR r.title LIKE %:term%) OR " +
+           "(:term IS NULL OR r.category LIKE %:term%) OR " +
+           "(:term IS NULL OR r.description LIKE %:term%) OR " +
+           "(:term IS NULL OR :term MEMBER OF r.tags)")
+    Page<RecipeSummary> searchRecipes(
+            @Param("term") String term,
             Pageable pageable
     );
 

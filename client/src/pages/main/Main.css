@@ -1,0 +1,214 @@
+/* 기본 리셋 및 레이아웃 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 메인 래퍼 */
+.main_wrap {
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
+  border: 1px solid blue; /* 틀 잡기 */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 150px;
+}
+
+/* 메인 내부 래퍼 */
+.main_inner_wrap {
+  width: 60%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* main_event_banner 내 이미지 */
+.main_event_banner_wrap {
+  width: 100%;
+  height: auto;
+  margin-bottom: 40px;
+  position: relative;
+}
+.main_event_banner {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* 각 섹션 스타일링 */
+.main_category_recipe,
+.main_best_recipe,
+.main_chef,
+.main_introduce {
+  border: 1px solid blue; /* 각 섹션의 틀 */
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.main_recipe_title {
+  width: 100%;
+  height: 50px;
+  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
+  margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 43px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: rgb(120, 120, 120);
+  cursor: pointer;
+}
+
+.main_best_recipe_wrap {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  margin-bottom: 50px;
+}
+.main_best_recipe .slick-slide {
+  margin: 0 10px;
+}
+
+/* 슬라이더 이미지 스타일링 */
+.recipe_state_wrap {
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: #333;
+}
+
+.recipe_state_wrap:hover {
+  transform: translateY(-5px);
+}
+
+.recipe_imageUrl img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+}
+
+/* 텍스트 영역 스타일링 */
+.recipe_text_wrap {
+  padding: 15px;
+  background-color: white;
+}
+
+.recipe_state_name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.main_introduce {
+  height: 150px;
+}
+
+/* 커스텀 버튼 */
+.custom-arrow_left-arrow {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  display: block;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  bottom: calc(50% -32px);
+  transform: rotate(-270deg);
+  cursor: pointer;
+}
+
+.custom-arrow_right-arrow {
+  position: absolute;
+  top: 40%;
+  right: 0;
+  display: block;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  bottom: calc(50% -32px);
+  transform: rotate(270deg);
+  cursor: pointer;
+}
+.custom-arrow_left-arrow_recipe {
+  display: block;
+  position: absolute;
+  left: -32px;
+  top: calc(23% - 32px);
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+}
+.custom-arrow_right-arrow_recipe {
+  display: block;
+  position: absolute;
+  right: -32px;
+  top: calc(23% - 32px);
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+}
+.main_chef {
+  width: 100%;
+  height: 50px;
+}
+
+.chef_section_title {
+  width: 100%;
+  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
+  margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 43px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: rgb(120, 120, 120);
+  cursor: pointer;
+}
+
+.chef_secion_wrap {
+  width: 100%;
+  height: 100%;
+}
+.chef_container {
+  width: 100%;
+}
+.chef_image_wrap {
+}
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .main_inner_wrap {
+    width: 100%;
+  }
+  .custom-arrow_left-arrow {
+    width: 25px;
+    top: 26%;
+    height: 25px;
+    left: 20px;
+  }
+  .custom-arrow_right-arrow {
+    width: 25px;
+    top: 56%;
+    height: 25px;
+    right: 20px;
+  }
+  .main_event_banner_wrap {
+    height: 150px;
+  }
+}
+/* Small Desktop */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .main_inner_wrap {
+    width: 80%;
+  }
+}
+/* Desktop */
+@media screen and (min-width: 1280px) and (max-width: 1799px) {
+}

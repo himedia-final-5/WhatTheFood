@@ -9,13 +9,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
-import today.wtfood.server.dto.recipe.RecipeDetail;
-import today.wtfood.server.dto.recipe.RecipeDto;
-import today.wtfood.server.dto.recipe.RecipeSummary;
-import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.dto.recipe.*;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +30,7 @@ public class RecipeController {
     // 레시피 리스트 (페이지네이션)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> getRecipeList(@RequestParam("category") String category, Pageable pageable) {
+    public PageResponse<RecipeSummary> getRecipeList(@RequestParam(value = "category", required = false) String category, Pageable pageable) {
         if (category == null || category.isEmpty()) {
             return PageResponse.of(rs.getRecipeList(pageable));
         } else {
@@ -61,14 +59,11 @@ public class RecipeController {
     // 제목, 카테고리, 설명, 해시태그로 레시피 검색
     @GetMapping("/search")
     @PreAuthorize("permitAll()")
-    public PageResponse<Recipe> searchRecipes(
-            @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "category", required = false) String category,
-            @RequestParam(value = "description", required = false) String description,
-            @RequestParam(value = "hashtag", required = false) String hashtag,
+    public PageResponse<RecipeSummary> searchRecipes(
+            @RequestParam(value = "term", required = false) String term,
             Pageable pageable
     ) {
-        return PageResponse.of(rs.searchRecipes(title, category, description, hashtag, pageable));
+        return PageResponse.of(rs.searchRecipes(term, pageable));
     }
 
 
@@ -79,15 +74,14 @@ public class RecipeController {
     }
 
     // 레시피 수정
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateRecipe(
             @PathVariable("id") long id,
-            @RequestBody RecipeDto recipeDto
+            @RequestBody RecipeDto recipedto
     ) {
-        Recipe updatedRecipe = recipeDto.toEntity();
-        rs.updateRecipe(id, updatedRecipe);
+        rs.updateRecipe(id, recipedto);
     }
 
     // 레시피 삭제
@@ -101,8 +95,9 @@ public class RecipeController {
     // 새로운 레시피 생성
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipeDto) {
-        return GeneratedId.of(rs.createRecipe(recipeDto).getId());
+    public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipedto, @CurrentUser long memberId) {
+        // memberId를 사용하여 레시피 생성
+        return GeneratedId.of(rs.createRecipe(recipedto, memberId).getId());
     }
 
     // 레시피 찜하기
@@ -149,5 +144,49 @@ public class RecipeController {
 
     }
 
+    // 댓글 가져오기
+    @GetMapping("/{recipeId}/comments")
+    @PreAuthorize("permitAll()")
+    public PageResponse<CommentSummary> getCommentsList(@PathVariable long recipeId, Pageable pageable) {
+        return PageResponse.of(rs.getCommentsList(recipeId, pageable));
+    }
 
+    // 댓글 추가
+    @PostMapping("/{recipeId}/addComment")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<HashMap<String, Object>> addComment(
+            @RequestBody CommentDto commentDto,
+            @PathVariable long recipeId,
+            @CurrentUser long memberId
+    ) {
+
+        rs.addComment(commentDto, recipeId, memberId);
+
+        HashMap<String, Object> response = new HashMap<>();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    // 댓글 수정
+    @PutMapping("/{commentId}/editComment")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<String> updateComment(
+            @PathVariable long commentId,
+            @RequestBody CommentDto commentDto,
+            @CurrentUser long memberId
+    ) {
+        rs.updateComment(commentId, commentDto);
+        return ResponseEntity.ok("Comment updated successfully");
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/{commentId}/deleteComment")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<String> deleteComment(
+            @PathVariable long commentId,
+            @CurrentUser long memberId
+    ) {
+        rs.deleteComment(commentId);
+        return ResponseEntity.ok("Comment deleted successfully");
+    }
 }

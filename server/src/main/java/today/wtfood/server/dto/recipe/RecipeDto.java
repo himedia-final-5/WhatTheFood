@@ -1,35 +1,34 @@
 package today.wtfood.server.dto.recipe;
 
-import lombok.Value;
+import lombok.Data;
+import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 
 import java.io.Serializable;
 import java.util.List;
 
-
 /**
- * DTO for {@link today.wtfood.server.entity.Event}
+ * DTO for {@link today.wtfood.server.entity.Recipe}
  */
-
-//수정생성용 dto
-@Value
+@Data
 public class RecipeDto implements Serializable {
-    String bannerImage;
-    String title;
-    String description;
-    Integer cookingTime;
-    Integer servings;
-    Integer level;
-    String videoLink;
-    String category;
-    List<String> ingredientImage;
-    List<String> ingredients;
-    List<String> cookingTools;
-    List<String> guideLinks;
-    List<Recipe.CookingStep> cookingStep;
-    List<String> finishedImages;
+    private String bannerImage;
+    private String title;
+    private String description;
+    private String cookingTime;
+    private Integer servings;
+    private Integer level;
+    private String videoLink;
+    private String category;
+    private List<String> ingredientImage;
+    private List<String> ingredients;
+    private List<String> cookingTools;
+    private List<String> guideLinks;
+    private List<Recipe.CookingStep> cookingStep;
+    private List<String> finishedImages;
+    private List<String> tags;
 
-    public Recipe toEntity() {
+    public Recipe toEntity(Member member) {
         Recipe recipe = new Recipe();
         recipe.setBannerImage(bannerImage);
         recipe.setTitle(title);
@@ -43,10 +42,9 @@ public class RecipeDto implements Serializable {
         recipe.setIngredients(ingredients);
         recipe.setCookingTools(cookingTools);
         recipe.setGuideLinks(guideLinks);
-        recipe.setCookingStep(cookingStep);
         recipe.setFinishedImages(finishedImages);
+        recipe.setTags(tags);
+        recipe.setMember(member); // Set the member from DTO
         return recipe;
     }
-
-
 }

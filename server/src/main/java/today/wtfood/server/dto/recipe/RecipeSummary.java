@@ -20,7 +20,7 @@ public interface RecipeSummary {
 
     Integer getViewCount();       // 조회수
 
-    Integer getCookingTime();     // 조리 시간
+    String getCookingTime();     // 조리 시간
 
     Integer getServings();        // 인원
 
@@ -63,10 +63,11 @@ public interface RecipeSummary {
      * 조리 단계 정보 DTO
      */
     interface CookingStepSummary {
-        Integer getStepNumber(); // 조리 순서 번호
 
-        String getImageUrl();   // 이미지 URL
+        Integer getStepNumber();     // 조리 순서 번호
 
-        String getDescription(); // 조리 내용
+        String getImageUrl();        // 이미지 URL
+
+        String getDescription();     // 조리 내용
     }
 }

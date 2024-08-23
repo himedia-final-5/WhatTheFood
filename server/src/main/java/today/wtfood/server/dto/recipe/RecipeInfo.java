@@ -22,7 +22,7 @@ public interface RecipeInfo {
 
     String getDescription();
 
-    Integer getCookingTime();
+    String getCookingTime();
 
     Integer getServings();
 
@@ -64,7 +64,6 @@ public interface RecipeInfo {
 
         String getDescription();
 
-        Timestamp getCreatedDate();
     }
 
     /**

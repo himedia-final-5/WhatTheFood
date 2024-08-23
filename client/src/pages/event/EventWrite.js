@@ -10,6 +10,7 @@ export default function EventWrite() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
+  // 게시글을 작성하기 위한 데이터 form
   const [event, setEvent] = useState({
     pass: "",
     title: "",
@@ -18,24 +19,38 @@ export default function EventWrite() {
     contentImages: [],
   });
 
+  // 위의 입력필드에서 발생한 값을 변경 처리 해주는 함수
   function onInputChange(e) {
+    // 입력 필드에서 발생한 이벤트 객체에서 name과 value를 추출합니다.
     const { name, value } = e.target;
+
+    // 현재 상태를 기반으로 새로운 상태를 만듭니다.
     setEvent((prevEvent) => ({
+      // 이전 상태의 모든 속성을 복사합니다.
       ...prevEvent,
+
+      // 현재 변경된 입력 필드의 name에 해당하는 값을 업데이트합니다.
+      // 예: name이 "title"이면, 새로운 상태에서 title: value가 됩니다.
       [name]: value,
     }));
   }
 
   function onSubmit() {
+    // axios 라이브러리를 사용해 POST 요청을 보냅니다.
     axios
       .post("/api/events/", {
+        // event 상태 객체에 저장된 모든 데이터를 요청 본문에 포함시킵니다.
         ...event,
       })
       .then(() => {
+        // POST 요청이 성공하면, 사용자를 "/events" 경로로 리다이렉트합니다.
         navigate("/events");
+
+        // 현재 상태 객체 event의 내용을 콘솔에 출력합니다.
         console.log(event);
       });
   }
+
 
   return (
     <AdminFeatureContainer className="createEvent">

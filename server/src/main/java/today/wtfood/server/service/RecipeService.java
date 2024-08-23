@@ -6,13 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.member.IMember;
-import today.wtfood.server.dto.recipe.RecipeDetail;
-import today.wtfood.server.dto.recipe.RecipeDto;
-import today.wtfood.server.dto.recipe.RecipeSummary;
+import today.wtfood.server.dto.recipe.*;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.exception.UnauthorizedException;
+import today.wtfood.server.repository.CommentRepository;
 import today.wtfood.server.repository.MemberRepository;
 import today.wtfood.server.repository.RecipeRepository;
 
@@ -29,15 +28,29 @@ public class RecipeService {
 
     private final RecipeRepository rr;
     private final MemberRepository mr;
+    private final CommentRepository cr; // CommentRepository 주입
 
-    public RecipeService(RecipeRepository rr, MemberRepository mr) {
+    public RecipeService(RecipeRepository rr, MemberRepository mr, CommentRepository cr) {
         this.rr = rr;
         this.mr = mr;
+        this.cr = cr;
     }
 
     // 레시피 생성
-    public Recipe createRecipe(RecipeDto recipe) {
-        return rr.save(recipe.toEntity());
+    public Recipe createRecipe(RecipeDto recipeDto, long memberId) {
+        // memberId로 회원 정보 조회
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원정보를 찾을 수 없습니다", "memberId"));
+
+        // RecipeDto에서 memberId를 사용해 레시피 엔티티 생성
+        Recipe recipe = recipeDto.toEntity(member);
+        rr.save(recipe);
+
+
+        recipeDto.getCookingStep().forEach(step -> step.setRecipe(recipe));
+        recipe.setCookingStep(recipeDto.getCookingStep());
+        // 레시피 저장
+        return recipe;
     }
 
     // 레시피 리스트 (페이지네이션)
@@ -56,8 +69,8 @@ public class RecipeService {
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
     }
 
-    public Page<Recipe> searchRecipes(String title, String category, String description, String hashtag, Pageable pageable) {
-        return rr.searchRecipes(title, category, description, hashtag, pageable);
+    public Page<RecipeSummary> searchRecipes(String term, Pageable pageable) {
+        return rr.searchRecipes(term, pageable);
     }
 
     // 조회수
@@ -69,28 +82,28 @@ public class RecipeService {
         rr.save(recipe);
     }
 
-
     // 레시피 수정
     @Transactional
-    public void updateRecipe(long id, Recipe updatedRecipe) {
+    public void updateRecipe(long id, RecipeDto recipedto) {
         Recipe recipe = rr.findById(id)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
 
-        recipe.setTitle(updatedRecipe.getTitle());
-        recipe.setDescription(updatedRecipe.getDescription());
-        recipe.setBannerImage(updatedRecipe.getBannerImage());
-        recipe.setCookingTime(updatedRecipe.getCookingTime());
-        recipe.setServings(updatedRecipe.getServings());
-        recipe.setLevel(updatedRecipe.getLevel());
-        recipe.setVideoLink(updatedRecipe.getVideoLink());
-        recipe.setCategory(updatedRecipe.getCategory());
-        recipe.setIngredientImage(updatedRecipe.getIngredientImage());
-        recipe.setIngredients(updatedRecipe.getIngredients());
-        recipe.setCookingTools(updatedRecipe.getCookingTools());
-        recipe.setGuideLinks(updatedRecipe.getGuideLinks());
-        recipe.setCookingStep(updatedRecipe.getCookingStep());
-        recipe.setFinishedImages(updatedRecipe.getFinishedImages());
-        recipe.setTags(updatedRecipe.getTags());
+        recipe.setTitle(recipedto.getTitle());
+        recipe.setDescription(recipedto.getDescription());
+        recipe.setBannerImage(recipedto.getBannerImage());
+        recipe.setCookingTime(recipedto.getCookingTime());
+        recipe.setServings(recipedto.getServings());
+        recipe.setLevel(recipedto.getLevel());
+        recipe.setVideoLink(recipedto.getVideoLink());
+        recipe.setCategory(recipedto.getCategory());
+        recipe.setIngredientImage(recipedto.getIngredientImage());
+        recipe.setIngredients(recipedto.getIngredients());
+        recipe.setCookingTools(recipedto.getCookingTools());
+        recipe.setGuideLinks(recipedto.getGuideLinks());
+        recipedto.getCookingStep().forEach(step -> step.setRecipe(recipe));
+        recipe.setCookingStep(recipedto.getCookingStep());
+        recipe.setFinishedImages(recipedto.getFinishedImages());
+        recipe.setTags(recipedto.getTags());
     }
 
     // 레시피 삭제
@@ -116,7 +129,6 @@ public class RecipeService {
     public Page<RecipeSummary> getFavoriteRecipes(long memberId, Pageable pageable) {
         Member member = mr.findById(memberId)
                 .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
-        Page<RecipeSummary> test = rr.findByFavoriteByMembersContains(member, pageable);
         return rr.findByFavoriteByMembersContains(member, pageable);
     }
 
@@ -131,6 +143,7 @@ public class RecipeService {
         mr.save(member);
     }
 
+    // 카테고리
     public Page<RecipeSummary> getRecipesByCategory(String category, Pageable pageable) {
         return rr.findByCategory(category, pageable);
     }
@@ -171,7 +184,38 @@ public class RecipeService {
         return rr.findTotalViewsByMember(startOfMonthTs, endOfMonthTs);
     }
 
+    // 댓글 목록 조회
+    public Page<CommentSummary> getCommentsList(long recipeId, Pageable pageable) {
+        return cr.findByRecipeIdOrderByIdDesc(pageable, recipeId);
+    }
+
+    // 댓글 추가
+    public void addComment(CommentDto commentDto, long recipeId, long memberId) {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원정보를 찾을 수 없습니다", "memberId"));
+
+
+        Recipe.Comment comment = commentDto.toEntity(recipe);
+        comment.setMember(member);
+        cr.save(comment);
+    }
+
+    // 댓글 수정
+    public void updateComment(long commentId, CommentDto commentDto) {
+        Recipe.Comment comment = cr.findById(commentId)
+                .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다", "commentId"));
+
+        comment.setContent(commentDto.getContent());
+        cr.save(comment);
+    }
+
+    // 댓글 삭제
+    public void deleteComment(long commentId) {
+        Recipe.Comment comment = cr.findById(commentId)
+                .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다", "commentId"));
+
+        cr.delete(comment);
+    }
 }
-
-
-

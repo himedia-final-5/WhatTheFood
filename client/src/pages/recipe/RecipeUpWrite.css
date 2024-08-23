@@ -12,6 +12,8 @@
 }
 
 .createRecipe_field {
+  width: 100%;
+  flex-direction: column; /* 또는 row */
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -43,32 +45,39 @@
 }
 
 .createRecipe_btns {
-  width: 60%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 20px 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 15px;
 }
 
 .createRecipe_btns button {
-  width: 150px;
   padding: 10px 20px;
   font-size: 1rem;
-  border: none;
-  border-radius: 4px;
+  font-weight: bold;
+  border: 1px solid #ddd; /* 수정 페이지와 유사한 테두리 */
+  border-radius: 8px; /* 모서리 둥글게 */
   cursor: pointer;
-  background-color: #4caf50;
-  color: white;
-  transition: background-color 0.3s ease;
+  background-color: #fff; /* 배경색 흰색 */
+  color: #333; /* 글자색 어두운 회색 */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .createRecipe_btns button:hover {
-  background-color: #45a049;
+  background-color: #f0f0f0; /* 호버 시 배경색 연하게 */
+  border-color: #ccc; /* 테두리 색상 변화 */
 }
 
 .createRecipe_btns button:last-child {
-  background-color: #f44336;
+  background-color: #f44336; /* 두 번째 버튼 배경색 빨간색 */
+  color: white; /* 글자색 흰색 */
+  border: none; /* 테두리 없음 */
 }
 
 .createRecipe_btns button:last-child:hover {
-  background-color: #e53935;
+  background-color: #e53935; /* 호버 시 빨간색 어둡게 */
 }

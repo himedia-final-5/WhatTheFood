@@ -82,7 +82,7 @@ export default function RecipeUpdate() {
           type="text"
           name="title"
           onChange={onInputChange}
-          value={inputs.title || recipe.title || ""}
+          value={inputs.title !== undefined ? inputs.title : recipe.title || ""}
           required
         />
       </div>
@@ -104,18 +104,41 @@ export default function RecipeUpdate() {
           id="description"
           name="description"
           onChange={onInputChange}
-          value={inputs.description || recipe.description || ""}
+          value={
+            inputs.description !== undefined
+              ? inputs.description
+              : recipe.description || ""
+          }
           required
         />
       </div>
       <div className="createRecipe_field">
-        <label htmlFor="servings">소요 시간(분)</label>
+        <label htmlFor="cookingTime">조리시간</label>
+        <input
+          type="text"
+          id="cookingTime"
+          name="cookingTime"
+          onChange={onInputChange}
+          value={
+            inputs.cookingTime !== undefined
+              ? inputs.cookingTime
+              : recipe.cookingTime || ""
+          }
+          required
+        />
+      </div>
+      <div className="createRecipe_field">
+        <label htmlFor="servings">요리량</label>
         <input
           type="text"
           id="servings"
           name="servings"
           onChange={onInputChange}
-          value={inputs.servings || recipe.servings || ""}
+          value={
+            inputs.servings !== undefined
+              ? inputs.servings
+              : recipe.servings || ""
+          }
           required
         />
       </div>
@@ -162,6 +185,7 @@ export default function RecipeUpdate() {
           >
             {selectedCategory || "카테고리 선택"}
           </button>
+
           {isCategoryDropdownOpen && (
             <div className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 w-full shadow-lg">
               {categories.map((category) => (
@@ -192,7 +216,11 @@ export default function RecipeUpdate() {
           id="videoLink"
           name="videoLink"
           onChange={onInputChange}
-          value={inputs.videoLink || recipe.videoLink || ""}
+          value={
+            inputs.videoLink !== undefined
+              ? inputs.videoLink
+              : recipe.videoLink || ""
+          }
           required
         />
       </div>
@@ -211,16 +239,63 @@ export default function RecipeUpdate() {
 
       <div className="createRecipe_field">
         <label>재료 이미지</label>
-        <ImageUploadInput
-          onUpload={(ingredientImage) =>
-            setRecipe({ ...recipe, ingredientImage })
-          }
-          imageSrc={recipe.ingredientImage}
-          className={cn(
-            "flex flex-col items-center justify-center w-full overflow-hidden",
-            "border-2 border-gray-300 border-dashed rounded-lg",
+        <div className="flex flex-col gap-2">
+          {recipe.ingredientImage && recipe.ingredientImage.length > 0 ? (
+            recipe.ingredientImage.map((image, index) => (
+              <div key={index} className="relative">
+                <ImageUploadInput
+                  onUpload={(newImage) => {
+                    const newImages = [...recipe.ingredientImage];
+                    newImages[index] = newImage;
+                    setRecipe({ ...recipe, ingredientImage: newImages });
+                  }}
+                  imageSrc={image}
+                  className={cn(
+                    "flex flex-col items-center justify-center w-full overflow-hidden",
+                    "border-2 border-gray-300 border-dashed rounded-lg",
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setRecipe({
+                      ...recipe,
+                      ingredientImage: recipe.ingredientImage.filter(
+                        (_, i) => i !== index,
+                      ),
+                    })
+                  }
+                  className={cn(
+                    "absolute top-2 right-2 text-red-500 hover:text-red-700",
+                    "bg-red-300 hover:bg-red-500",
+                    "w-8 h-8 rounded-md",
+                  )}
+                >
+                  X
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No ingredient images available.</p>
           )}
-        />
+          <button
+            type="button"
+            onClick={() =>
+              setRecipe({
+                ...recipe,
+                ingredientImage: [...(recipe.ingredientImage || []), ""],
+              })
+            }
+            className={cn(
+              "w-full py-2 rounded-md transition-colors",
+              "text-center items-center",
+              "text-2xl text-green-700 hover:text-green-200",
+              "bg-green-300 hover:bg-green-500",
+            )}
+          >
+            재료 이미지 추가 +
+          </button>
+        </div>
       </div>
 
       <div className="createRecipe_field">
@@ -338,15 +413,63 @@ export default function RecipeUpdate() {
       </div>
 
       <div className="createRecipe_field">
-        <label htmlFor="guideLinks">가이드 링크</label>
-        <input
-          type="text"
-          id="guideLinks"
-          name="guideLinks"
-          onChange={onInputChange}
-          value={inputs.guideLinks || recipe.guideLinks || ""}
-          required
-        />
+        <label>가이드 링크</label>
+        <div className="flex flex-col gap-2">
+          {recipe.guideLinks && recipe.guideLinks.length > 0 ? (
+            recipe.guideLinks.map((link, index) => (
+              <div key={index} className="relative">
+                <input
+                  type="text"
+                  value={link}
+                  onChange={(e) => {
+                    const newLinks = [...recipe.guideLinks];
+                    newLinks[index] = e.target.value;
+                    setRecipe({ ...recipe, guideLinks: newLinks });
+                  }}
+                  className="w-full"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setRecipe({
+                      ...recipe,
+                      guideLinks: recipe.guideLinks.filter(
+                        (_, i) => i !== index,
+                      ),
+                    })
+                  }
+                  className={cn(
+                    "absolute top-2 right-2 text-red-500 hover:text-red-700 z-30",
+                    "bg-red-300 hover:bg-red-500",
+                    "w-8 h-8 rounded-md",
+                  )}
+                >
+                  X
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No guide links available.</p>
+          )}
+          <button
+            type="button"
+            onClick={() =>
+              setRecipe({
+                ...recipe,
+                guideLinks: [...(recipe.guideLinks || []), ""],
+              })
+            }
+            className={cn(
+              "w-full py-2 rounded-md transition-colors",
+              "text-center items-center",
+              "text-2xl text-green-700 hover:text-green-200",
+              "bg-green-300 hover:bg-green-500",
+            )}
+          >
+            가이드 링크 추가 +
+          </button>
+        </div>
       </div>
 
       <div className="createRecipe_field">
@@ -354,7 +477,7 @@ export default function RecipeUpdate() {
         <div className="flex flex-wrap gap-y-2">
           {recipe.cookingStep &&
             recipe.cookingStep.length > 0 &&
-            recipe.cookingStep.map((cookingStep, index) => (
+            recipe.cookingStep.map((step, index) => (
               <div
                 key={index}
                 className={cn(
@@ -369,27 +492,58 @@ export default function RecipeUpdate() {
                     "text-2xl text-red-500 hover:text-red-700",
                     "bg-red-300 hover:bg-red-500",
                   )}
-                  onClick={() =>
-                    setRecipe({
-                      ...recipe,
-                      cookingStep: recipe.cookingStep.filter(
-                        (_, i) => i !== index,
-                      ),
-                    })
-                  }
+                  onClick={() => {
+                    const newSteps = recipe.cookingStep.filter(
+                      (_, i) => i !== index,
+                    );
+                    setRecipe({ ...recipe, cookingStep: newSteps });
+                  }}
                 >
                   X
                 </button>
+
                 <ImageUploadInput
-                  onUpload={(cookingStepImages) =>
-                    setRecipe({ ...recipe, cookingStepImages })
-                  }
-                  imageSrc={cookingStep.imageUrl}
+                  onUpload={(imageUrl) => {
+                    const newSteps = [...recipe.cookingStep];
+                    newSteps[index].imageUrl = imageUrl;
+                    setRecipe({ ...recipe, cookingStep: newSteps });
+                  }}
+                  imageSrc={step.imageUrl}
                   className={cn(
                     "flex flex-col items-center justify-center w-full overflow-hidden",
                     "border-2 border-gray-300 border-dashed rounded-lg",
                   )}
                 />
+                <div className="createRecipe_field w-full">
+                  <input
+                    type="text"
+                    id={`stepNumber-${index}`}
+                    name={`stepNumber-${index}`}
+                    onChange={(e) => {
+                      const newSteps = [...recipe.cookingStep];
+                      newSteps[index].stepNumber = parseInt(e.target.value, 10);
+                      setRecipe({ ...recipe, cookingStep: newSteps });
+                    }}
+                    value={step.stepNumber || ""}
+                    className="w-full mt-2"
+                    required
+                    placeholder="조리 순서 번호"
+                  />
+                  <input
+                    type="text"
+                    id={`description-${index}`}
+                    name={`description-${index}`}
+                    onChange={(e) => {
+                      const newSteps = [...recipe.cookingStep];
+                      newSteps[index].description = e.target.value;
+                      setRecipe({ ...recipe, cookingStep: newSteps });
+                    }}
+                    value={step.description || ""}
+                    className="w-full"
+                    required
+                    placeholder="조리 내용 입력"
+                  />
+                </div>
               </div>
             ))}
           <button
@@ -398,7 +552,7 @@ export default function RecipeUpdate() {
                 ...recipe,
                 cookingStep: [
                   ...(recipe.cookingStep || []),
-                  { image: "", text: "" },
+                  { imageUrl: "", description: "", stepNumber: 1 },
                 ],
               })
             }
@@ -415,16 +569,129 @@ export default function RecipeUpdate() {
 
         <div className="createRecipe_field">
           <label>완성 이미지</label>
-          <ImageUploadInput
-            onUpload={(finishedImages) =>
-              setRecipe({ ...recipe, finishedImages })
-            }
-            imageSrc={recipe.finishedImages}
-            className={cn(
-              "flex flex-col items-center justify-center w-full overflow-hidden",
-              "border-2 border-gray-300 border-dashed rounded-lg",
+          <div className="flex flex-col gap-2">
+            {recipe.finishedImages && recipe.finishedImages.length > 0 ? (
+              recipe.finishedImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    "relative flex flex-col items-center justify-center w-full overflow-hidden",
+                    "border-2 border-gray-300 border-dashed rounded-lg",
+                  )}
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setRecipe({
+                        ...recipe,
+                        finishedImages: recipe.finishedImages.filter(
+                          (_, i) => i !== index,
+                        ),
+                      })
+                    }
+                    className={cn(
+                      "absolute top-2 right-2 text-red-500 hover:text-red-700",
+                      "bg-red-300 hover:bg-red-500",
+                      "w-8 h-8 rounded-md",
+                    )}
+                  >
+                    X
+                  </button>
+                  <ImageUploadInput
+                    onUpload={(imageUrl) => {
+                      const newImages = [...recipe.finishedImages];
+                      newImages[index] = imageUrl;
+                      setRecipe({ ...recipe, finishedImages: newImages });
+                    }}
+                    imageSrc={image}
+                    className={cn(
+                      "flex flex-col items-center justify-center w-full overflow-hidden",
+                      "border-2 border-gray-300 border-dashed rounded-lg",
+                    )}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No finished images available.</p>
             )}
-          />
+            <button
+              type="button"
+              onClick={() =>
+                setRecipe({
+                  ...recipe,
+                  finishedImages: [...(recipe.finishedImages || []), ""],
+                })
+              }
+              className={cn(
+                "w-full py-2 rounded-md transition-colors",
+                "text-center items-center",
+                "text-2xl text-green-700 hover:text-green-200",
+                "bg-green-300 hover:bg-green-500",
+              )}
+            >
+              완성 이미지 추가 +
+            </button>
+            <div className="createRecipe_field">
+              <label>해쉬태그</label>
+              <div className="flex flex-col gap-2">
+                {recipe.tags && recipe.tags.length > 0 ? (
+                  recipe.tags.map((link, index) => (
+                    <div key={index} className="relative">
+                      <input
+                        type="text"
+                        value={link}
+                        onChange={(e) => {
+                          const newTag = e.target.value.startsWith("#")
+                            ? e.target.value
+                            : `#${e.target.value}`;
+                          const newLinks = [...recipe.tags];
+                          newLinks[index] = newTag;
+                          setRecipe({ ...recipe, tags: newLinks });
+                        }}
+                        className="w-full"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setRecipe({
+                            ...recipe,
+                            tags: recipe.tags.filter((_, i) => i !== index),
+                          })
+                        }
+                        className={cn(
+                          "absolute top-2 right-2 text-red-500 hover:text-red-700 z-30",
+                          "bg-red-300 hover:bg-red-500",
+                          "w-8 h-8 rounded-md",
+                        )}
+                      >
+                        X
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p>No tags available.</p>
+                )}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setRecipe({
+                      ...recipe,
+                      tags: [...(recipe.tags || []), ""],
+                    })
+                  }
+                  className={cn(
+                    "w-full py-2 rounded-md transition-colors",
+                    "text-center items-center",
+                    "text-2xl text-green-700 hover:text-green-200",
+                    "bg-green-300 hover:bg-green-500",
+                  )}
+                >
+                  해쉬 태그 추가 +
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

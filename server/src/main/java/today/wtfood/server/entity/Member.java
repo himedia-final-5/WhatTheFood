@@ -128,6 +128,8 @@ public class Member implements UserDetails, OAuth2User {
     private List<Recipe.Comment> comments;
 
     // 찜한 레시피들 목록
+
+    // @ManyToMany(cascade = CascadeType.ALL)
     @ManyToMany
     @JoinTable(
             name = "favorite_recipes",

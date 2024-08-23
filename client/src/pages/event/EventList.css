@@ -53,6 +53,8 @@
 .event_imageUrl img {
   width: 100%;
   height: auto; /* 이미지 비율 유지 */
+  aspect-ratio: 16/4;
+  object-fit: cover;
   border-radius: 8px; /* 이미지 둥글게 */
 }
 

@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class Recipe {
     private String description; // 설명
 
     @Column(name = "cooking_time")
-    private Integer cookingTime; // 조리시간
+    private String cookingTime; // 조리시간
 
     @Column(name = "servings")
     private Integer servings; // 인원
@@ -75,7 +76,7 @@ public class Recipe {
 
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CookingStep> cookingStep; // 조리순서
+    private List<CookingStep> cookingStep = new ArrayList<>(); // ArrayList 넣어서 null 값 상관없게 해줄수 있음
 
     @Getter
     @Setter
@@ -101,10 +102,6 @@ public class Recipe {
 
         @Column(name = "description", length = 1000)
         private String description; // 조리 내용
-
-        @CreationTimestamp
-        @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL")
-        private Timestamp createdDate; // 생성 시간
     }
 
     @ElementCollection
@@ -149,5 +146,11 @@ public class Recipe {
 
     // 찜한 멤버들 목록
     @ManyToMany(mappedBy = "favoriteRecipes")
+    //@ManyToMany(mappedBy = "favoriteRecipes", cascade = CascadeType.ALL)
     private Set<Member> favoriteByMembers; // 이 레시피를 찜한 멤버 목록
+
+    public void setCookingStep(List<CookingStep> cookingStep) {
+        this.cookingStep.clear();
+        this.cookingStep.addAll(cookingStep);
+    }
 }
