@@ -15,7 +15,12 @@ import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.repository.MemberRepository;
 import today.wtfood.server.repository.RecipeRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -129,4 +134,38 @@ public class RecipeService {
         return rr.findByCategory(category, pageable);
     }
 
+    public List<Map<String, Object>> getDailyViewsRanking() {
+        LocalDate today = LocalDate.now();
+        Timestamp startOfDay = Timestamp.valueOf(today.atStartOfDay());
+        Timestamp endOfDay = Timestamp.valueOf(today.atTime(LocalTime.MAX));
+
+        return rr.findTotalViewsByMember(startOfDay, endOfDay);
+    }
+
+    public List<Map<String, Object>> getWeeklyViewsRanking() {
+        LocalDate today = LocalDate.now();
+        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
+        LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SUNDAY));
+
+        Timestamp startOfWeekTs = Timestamp.valueOf(startOfWeek.atStartOfDay());
+        Timestamp endOfWeekTs = Timestamp.valueOf(endOfWeek.atTime(LocalTime.MAX));
+
+        return rr.findTotalViewsByMember(startOfWeekTs, endOfWeekTs);
+    }
+
+    public List<Map<String, Object>> getMonthlyViewsRanking() {
+        LocalDate today = LocalDate.now();
+        LocalDate startOfMonth = today.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
+
+        Timestamp startOfMonthTs = Timestamp.valueOf(startOfMonth.atStartOfDay());
+        Timestamp endOfMonthTs = Timestamp.valueOf(endOfMonth.atTime(LocalTime.MAX));
+
+        return rr.findTotalViewsByMember(startOfMonthTs, endOfMonthTs);
+    }
+
+
 }
+
+
+

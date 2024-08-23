@@ -12,6 +12,9 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -67,4 +70,16 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
     Page<RecipeSummary> findByFavoriteByMembersContains(Member member, Pageable pageable);
 
     Page<RecipeSummary> findByCategory(String category, Pageable pageable);
+
+    List<Recipe> findByFavoriteByMembersContains(Member member);
+
+    @Query("SELECT r.member.id AS memberId, SUM(r.viewCount) AS totalViews " +
+            "FROM Recipe r " +
+            "WHERE r.createdDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY r.member.id " +
+            "ORDER BY totalViews DESC")
+    List<Map<String, Object>> findTotalViewsByMember(@Param("startDate") Timestamp startDate,
+                                                     @Param("endDate") Timestamp endDate);
+
+  
 }
