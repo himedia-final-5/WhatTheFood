@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +76,7 @@ public class Recipe {
 
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CookingStep> cookingStep; // 조리순서
+    private List<CookingStep> cookingStep = new ArrayList<>(); // ArrayList 넣어서 null 값 상관없게 해줄수 있음
 
     @Getter
     @Setter
