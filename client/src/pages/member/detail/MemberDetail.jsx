@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link2Icon, GearIcon } from "@radix-ui/react-icons";
+import { toast } from "react-toastify";
+import { Link2Icon, GearIcon, StarFilledIcon } from "@radix-ui/react-icons";
 
-import axios from "utils/jwtUtil";
-import cn from "utils/cn";
-import { useSelector } from "stores";
 import ProfileUpdateDialog from "./ProfileUpdateDialog";
+import { useSelector } from "stores";
+import { axios, cn, defaultErrorHandler } from "utils";
+import useThrottle from "hooks/useThrottle";
 
 export default function MemberDetail() {
   /** @type {[MemberDetail, React.Dispatch<React.SetStateAction<MemberDetail>>]} */
@@ -14,6 +15,33 @@ export default function MemberDetail() {
   const { id } = useParams();
   const user = useSelector((state) => state.user);
   const isMe = user?.id === Number(id) ? user : null;
+
+  const toggleFollow = useThrottle(async () => {
+    if (!member || !user) return;
+
+    if (member.id === user.id) {
+      toast.error("자기 자신을 팔로우할 수 없습니다");
+      return;
+    }
+
+    try {
+      if (member.following) {
+        await axios.delete(`/api/members/${member.id}/follow`);
+        toast.success("팔로우를 취소했습니다");
+      } else {
+        await axios.post(`/api/members/${member.id}/follow`);
+        toast.success("팔로우했습니다");
+      }
+
+      setMember({
+        ...member,
+        followerCount: member.followerCount + (member.following ? -1 : 1),
+        following: !member.following,
+      });
+    } catch (error) {
+      defaultErrorHandler(error);
+    }
+  }, 3000);
 
   useEffect(() => {
     axios.get(`/api/members/${id}/profile`).then((response) => {
@@ -29,25 +57,37 @@ export default function MemberDetail() {
         setOpen={(val) => val || setDialogOpen(false)}
       />
       <div className="relative flex flex-col w-full h-hit">
+        {user?.id &&
+          (isMe ? (
+            <button
+              className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full"
+              onClick={setDialogOpen.bind(null, true)}
+            >
+              <GearIcon
+                className={cn(
+                  "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
+                  "hover:rotate-45 hover:scale-125",
+                  dialogOpen ? "rotate-45 scale-125" : "",
+                )}
+              />
+            </button>
+          ) : (
+            <button
+              className="absolute top-2 right-2 flex gap-2 p-1 bg-neutral-700 rounded-full"
+              onClick={toggleFollow}
+            >
+              <StarFilledIcon
+                className={cn("w-5 h-5 text-neutral-400", {
+                  "text-yellow-400": member?.following,
+                })}
+              />
+            </button>
+          ))}
         <img
           src={member?.bannerImage || "/images/member/default_banner.png"}
           alt="background-banner"
           className="absolute w-full h-full object-cover -z-10"
         />
-        {isMe && (
-          <button
-            className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full"
-            onClick={setDialogOpen.bind(null, true)}
-          >
-            <GearIcon
-              className={cn(
-                "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
-                "hover:rotate-45 hover:scale-125",
-                dialogOpen ? "rotate-45 scale-125" : "",
-              )}
-            />
-          </button>
-        )}
         <div className="flex justify-start items-center">
           <img
             src={member?.profileImage || "/images/member/default_profile.png"}
