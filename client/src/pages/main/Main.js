@@ -206,12 +206,15 @@ export default function Main() {
   const settingRecipes = {
     className: "center",
     infinite: true,
+    speed: 500,
     centerPadding: "60px",
     slidesToShow: 4,
     swipeToSlide: true,
     arrows: true,
     prevArrow: <CustomPrevArrowRecipe />,
     nextArrow: <CustomNextArrowRecipe />,
+    autoplay: true,
+    autoplaySpeed: 3000, // 3초마다 슬라이드 전환 (단위: ms)
     responsive: [
       {
         breakpoint: 1024,
@@ -224,9 +227,9 @@ export default function Main() {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
           infinite: true,
         },
       },
@@ -273,32 +276,16 @@ export default function Main() {
                       key={recipe.id}
                       className="recipe_state_wrap"
                     >
-                      <div className="recipe_text_wrap">
-                        <span className="recipe_state_name">
-                          {recipe.title}
-                        </span>
-                        <span className="recipe_state_tags">
-                          {recipe.tags.map((tag, index) => (
-                            <span key={index} className="recipe_tag">
-                              {tag}
-                            </span>
-                          ))}
-                        </span>
-                        <span className="recipe_state_level">
-                          {recipe.level} level
-                        </span>
-                        <span className="recipe_state_servings">
-                          {recipe.servings}인분
-                        </span>
-                        <span className="recipe_state_viewcount">
-                          조회수 {recipe.viewCount}
-                        </span>
-                      </div>
                       <div className="recipe_imageUrl">
                         <img
                           src={recipe.bannerImage}
                           alt="recipe_bannerImage"
                         />
+                      </div>
+                      <div className="recipe_text_wrap">
+                        <span className="recipe_state_name">
+                          {recipe.title}
+                        </span>
                       </div>
                     </Link>
                   ))

@@ -22,25 +22,23 @@
   width: 60%;
   height: auto;
   margin: 0 auto;
-  gap: 20px;
 }
 
 /* main_event_banner 내 이미지 */
 .main_event_banner_wrap {
   width: 100%;
-  height: 300px;
+  height: auto;
+  margin-bottom: 40px;
   position: relative;
-  border: 1px solid blue;
 }
 .main_event_banner {
   width: 100%;
-  height: auto;
+  object-fit: cover;
 }
 
 /* 각 섹션 스타일링 */
-.main_event_banner,
-.main_best_recipe,
 .main_category_recipe,
+.main_best_recipe,
 .main_chef,
 .main_introduce {
   border: 1px solid blue; /* 각 섹션의 틀 */
@@ -51,6 +49,7 @@
 }
 .main_recipe_title {
   width: 100%;
+  height: 50px;
   font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
   margin-bottom: 40px;
   font-weight: 500;
@@ -75,7 +74,6 @@
 /* 슬라이더 이미지 스타일링 */
 .recipe_state_wrap {
   display: block;
-  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -89,7 +87,7 @@
 
 .recipe_imageUrl img {
   width: 100%;
-  height: 200px;
+  height: 270px;
   object-fit: cover;
 }
 
@@ -101,33 +99,10 @@
 
 .recipe_state_name {
   display: block;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 400;
   margin-bottom: 10px;
   color: #333;
-}
-
-.recipe_state_tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 10px;
-}
-
-.recipe_tag {
-  background-color: #ff6f61;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-}
-
-.recipe_state_level,
-.recipe_state_servings,
-.recipe_state_viewcount {
-  display: block;
-  font-size: 14px;
-  color: #666;
 }
 
 .main_introduce {
@@ -137,7 +112,7 @@
 /* 커스텀 버튼 */
 .custom-arrow_left-arrow {
   position: absolute;
-  top: 33%;
+  top: 40%;
   left: 0;
   display: block;
   z-index: 1;
@@ -150,7 +125,7 @@
 
 .custom-arrow_right-arrow {
   position: absolute;
-  top: 33%;
+  top: 40%;
   right: 0;
   display: block;
   z-index: 1;
@@ -213,20 +188,19 @@
     width: 100%;
   }
   .custom-arrow_left-arrow {
-    width: 30px;
-    top: 25%;
-    height: 30px;
-    left: -5px;
+    width: 25px;
+    top: 26%;
+    height: 25px;
+    left: 20px;
   }
   .custom-arrow_right-arrow {
-    width: 30px;
-    top: 53%;
-    height: 30px;
-    right: -5px;
+    width: 25px;
+    top: 56%;
+    height: 25px;
+    right: 20px;
   }
   .main_event_banner_wrap {
-    height: 200px;
-    margin-bottom: 40px;
+    height: 150px;
   }
 }
 /* Small Desktop */
@@ -234,14 +208,7 @@
   .main_inner_wrap {
     width: 80%;
   }
-  .main_event_banner_wrap {
-    height: 300px;
-  }
 }
 /* Desktop */
 @media screen and (min-width: 1280px) and (max-width: 1799px) {
-  .main_event_banner_wrap {
-    height: 300px;
-    margin-bottom: 25px;
-  }
 }
