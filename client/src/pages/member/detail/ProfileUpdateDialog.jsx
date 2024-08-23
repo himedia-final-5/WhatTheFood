@@ -36,7 +36,7 @@ import axios from "utils/jwtUtil";
 import { useDispatch, updateProfile } from "stores";
 import { useInput } from "hooks";
 
-/** @param {{  member: MemberDetail, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
+/** @param {{  member: MemberProfileDetail, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
 export default function ProfileUpdateDialog({ open, setOpen, member }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -106,7 +106,7 @@ function ImageButton({ srText = "button", children, ...props }) {
 
 /**
  *
- * @param {{member: MemberDetail, setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
+ * @param {{member: MemberProfileDetail, setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
  */
 function PartOfContent({ member, setOpen }) {
   const dispatch = useDispatch();

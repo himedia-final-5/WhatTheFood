@@ -9,7 +9,7 @@ import { axios, cn, defaultErrorHandler } from "utils";
 import useThrottle from "hooks/useThrottle";
 
 export default function MemberDetail() {
-  /** @type {[MemberDetail, React.Dispatch<React.SetStateAction<MemberDetail>>]} */
+  /** @type {[MemberProfileDetail, React.Dispatch<React.SetStateAction<MemberProfileDetail>>]} */
   const [member, setMember] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const { id } = useParams();
