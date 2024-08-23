@@ -8,10 +8,10 @@
 /* 메인 래퍼 */
 .main_wrap {
   width: 100%;
+  margin: 0 auto;
+  height: auto;
   border: 1px solid blue; /* 틀 잡기 */
   background-color: #fff;
-  margin: 20px;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 150px;
@@ -20,23 +20,21 @@
 /* 메인 내부 래퍼 */
 .main_inner_wrap {
   width: 50%;
+  height: auto;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
   gap: 20px;
 }
 
 /* main_event_banner 내 이미지 */
 .main_event_banner_wrap {
   width: 100%;
+  height: 300px;
   position: relative;
-  overflow: hidden;
   border: 1px solid blue;
 }
 .main_event_banner {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
 /* 각 섹션 스타일링 */
@@ -52,28 +50,30 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.main_event_banner {
-  height: 230px;
-}
-
-.slider_arrow {
+.custom-arrow_left-arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.left_arrow {
+  top: 33%;
   left: 0;
+  display: block;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  bottom: calc(50% -32px);
+  transform: rotate(-270deg);
+  cursor: pointer;
 }
 
-.right_arrow {
+.custom-arrow_right-arrow {
+  position: absolute;
+  top: 33%;
   right: 0;
+  display: block;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  bottom: calc(50% -32px);
+  transform: rotate(270deg);
+  cursor: pointer;
 }
 
 .main_best_recipe {
@@ -92,27 +92,29 @@
   height: 150px;
 }
 
-/* 반응형 디자인 */
-@media (max-width: 1200px) {
-  .main_inner_wrap {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 992px) {
-  .main_event_banner,
-  .main_best_recipe,
-  .main_category_recipe,
-  .main_chef,
-  .main_introduce {
-    height: auto;
-    padding: 15px;
-  }
-}
-
-@media (max-width: 768px) {
+/* Mobile */
+@media screen and (min-width: 514px) and (max-width: 767px) {
   .main_wrap {
-    margin: 10px;
-    padding: 10px;
+    width: 100%;
+    background-color: pink;
   }
+  .main_inner_wrap {
+    width: 100%;
+    background-color: yellow;
+  }
+  .custom-arrow_left-arrow {
+    display: none;
+  }
+  .custom-arrow_right-arrow {
+    display: none;
+  }
+}
+/* Small Desktop */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .main_inner_wrap {
+    width: 80%;
+  }
+}
+/* Desktop */
+@media screen and (min-width: 1280px) and (max-width: 1799px) {
 }

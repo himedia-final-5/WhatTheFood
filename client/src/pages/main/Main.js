@@ -24,14 +24,45 @@ export default function Main() {
     fetchEvents();
   }, []);
 
+  // Custom Arrow Components
+  const CustomPrevArrow = ({ onClick }) => (
+    <div className="custom-arrow_left-arrow" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="64"
+        height="66"
+        fill="none"
+        viewBox="0 0 19 18"
+      >
+        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+      </svg>
+    </div>
+  );
+
+  const CustomNextArrow = ({ onClick }) => (
+    <div className="custom-arrow_right-arrow" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="64"
+        height="66"
+        fill="none"
+        viewBox="0 0 19 18"
+      >
+        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+      </svg>
+    </div>
+  );
+
   const settings = {
-    dots: true,
+    className: "center",
     infinite: true,
-    speed: 500,
+    centerPadding: "60px",
     slidesToShow: 1,
-    slidesToScroll: 1
+    swipeToSlide: true,
+    arrows: true,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
   };
-    
 
   return (
     <div className="main_wrap">
@@ -39,14 +70,14 @@ export default function Main() {
         <div className="main_event_banner_wrap">
           <div className="main_event_banner">
             <Slider {...settings}>
-            {content.length > 0 ? (
-              content.map((event) => (
-                <EventCard event={event} key={event.bannerImage} />
-              ))
-            ) : (
-              <div>No events found.</div>
+              {content.length > 0 ? (
+                content.map((event) => (
+                  <EventCard event={event} key={event.bannerImage} />
+                ))
+              ) : (
+                <div>No events found.</div>
               )}
-              </Slider>
+            </Slider>
           </div>
         </div>
         <div className="main_best_recipe"></div>
