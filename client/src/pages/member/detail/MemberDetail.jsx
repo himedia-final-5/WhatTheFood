@@ -5,6 +5,7 @@ import { Link2Icon, GearIcon } from "@radix-ui/react-icons";
 import axios from "utils/jwtUtil";
 import cn from "utils/cn";
 import { useSelector } from "stores";
+import ProfileUpdateDialog from "./ProfileUpdateDialog";
 
 export default function MemberDetail() {
   /** @type {[MemberDetail, React.Dispatch<React.SetStateAction<MemberDetail>>]} */
@@ -22,6 +23,11 @@ export default function MemberDetail() {
 
   return (
     <div className="flex flex-col w-full h-hit mt-[-86px]">
+      <ProfileUpdateDialog
+        open={dialogOpen}
+        member={member}
+        setOpen={(val) => val || setDialogOpen(false)}
+      />
       <div className="relative flex flex-col w-full h-hit">
         <img
           src={member?.bannerImage || "/images/member/default_banner.png"}
