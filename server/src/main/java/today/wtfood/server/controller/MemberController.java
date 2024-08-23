@@ -9,9 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
-import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberProfileUpdateRequest;
 import today.wtfood.server.dto.member.MemberSummary;
@@ -24,16 +22,6 @@ import today.wtfood.server.service.MemberService;
 public class MemberController {
 
     private final MemberService memberService;
-
-    @PostMapping("")
-    @PreAuthorize("permitAll()")
-    @ResponseStatus(HttpStatus.CREATED)
-    public GeneratedId<Long> createMember(
-            @Validated
-            MemberCreateRequest requestData
-    ) {
-        return GeneratedId.of(memberService.createMember(requestData));
-    }
 
     @GetMapping("")
     @PreAuthorize("permitAll()")

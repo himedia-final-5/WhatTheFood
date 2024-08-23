@@ -29,11 +29,12 @@ public class MemberService {
      * 회원가입 처리
      *
      * @param requestData 회원가입 요청 정보
-     * @return 생성된 회원의 ID
      */
     @Transactional(rollbackFor = Exception.class)
-    public long createMember(MemberCreateRequest requestData) {
-        return memberRepository.save(requestData.toEntity(passwordEncoder.encode(requestData.password()))).getId();
+    public void createMember(MemberCreateRequest requestData) {
+        Member member = requestData.toEntity(passwordEncoder.encode(requestData.password()));
+        member.setProfileImage("https://api.dicebear.com/9.x/bottts-neutral/svg?seed=" + requestData.username());
+        memberRepository.save(member);
     }
 
     /**
@@ -128,20 +129,6 @@ public class MemberService {
         member.setIntroduce(requestData.getIntroduce());
         member.setProfileImage(requestData.getProfileImage());
         member.setBannerImage(requestData.getBannerImage());
-    }
-
-    /**
-     * 회원 프로필 이미지 변경
-     *
-     * @param memberId     변경할 회원의 ID
-     * @param profileImage 변경할 프로필 이미지
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void updateMemberProfileImage(long memberId, String profileImage) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
-
-        member.setProfileImage(profileImage);
     }
 
     /**
