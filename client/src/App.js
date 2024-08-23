@@ -6,8 +6,7 @@ import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { DefaultLayout, AdminLayout } from "layouts";
-import { FallbackRender } from "layouts/error";
-import NotFoundRender from "layouts/error/NotFoundRender";
+import { ErrorRender, NotFoundRender } from "layouts/fallback";
 import { Main } from "pages/main";
 import {
   EmailLogin,
@@ -70,8 +69,8 @@ import ResultsPage from "pages/recipe/ResultsPage";
 function App() {
   return (
     <div className="App flex flex-col w-full h-full min-h-screen">
-      <ErrorBoundary FallbackComponent={FallbackRender}>
-        <Suspense fallback={<FallbackRender />}>
+      <ErrorBoundary FallbackComponent={ErrorRender}>
+        <Suspense fallback={<ErrorRender />}>
           <Routes>
             <Route element={<DefaultLayout />}>
               <Route path="/" element={<Main />} />
