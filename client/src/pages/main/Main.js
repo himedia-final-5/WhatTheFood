@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
   const [recipes, setLatestRecipe] = useState([]); //배열
+  const [chef, setChef] = useState([]);
   const user = useSelector((state) => state.user);
 
   // 메인 이벤트를 가져오는 함수
@@ -23,14 +24,28 @@ export default function Main() {
   }
 
   async function fetchRecipes() {
-    const response = await axios.get(`/api/recipes`, {
-      params: { size: 8 },
-    });
-    setLatestRecipe(response.data.content);
+    try {
+      const response = await axios.get(`/api/recipes`, {
+        params: { size: 8 },
+      });
+      console.log("API Response:", response.data); // Check the structure of the response
+      setLatestRecipe(response.data.content);
+    } catch (error) {
+      defaultErrorHandler(error);
+    }
   }
+
+  async function fetchChef() {
+    const response = await axios.get(`/api/members`, {
+      params: { size: 8, role: "ROLE_CHEF" },
+    });
+    setChef(response.data.content);
+  }
+
   useEffect(() => {
     fetchEvents();
     fetchRecipes();
+    fetchChef();
   }, []);
 
   // Custom Arrow Components
@@ -282,8 +297,31 @@ export default function Main() {
             </div>
           </div>
         </div>
-        <div className="main_category_recipe"></div>
-        <div className="main_chef"></div>
+        <div className="main_chef">
+          {chef.length > 0 ? (
+            chef.map((item, index) => (
+              <div key={index} className="chef_container">
+                <p className="chef_num">
+                  <b>{index + 1}</b>
+                </p>
+                <Link to={`/events/${item.id}`}>
+                  <div className="chef_imageUrl">
+                    <img
+                      className="rounded-full size-28"
+                      src={item.profileImage}
+                      alt="member_profileImage"
+                    />
+                  </div>
+                </Link>
+                <div className="flex justify-center py-2 text-base font-bold">
+                  <p>{item.nickname}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div>No chefs found.</div>
+          )}
+        </div>
         <div className="main_introduce"></div>
       </div>
 
