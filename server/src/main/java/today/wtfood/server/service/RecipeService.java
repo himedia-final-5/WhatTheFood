@@ -31,8 +31,20 @@ public class RecipeService {
     }
 
     // 레시피 생성
-    public Recipe createRecipe(RecipeDto recipedto) {
-        return rr.save(recipedto.toEntity());
+    public Recipe createRecipe(RecipeDto recipeDto, long memberId) {
+        // memberId로 회원 정보 조회
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원정보를 찾을 수 없습니다", "memberId"));
+
+        // RecipeDto에서 memberId를 사용해 레시피 엔티티 생성
+        Recipe recipe = recipeDto.toEntity(member);
+        rr.save(recipe);
+
+
+        recipeDto.getCookingStep().forEach(step -> step.setRecipe(recipe));
+        recipe.setCookingStep(recipeDto.getCookingStep());
+        // 레시피 저장
+        return recipe;
     }
 
     // 레시피 리스트 (페이지네이션)
