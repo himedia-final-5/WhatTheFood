@@ -4,25 +4,13 @@ SET SESSION FOREIGN_KEY_CHECKS = 0;
 -- 데이터 삽입
 INSERT INTO event (id, title, start_date, end_date, banner_image)
 VALUES (1, '진행중', '2024-08-01', '2024-08-10',
-        'https://static.wtable.co.kr/image/production/service/staticpage/105/bca90355-64a8-4deb-84b9-1c3ce0f36093.jpg');
+        'https://static.wtable.co.kr/image/production/service/staticpage/106/d4607629-6855-4ad7-85d0-3bd28713e0fb.jpg');
 INSERT INTO event_content (id, content_images)
 VALUES (1,
-        'https://static.wtable.co.kr/image/production/service/staticpage/105/c1e45901-17c5-4ae1-91d7-0d7030df01ef.jpg');
+        'https://static.wtable.co.kr/image/production/service/staticpage/106/12d20a7b-0a52-44ee-8550-682e769c8473.jpg');
 INSERT INTO event_content (id, content_images)
 VALUES (1,
-        'https://static.wtable.co.kr/image/production/service/staticpage/105/f626ecd1-e006-44a8-912b-9a6c5df34fd6.jpg');
-INSERT INTO event_content (id, content_images)
-VALUES (1,
-       'https://static.wtable.co.kr/image/production/service/staticpage/105/8e1e7860-6318-4659-baff-b84d3f1d9316.jpg');
-INSERT INTO event_content (id, content_images)
-VALUES (1,
-        'https://static.wtable.co.kr/image/production/service/staticpage/105/03ebb62b-4258-4b5c-9cbb-87282c8474b7.jpg');
-INSERT INTO event_content (id, content_images)
-VALUES (1,
-        'https://static.wtable.co.kr/image/production/service/staticpage/105/98ee13a4-0a01-4ae6-b7ff-63480bff5453.jpg');
-INSERT INTO event_content (id, content_images)
-VALUES (1,
-        'https://static.wtable.co.kr/image/production/service/staticpage/105/e5ef0d04-2b71-41f6-a08b-b87a6c774099.jpg');
+        'https://static.wtable.co.kr/image/production/service/staticpage/106/ea8fe897-5fd1-4a55-8c20-b4146670034d.jpg');
 
 INSERT INTO event (id, title, start_date, end_date, banner_image)
 VALUES (2, '진행중', '2024-04-04', '2025-04-04',
