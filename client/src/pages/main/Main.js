@@ -209,6 +209,7 @@ export default function Main() {
     speed: 500,
     centerPadding: "60px",
     slidesToShow: 4,
+    slidesToScroll: 2,
     swipeToSlide: true,
     arrows: true,
     prevArrow: <CustomPrevArrowRecipe />,
