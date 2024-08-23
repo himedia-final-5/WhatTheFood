@@ -44,6 +44,12 @@ export default function NotFoundRender({ message }) {
         >
           홈으로
         </Link>
+        <button
+          onClick={() => window.location.reload()}
+          className="w-28 py-1 text-lg text-center bg-neutral-700 rounded-lg text-white font-bold"
+        >
+          새로고침
+        </button>
       </div>
     </div>
   );
