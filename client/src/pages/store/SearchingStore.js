@@ -43,7 +43,7 @@ function SearchingStore() {
     width: 70px; 
     padding: 10px; 
     background: #f9f9f9; /* 말풍선 배경색 */
-    border: 2px solid grey; /* 말풍선 테두리 색상 */
+    border: 1px solid grey; /* 말풍선 테두리 색상 */
     border-radius: 8px; /* 말풍선 모서리 둥글게 */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
     color: #000000; /* 텍스트 색상 */
@@ -77,7 +77,7 @@ function SearchingStore() {
   width: 70px; 
   padding: 10px; 
   background: #f9f9f9; /* 말풍선 배경색 */
-  border: 2px solid grey; /* 말풍선 테두리 색상 */
+  border: 1px solid grey; /* 말풍선 테두리 색상 */
   border-radius: 8px; /* 말풍선 모서리 둥글게 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   color: #000000; /* 텍스트 색상 */
@@ -111,7 +111,7 @@ function SearchingStore() {
   width: 70px; 
   padding: 10px; 
   background: #f9f9f9; /* 말풍선 배경색 */
-  border: 2px solid grey; /* 말풍선 테두리 색상 */
+  border: 1px solid grey; /* 말풍선 테두리 색상 */
   border-radius: 8px; /* 말풍선 모서리 둥글게 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   color: #000000; /* 텍스트 색상 */
@@ -145,7 +145,7 @@ function SearchingStore() {
   width: 70px; 
   padding: 10px; 
   background: #f9f9f9; /* 말풍선 배경색 */
-  border: 2px solid grey; /* 말풍선 테두리 색상 */
+  border: 1px solid grey; /* 말풍선 테두리 색상 */
   border-radius: 8px; /* 말풍선 모서리 둥글게 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   color: #000000; /* 텍스트 색상 */
@@ -330,10 +330,31 @@ function SearchingStore() {
               id="map"
               style={{
                 width: "100%",
-                height: "100%",
+                height: "600px",
                 border: "1px solid black",
               }}
             ></div>
+            <br></br>
+            <br></br>
+            <div id="storeExplain">
+              <p>
+                - 제휴 브랜드와 계약된 상품들과 요리에 필요한 각종 조리도구들을
+                판매합니다.
+              </p>
+              <br></br>
+              <p>
+                {" "}
+                - 현재 상품 택배(배달)서비스는 불가합니다.
+                <br /> * 배달(택배)서비스는 현재 준비중으로 본격적으로 서비스
+                할때는 홈페이지 공지사항, 이메일을 통해 알려드리겠습니다.
+              </p>
+              <br></br>
+              <p>
+                {" "}
+                - 오프라인 매장 건물에 주차장이 있습니다.
+                <br /> * 주말,휴일(공휴일 포함) 주차하는데 혼잡 할 수 있습니다.
+              </p>
+            </div>
           </div>
 
           <div className="mapSearch">
