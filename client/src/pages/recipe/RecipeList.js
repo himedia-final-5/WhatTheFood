@@ -6,6 +6,7 @@ import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 import { useSelector } from "react-redux"; // Redux를 가져옵니다
+import { toast } from "react-toastify";
 
 const category = [
   { name: "전체", query: "" },
@@ -92,11 +93,14 @@ export default function RecipeList() {
   };
 
   const handleFavoriteClick = async (recipeId) => {
+    if (!user) {
+      toast.warn("로그인이 필요합니다.");
+      return;
+    }
+
     if (favoritedRecipes.has(recipeId)) {
       try {
-        await axios.delete(`/api/recipes/${recipeId}/favorite`, {
-          params: { memberId },
-        });
+        await axios.delete(`/api/recipes/${recipeId}/favorite`);
         setFavoritedRecipes((prev) => {
           const newSet = new Set(prev);
           newSet.delete(recipeId);
@@ -107,9 +111,7 @@ export default function RecipeList() {
       }
     } else {
       try {
-        await axios.post(`/api/recipes/${recipeId}/favorite`, null, {
-          params: { memberId },
-        });
+        await axios.post(`/api/recipes/${recipeId}/favorite`);
         setFavoritedRecipes((prev) => new Set(prev).add(recipeId));
       } catch (error) {
         console.error("Failed to add favorite:", error);

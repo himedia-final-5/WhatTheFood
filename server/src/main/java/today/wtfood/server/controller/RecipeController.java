@@ -1,6 +1,8 @@
 package today.wtfood.server.controller;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +14,8 @@ import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/recipes")
@@ -34,6 +38,17 @@ public class RecipeController {
         }
     }
 
+    @GetMapping("/username/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public PageResponse<RecipeSummary> getUserRecipeList(
+            @PathVariable("username")
+            String username,
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        return PageResponse.of(rs.getUserRecipeList(username, pageable));
+    }
+
     // 레시피 리스트 //레시피번호(id)
     @GetMapping("/{id}")
     @PreAuthorize("permitAll()")
@@ -50,6 +65,7 @@ public class RecipeController {
     ) {
         return PageResponse.of(rs.searchRecipes(term, pageable));
     }
+
 
     //조회수
     @PutMapping("{id}/incrementViewCount")
@@ -87,17 +103,14 @@ public class RecipeController {
     // 레시피 찜하기
     @PostMapping("/{recipeId}/favorite")
     @PreAuthorize("isAuthenticated()")
-    public void addFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
+    public void addFavoriteRecipe(@PathVariable long recipeId, @CurrentUser long memberId) {
         rs.addFavoriteRecipe(memberId, recipeId);
     }
 
     // 찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
     @PreAuthorize("isAuthenticated()")
-    public PageResponse<RecipeSummary> getFavoriteRecipes(
-            @RequestParam long memberId,
-            Pageable pageable
-    ) {
+    public PageResponse<RecipeSummary> getFavoriteRecipes(Pageable pageable, @CurrentUser long memberId) {
         return PageResponse.of(rs.getFavoriteRecipes(memberId, pageable));
     }
 
@@ -105,8 +118,30 @@ public class RecipeController {
     @DeleteMapping("/{recipeId}/favorite")
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFavoriteRecipe(@RequestParam long memberId, @PathVariable long recipeId) {
+    public void deleteFavoriteRecipe(@PathVariable long recipeId, @CurrentUser long memberId) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
+    }
+
+    @GetMapping("/view")
+    public ResponseEntity<List<Map<String, Object>>> getRanking(@RequestParam("period") String period) {
+        List<Map<String, Object>> rankings;
+
+        switch (period.toLowerCase()) {
+            case "d":
+                rankings = rs.getDailyViewsRanking();
+                break;
+            case "w":
+                rankings = rs.getWeeklyViewsRanking();
+                break;
+            case "m":
+                rankings = rs.getMonthlyViewsRanking();
+                break;
+            default:
+                return ResponseEntity.badRequest().body(List.of(Map.of("error", "Invalid period specified")));
+        }
+
+        return ResponseEntity.ok(rankings);
+
     }
 
     // 댓글 가져오기

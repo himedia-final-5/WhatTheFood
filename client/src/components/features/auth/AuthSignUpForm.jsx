@@ -2,12 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "react-toastify";
-
 import {
-  TablerCircleKeyFilled,
-  TablerUserFilled,
-  TablerMailFilled,
-} from "components/asset";
+  IconCircleKeyFilled,
+  IconUserFilled,
+  IconMailFilled,
+} from "@tabler/icons-react";
+
 import { cn, axios, debounce, memoize } from "utils";
 import usePromise from "hooks/usePromise";
 
@@ -71,14 +71,15 @@ const formSchema = z
 function InputFormField({ control, name, children, ...props }) {
   return (
     <FormField
-      aria-label={`auth-input-${name}`}
-      className="flex w-full h-12"
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="relative w-full h-12">
+        <FormItem
+          aria-label={`auth-input-${name}`}
+          className="relative w-full h-12"
+        >
           <div className="w-full h-12 flex">
-            <FormLabel className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300">
+            <FormLabel className="flex items-center px-3 bg-neutral-50 border border-e-0 border-gray-300">
               {children}
             </FormLabel>
             <FormControl className="w-full h-full !m-0 rounded-none">
@@ -86,7 +87,7 @@ function InputFormField({ control, name, children, ...props }) {
                 required
                 className={cn(
                   "block flex-1 min-w-0 w-full p-2.5",
-                  "bg-gray-50 border border-solid border-gray-300",
+                  "bg-gray-50 border border-gray-300",
                   "text-gray-900 text-base focus:z-20",
                   "aria-[invalid=false]:ring-primary aria-[invalid=true]:ring-destructive",
                 )}
@@ -100,7 +101,7 @@ function InputFormField({ control, name, children, ...props }) {
             className={cn(
               "absolute right-80 -top-1 text-nowrap font-bold",
               "px-1 py-2 bg-white z-40",
-              "border-2 border-solid border-destructive rounded-lg",
+              "border-2 border-destructive rounded-lg",
               "animate-head-shake duration-500",
             )}
           />
@@ -158,69 +159,67 @@ export default function AuthSignUpForm() {
   }
 
   return (
-    <>
-      <Form {...form} className="mb-10">
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          aria-label="auth-input-form"
-          className="flex w-full h-fit mb-10"
-          noValidate
+    <Form {...form} className="mb-10">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        aria-label="auth-input-form"
+        className="flex w-full h-fit mb-10"
+        noValidate
+      >
+        <div
+          aria-label="auth-input-fields"
+          className="relative flex flex-col flex-1 [&_label]:first:*:rounded-ss-lg [&_label]:last:*:rounded-es-lg"
         >
-          <div
-            aria-label="auth-input-fields"
-            className="relative flex flex-col flex-1 [&_label]:first:*:rounded-ss-lg [&_label]:last:*:rounded-es-lg"
+          <InputFormField
+            name="username"
+            control={form.control}
+            type="text"
+            autoComplete="username"
+            autoCorrect="off"
+            placeholder="아이디"
           >
-            <InputFormField
-              name="username"
-              control={form.control}
-              type="text"
-              autoComplete="username"
-              autoCorrect="off"
-              placeholder="아이디"
-            >
-              <TablerUserFilled className="w-6 h-8 opacity-70" />
-            </InputFormField>
-            <InputFormField
-              name="password"
-              control={form.control}
-              type="password"
-              autoComplete="password"
-              autoCorrect="off"
-              placeholder="비밀번호"
-            >
-              <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
-            </InputFormField>
-            <InputFormField
-              name="confirmPassword"
-              control={form.control}
-              type="password"
-              autoComplete="confirmPassword"
-              autoCorrect="off"
-              placeholder="비밀번호 확인"
-            >
-              <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
-            </InputFormField>
-            <InputFormField
-              name="email"
-              control={form.control}
-              type="email"
-              autoComplete="email"
-              autoCorrect="off"
-              placeholder="이메일"
-            >
-              <TablerMailFilled className="w-6 h-8 opacity-70" />
-            </InputFormField>
-          </div>
-          <Button
-            type="submit"
-            className="w-16 h-full bg-primary rounded-e-md rounded-s-none"
+            <IconUserFilled className="w-6 h-8 opacity-70" />
+          </InputFormField>
+          <InputFormField
+            name="password"
+            control={form.control}
+            type="password"
+            autoComplete="password"
+            autoCorrect="off"
+            placeholder="비밀번호"
           >
-            <p className="text-base text-white text-nowrap font-bold drop-shadow-sm">
-              회원가입
-            </p>
-          </Button>
-        </form>
-      </Form>
-    </>
+            <IconCircleKeyFilled className="w-6 h-8 opacity-70" />
+          </InputFormField>
+          <InputFormField
+            name="confirmPassword"
+            control={form.control}
+            type="password"
+            autoComplete="confirmPassword"
+            autoCorrect="off"
+            placeholder="비밀번호 확인"
+          >
+            <IconCircleKeyFilled className="w-6 h-8 opacity-70" />
+          </InputFormField>
+          <InputFormField
+            name="email"
+            control={form.control}
+            type="email"
+            autoComplete="email"
+            autoCorrect="off"
+            placeholder="이메일"
+          >
+            <IconMailFilled className="w-6 h-8 opacity-70" />
+          </InputFormField>
+        </div>
+        <Button
+          type="submit"
+          className="w-16 h-full bg-primary rounded-e-md rounded-s-none"
+        >
+          <p className="text-base text-white text-nowrap font-bold drop-shadow-sm">
+            회원가입
+          </p>
+        </Button>
+      </form>
+    </Form>
   );
 }

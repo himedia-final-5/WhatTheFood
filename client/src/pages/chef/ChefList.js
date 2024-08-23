@@ -1,73 +1,111 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import "./Chef.css";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
 export default function ChefList() {
-  // 쿼리 파라미터
   const [searchParams, setSearchParams] = useSearchParams();
-  const items = ["일간", "주간", "월간"];
+  const [selectedPeriod, setSelectedPeriod] = useState("d");
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
-  const { ref, content } = useInfiniteScroll(
-    throttle(async (page) => {
-      /** @type {{data: PageResponse<User>}} */
+  const [rankings, setRankings] = useState([]);
+  const periodMapping = { 일간: "d", 주간: "w", 월간: "m" };
+  const items = ["일간", "주간", "월간"];
+  const [period, setPeriod] = useState();
+  const [page, setPage] = useState(1);
+  const fetchRankings = useCallback(async () => {
+    try {
+      const periodParam = periodMapping[selectedPeriod] || "d";
+      const response = await axios.get(
+        `/api/recipes/view?period=${periodParam}`,
+      );
+      if (Array.isArray(response.data)) {
+        setRankings(response.data);
+      } else {
+        console.error("Unexpected response data:", response.data);
+      }
+    } catch (error) {
+      defaultErrorHandler(error);
+    }
+  }, [selectedPeriod]);
+
+  // 서버에서 페이지네이션 데이터 가져오기
+  const fetchMore = async (page) => {
+    try {
       const response = await axios.get(`/api/members`, {
-        params: { page, size: 8 },
+        params: { period: selectedPeriod, page, size: 8 },
       });
       setThrottleInterval(0);
       return response.data;
-    }),
-    (error) => {
+    } catch (error) {
       setThrottleInterval(3000);
       defaultErrorHandler(error);
-    },
-  );
+      return { content: [], pagination: {} }; // 오류 시 빈 데이터 반환
+    }
+  };
+
+  // useInfiniteScroll 훅 사용
+  const { ref, content } = useInfiniteScroll(throttle(fetchMore), (error) => {
+    setThrottleInterval(3000);
+    defaultErrorHandler(error);
+  });
+
+  const handlePeriodChange = (newPeriod) => {
+    if (period !== newPeriod) {
+      setPeriod(newPeriod);
+      setSearchParams({ period: periodMapping[newPeriod] });
+
+      setPage(1); // Reset page
+    }
+  };
+
+  useEffect(() => {
+    // 초기 데이터 가져오기
+    fetchRankings();
+  }, [fetchRankings]);
 
   return (
     <div>
       <div>
-        <div>
-          <ul className="relative flex justify-end right-28 top-10 border-b ml-96 mr-44 pb-10">
-            {items.map((item, index) => (
-              <li
-                key={index}
-                className="border  px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-          <div className="chef_banner_wrap">
-            {content.length > 0 ? (
-              content
-                .filter((member) => member.role === "ROLE_CHEF")
-                .map((member, index) => (
-                  <div key={index} className="chef_container">
-                    <p className="chef_num">
-                      <b>{index + 1}</b>
-                    </p>
-                    <p></p>
-                    <Link to={`/events/${member.id}`}>
-                      <div className="chef_imageUrl">
-                        <img
-                          className="rounded-full size-28"
-                          src={member.profileImage}
-                          alt="member_profileImage"
-                        />
-                      </div>
-                    </Link>
-                    <div className="flex justify-center py-2 text-base font-bold">
-                      <p>{member.nickname}</p>
+        <ul className="relative flex justify-end right-28 top-10 border-b ml-96 mr-44 pb-10">
+          {items.map((item, index) => (
+            <li
+              key={index}
+              onClick={() => handlePeriodChange(periodMapping[item])}
+              className={`border px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg ${selectedPeriod === periodMapping[item] ? "font-bold" : ""}`}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+        <div className="chef_banner_wrap">
+          {content.length > 0 ? (
+            content
+              .filter((member) => member.role === "ROLE_CHEF")
+              .map((member, index) => (
+                <div key={index} className="chef_container">
+                  <p className="chef_num">
+                    <b>{index + 1}</b>
+                  </p>
+                  <Link to={`/events/${member.id}`}>
+                    <div className="chef_imageUrl">
+                      <img
+                        className="rounded-full size-28"
+                        src={member.profileImage}
+                        alt="member_profileImage"
+                      />
                     </div>
+                  </Link>
+                  <div className="flex justify-center py-2 text-base font-bold">
+                    <p>{member.nickname}</p>
                   </div>
-                ))
-            ) : (
-              <div>No events found.</div>
-            )}
-            <div aria-label="scroll-trigger" ref={ref} />
-          </div>
+                </div>
+              ))
+          ) : (
+            <div>No members found.</div>
+          )}
+          <div aria-label="scroll-trigger" ref={ref} />
         </div>
       </div>
     </div>

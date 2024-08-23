@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.server.ResponseStatusException;
-import today.wtfood.server.dto.ErrorResponse;
 
 @Getter
 public abstract class BaseResponseStatusException extends ResponseStatusException {
@@ -34,10 +33,6 @@ public abstract class BaseResponseStatusException extends ResponseStatusExceptio
     public BaseResponseStatusException(@NonNull String reason, @Nullable String field, @Nullable Throwable cause) {
         super(HttpStatus.INTERNAL_SERVER_ERROR, reason, cause);
         this.field = field;
-    }
-
-    public final ErrorResponse toErrorResponse() {
-        return new ErrorResponse(getStatusCode().value(), field, getReason() != null ? getReason() : "알 수 없는 오류가 발생했습니다");
     }
 
 }

@@ -27,25 +27,25 @@ function Faq() {
   return (
     <div className="faqBody">
       <div className="faqCenter">
-        <br></br>
-        <br></br>
         <div id="faq1">&nbsp;FAQ&nbsp;</div>
         <br></br>
-        <br></br>
+        {/* <br></br> */}
         <div id="faq2">자주 묻는 질문</div>
         <div className="faq_line"></div>
         {content.map((inquirylist, idx) => {
           return (
             <Link className="faqitem" key={idx} to={`/faqs/${inquirylist.id}`}>
-              <div className="fqadate">{inquirylist.date.substring(0, 10)}</div>
-              <br></br>
-              <div className="fqaname">{inquirylist.title}</div>
+              <div className="faqname">{inquirylist.title}</div>
+
+              <div className="faqdate">{inquirylist.date.substring(0, 10)}</div>
             </Link>
           );
         })}
+        <br></br>
       </div>
       <br></br>
       <PaginationNav {...{ pagination, onSelectPage }} />
+      <br></br>
     </div>
   );
 }

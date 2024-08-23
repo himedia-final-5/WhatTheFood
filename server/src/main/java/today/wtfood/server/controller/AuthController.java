@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.member.MemberCreateRequest;
-import today.wtfood.server.entity.EmailToken;
+import today.wtfood.server.entity.member.EmailToken;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.service.JwtService;
@@ -59,9 +59,11 @@ public class AuthController {
             @RequestParam("email")
             String email
     ) {
+        // 회원가입 요청 정보 검증
         memberService.validateUsernameFormatAndUnique(username);
         memberService.validateEmailFormatAndUnique(email);
 
+        // 이메일 토큰 생성 및 이메일 전송
         EmailToken emailToken = emailTokenService.createEmailToken(EmailToken.TokenPurpose.SING_UP, username, password, email, 1000 * 60 * 60 * 24);
         emailSendService.sendSignUpEmail(email, emailToken.getToken());
     }
@@ -72,18 +74,20 @@ public class AuthController {
             @RequestParam("token")
             String token
     ) {
+        // 이메일 토큰 검증
         EmailToken emailToken = emailTokenService.getEmailToken(token);
         memberService.validateUsernameFormatAndUnique(emailToken.getUsername());
         memberService.validateEmailFormatAndUnique(emailToken.getEmail());
 
-        long memberId = memberService.createMember(new MemberCreateRequest(
+        // 회원 계정 생성
+        memberService.createMember(new MemberCreateRequest(
                 emailToken.getUsername(),
                 emailToken.getPassword(),
                 emailToken.getUsername(),
                 emailToken.getEmail()
         ));
-        memberService.updateMemberProfileImage(memberId, "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=" + emailToken.getUsername());
 
+        // 인증 토큰 발급
         return jwtService.generateAuthToken(emailToken.getUsername());
     }
 

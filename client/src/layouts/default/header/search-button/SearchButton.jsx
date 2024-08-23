@@ -40,7 +40,7 @@ export default function SearchButton() {
       className={cn(
         "relative flex-1 justify-center items-center rounded-full",
         "h-10 w-full max-w-96 px-4",
-        "border border-solid border-neutral-600 bg-neutral-50",
+        "border border-neutral-600 bg-neutral-50",
         "hidden xs:flex",
       )}
       onSubmit={(e) => {

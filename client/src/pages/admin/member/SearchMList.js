@@ -79,7 +79,7 @@ function SearchMList() {
                 {member.username}
               </div>
               <div className="admincol">{member.nickname}</div>
-              <div className="admincol">{member.grade}</div>
+              <div className="admincol">{member.role}</div>
             </div>
           );
         })}

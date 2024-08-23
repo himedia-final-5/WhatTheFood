@@ -38,7 +38,7 @@ export default function TestAssets() {
       </h1>
       <input
         type="text"
-        className="mx-8 p-2 border-2 border-solid rounded-md border-neutral-700"
+        className="mx-8 p-2 border-2 rounded-md border-neutral-700"
         defaultValue={prefix}
         onChange={onPrefixUpdate}
       />

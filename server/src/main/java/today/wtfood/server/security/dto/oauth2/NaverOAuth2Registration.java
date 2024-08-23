@@ -1,7 +1,7 @@
 package today.wtfood.server.security.dto.oauth2;
 
 import org.springframework.stereotype.Component;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.repository.MemberRepository;
 
 import java.util.Map;

@@ -6,9 +6,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.member.MemberCreateRequest;
+import today.wtfood.server.dto.member.MemberProfileDetail;
+import today.wtfood.server.dto.member.MemberProfileUpdateRequest;
 import today.wtfood.server.dto.member.MemberSummary;
-import today.wtfood.server.dto.member.MemberUpdateRequest;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.ConflictException;
 import today.wtfood.server.exception.NotFoundException;
@@ -29,11 +30,12 @@ public class MemberService {
      * 회원가입 처리
      *
      * @param requestData 회원가입 요청 정보
-     * @return 생성된 회원의 ID
      */
     @Transactional(rollbackFor = Exception.class)
-    public long createMember(MemberCreateRequest requestData) {
-        return memberRepository.save(requestData.toEntity(passwordEncoder.encode(requestData.password()))).getId();
+    public void createMember(MemberCreateRequest requestData) {
+        Member member = requestData.toEntity(passwordEncoder.encode(requestData.password()));
+        member.setProfileImage("https://api.dicebear.com/9.x/bottts-neutral/svg?seed=" + requestData.username());
+        memberRepository.save(member);
     }
 
     /**
@@ -41,6 +43,12 @@ public class MemberService {
      */
     public <T> Page<T> getMembers(Pageable pageable, Class<T> projectionType) {
         return memberRepository.findAllBy(pageable, projectionType);
+    }
+
+    public <T> Page<T> getMembersByRole(String role,
+                                        Pageable pageable,
+                                        Class<T> memberAdminClass) {
+        return memberRepository.findByRole(Member.Role.valueOf(role), pageable, memberAdminClass);
     }
 
     /**
@@ -114,62 +122,33 @@ public class MemberService {
     }
 
     /**
-     * 회원 정보 변경
+     * 회원 프로필 조회
+     *
+     * @param memberId      조회할 회원의 아이디
+     * @param currentUserId 현재 로그인한 회원의 아이디
+     * @return 회원 프로필 정보
+     * @throws NotFoundException 회원 정보를 찾을 수 없을 때 발생
+     */
+    public MemberProfileDetail getMemberProfile(long memberId, Long currentUserId) {
+        return memberRepository.findProfileById(memberId, currentUserId)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
+    }
+
+    /**
+     * 회원 프로필 변경
      *
      * @param memberId    변경할 회원의 ID
-     * @param requestData 변경할 회원 정보
+     * @param requestData 변경할 프로필 정보
      */
     @Transactional(rollbackFor = Exception.class)
-    public void updateMember(long memberId, MemberUpdateRequest requestData) {
+    public void updateMemberProfile(long memberId, MemberProfileUpdateRequest requestData) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
 
-        member.setNickname(requestData.nickname());
-        member.setPassword(passwordEncoder.encode(requestData.password()));
-        member.setEmail(requestData.email());
-        member.setIntroduce(requestData.introduce());
-    }
-
-    /**
-     * 회원 소개 변경
-     *
-     * @param memberId  변경할 회원의 ID
-     * @param introduce 변경할 소개
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void updateMemberIntroduce(long memberId, String introduce) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
-
-        member.setIntroduce(introduce);
-    }
-
-    /**
-     * 회원 프로필 이미지 변경
-     *
-     * @param memberId     변경할 회원의 ID
-     * @param profileImage 변경할 프로필 이미지
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void updateMemberProfileImage(long memberId, String profileImage) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
-
-        member.setProfileImage(profileImage);
-    }
-
-    /**
-     * 회원 배너 이미지 변경
-     *
-     * @param memberId    변경할 회원의 ID
-     * @param bannerImage 변경할 배너 이미지
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void updateMemberBannerImage(long memberId, String bannerImage) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
-
-        member.setBannerImage(bannerImage);
+        member.setNickname(requestData.getNickname());
+        member.setIntroduce(requestData.getIntroduce());
+        member.setProfileImage(requestData.getProfileImage());
+        member.setBannerImage(requestData.getBannerImage());
     }
 
     /**
@@ -189,4 +168,13 @@ public class MemberService {
     public Page<MemberSummary> getMemberList(String username, Pageable pageable) {
         return memberRepository.findAllByUsername(username, pageable);
     }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMemberGrade(long id, String role) {
+        Member member = memberRepository.findById(id).get();
+        member.setRole(Member.Role.valueOf(role));
+    }
+
+
 }

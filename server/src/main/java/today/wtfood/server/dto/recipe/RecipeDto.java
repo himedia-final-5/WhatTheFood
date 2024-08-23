@@ -1,8 +1,8 @@
 package today.wtfood.server.dto.recipe;
 
 import lombok.Data;
-import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.entity.member.Member;
 
 import java.io.Serializable;
 import java.util.List;

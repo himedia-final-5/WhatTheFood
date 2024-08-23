@@ -3,6 +3,7 @@ package today.wtfood.server.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import today.wtfood.server.entity.member.Member;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

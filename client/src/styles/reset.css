@@ -40,20 +40,19 @@ html {
 html,
 body,
 #root {
-  height: 100%;
-  min-height: 100vh;
+  height: 100% !important;
+  min-height: 100vh !important;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
 button {
-  border: none;
+  border-width: none;
   background: none;
   cursor: pointer;
 }
@@ -73,12 +72,12 @@ ol {
 }
 
 fieldset {
-  border: none;
+  border-width: none;
 }
 
 input {
   position: relative;
-  border: none;
+  border-width: none;
   background: none;
   z-index: 5;
   align-content: center;

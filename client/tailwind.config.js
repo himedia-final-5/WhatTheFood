@@ -17,6 +17,14 @@ module.exports = {
       screens: {
         xs: "475px",
       },
+      zIndex: {
+        60: "60",
+        70: "70",
+        80: "80",
+        90: "90",
+        100: "100",
+        first: "10000001", // 채널 톡(10000000) z-index 보다 상위
+      },
       colors: {
         primary: "#77cc66",
         border: "hsl(var(--border))",

@@ -6,36 +6,48 @@ import { axios } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
+const category = [
+  { name: "전체", query: "" },
+  { name: "한식", query: "한식" },
+  { name: "양식", query: "양식" },
+  { name: "일식", query: "일식" },
+  { name: "중식", query: "중식" },
+  { name: "분식", query: "분식" },
+  { name: "간식", query: "간식" },
+  { name: "베이킹", query: "베이킹" },
+];
+
 function RecipeList() {
   const navigate = useNavigate();
 
+  const [selectedCategory, setSelectedCategory] = useState(category[0].query);
   const { content, pagination, setPageResponse } = usePageResponse();
+  const [page, setPage] = useState(0);
   const [word, setWord] = useState("");
 
   const onSelectPage = useCallback(
     (page) =>
       axios
         .get(`/api/recipes`, {
-          params: { page },
+          params: { page, category: selectedCategory },
         })
         .then((result) => setPageResponse(result.data))
         .catch(console.error),
-    [setPageResponse],
+    [selectedCategory, setPageResponse],
   );
 
   useEffect(() => {
-    if (content.length === 0) {
-      onSelectPage(0);
-    }
-  }, [content, onSelectPage]);
-
-  useEffect(() => {
-    axios.get(`/api/recipes`);
-  });
+    onSelectPage(page);
+  }, [selectedCategory, page, onSelectPage]);
 
   function recipeView(id) {
     navigate(`/rView/${id}`);
   }
+
+  const handleCategoryClick = async (query) => {
+    setSelectedCategory(query);
+    setPage(0);
+  };
 
   function onSearch() {
     navigate(`/searchRList/${word}`);
@@ -44,6 +56,15 @@ function RecipeList() {
     <div className="adminContainer">
       <SubMenu />
       <div className="adminbtns" style={{ display: "flex", margin: "5px" }}>
+        {category.map((cat) => (
+          <button
+            key={cat.query}
+            onClick={() => handleCategoryClick(cat.query)}
+            className={`category_button ${selectedCategory === cat.query ? "active" : ""}`}
+          >
+            {cat.name}
+          </button>
+        ))}
         <input
           type="text"
           className="adminSearch"
@@ -83,10 +104,10 @@ function RecipeList() {
 
               <div className="admincol">
                 {/* {(rcp.created_date + "").substring(0, 10)} */}
-                {rcp.username}
+                {rcp.member.username}
               </div>
               <div className="admincol">
-                {(rcp.created_date + "").substring(0, 10)}
+                {(rcp.createdDate + "").substring(0, 10)}
               </div>
             </div>
           );

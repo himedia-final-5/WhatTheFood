@@ -43,7 +43,7 @@ function SearchingStore() {
     width: 70px; 
     padding: 10px; 
     background: #f9f9f9; /* 말풍선 배경색 */
-    border: 2px solid grey; /* 말풍선 테두리 색상 */
+    border: 1px solid grey; /* 말풍선 테두리 색상 */
     border-radius: 8px; /* 말풍선 모서리 둥글게 */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
     color: #000000; /* 텍스트 색상 */
@@ -77,7 +77,7 @@ function SearchingStore() {
   width: 70px; 
   padding: 10px; 
   background: #f9f9f9; /* 말풍선 배경색 */
-  border: 2px solid grey; /* 말풍선 테두리 색상 */
+  border: 1px solid grey; /* 말풍선 테두리 색상 */
   border-radius: 8px; /* 말풍선 모서리 둥글게 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   color: #000000; /* 텍스트 색상 */
@@ -111,7 +111,7 @@ function SearchingStore() {
   width: 70px; 
   padding: 10px; 
   background: #f9f9f9; /* 말풍선 배경색 */
-  border: 2px solid grey; /* 말풍선 테두리 색상 */
+  border: 1px solid grey; /* 말풍선 테두리 색상 */
   border-radius: 8px; /* 말풍선 모서리 둥글게 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   color: #000000; /* 텍스트 색상 */
@@ -145,7 +145,7 @@ function SearchingStore() {
   width: 70px; 
   padding: 10px; 
   background: #f9f9f9; /* 말풍선 배경색 */
-  border: 2px solid grey; /* 말풍선 테두리 색상 */
+  border: 1px solid grey; /* 말풍선 테두리 색상 */
   border-radius: 8px; /* 말풍선 모서리 둥글게 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   color: #000000; /* 텍스트 색상 */
@@ -294,72 +294,277 @@ function SearchingStore() {
   // }
 
   return (
-    <div className="mapPage">
-      <br></br>
-      <br></br>
-      <p style={{ fontSize: "30px" }}>오프라인 매장 안내</p>
-      <p>
-        제휴 브랜드 제품 및 주방용품들을 취급하는 오프라인 매장에서 더욱 가깝게
-        만나보세요!
-      </p>
-      <br></br>
-      <div className="mapContainer">
-        <div className="customer">
-          <div id="map" style={{ width: "90%", height: "100%" }}></div>
-        </div>
-
-        <div className="mapSearch">
-          <br></br>
-          <div className="mapFixed">
-            <p>서울특별시 종로구 인사동길 12</p>
-            <p>서울특별시 종로구 인사동 43</p>
-            <p className="bmw">
-              지하철 : 1호선 종로3가(1번 출구), 3호선 종로3가, 5호선
-              종로3가(5번출구)
-            </p>
-            <p className="bmw">버스 : 종로2가 또는 종로3가에서 하차</p>
-            <br></br>
-            <p>서울특별시 구로구 경인로 557</p>
-            <p>서울특별시 구로구 구로동 606-4</p>
-            <p className="bmw">지하철 : 1호선 구로역(3번 출구)</p>
-            <p className="bmw">
-              버스 : 구로공구상가 또는 구로역(구로기계공구상가)에서 하차
-            </p>
-            <br></br>
-            <p>서울특별시 노원구 상계로5길 32</p>
-            <p>서울특별시 노원구 상계동 357-2</p>
-            <p className="bmw">지하철 : 4호선 노원역(9번 출구)</p>
-            <p className="bmw">버스 : 지하철 4호선 노원역 9번출구에서 하차</p>
-            <br></br>
-            <p>서울특별시 서대문구 연세로 8-1</p>
-            <p>서울특별시 서대문구 창천동 18-29</p>
-            <p className="bmw">지하철 : 2호선 신촌역(2번 출구 또는 3번 출구)</p>
-            <p className="bmw">
-              버스 : 연세로 문학의거리 또는 연세로 스타광장에서 하차
-            </p>
-          </div>
-          <br></br>
-          <br></br>
-          <div className="mapSearchInput">
-            <input
-              type="text"
-              placeholder="내 위치 검색"
-              style={{ border: "1px solid grey", width: "400px" }}
-              value={word}
-              onChange={(e) => {
-                setWord(e.currentTarget.value);
+    <div id="mapBody">
+      <div className="mapPage">
+        <br></br>
+        <br></br>
+        <p style={{ fontSize: "200%" }}>오프라인 매장 안내</p>
+        <br></br>
+        <p style={{ fontSize: "120%" }}>
+          제휴 브랜드 제품 및 주방용품들을 취급하는 오프라인 매장에서 더욱
+          가깝게 만나보세요!
+        </p>
+        <br></br>
+        <div className="mapContainer" id="mapContainer">
+          <div className="customer">
+            <div className="mapSearchInput">
+              <input
+                type="text"
+                placeholder="내 위치 검색"
+                style={{ border: "1px solid grey", width: "100%" }}
+                value={word}
+                onChange={(e) => {
+                  setWord(e.currentTarget.value);
+                }}
+              />
+              <p id="searchEx">
+                {" "}
+                *검색 예시 <br />
+                "(서울시) (노원구) 중계동"
+                <br />
+                "(서울시) (노원구) 솔샘로 1길"{" "}
+              </p>
+              <br></br>
+            </div>
+            <div
+              id="map"
+              style={{
+                width: "100%",
+                height: "600px",
+                border: "1px solid black",
               }}
-            />
-            <p id="searchEx">
-              {" "}
-              *검색 예시 <br />
-              "(서울시) 성북구 동소문동"
+            ></div>
+            <br></br>
+            <br></br>
+            <div id="storeExplain">
+              <p>
+                - 제휴 브랜드와 계약된 상품들과 요리에 필요한 각종 조리도구들을
+                판매합니다.
+              </p>
+              <br></br>
+              <p>
+                {" "}
+                - 현재 상품 택배(배달)서비스는 불가합니다.
+                <br /> * 배달(택배)서비스는 현재 준비중으로 본격적으로 서비스
+                할때는 홈페이지 공지사항, 이메일을 통해 알려드리겠습니다.
+              </p>
+              <br></br>
+              <p>
+                {" "}
+                - 오프라인 매장 건물에 주차장이 있습니다.
+                <br /> * 주말,휴일(공휴일 포함) 주차하는데 혼잡 할 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="mapSearch">
+            <br></br>
+            <div className="mapFixed">
+              <p>[종로 (본점)]</p>
+              <p>서울특별시 종로구 인사동길 12</p>
+              <p>서울특별시 종로구 인사동 43</p>
               <br />
-              "(서울시) 성북구 동소문로 1길"{" "}
-            </p>
+              <p className="bmw">
+                지하철
+                <br />
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div style={{ display: "flex" }}>
+                    &nbsp;
+                    <img
+                      src="/images/subway1.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    &nbsp; 1호선 종로3가,
+                  </div>
+                  &nbsp;
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/subway3.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    &nbsp; 3호선 종로3가,
+                  </div>
+                  &nbsp;
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/subway5.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    &nbsp; 5호선 종로3가
+                  </div>
+                </div>
+              </p>
+              <br></br>
+              <p className="bmw">
+                버스 : 종로2가에서 하차
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>
+                    <div style={{ display: "flex" }}>
+                      <img
+                        src="/images/busblue.png"
+                        style={{ width: "25px;", height: "25px" }}
+                      />
+                      101, 140, 273, 370, 720
+                    </div>
+                    <div style={{ display: "flex" }}>
+                      <img
+                        src="/images/busgreen.png"
+                        style={{ width: "25px;", height: "25px" }}
+                      />
+                      7212, 8101
+                    </div>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/busred.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    9301, 7101, 1101, 1102
+                  </div>
+                </div>
+              </p>
+              <br></br>
+              <br></br>
+              <p>[구로]</p>
+              <p>서울특별시 구로구 경인로 557</p>
+              <p>서울특별시 구로구 구로동 606-4</p>
+              <br />
+              <p className="bmw">
+                지하철 <br />
+                <div style={{ display: "flex" }}>
+                  &nbsp;
+                  <img
+                    src="/images/subway1.png"
+                    style={{ width: "25px;", height: "25px" }}
+                  />
+                  &nbsp;1호선 구로역(3번 출구)
+                </div>
+              </p>
+              <br></br>
+              <p className="bmw">
+                버스 : 구로공구상가 또는 구로역(구로기계공구상가)에서 하차
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/busblue.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    571, 654
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/busgreen.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    5630, 6411, 6516, 6613, 구로09, 양천04
+                  </div>
+                </div>
+              </p>
+              <br></br>
+              <br></br>
+              <p>[노원]</p>
+              <p>서울특별시 노원구 상계로5길 32</p>
+              <p>서울특별시 노원구 상계동 357-2</p>
+              <br />
+              <p className="bmw">
+                지하철
+                <br />
+                <div style={{ display: "flex" }}>
+                  &nbsp;
+                  <img
+                    src="/images/subway4.png"
+                    style={{ width: "25px;", height: "25px" }}
+                  />
+                  &nbsp;&nbsp; 4호선 노원역(9번 출구)
+                </div>
+              </p>
+              <br></br>
+              <p className="bmw">
+                버스 : 지하철 4호선 노원역 9번출구에서 하차
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>
+                    <div style={{ display: "flex" }}>
+                      <img
+                        src="/images/busblue.png"
+                        style={{ width: "25px;", height: "25px" }}
+                      />
+                      102, N13, N61, 서울09출근
+                    </div>
+                    <div style={{ display: "flex" }}>
+                      <img
+                        src="/images/busgreen.png"
+                        style={{ width: "25px;", height: "25px" }}
+                      />
+                      1129, 8112, 노원02, 노원08
+                    </div>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/busred.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    1100
+                  </div>
+                </div>
+              </p>
+              <br></br>
+              <br></br>
+              <p>[신촌]</p>
+              <p>서울특별시 서대문구 연세로 8-1</p>
+              <p>서울특별시 서대문구 창천동 18-29</p>
+              <br />
+              <p className="bmw">
+                지하철
+                <br />
+                <div style={{ display: "flex" }}>
+                  &nbsp;
+                  <img
+                    src="/images/subway2.png"
+                    style={{ width: "25px;", height: "25px" }}
+                  />
+                  &nbsp;&nbsp; 2호선 신촌역(2번 출구 또는 3번 출구)
+                </div>
+              </p>
+              <br></br>
+              <p className="bmw">
+                버스 : 연세로 문학의거리 또는 연세로 스타광장에서 하차
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/busblue.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    171, 172, 173, 472, 674, 700
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src="/images/busgreen.png"
+                      style={{ width: "25px;", height: "25px" }}
+                    />
+                    7720, 7727, 7728, 7737, 7024, 75
+                  </div>
+                </div>
+              </p>
+            </div>
+            <br></br>
+            <br></br>
           </div>
         </div>
+        <br></br>
+        <br></br>
       </div>
+      <br></br>
     </div>
   );
 }

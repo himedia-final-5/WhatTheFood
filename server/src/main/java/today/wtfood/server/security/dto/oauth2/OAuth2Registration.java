@@ -1,6 +1,6 @@
 package today.wtfood.server.security.dto.oauth2;
 
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.repository.MemberRepository;
 
 import java.util.Map;

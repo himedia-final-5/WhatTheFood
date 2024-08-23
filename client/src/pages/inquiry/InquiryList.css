@@ -1,7 +1,9 @@
 .inquiryBody {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .inquiryCenter {
@@ -9,7 +11,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 64%;
+  width: 50%;
   /* border: 1px solid red; */
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -20,25 +22,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 50px;
-  border: 1px solid black;
+  flex-wrap: wrap;
 }
+
+#inquiry1 :nth-child(2) {
+  font-size: 200%;
+}
+
 #inquiryWrite {
-  width: 170px;
+  width: 150px;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  font-size: 30px;
+
+  font-size: 150%;
   cursor: pointer;
+  border: 1px solid #cdcdcd; /* 테두리 추가 */
+  border-radius: 8px; /* 테두리 둥글게 */
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
 }
+
+#inquiryWrite:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
 #inquiry1 img {
-  width: 40px;
-  height: 45px;
+  width: 20%;
+  height: 25%;
 }
 
 #blank {
-  width: 120px;
+  width: 80px;
 }
 
 .inquiryitem {
@@ -47,21 +64,33 @@
   justify-content: space-between;
   align-items: stretch;
   width: 90%;
-  height: 100px;
-  border: 1px solid black;
+
   margin-top: 30px;
   cursor: pointer;
+  padding-left: 20px;
+  border: 1px solid #cdcdcd;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+.inquiryitem:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.02);
 }
 
 .inquiryanswer {
-  font-size: 20px;
+  font-size: 150%;
   font-weight: bold;
 }
 .inquiryname {
-  font-size: 30px;
+  font-size: 200%;
 }
 
 .inquirydate {
-  font-size: 20px;
+  font-size: 130%;
   color: gray;
 }

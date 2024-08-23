@@ -60,11 +60,6 @@ function InquiryView() {
         </div>
 
         <div className="adminfield">
-          <label className="labellabel">스크린샷</label>
-          <div className="labelcontent">{inquiry.image}</div>
-        </div>
-
-        <div className="adminfield">
           <label className="labellabel">답변 내용</label>
 
           <textarea

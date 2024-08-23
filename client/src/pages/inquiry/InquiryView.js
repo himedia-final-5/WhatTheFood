@@ -21,39 +21,49 @@ function InquiryView() {
   }, [id]);
 
   return (
-    <div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div id="inquirybody">
-        <div id="inquirycontainer">
+    <div id="iqrv">
+      <div className="inquirybody">
+        <br></br>
+        <div className="inquirycontainer">
+          <div id="inquirytoptop"> 내 문의</div>
+          <div id="iq_line"></div>
           <div id="inquiryhead">
-            <div id="inquiryanswer">
-              {inquiry.answer ? (
-                <div style={{ color: "green" }}>답변완료</div>
-              ) : (
-                <div style={{ color: "grey" }}>답변처리중</div>
-              )}
-            </div>
+            {inquiry.answer ? (
+              <div
+                id="inquiryanswer"
+                style={{ color: "green", fontSize: "25px" }}
+              >
+                답변완료
+              </div>
+            ) : (
+              <div
+                id="inquiryanswer"
+                style={{ color: "grey", fontSize: "25px" }}
+              >
+                답변처리중
+              </div>
+            )}
             <div id="inquirytitle">{inquiry.title}</div>
-            <hr></hr>
             <div id="inquirydate">{(inquiry.date + "").substring(0, 10)}</div>
-            <hr></hr>
           </div>
-          <br></br>
+
           <div id="inquirycontent">{inquiry.content}</div>
-          <div id="inquiryimage">
+          <div id="iq_line2"></div>
+          <div id="adminanswer">A.&nbsp;{inquiry.answer}</div>
+          <br></br>
+          {/* <div id="inquiryimage">
             {inquiry.image && <img src={inquiry.image} alt="이미지" />}
-          </div>
+          </div> */}
         </div>
+        <br></br>
         <br></br>
         <Link id="inquiryback" to="/inquiries">
           목록으로
         </Link>
         <br></br>
+        <br></br>
       </div>
+      <br></br>
     </div>
   );
 }
