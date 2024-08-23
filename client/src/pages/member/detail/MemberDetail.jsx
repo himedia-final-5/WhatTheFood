@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Link2Icon, GearIcon, StarFilledIcon } from "@radix-ui/react-icons";
 
 import ProfileUpdateDialog from "./ProfileUpdateDialog";
+import FollowListDialog from "./FollowListDialog";
 import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
 import useThrottle from "hooks/useThrottle";
@@ -11,7 +12,8 @@ import useThrottle from "hooks/useThrottle";
 export default function MemberDetail() {
   /** @type {[MemberProfileDetail, React.Dispatch<React.SetStateAction<MemberProfileDetail>>]} */
   const [member, setMember] = useState(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
+  const [isFollowDialogOpen, setFollowDialogOpen] = useState(null);
   const { id } = useParams();
   const user = useSelector((state) => state.user);
   const isMe = user?.id === Number(id) ? user : null;
@@ -52,22 +54,28 @@ export default function MemberDetail() {
   return (
     <div className="flex flex-col w-full h-hit mt-[-86px]">
       <ProfileUpdateDialog
-        open={dialogOpen}
+        open={isUpdateDialogOpen}
         member={member}
-        setOpen={(val) => val || setDialogOpen(false)}
+        setOpen={(val) => val || setUpdateDialogOpen(false)}
+      />
+      <FollowListDialog
+        open={isFollowDialogOpen !== null}
+        member={member}
+        isFollower={isFollowDialogOpen}
+        setOpen={(val) => val || setFollowDialogOpen(null)}
       />
       <div className="relative flex flex-col w-full h-hit">
         {user?.id &&
           (isMe ? (
             <button
               className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full"
-              onClick={setDialogOpen.bind(null, true)}
+              onClick={setUpdateDialogOpen.bind(null, true)}
             >
               <GearIcon
                 className={cn(
                   "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
                   "hover:rotate-45 hover:scale-125",
-                  dialogOpen ? "rotate-45 scale-125" : "",
+                  isUpdateDialogOpen ? "rotate-45 scale-125" : "",
                 )}
               />
             </button>
@@ -99,11 +107,17 @@ export default function MemberDetail() {
               {member?.nickname}
             </div>
             <div className="flex flex-wrap text-neutral-300 text-sm ml-2 [&_span]:mx-1 [&_span]:text-primary">
-              <button className="text-neutral-300">
+              <button
+                className="text-neutral-300"
+                onClick={setFollowDialogOpen.bind(null, true)}
+              >
                 팔로워 <span>{member?.followerCount || 0}</span>
               </button>
               <div className="mx-1">|</div>
-              <button className="text-neutral-300">
+              <button
+                className="text-neutral-300"
+                onClick={setFollowDialogOpen.bind(null, false)}
+              >
                 팔로잉
                 <span>{member?.followingCount || 0}</span>
               </button>
