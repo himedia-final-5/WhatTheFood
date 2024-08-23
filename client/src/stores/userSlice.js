@@ -31,8 +31,17 @@ export const userSlice = createSlice({
      * @returns {null} null을 반환해 사용자 정보가 없는 상태로 변경합니다.
      */
     signoutAction: () => null,
+
+    /**
+     * 사용자 프로필을 수정하는 액션입니다.
+     *
+     * @param {User | null} state - 현재 슬라이스의 상태입니다.
+     * @param {import("@reduxjs/toolkit").PayloadAction<object>} action - 사용자 프로필 정보를 담고 있는 액션입니다.
+     */
+    updateProfile: (state, action) => ({ ...state, ...action.payload }),
   },
 });
 
-export const { signinAction, signoutAction } = userSlice.actions;
+export const { signinAction, signoutAction, updateProfile } = userSlice.actions;
+
 export default userSlice.reducer;

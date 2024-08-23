@@ -1,22 +1,20 @@
 package today.wtfood.server.controller;
 
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
-import today.wtfood.server.dto.member.MemberCreateRequest;
-import today.wtfood.server.dto.member.MemberDetail;
-import today.wtfood.server.dto.member.MemberSummary;
-import today.wtfood.server.dto.member.MemberUpdateRequest;
+import today.wtfood.server.dto.member.*;
 import today.wtfood.server.dto.member.admin.MemberAdmin;
+import today.wtfood.server.security.annotation.CurrentUser;
+import today.wtfood.server.service.MemberFollowService;
 import today.wtfood.server.service.MemberService;
 
 @RestController
@@ -25,16 +23,7 @@ import today.wtfood.server.service.MemberService;
 public class MemberController {
 
     private final MemberService memberService;
-
-    @PostMapping("")
-    @PreAuthorize("permitAll()")
-    @ResponseStatus(HttpStatus.CREATED)
-    public GeneratedId<Long> createMember(
-            @Validated
-            MemberCreateRequest requestData
-    ) {
-        return GeneratedId.of(memberService.createMember(requestData));
-    }
+    private final MemberFollowService memberFollowService;
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
@@ -113,63 +102,32 @@ public class MemberController {
         memberService.validateUsernameFormatAndUnique(username);
     }
 
-    @PostMapping("/{memberId}")
+    @GetMapping("/{memberId}/profile")
+    @PreAuthorize("permitAll()")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberProfileDetail getMembers(
+            @PathVariable
+            long memberId,
+
+            @Nullable
+            @CurrentUser
+            Long currentUserId
+    ) {
+        return memberService.getMemberProfile(memberId, currentUserId);
+    }
+
+    @PostMapping("/{memberId}/profile")
     @PreAuthorize("hasRole('ROLE_USER') and #memberId == authentication.principal.id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateMember(
             @PathVariable
             long memberId,
 
-            @RequestParam
+            @RequestBody
             @Validated
-            MemberUpdateRequest requestData
+            MemberProfileUpdateRequest requestData
     ) {
-        memberService.updateMember(memberId, requestData);
-    }
-
-    @PostMapping("/{memberId}/introduce")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateMemberIntroduce(
-            @PathVariable
-            long memberId,
-
-            @RequestParam
-            @Validated
-            @Size(max = 200, message = "소개는 200자 이하로 입력해주세요")
-            String introduce
-    ) {
-        memberService.updateMemberIntroduce(memberId, introduce);
-    }
-
-    @PostMapping("/{memberId}/profile-image")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateMemberProfileImage(
-            @PathVariable
-            long memberId,
-
-            @RequestParam
-            @Validated
-            @Size(max = 200, message = "프로필 이미지 주소가 너무 깁니다")
-            String profileImage
-    ) {
-        memberService.updateMemberProfileImage(memberId, profileImage);
-    }
-
-    @PostMapping("/{memberId}/banner-image")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateMemberBannerImage(
-            @PathVariable
-            long memberId,
-
-            @RequestParam
-            @Validated
-            @Size(max = 200, message = "배너 이미지 주소가 너무 깁니다")
-            String bannerImage
-    ) {
-        memberService.updateMemberBannerImage(memberId, bannerImage);
+        memberService.updateMemberProfile(memberId, requestData);
     }
 
     @DeleteMapping("/{memberId}")
@@ -180,6 +138,64 @@ public class MemberController {
             long memberId
     ) {
         memberService.deleteMember(memberId);
+    }
+
+    @PostMapping("/{memberId}/follow")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void follow(
+            @PathVariable
+            long memberId,
+
+            @CurrentUser
+            long currentUserId
+    ) {
+        memberFollowService.createFollow(currentUserId, memberId);
+    }
+
+    @DeleteMapping("/{memberId}/follow")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unfollow(
+            @PathVariable
+            long memberId,
+
+            @CurrentUser
+            long currentUserId
+    ) {
+        memberFollowService.deleteFollow(currentUserId, memberId);
+    }
+
+    @GetMapping("/{memberId}/followings")
+    @PreAuthorize("permitAll()")
+    @ResponseStatus(HttpStatus.OK)
+    public PageResponse<MemberProfileSummary> getFollowing(
+            @PathVariable
+            long memberId,
+            @PageableDefault(sort = "id")
+            Pageable pageable,
+
+            @Nullable
+            @CurrentUser
+            Long currentUserId
+    ) {
+        return PageResponse.of(memberFollowService.getFollowing(memberId, currentUserId, pageable));
+    }
+
+    @GetMapping("/{memberId}/followers")
+    @PreAuthorize("permitAll()")
+    @ResponseStatus(HttpStatus.OK)
+    public PageResponse<MemberProfileSummary> getFollowers(
+            @PathVariable
+            long memberId,
+            @PageableDefault(sort = "id")
+            Pageable pageable,
+
+            @Nullable
+            @CurrentUser
+            Long currentUserId
+    ) {
+        return PageResponse.of(memberFollowService.getFollowers(memberId, currentUserId, pageable));
     }
 
 }

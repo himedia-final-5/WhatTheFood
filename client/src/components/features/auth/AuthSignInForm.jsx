@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import { IconCircleKeyFilled, IconUserFilled } from "@tabler/icons-react";
 
 import {
   Form,
@@ -14,7 +15,6 @@ import {
 } from "components/shadcn/ui/form";
 import { Button } from "components/shadcn/ui/button";
 import { Input } from "components/shadcn/ui/input";
-import { TablerCircleKeyFilled, TablerUserFilled } from "components/asset";
 import { cn, axios } from "utils";
 import { useDispatch, signinAction } from "stores";
 
@@ -89,15 +89,16 @@ export default function AuthSignInForm({ setVisible }) {
         >
           <div aria-label="auth-input-fields" className="flex flex-col flex-1">
             <FormField
-              aria-label="auth-input-username"
-              className="flex w-full h-12"
               control={form.control}
               name="username"
               render={({ field }) => (
-                <FormItem className="relative w-full h-12">
+                <FormItem
+                  className="relative w-full h-12"
+                  aria-label="auth-input-username"
+                >
                   <div className="w-full h-12 flex">
                     <FormLabel className="flex items-center px-3 bg-neutral-50 border border-e-0 border-gray-300 rounded-ss-md">
-                      <TablerUserFilled className="w-6 h-8 opacity-70" />
+                      <IconUserFilled className="w-6 h-8 opacity-70" />
                     </FormLabel>
                     <FormControl className="w-full h-full !m-0 rounded-none ring-primary">
                       <Input
@@ -129,15 +130,16 @@ export default function AuthSignInForm({ setVisible }) {
               )}
             />
             <FormField
-              aria-label="auth-input-username"
-              className="flex w-full h-12"
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem className="relative w-full h-12">
+                <FormItem
+                  aria-label="auth-input-username"
+                  className="relative w-full h-12"
+                >
                   <div className="w-full h-12 flex">
                     <FormLabel className="flex items-center px-3 bg-neutral-50 border border-e-0 border-gray-300 rounded-es-md">
-                      <TablerCircleKeyFilled className="w-6 h-8 opacity-70" />
+                      <IconCircleKeyFilled className="w-6 h-8 opacity-70" />
                     </FormLabel>
                     <FormControl className="w-full h-full !m-0 rounded-none">
                       <Input

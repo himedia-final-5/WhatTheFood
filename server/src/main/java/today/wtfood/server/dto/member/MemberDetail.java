@@ -1,11 +1,13 @@
 package today.wtfood.server.dto.member;
 
+import today.wtfood.server.entity.member.Member;
+
 import java.util.List;
 
 /**
  * 회원 프로필 조회 응답 시 필요한 정보 DTO
  *
- * @implNote Projection for {@link today.wtfood.server.entity.Member}
+ * @implNote Projection for {@link Member}
  */
 public interface MemberDetail extends MemberSummary {
 
@@ -18,7 +20,7 @@ public interface MemberDetail extends MemberSummary {
     }
 
     /**
-     * @implNote Projection for {@link today.wtfood.server.entity.Member.SocialUrl}
+     * @implNote Projection for {@link Member.SocialUrl}
      */
     interface MemberSocialUrl {
 

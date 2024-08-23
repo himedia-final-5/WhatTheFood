@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.service.MemberService;
 
@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         } catch (NotFoundException e) {
             // 토큰이 올바르게 발급되었지만, 사용자 정보가 존재하지 않을 때
             // => 회원이 토큰 발급 후 탈퇴한 경우라고 생각해 아래 메시지를 제공
-            throw new UsernameNotFoundException("토큰이 만료되었습니다");
+            throw new UsernameNotFoundException("존재하지 않는 사용자입니다");
         }
     }
 

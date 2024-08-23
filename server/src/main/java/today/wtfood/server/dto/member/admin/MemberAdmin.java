@@ -1,9 +1,9 @@
 package today.wtfood.server.dto.member.admin;
 
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 
 /**
- * Projection for {@link today.wtfood.server.entity.Member}
+ * Projection for {@link Member}
  */
 public interface MemberAdmin {
     Long getId();

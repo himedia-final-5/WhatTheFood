@@ -16,16 +16,21 @@ declare type User = {
   refreshToken: string;
 };
 
-declare type MemberDetail = {
+declare type MemberProfileDetail = {
   id: number;
-  username: string;
   nickname: string;
-  role: Role;
+  introduce: string;
   profileImage: string;
   bannerImage: string;
-  introduce: string;
-  socialUrls: {
-    name: string;
-    url: string;
-  };
+  followerCount: number;
+  followingCount: number;
+  viewCount: number;
+  following: boolean;
+};
+
+declare type MemberProfileSummary = {
+  id: number;
+  nickname: string;
+  profileImage: string;
+  following: boolean;
 };

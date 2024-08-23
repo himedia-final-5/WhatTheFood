@@ -1,4 +1,4 @@
-package today.wtfood.server.entity;
+package today.wtfood.server.entity.member;
 
 import jakarta.persistence.*;
 import lombok.*;
