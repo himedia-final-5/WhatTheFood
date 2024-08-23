@@ -26,7 +26,7 @@ public class RecipeController {
     // 레시피 리스트 (페이지네이션)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> getRecipeList(@RequestParam("category") String category, Pageable pageable) {
+    public PageResponse<RecipeSummary> getRecipeList(@RequestParam(value = "category", required = false) String category, Pageable pageable) {
         if (category == null || category.isEmpty()) {
             return PageResponse.of(rs.getRecipeList(pageable));
         } else {
