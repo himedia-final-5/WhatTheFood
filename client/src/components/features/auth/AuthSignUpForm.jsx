@@ -78,7 +78,7 @@ function InputFormField({ control, name, children, ...props }) {
       render={({ field }) => (
         <FormItem className="relative w-full h-12">
           <div className="w-full h-12 flex">
-            <FormLabel className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300">
+            <FormLabel className="flex items-center px-3 bg-neutral-50 border border-e-0 border-gray-300">
               {children}
             </FormLabel>
             <FormControl className="w-full h-full !m-0 rounded-none">
@@ -86,7 +86,7 @@ function InputFormField({ control, name, children, ...props }) {
                 required
                 className={cn(
                   "block flex-1 min-w-0 w-full p-2.5",
-                  "bg-gray-50 border border-solid border-gray-300",
+                  "bg-gray-50 border border-gray-300",
                   "text-gray-900 text-base focus:z-20",
                   "aria-[invalid=false]:ring-primary aria-[invalid=true]:ring-destructive",
                 )}
@@ -100,7 +100,7 @@ function InputFormField({ control, name, children, ...props }) {
             className={cn(
               "absolute right-80 -top-1 text-nowrap font-bold",
               "px-1 py-2 bg-white z-40",
-              "border-2 border-solid border-destructive rounded-lg",
+              "border-2 border-destructive rounded-lg",
               "animate-head-shake duration-500",
             )}
           />

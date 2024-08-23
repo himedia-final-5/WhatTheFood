@@ -96,7 +96,7 @@ export default function AuthSignInForm({ setVisible }) {
               render={({ field }) => (
                 <FormItem className="relative w-full h-12">
                   <div className="w-full h-12 flex">
-                    <FormLabel className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-ss-md">
+                    <FormLabel className="flex items-center px-3 bg-neutral-50 border border-e-0 border-gray-300 rounded-ss-md">
                       <IconUserFilled className="w-6 h-8 opacity-70" />
                     </FormLabel>
                     <FormControl className="w-full h-full !m-0 rounded-none ring-primary">
@@ -108,7 +108,7 @@ export default function AuthSignInForm({ setVisible }) {
                         required
                         className={cn(
                           "block flex-1 min-w-0 w-full p-2.5",
-                          "bg-gray-50 border border-solid border-gray-300",
+                          "bg-gray-50 border border-gray-300",
                           "text-gray-900 text-base focus:z-20",
                           "aria-[invalid=false]:ring-primary aria-[invalid=true]:ring-destructive",
                         )}
@@ -121,7 +121,7 @@ export default function AuthSignInForm({ setVisible }) {
                     className={cn(
                       "absolute bottom-14 left-12 text-nowrap font-bold",
                       "px-1 py-2 bg-white z-40",
-                      "border-2 border-solid border-destructive rounded-lg",
+                      "border-2 border-destructive rounded-lg",
                       "animate-head-shake",
                     )}
                   />
@@ -136,7 +136,7 @@ export default function AuthSignInForm({ setVisible }) {
               render={({ field }) => (
                 <FormItem className="relative w-full h-12">
                   <div className="w-full h-12 flex">
-                    <FormLabel className="flex items-center px-3 bg-neutral-50 border border-solid border-e-0 border-gray-300 rounded-es-md">
+                    <FormLabel className="flex items-center px-3 bg-neutral-50 border border-e-0 border-gray-300 rounded-es-md">
                       <IconCircleKeyFilled className="w-6 h-8 opacity-70" />
                     </FormLabel>
                     <FormControl className="w-full h-full !m-0 rounded-none">
@@ -148,7 +148,7 @@ export default function AuthSignInForm({ setVisible }) {
                         required
                         className={cn(
                           "block flex-1 min-w-0 w-full p-2.5",
-                          "bg-gray-50 border border-solid border-gray-300",
+                          "bg-gray-50 border border-gray-300",
                           "text-gray-900 text-base focus:z-20",
                           "aria-[invalid=false]:ring-primary aria-[invalid=true]:ring-destructive",
                         )}
@@ -161,7 +161,7 @@ export default function AuthSignInForm({ setVisible }) {
                     className={cn(
                       "absolute top-12 left-12 text-nowrap font-bold",
                       "px-1 py-2 bg-white z-40",
-                      "border-2 border-solid border-destructive rounded-lg",
+                      "border-2 border-destructive rounded-lg",
                       "animate-head-shake",
                     )}
                   />
