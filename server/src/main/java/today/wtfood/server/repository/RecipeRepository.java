@@ -12,6 +12,9 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
 
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -51,10 +54,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
      * @return 페이지네이션된 레시피 목록
      */
     @Query("SELECT r FROM Recipe r WHERE " +
-            "(:title IS NULL OR r.title LIKE %:title%) AND " +
-            "(:category IS NULL OR r.category LIKE %:category%) AND " +
-            "(:description IS NULL OR r.description LIKE %:description%) AND " +
-            "(:hashtag IS NULL OR :hashtag MEMBER OF r.tags)")
+           "(:title IS NULL OR r.title LIKE %:title%) AND " +
+           "(:category IS NULL OR r.category LIKE %:category%) AND " +
+           "(:description IS NULL OR r.description LIKE %:description%) AND " +
+           "(:hashtag IS NULL OR :hashtag MEMBER OF r.tags)")
     Page<Recipe> searchRecipes(
             @Param("title") String title,
             @Param("category") String category,
@@ -69,4 +72,16 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
     Page<RecipeSummary> findByCategory(String category, Pageable pageable);
 
     Page<RecipeSummary> findAllByMember_Id(Long id, Pageable pageable);
+
+    List<Recipe> findByFavoriteByMembersContains(Member member);
+
+    @Query("SELECT r.member.id AS memberId, SUM(r.viewCount) AS totalViews " +
+           "FROM Recipe r " +
+           "WHERE r.createdDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY r.member.id " +
+           "ORDER BY totalViews DESC")
+    List<Map<String, Object>> findTotalViewsByMember(@Param("startDate") Timestamp startDate,
+                                                     @Param("endDate") Timestamp endDate);
+
+
 }

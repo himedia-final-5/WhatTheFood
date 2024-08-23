@@ -6,7 +6,7 @@ SET SESSION FOREIGN_KEY_CHECKS = 0;
 INSERT INTO member(id, username, nickname, email, password, profile_image)
 VALUES (01, 'user01', '홍길동', 'user01@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
         'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user01'),
-       (02, 'user02', '홍길순', 'user02@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+       (02, 'cp05', '홍길순', 'user02@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
         'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user02'),
        (03, 'user03', '김철수', 'user03@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
         'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user03'),
@@ -134,5 +134,28 @@ VALUES ('chef01', '백종원', 'chef01@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQx
                'ROLE_CHEF', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user05'),
        ('chef11', '훈수담당관', 'chef11@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
                       'ROLE_CHEF', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user04');
+INSERT INTO member(username, nickname, email, password, role, profile_image)
+VALUES ('cp01', '청정원', 'brand01@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user01'),
+       ('cp02', '농심', 'brand02@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user02'),
+       ('cp03', '오뚜기', 'brand03@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user03'),
+       ('cp04', '남양유업', 'brand04@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user04'),
+       ('gm05', '서울식품', 'brand05@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user05'),
+       ('gm06', '사조대림', 'brand06@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user01'),
+       ('gm07', '사조해표', 'brand07@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user02'),
+       ('gm08', '삼양식품', 'brand08@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user03'),
+       ('mall09', '더반찬', 'brand09@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user04'),
+       ('mall10', '풀무원식품', 'brand10@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user05'),
+       ('mall11', 'CJ제일마당', 'brand11@wtfood.today', '$2a$10$QXmpZE9pcNXwzUNZQxMu7OuYeYTsJXveFoVvz77rR7R6vjaJgn5IC',
+               'ROLE_BRAND', 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=user04');
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;

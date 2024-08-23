@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
@@ -14,6 +15,9 @@ import today.wtfood.server.dto.recipe.RecipeSummary;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/recipes")
@@ -121,6 +125,28 @@ public class RecipeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFavoriteRecipe(@PathVariable long recipeId, @CurrentUser long memberId) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
+    }
+
+    @GetMapping("/view")
+    public ResponseEntity<List<Map<String, Object>>> getRanking(@RequestParam("period") String period) {
+        List<Map<String, Object>> rankings;
+
+        switch (period.toLowerCase()) {
+            case "d":
+                rankings = rs.getDailyViewsRanking();
+                break;
+            case "w":
+                rankings = rs.getWeeklyViewsRanking();
+                break;
+            case "m":
+                rankings = rs.getMonthlyViewsRanking();
+                break;
+            default:
+                return ResponseEntity.badRequest().body(List.of(Map.of("error", "Invalid period specified")));
+        }
+
+        return ResponseEntity.ok(rankings);
+
     }
 
 
