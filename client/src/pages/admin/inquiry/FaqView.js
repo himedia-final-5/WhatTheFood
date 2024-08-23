@@ -21,14 +21,17 @@ function FaqView() {
   }, [id]);
 
   function deleteFaq() {
-    axios
-      .delete(`/api/faqs/${id}`)
-      .then(() => {
-        navigate("/faqList");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const ans = window.confirm("해당 FAQ를 삭제하시겠습니까?");
+    if (ans) {
+      axios
+        .delete(`/api/faqs/${id}`)
+        .then(() => {
+          navigate("/faqList");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
 
   return (

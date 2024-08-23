@@ -59,11 +59,15 @@ public class MemberController {
     @GetMapping("admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponse<MemberAdmin> getMembersAdmin(
-            @PageableDefault(sort = "id")
-            Pageable pageable
+    public PageResponse<MemberAdmin> getMembersAdmin(@RequestParam("role") String role,
+                                                     @PageableDefault(sort = "id")
+                                                     Pageable pageable
     ) {
-        return PageResponse.of(memberService.getMembers(pageable, MemberAdmin.class));
+        if (role == null || role.isEmpty()) {
+            return PageResponse.of(memberService.getMembers(pageable, MemberAdmin.class));
+        } else {
+            return PageResponse.of(memberService.getMembersByRole(role, pageable, MemberAdmin.class));
+        }
     }
 
     @GetMapping("admin/{memberId}")
@@ -74,6 +78,17 @@ public class MemberController {
             long memberId
     ) {
         return memberService.getMemberById(memberId, MemberAdmin.class);
+    }
+
+    @PutMapping("updateMemberGrade/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateMemberGrade(
+            @PathVariable
+            long id,
+            @RequestParam String role
+    ) {
+        memberService.updateMemberGrade(id, role);
     }
 
     @GetMapping("username/{username}")

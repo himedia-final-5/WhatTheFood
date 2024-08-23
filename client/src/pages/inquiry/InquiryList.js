@@ -43,7 +43,7 @@ function InquiryList() {
           <br></br>
           <div id="inquiry1">
             <div id="blank"></div>
-            <div>내 문의 내역</div>
+            <div id="inquiryListTitle">내 문의 내역</div>
             <Link to="/inquiries/write" id="inquiryWrite">
               <img src="/images/inquirywrite.png" alt="write button" />
               문의하기

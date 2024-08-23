@@ -15,6 +15,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
     <T> Page<T> findAllBy(Pageable pageable, Class<T> projectionType);
 
+
     <T> Optional<T> findByUsername(String username, Class<T> projectionType);
 
     <T> Optional<T> findByEmail(String email, Class<T> projectionType);
@@ -34,4 +35,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
     Page<MemberSummary> findAllByUsername(String username, Pageable pageable);
 
     Member findByUsername(String username);
+
+
+    <T> Page<T> findByRole(Enum role, Pageable pageable, Class<T> memberAdminClass);
 }

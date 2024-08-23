@@ -132,19 +132,19 @@ textarea {
   padding: 3px;
 }
 .productTable .adminfield input {
-  flex: 5;
+  flex: 3;
   padding: 3px;
   border: 1px solid black;
 }
 
 .productTable .adminfield textarea {
-  flex: 5;
+  flex: 3;
   padding: 3px;
   border: 1px solid black;
 }
 
 .productTable .adminfield div {
-  flex: 5;
+  flex: 3;
 }
 
 .adminbtns {

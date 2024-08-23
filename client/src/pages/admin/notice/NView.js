@@ -21,14 +21,17 @@ function NView() {
   }, [id]);
 
   function deleteNotice() {
-    axios
-      .delete(`/api/notices/${id}`)
-      .then(() => {
-        navigate("/noticeList");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const ans = window.confirm("해당 공지사항을 삭제하시겠습니까?");
+    if (ans) {
+      axios
+        .delete(`/api/notices/${id}`)
+        .then(() => {
+          navigate("/noticeList");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
   return (
     <div className="adminContainer">

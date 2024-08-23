@@ -28,7 +28,7 @@ function RecipeView() {
   }, [id]);
 
   function deleteRecipe(id) {
-    const ans = window.confirm("정말 해당 레시피를 삭제하시겠습니까??");
+    const ans = window.confirm("정말 해당 레시피를 삭제하시겠습니까?");
     if (ans) {
       axios.delete(`/api/recipes/${id}`);
     }

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import today.wtfood.server.dto.member.IMember;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeDto;
 import today.wtfood.server.dto.recipe.RecipeSummary;
@@ -131,7 +132,8 @@ public class RecipeService {
 
 
     public Page<RecipeSummary> getUserRecipeList(String username, Pageable pageable) {
-        Member member = mr.findByUsername(username);
+        IMember member = mr.findByUsername(username, IMember.class)
+                .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다", "username"));
         return rr.findAllByMember_Id(member.getId(), pageable);
     }
 }

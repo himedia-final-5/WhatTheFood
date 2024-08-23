@@ -43,6 +43,12 @@ public class MemberService {
         return memberRepository.findAllBy(pageable, projectionType);
     }
 
+    public <T> Page<T> getMembersByRole(String role,
+                                        Pageable pageable,
+                                        Class<T> memberAdminClass) {
+        return memberRepository.findByRole(Member.Role.valueOf(role), pageable, memberAdminClass);
+    }
+
     /**
      * 회원 조회
      *
@@ -189,4 +195,13 @@ public class MemberService {
     public Page<MemberSummary> getMemberList(String username, Pageable pageable) {
         return memberRepository.findAllByUsername(username, pageable);
     }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMemberGrade(long id, String role) {
+        Member member = memberRepository.findById(id).get();
+        member.setRole(Member.Role.valueOf(role));
+    }
+
+
 }

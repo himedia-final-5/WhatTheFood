@@ -16,4 +16,5 @@ public interface MemberAuth extends IMember {
 
     Member.Role getRole();
 
+
 }

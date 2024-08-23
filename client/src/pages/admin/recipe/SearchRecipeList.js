@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios } from "utils";
+import { axios, initialPagination } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
@@ -21,7 +21,13 @@ function SearchRecipeList() {
           params: { page },
         })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(() => {
+          setPageResponse({
+            content: [],
+            pagination: initialPagination(),
+          });
+          alert("검색결과 없음");
+        }),
     [username, setPageResponse],
   );
 

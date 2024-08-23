@@ -7,12 +7,14 @@ function MView() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [memberView, setMemberView] = useState({});
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     axios
       .get(`/api/members/admin/${id}`)
       .then((result) => {
         setMemberView(result.data);
+        setRole(result.data.role);
       })
 
       .catch((err) => {
@@ -33,8 +35,25 @@ function MView() {
         });
     }
   }
+  function handleRoleChange(e) {
+    setRole(e.currentTarget.value);
+  }
 
-  function updateMember() {}
+  function updateMember() {
+    const ans = window.confirm("해당 회원등급을 수정하시겠습니까?");
+    if (ans) {
+      axios
+        .put(`/api/members/updateMemberGrade/${id}`, null, {
+          params: { role },
+        })
+        .then(() => {
+          setMemberView({ ...memberView, role });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
   return (
     <div className="adminContainer">
       <SubMenu />
@@ -42,7 +61,9 @@ function MView() {
       <div className="productTable">
         <div className="adminfield">
           <label className="labellabel">회원 이름</label>
-          <div className="labelcontent">{memberView.username}</div>
+          <div className="labelcontent">
+            {memberView.username} &nbsp;({memberView.role})
+          </div>
         </div>
 
         <div className="adminfield">
@@ -62,7 +83,44 @@ function MView() {
 
         <div className="adminfield">
           <label className="labellabel">회원 등급</label>
-          <div className="labelcontent">{memberView.grade}</div>
+          <div className="labelcontent">
+            {memberView.role}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+            {role}&nbsp;&nbsp;
+            <select
+              name="MemberGrade"
+              value={role}
+              onChange={handleRoleChange}
+              style={{ border: "1px solid black" }}
+            >
+              <option
+                value="ROLE_USER"
+                defaultValue={memberView.role === "ROLE_USER"}
+                onChange={(e) => {
+                  setRole(e.currentTarget.value);
+                }}
+              >
+                일반유저
+              </option>
+              <option
+                value="ROLE_CHEF"
+                defaultValue={memberView.role === "ROLE_CHEF"}
+                onChange={(e) => {
+                  setRole(e.currentTarget.value);
+                }}
+              >
+                쉐프
+              </option>
+              <option
+                value="ROLE_BRAND"
+                defaultValue={memberView.role === "ROLE_BRAND"}
+                onChange={(e) => {
+                  setRole(e.currentTarget.value);
+                }}
+              >
+                브랜드
+              </option>
+            </select>
+          </div>
         </div>
 
         <div className="adminbtns">
