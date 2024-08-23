@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { defaultErrorHandler } from "utils";
 
@@ -16,23 +16,26 @@ export default function usePromise(
 ) {
   const [data, setData] = useState(initialValue);
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState(false);
+  const [error, setError] = useState(null);
 
-  const wrappedPromiseFn = async (...args) => {
-    setLoading(true);
+  const wrappedPromiseFn = useCallback(
+    async (...args) => {
+      setLoading(true);
 
-    try {
-      setData(await promiseFn(...args));
-    } catch (error) {
-      if (!onError(error)) {
-        setError(true);
+      try {
+        setData(await promiseFn(...args));
+      } catch (error) {
+        if (!onError || !onError(error)) {
+          setError(error);
+        } else {
+          throw error;
+        }
+      } finally {
+        setLoading(false);
       }
-      throw error;
-    } finally {
-      setError(false);
-      setLoading(false);
-    }
-  };
+    },
+    [promiseFn, onError],
+  );
 
-  return [wrappedPromiseFn, data, isLoading, isError];
+  return [wrappedPromiseFn, data, isLoading, error];
 }
