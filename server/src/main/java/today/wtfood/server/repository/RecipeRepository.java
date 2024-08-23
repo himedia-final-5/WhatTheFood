@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeSummary;
-import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.entity.member.Member;
 
 import java.sql.Timestamp;
 import java.util.List;
