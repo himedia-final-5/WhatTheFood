@@ -236,6 +236,7 @@ export default function Main() {
         </div>
         <div className="main_best_recipe_wrap">
           <div className="main_best_recipe_inner_wrap">
+            <h1 className="main_recipe_title">EDITOR'S CHOICE</h1>
             <div className="main_best_recipe">
               <Slider {...settingRecipes}>
                 {recipes.length > 0 ? (

@@ -19,7 +19,7 @@
 
 /* 메인 내부 래퍼 */
 .main_inner_wrap {
-  width: 50%;
+  width: 60%;
   height: auto;
   margin: 0 auto;
   gap: 20px;
@@ -49,10 +49,22 @@
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.main_recipe_title {
+  width: 100%;
+  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
+  margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 43px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: rgb(147, 112, 98);
+  cursor: pointer;
+}
 
 .main_best_recipe_wrap {
   width: 100%;
-  height: 400px;
+  height: 500px;
   overflow: hidden;
   margin-bottom: 50px;
 }
