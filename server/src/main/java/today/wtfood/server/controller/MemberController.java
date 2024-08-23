@@ -6,14 +6,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.member.MemberDetail;
+import today.wtfood.server.dto.member.MemberProfileSummary;
 import today.wtfood.server.dto.member.MemberProfileUpdateRequest;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.dto.member.admin.MemberAdmin;
+import today.wtfood.server.security.annotation.CurrentUser;
+import today.wtfood.server.service.MemberFollowService;
 import today.wtfood.server.service.MemberService;
 
 @RestController
@@ -22,6 +26,7 @@ import today.wtfood.server.service.MemberService;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberFollowService memberFollowService;
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
@@ -107,6 +112,64 @@ public class MemberController {
             long memberId
     ) {
         memberService.deleteMember(memberId);
+    }
+
+    @PostMapping("/{memberId}/follow")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void follow(
+            @PathVariable
+            long memberId,
+
+            @CurrentUser
+            long currentUserId
+    ) {
+        memberFollowService.createFollow(currentUserId, memberId);
+    }
+
+    @DeleteMapping("/{memberId}/follow")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unfollow(
+            @PathVariable
+            long memberId,
+
+            @CurrentUser
+            long currentUserId
+    ) {
+        memberFollowService.deleteFollow(currentUserId, memberId);
+    }
+
+    @GetMapping("/{memberId}/followings")
+    @PreAuthorize("permitAll()")
+    @ResponseStatus(HttpStatus.OK)
+    public PageResponse<MemberProfileSummary> getFollowing(
+            @PathVariable
+            long memberId,
+            @PageableDefault(sort = "id")
+            Pageable pageable,
+
+            @Nullable
+            @CurrentUser
+            Long currentUserId
+    ) {
+        return PageResponse.of(memberFollowService.getFollowing(memberId, currentUserId, pageable));
+    }
+
+    @GetMapping("/{memberId}/followers")
+    @PreAuthorize("permitAll()")
+    @ResponseStatus(HttpStatus.OK)
+    public PageResponse<MemberProfileSummary> getFollowers(
+            @PathVariable
+            long memberId,
+            @PageableDefault(sort = "id")
+            Pageable pageable,
+
+            @Nullable
+            @CurrentUser
+            Long currentUserId
+    ) {
+        return PageResponse.of(memberFollowService.getFollowers(memberId, currentUserId, pageable));
     }
 
 }

@@ -79,14 +79,6 @@ public class Member implements UserDetails, OAuth2User {
     @Column(name = "introduce", length = 200)
     private String introduce;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Member.class)
-    @JoinTable(
-            name = "member_followings",
-            joinColumns = @JoinColumn(name = "from_member_id"),
-            inverseJoinColumns = @JoinColumn(name = "to_member_id")
-    )
-    private List<Member> followings;
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SocialUrl> socialUrls;
 
