@@ -149,7 +149,7 @@ public class MemberController {
             @PathVariable
             long memberId,
 
-            @RequestParam
+            @RequestParam(required = false)
             @Validated
             @Size(max = 200, message = "배너 이미지 주소가 너무 깁니다")
             String bannerImage
