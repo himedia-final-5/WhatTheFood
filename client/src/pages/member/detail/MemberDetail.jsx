@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link2Icon, GearIcon, StarFilledIcon } from "@radix-ui/react-icons";
@@ -8,12 +8,24 @@ import FollowListDialog from "./FollowListDialog";
 import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
 import useThrottle from "hooks/useThrottle";
+import { NotFoundRender } from "layouts/fallback";
+import { usePromise } from "hooks";
+
+/** @type {MemberProfileDetail} */
+const DEFAULT_PROFILE = null;
 
 export default function MemberDetail() {
   /** @type {[MemberProfileDetail, React.Dispatch<React.SetStateAction<MemberProfileDetail>>]} */
-  const [member, setMember] = useState(null);
   const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
   const [isFollowDialogOpen, setFollowDialogOpen] = useState(null);
+  const [fetchProfile, member, isLoading, error] = usePromise(
+    DEFAULT_PROFILE,
+    useCallback(
+      async (id) => (await axios.get(`/api/members/${id}/profile`)).data,
+      [],
+    ),
+    null,
+  );
   const { id } = useParams();
   const user = useSelector((state) => state.user);
   const isMe = user?.id === Number(id) ? user : null;
@@ -35,23 +47,25 @@ export default function MemberDetail() {
         toast.success("팔로우했습니다");
       }
 
-      setMember({
-        ...member,
-        followerCount: member.followerCount + (member.following ? -1 : 1),
-        following: !member.following,
-      });
+      fetchProfile(id);
     } catch (error) {
       defaultErrorHandler(error);
     }
   }, 3000);
 
   useEffect(() => {
-    axios.get(`/api/members/${id}/profile`).then((response) => {
-      setMember(response.data);
-    });
-  }, [id, isMe]);
+    fetchProfile(id).catch(() => {});
+  }, [fetchProfile, id]);
 
-  return (
+  return isLoading ? (
+    <NotFoundRender message="회원 정보를 불러오는 중입니다" />
+  ) : member === null || error ? (
+    <NotFoundRender
+      message={
+        error?.toastMessage ?? "회원 정보를 불러오는 중 오류가 발생했습니다"
+      }
+    />
+  ) : (
     <div className="flex flex-col w-full h-hit mt-[-86px]">
       <ProfileUpdateDialog
         open={isUpdateDialogOpen}
