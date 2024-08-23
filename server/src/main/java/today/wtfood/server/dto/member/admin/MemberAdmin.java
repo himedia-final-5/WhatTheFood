@@ -6,6 +6,7 @@ import today.wtfood.server.entity.member.Member;
  * Projection for {@link Member}
  */
 public interface MemberAdmin {
+
     Long getId();
 
     String getUsername();
@@ -17,4 +18,5 @@ public interface MemberAdmin {
     String getIntroduce();
 
     Member.Role getRole();
+
 }

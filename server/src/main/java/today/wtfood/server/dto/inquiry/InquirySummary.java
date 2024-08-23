@@ -1,13 +1,12 @@
 package today.wtfood.server.dto.inquiry;
 
-import today.wtfood.server.entity.Inquiry;
-
 import java.sql.Timestamp;
 
 /**
- * Projection for {@link Inquiry}
+ * Projection for {@link today.wtfood.server.entity.Inquiry}
  */
 public interface InquirySummary {
+
     long getId();
 
     String getTitle();
@@ -17,4 +16,5 @@ public interface InquirySummary {
     Timestamp getDate();
 
     String getAnswer();
+
 }

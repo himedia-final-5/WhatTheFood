@@ -35,7 +35,6 @@ public class EmailToken {
     @Column(name = "expiry_date", nullable = false)
     private Timestamp expiryDate;
 
-
     @PrePersist
     public void prePersist() {
         // 토큰이 없으면 랜덤으로 생성
@@ -43,7 +42,6 @@ public class EmailToken {
             this.token = RandomStringGenerator.generateRandomString(10);
         }
     }
-
 
     public enum TokenPurpose {
         SING_UP,

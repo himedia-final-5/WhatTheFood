@@ -45,5 +45,4 @@ public class InquiryService {
         inquiry.setAnswer(answer);
     }
 
-
 }

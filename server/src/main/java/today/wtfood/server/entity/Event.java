@@ -1,6 +1,5 @@
 package today.wtfood.server.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +10,7 @@ import java.util.List;
 @Data
 @Entity
 public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -27,4 +27,5 @@ public class Event {
     private Timestamp endDate;
 
     private String bannerImage;
+
 }

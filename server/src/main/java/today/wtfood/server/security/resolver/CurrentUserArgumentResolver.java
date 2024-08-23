@@ -62,4 +62,5 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
 
         return memberService.getMemberByUsername(userDetails.getUsername(), parameterType);
     }
+
 }

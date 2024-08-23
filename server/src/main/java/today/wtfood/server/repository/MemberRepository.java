@@ -38,7 +38,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
     Member findByUsername(String username);
 
-
     <T> Page<T> findByRole(Enum role, Pageable pageable, Class<T> memberAdminClass);
 
     /**
@@ -69,6 +68,12 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
                  END AS following\s
             FROM Member m WHERE m.id = :memberId
             """)
-    Optional<MemberProfileDetail> findProfileById(@Param("memberId") long memberId, @Param("currentUserId") Long currentUserId);
+    Optional<MemberProfileDetail> findProfileById(
+            @Param("memberId")
+            long memberId,
+
+            @Param("currentUserId")
+            Long currentUserId
+    );
 
 }

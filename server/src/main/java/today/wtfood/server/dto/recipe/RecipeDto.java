@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Data
 public class RecipeDto implements Serializable {
+
     private String bannerImage;
     private String title;
     private String description;
@@ -47,4 +48,5 @@ public class RecipeDto implements Serializable {
         recipe.setMember(member); // Set the member from DTO
         return recipe;
     }
+
 }

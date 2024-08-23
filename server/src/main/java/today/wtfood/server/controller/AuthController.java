@@ -70,10 +70,7 @@ public class AuthController {
 
     @PostMapping("/signup/email/verify")
     @ResponseStatus(HttpStatus.CREATED)
-    public JwtAuthResponse verifyEmail(
-            @RequestParam("token")
-            String token
-    ) {
+    public JwtAuthResponse verifyEmail(@RequestParam("token") String token) {
         // 이메일 토큰 검증
         EmailToken emailToken = emailTokenService.getEmailToken(token);
         memberService.validateUsernameFormatAndUnique(emailToken.getUsername());

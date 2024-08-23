@@ -55,5 +55,4 @@ public class FaqController {
         fs.deleteInquiry(id);
     }
 
-
 }

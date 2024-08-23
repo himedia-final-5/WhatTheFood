@@ -107,4 +107,5 @@ public class MemberFollowService {
     public Page<MemberProfileSummary> getFollowers(Long toMemberId, Long currentUserId, Pageable pageable) {
         return memberFollowRepository.findByToMemberId(toMemberId, currentUserId, pageable);
     }
+
 }

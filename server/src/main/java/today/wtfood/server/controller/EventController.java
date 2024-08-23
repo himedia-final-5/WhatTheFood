@@ -1,6 +1,5 @@
 package today.wtfood.server.controller;
 
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,9 +31,7 @@ public class EventController {
     // 이벤트리스트(페이징)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<EventSummary> getEventList(
-            Pageable pageable
-    ) {
+    public PageResponse<EventSummary> getEventList(Pageable pageable) {
         return PageResponse.of(es.getEventList(pageable));
     }
 
@@ -60,6 +57,5 @@ public class EventController {
     public GeneratedId<Long> createEvent(@RequestBody EventDto event) {
         return GeneratedId.of(es.createEvent(event).getId());
     }
+
 }
-
-

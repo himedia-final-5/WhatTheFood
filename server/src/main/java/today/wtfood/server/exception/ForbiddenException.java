@@ -29,4 +29,3 @@ public class ForbiddenException extends BaseResponseStatusException {
     }
 
 }
-

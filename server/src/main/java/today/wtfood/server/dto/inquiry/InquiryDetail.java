@@ -8,6 +8,7 @@ import java.sql.Timestamp;
  * Projection for {@link Inquiry}
  */
 public interface InquiryDetail {
+
     long getId();
 
     String getTitle();
@@ -21,4 +22,5 @@ public interface InquiryDetail {
     Timestamp getDate();
 
     String getUsername();
+
 }

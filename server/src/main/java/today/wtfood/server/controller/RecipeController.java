@@ -30,7 +30,11 @@ public class RecipeController {
     // 레시피 리스트 (페이지네이션)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> getRecipeList(@RequestParam(value = "category", required = false) String category, Pageable pageable) {
+    public PageResponse<RecipeSummary> getRecipeList(
+            @RequestParam(value = "category", required = false)
+            String category,
+            Pageable pageable
+    ) {
         if (category == null || category.isEmpty()) {
             return PageResponse.of(rs.getRecipeList(pageable));
         } else {
@@ -60,7 +64,8 @@ public class RecipeController {
     @GetMapping("/search")
     @PreAuthorize("permitAll()")
     public PageResponse<RecipeSummary> searchRecipes(
-            @RequestParam(value = "term", required = false) String term,
+            @RequestParam(value = "term", required = false)
+            String term,
             Pageable pageable
     ) {
         return PageResponse.of(rs.searchRecipes(term, pageable));
@@ -69,7 +74,7 @@ public class RecipeController {
 
     //조회수
     @PutMapping("{id}/incrementViewCount")
-    public void incrementViewCount(@PathVariable Long id) {
+    public void incrementViewCount(@PathVariable long id) {
         rs.incrementViewCount(id);
     }
 
@@ -77,10 +82,7 @@ public class RecipeController {
     @PostMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateRecipe(
-            @PathVariable("id") long id,
-            @RequestBody RecipeDto recipedto
-    ) {
+    public void updateRecipe(@PathVariable("id") long id, @RequestBody RecipeDto recipedto) {
         rs.updateRecipe(id, recipedto);
     }
 
@@ -95,7 +97,13 @@ public class RecipeController {
     // 새로운 레시피 생성
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipedto, @CurrentUser long memberId) {
+    public GeneratedId<Long> createRecipe(
+            @RequestBody
+            RecipeDto recipedto,
+
+            @CurrentUser
+            long memberId
+    ) {
         // memberId를 사용하여 레시피 생성
         return GeneratedId.of(rs.createRecipe(recipedto, memberId).getId());
     }
@@ -103,14 +111,25 @@ public class RecipeController {
     // 레시피 찜하기
     @PostMapping("/{recipeId}/favorite")
     @PreAuthorize("isAuthenticated()")
-    public void addFavoriteRecipe(@PathVariable long recipeId, @CurrentUser long memberId) {
+    public void addFavoriteRecipe(
+            @PathVariable
+            long recipeId,
+
+            @CurrentUser
+            long memberId
+    ) {
         rs.addFavoriteRecipe(memberId, recipeId);
     }
 
     // 찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
     @PreAuthorize("isAuthenticated()")
-    public PageResponse<RecipeSummary> getFavoriteRecipes(Pageable pageable, @CurrentUser long memberId) {
+    public PageResponse<RecipeSummary> getFavoriteRecipes(
+            Pageable pageable,
+
+            @CurrentUser
+            long memberId
+    ) {
         return PageResponse.of(rs.getFavoriteRecipes(memberId, pageable));
     }
 
@@ -118,7 +137,13 @@ public class RecipeController {
     @DeleteMapping("/{recipeId}/favorite")
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFavoriteRecipe(@PathVariable long recipeId, @CurrentUser long memberId) {
+    public void deleteFavoriteRecipe(
+            @PathVariable
+            long recipeId,
+
+            @CurrentUser
+            long memberId
+    ) {
         rs.deleteFavoriteRecipe(memberId, recipeId);
     }
 
@@ -155,9 +180,13 @@ public class RecipeController {
     @PostMapping("/{recipeId}/addComment")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<HashMap<String, Object>> addComment(
-            @RequestBody CommentDto commentDto,
-            @PathVariable long recipeId,
-            @CurrentUser long memberId
+            @PathVariable
+            long recipeId,
+            @RequestBody
+            CommentDto commentDto,
+
+            @CurrentUser
+            long memberId
     ) {
 
         rs.addComment(commentDto, recipeId, memberId);
@@ -171,9 +200,13 @@ public class RecipeController {
     @PutMapping("/{commentId}/editComment")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> updateComment(
-            @PathVariable long commentId,
-            @RequestBody CommentDto commentDto,
-            @CurrentUser long memberId
+            @PathVariable
+            long commentId,
+            @RequestBody
+            CommentDto commentDto,
+
+            @CurrentUser
+            long memberId
     ) {
         rs.updateComment(commentId, commentDto);
         return ResponseEntity.ok("Comment updated successfully");
@@ -183,10 +216,14 @@ public class RecipeController {
     @DeleteMapping("/{commentId}/deleteComment")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> deleteComment(
-            @PathVariable long commentId,
-            @CurrentUser long memberId
+            @PathVariable
+            long commentId,
+
+            @CurrentUser
+            long memberId
     ) {
         rs.deleteComment(commentId);
         return ResponseEntity.ok("Comment deleted successfully");
     }
+
 }

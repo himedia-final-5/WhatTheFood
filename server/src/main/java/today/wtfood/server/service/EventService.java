@@ -65,5 +65,5 @@ public class EventService {
 
         er.deleteById(id);
     }
-}
 
+}

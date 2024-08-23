@@ -4,11 +4,10 @@ import today.wtfood.server.dto.member.MemberSummary;
 
 import java.sql.Timestamp;
 
-
 /**
- * Recipe 엔티티의 요약 정보를 제공하는 DTO
+ * Recipe.Comment 엔티티의 요약 정보를 제공하는 DTO
  *
- * @implNote Projection for {@link today.wtfood.server.entity.Recipe}
+ * @implNote Projection for {@link today.wtfood.server.entity.Recipe.Comment}
  */
 public interface CommentSummary {
 
@@ -19,4 +18,5 @@ public interface CommentSummary {
     String getContent();
 
     Timestamp getCreatedDate();
+
 }

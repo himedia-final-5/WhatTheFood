@@ -75,8 +75,12 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
            "WHERE r.createdDate BETWEEN :startDate AND :endDate " +
            "GROUP BY r.member.id " +
            "ORDER BY totalViews DESC")
-    List<Map<String, Object>> findTotalViewsByMember(@Param("startDate") Timestamp startDate,
-                                                     @Param("endDate") Timestamp endDate);
+    List<Map<String, Object>> findTotalViewsByMember(
+            @Param("startDate")
+            Timestamp startDate,
 
+            @Param("endDate")
+            Timestamp endDate
+    );
 
 }

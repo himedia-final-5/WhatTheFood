@@ -30,4 +30,5 @@ public class EventDto implements Serializable {
         event.setBannerImage(this.bannerImage);
         return event;
     }
+
 }

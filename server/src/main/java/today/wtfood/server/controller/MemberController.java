@@ -28,29 +28,25 @@ public class MemberController {
     @GetMapping("")
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponse<MemberSummary> getMembers(
-            @PageableDefault(sort = "id")
-            Pageable pageable
-    ) {
+    public PageResponse<MemberSummary> getMembers(@PageableDefault(sort = "id") Pageable pageable) {
         return PageResponse.of(memberService.getMembers(pageable, MemberSummary.class));
     }
 
     @GetMapping("/{memberId}")
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
-    public MemberDetail getMember(
-            @PathVariable
-            long memberId
-    ) {
+    public MemberDetail getMember(@PathVariable long memberId) {
         return memberService.getMemberById(memberId, MemberDetail.class);
     }
 
     @GetMapping("admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponse<MemberAdmin> getMembersAdmin(@RequestParam("role") String role,
-                                                     @PageableDefault(sort = "id")
-                                                     Pageable pageable
+    public PageResponse<MemberAdmin> getMembersAdmin(
+            @RequestParam("role")
+            String role,
+            @PageableDefault(sort = "id")
+            Pageable pageable
     ) {
         if (role == null || role.isEmpty()) {
             return PageResponse.of(memberService.getMembers(pageable, MemberAdmin.class));
@@ -62,21 +58,14 @@ public class MemberController {
     @GetMapping("admin/{memberId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public MemberAdmin getMemberAdmin(
-            @PathVariable
-            long memberId
-    ) {
+    public MemberAdmin getMemberAdmin(@PathVariable long memberId) {
         return memberService.getMemberById(memberId, MemberAdmin.class);
     }
 
     @PutMapping("updateMemberGrade/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public void updateMemberGrade(
-            @PathVariable
-            long id,
-            @RequestParam String role
-    ) {
+    public void updateMemberGrade(@PathVariable long id, @RequestParam String role) {
         memberService.updateMemberGrade(id, role);
     }
 
@@ -91,14 +80,10 @@ public class MemberController {
         return PageResponse.of(memberService.getMemberList(username, pageable));
     }
 
-
     @GetMapping("/check-username")
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void checkUsername(
-            @RequestParam
-            String username
-    ) {
+    public void checkUsername(@RequestParam String username) {
         memberService.validateUsernameFormatAndUnique(username);
     }
 
@@ -133,10 +118,7 @@ public class MemberController {
     @DeleteMapping("/{memberId}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #memberId == authentication.principal.id)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMember(
-            @PathVariable
-            long memberId
-    ) {
+    public void deleteMember(@PathVariable long memberId) {
         memberService.deleteMember(memberId);
     }
 

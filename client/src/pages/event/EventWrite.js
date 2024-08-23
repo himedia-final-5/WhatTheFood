@@ -51,7 +51,6 @@ export default function EventWrite() {
       });
   }
 
-
   return (
     <AdminFeatureContainer className="createEvent">
       <div className="createEvent_field">

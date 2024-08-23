@@ -7,5 +7,7 @@ import today.wtfood.server.dto.recipe.CommentSummary;
 import today.wtfood.server.entity.Recipe;
 
 public interface CommentRepository extends JpaRepository<Recipe.Comment, Long> {
+
     Page<CommentSummary> findByRecipeIdOrderByIdDesc(Pageable pageable, long recipeId);
+
 }

@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ChannelTalkService {
+
     @Value("${channel.talk.access.secret}")
     private String accessSecret;
 
@@ -31,4 +32,5 @@ public class ChannelTalkService {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
         System.out.println(response.getBody());
     }
+
 }

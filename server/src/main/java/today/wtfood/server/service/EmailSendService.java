@@ -48,7 +48,12 @@ public class EmailSendService {
      * @param replacements 치환자 목록
      * @throws InternalServerErrorException 이메일 전송 중 오류가 발생했을 때
      */
-    public void sendMail(String targetEmail, String subject, MailTemplate mailTemplate, Map<String, String> replacements) throws InternalServerErrorException {
+    public void sendMail(
+            String targetEmail,
+            String subject,
+            MailTemplate mailTemplate,
+            Map<String, String> replacements
+    ) throws InternalServerErrorException {
         try {
             // 전송될 이메일 내용 설정
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();

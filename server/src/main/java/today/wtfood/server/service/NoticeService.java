@@ -1,6 +1,5 @@
 package today.wtfood.server.service;
 
-
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +14,6 @@ import today.wtfood.server.repository.NoticeRepository;
 @Service
 @Transactional
 public class NoticeService {
-
 
     private final NoticeRepository nr;
 
@@ -62,7 +60,6 @@ public class NoticeService {
                 .orElseThrow(() -> new NotFoundException("데이터를 찾을 수 없습니다", "id"));
         notice.setTitle(dto.getTitle());
         notice.setContent(dto.getContent());
-
-
     }
+
 }

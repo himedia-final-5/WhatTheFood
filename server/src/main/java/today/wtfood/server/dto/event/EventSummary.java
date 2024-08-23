@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  */
 //요약정보
 public interface EventSummary {
+
     long getId();
 
     String getTitle();
@@ -16,4 +17,5 @@ public interface EventSummary {
     Timestamp getEndDate();
 
     String getBannerImage();
+
 }

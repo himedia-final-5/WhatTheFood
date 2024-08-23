@@ -176,5 +176,4 @@ public class MemberService {
         member.setRole(Member.Role.valueOf(role));
     }
 
-
 }

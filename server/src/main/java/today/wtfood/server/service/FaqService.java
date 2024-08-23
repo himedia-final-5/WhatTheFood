@@ -36,7 +36,6 @@ public class FaqService {
         return fr.findAll(pageable);
     }
 
-
     public FaqDetail getFaqView(long id) {
         return fr.findDetailById(id)
                 .orElseThrow(() -> new NotFoundException("데이터를 찾을 수 없습니다", "id"));
@@ -49,4 +48,5 @@ public class FaqService {
         faq.setTitle(dto.title());
         faq.setContent(dto.content());
     }
+
 }

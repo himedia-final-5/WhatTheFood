@@ -5,11 +5,9 @@ import today.wtfood.server.entity.Notice;
 
 import java.io.Serializable;
 
-
 /**
  * DTO for {@link today.wtfood.server.entity.Notice}
  */
-
 @Value
 public class NoticeDto implements Serializable {
 
@@ -23,9 +21,5 @@ public class NoticeDto implements Serializable {
 
         return notice;
     }
-    //생성
-    //수정
-    //응답
-
 
 }

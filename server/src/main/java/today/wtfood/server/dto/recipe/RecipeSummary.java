@@ -11,7 +11,7 @@ import java.util.List;
 public interface RecipeSummary {
 
     Long getId();                  // 레시피 ID
-    
+
     String getTitle();            // 제목
 
     String getDescription();      // 설명

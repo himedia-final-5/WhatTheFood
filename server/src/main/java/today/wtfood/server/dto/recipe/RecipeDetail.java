@@ -4,11 +4,12 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Projection for {@link today.wtfood.server.entity.Event}
+ * 디테일
+ *
+ * @implNote Projection for {@link today.wtfood.server.entity.Recipe}
  */
-
-//디테일
 public interface RecipeDetail extends RecipeSummary {
+
     String title();
 
     String description();
@@ -53,6 +54,5 @@ public interface RecipeDetail extends RecipeSummary {
 
         MemberSummary getMember();  // 댓글 작성자 정보
     }
-
 
 }

@@ -10,6 +10,7 @@ import java.util.Set;
  * Projection for {@link today.wtfood.server.entity.Recipe}
  */
 public interface RecipeInfo {
+
     long getId();
 
     Timestamp getCreatedDate();
@@ -78,4 +79,5 @@ public interface RecipeInfo {
 
         MemberAuth getMember();
     }
+
 }

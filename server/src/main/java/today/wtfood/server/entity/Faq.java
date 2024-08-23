@@ -24,4 +24,5 @@ public class Faq {
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL")
     private Timestamp date;
+
 }

@@ -6,6 +6,7 @@ import java.sql.Timestamp;
  * Projection for {@link today.wtfood.server.entity.Notice}
  */
 public interface NoticeSummary {
+
     long getId();
 
     Timestamp getWriteDate();
@@ -13,4 +14,5 @@ public interface NoticeSummary {
     String getContent();
 
     String getTitle();
+
 }

@@ -1,6 +1,5 @@
 package today.wtfood.server.dto.member;
 
-
 import today.wtfood.server.entity.member.Member;
 
 /**

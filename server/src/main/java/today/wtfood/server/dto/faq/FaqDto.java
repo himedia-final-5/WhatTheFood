@@ -17,4 +17,5 @@ public record FaqDto(
                 .content(content)
                 .build();
     }
+
 }

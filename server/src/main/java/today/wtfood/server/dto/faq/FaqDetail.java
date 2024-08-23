@@ -1,15 +1,13 @@
 package today.wtfood.server.dto.faq;
 
-
-import today.wtfood.server.entity.Faq;
-
 import java.sql.Timestamp;
 
 /**
- * Projection for {@link Faq}
+ * Projection for {@link today.wtfood.server.entity.Faq}
  */
 
 public interface FaqDetail {
+
     long getId();
 
     String getTitle();
@@ -17,4 +15,5 @@ public interface FaqDetail {
     String getContent();
 
     Timestamp getDate();
+
 }

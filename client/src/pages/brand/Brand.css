@@ -1,18 +1,17 @@
 /* chef.css */
 
-
 .chef_banner_wrap {
   display: grid;
-  grid-template-columns: repeat(5, 13.5rem); /* 한 줄에 4개의 열을 균등하게 배치 */
+  grid-template-columns: repeat(
+    5,
+    13.5rem
+  ); /* 한 줄에 4개의 열을 균등하게 배치 */
   place-items: center;
   justify-content: center;
-  top:5rem;
-  padding-top:90px;
-  padding-left:0;
-  
+  top: 5rem;
+  padding-top: 90px;
+  padding-left: 0;
 }
-
-
 
 .chef_state_wrap {
   background-color: #f9f9f9;
@@ -22,15 +21,14 @@
   width: 17.5rem;
   height: 17.5rem;
   margin-bottom: 10rem;
-  top:50px;
+  top: 50px;
 }
 
-
-.chef_num{
- position: absolute;
+.chef_num {
+  position: absolute;
   top: -4px;
-  left:-3px;
-  
+  left: -3px;
+
   z-index: 100;
   background: #fff;
   border: 1px solid #bbb;
@@ -45,16 +43,13 @@
   vertical-align: unset;
 }
 .chef_container {
-margin-bottom: 20px; /* 이벤트 항목 간 간격 조정 */
-position:relative;
+  margin-bottom: 20px; /* 이벤트 항목 간 간격 조정 */
+  position: relative;
 }
 .active {
-  
   border: 1px solid #bbb;
   font-weight: bold;
-  border-bottom:1px solid #fff;
-  margin-bottom:-1px;
-  cursor:default;
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+  cursor: default;
 }
-
-

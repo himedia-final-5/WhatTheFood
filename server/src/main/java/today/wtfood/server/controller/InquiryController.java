@@ -41,7 +41,8 @@ public class InquiryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public PageResponse<Inquiry> allInquiry(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable) {
+            Pageable pageable
+    ) {
         return PageResponse.of(is.getAllInquiry(pageable));
     }
 

@@ -7,11 +7,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
-
 @Getter
 @Setter
 @Entity
 public class Notice {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,4 +20,5 @@ public class Notice {
     private Timestamp writeDate;
     private String title;
     private String content;
+
 }

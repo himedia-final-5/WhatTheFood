@@ -132,5 +132,4 @@ public class Member implements UserDetails, OAuth2User {
     )
     private Set<Recipe> favoriteRecipes; // 사용자가 찜한 레시피 목록
 
-
 }
