@@ -468,6 +468,8 @@
 
   .recipedetail_ingredientImage img,
   .recipedetail_finishedImages img {
+    aspect-ratio: 16/16;
+    object-fit: cover;
     max-width: 100%;
   }
 

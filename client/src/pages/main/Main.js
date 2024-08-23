@@ -86,7 +86,7 @@ export default function Main() {
   );
 
   const CustomPrevArrowRecipe = ({ onClick }) => (
-    <div className="custom-arrow_left-arrow_recipe">
+    <div className="custom-arrow_left-arrow_recipe" onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="64"
@@ -233,6 +233,18 @@ export default function Main() {
     ],
   };
 
+  const settingChefs = {
+    dots: false,
+    fade: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 10,
+    slidesToScroll: 5,
+    waitForAnimate: false,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+  };
+
   return (
     <div className="main_wrap">
       <div className="main_inner_wrap">
@@ -298,30 +310,36 @@ export default function Main() {
           </div>
         </div>
         <div className="main_chef">
-          {chef.length > 0 ? (
-            chef.map((item, index) => (
-              <div key={index} className="chef_container">
-                <p className="chef_num">
-                  <b>{index + 1}</b>
-                </p>
-                <Link to={`/events/${item.id}`}>
-                  <div className="chef_imageUrl">
-                    <img
-                      className="rounded-full size-28"
-                      src={item.profileImage}
-                      alt="member_profileImage"
-                    />
+          <h2 className="chef_section_title">Meet Our Top Chefs</h2>
+          <div className="chef_secion_wrap">
+            <Slider {...settingChefs}>
+              {chef.length > 0 ? (
+                chef.map((item, index) => (
+                  <div key={index} className="chef_container">
+                    <div className="chef_image_wrap">
+                      <Link to={`/events/${item.id}`}>
+                        <img
+                          className="chef_image"
+                          src={item.profileImage}
+                          alt="member_profileImage"
+                        />
+                      </Link>
+                    </div>
+                    <div className="chef_info">
+                      <p className="chef_number">
+                        <b>{index + 1}</b>
+                      </p>
+                      <p className="chef_name">{item.nickname}</p>
+                    </div>
                   </div>
-                </Link>
-                <div className="flex justify-center py-2 text-base font-bold">
-                  <p>{item.nickname}</p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div>No chefs found.</div>
-          )}
+                ))
+              ) : (
+                <div className="no_chefs">No chefs found.</div>
+              )}
+            </Slider>
+          </div>
         </div>
+
         <div className="main_introduce"></div>
       </div>
 
