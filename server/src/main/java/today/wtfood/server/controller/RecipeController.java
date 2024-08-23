@@ -79,8 +79,9 @@ public class RecipeController {
     // 새로운 레시피 생성
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipedto) {
-        return GeneratedId.of(rs.createRecipe(recipedto).getId());
+    public GeneratedId<Long> createRecipe(@RequestBody RecipeDto recipedto, @CurrentUser long memberId) {
+        // memberId를 사용하여 레시피 생성
+        return GeneratedId.of(rs.createRecipe(recipedto, memberId).getId());
     }
 
     // 레시피 찜하기
