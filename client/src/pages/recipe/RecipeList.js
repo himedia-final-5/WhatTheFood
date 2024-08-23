@@ -118,7 +118,7 @@ export default function RecipeList() {
   };
 
   // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
-  // 맨 아래 위치해야 오류가 안남
+  //
   useEffect(() => {
     reset();
     fetchPage(0).catch((error) => {

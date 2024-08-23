@@ -31,6 +31,7 @@
   height: 300px;
   position: relative;
   border: 1px solid blue;
+  margin-bottom: 50px;
 }
 .main_event_banner {
   width: 100%;
@@ -50,6 +51,82 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.main_best_recipe_wrap {
+  width: 100%;
+  height: 300px;
+}
+
+/* 슬라이더 이미지 스타일링 */
+.recipe_state_wrap {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: #333;
+}
+
+.recipe_state_wrap:hover {
+  transform: translateY(-5px);
+}
+
+.recipe_imageUrl img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* 텍스트 영역 스타일링 */
+.recipe_text_wrap {
+  padding: 15px;
+  background-color: white;
+}
+
+.recipe_state_name {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.recipe_state_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.recipe_tag {
+  background-color: #ff6f61;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.recipe_state_level,
+.recipe_state_servings,
+.recipe_state_viewcount {
+  display: block;
+  font-size: 14px;
+  color: #666;
+}
+
+.main_category_recipe {
+  height: 300px;
+}
+
+.main_chef {
+  height: 200px;
+}
+
+.main_introduce {
+  height: 150px;
+}
+
+/* 커스텀 버튼 */
 .custom-arrow_left-arrow {
   position: absolute;
   top: 33%;
@@ -75,37 +152,42 @@
   transform: rotate(270deg);
   cursor: pointer;
 }
-
-.main_best_recipe {
-  height: 300px;
+.custom-arrow_left-arrow_recipe {
+  display: block;
+  position: absolute;
+  left: -32px;
+  bottom: calc(50% - 32px);
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
 }
-
-.main_category_recipe {
-  height: 300px;
-}
-
-.main_chef {
-  height: 200px;
-}
-
-.main_introduce {
-  height: 150px;
+.custom-arrow_right-arrow_recipe {
+  display: block;
+  position: absolute;
+  right: -32px;
+  bottom: calc(50% - 32px);
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
 }
 
 /* Mobile */
 @media screen and (min-width: 514px) and (max-width: 767px) {
-  .main_wrap {
-    width: 100%;
-    background-color: pink;
-  }
   .main_inner_wrap {
     width: 100%;
-    background-color: yellow;
   }
   .custom-arrow_left-arrow {
     display: none;
   }
   .custom-arrow_right-arrow {
+    display: none;
+  }
+  .custom-arrow_left-arrow_recipe {
+    display: none;
+  }
+  .custom-arrow_right-arrow_recipe {
     display: none;
   }
 }

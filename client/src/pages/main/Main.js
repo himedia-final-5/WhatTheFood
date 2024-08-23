@@ -10,7 +10,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function Main() {
-  const [content, setLatestEvent] = useState([]); //배열
+  const [events, setLatestEvent] = useState([]); //배열
+  const [recipes, setLatestRecipe] = useState([]); //배열
   const user = useSelector((state) => state.user);
 
   // 메인 이벤트를 가져오는 함수
@@ -20,8 +21,16 @@ export default function Main() {
     });
     setLatestEvent(response.data.content);
   }
+
+  async function fetchRecipes() {
+    const response = await axios.get(`/api/recipes`, {
+      params: { size: 8 },
+    });
+    setLatestRecipe(response.data.content);
+  }
   useEffect(() => {
     fetchEvents();
+    fetchRecipes();
   }, []);
 
   // Custom Arrow Components
@@ -53,15 +62,121 @@ export default function Main() {
     </div>
   );
 
-  const settings = {
+  const CustomPrevArrowRecipe = ({ onClick }) => (
+    <div className="custom-arrow_left-arrow_recipe">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="64"
+        height="64"
+        fill="none"
+      >
+        <g filter="url(#ic_btn_chev_left_svg__a)">
+          <circle cx="30.5" cy="29.5" r="27.5" fill="#fff"></circle>
+        </g>
+        <path stroke="#000" d="M35.976 44 21 29.512 36 15"></path>
+        <defs>
+          <filter
+            id="ic_btn_chev_left_svg__a"
+            width="61"
+            height="61"
+            x="0"
+            y="0"
+            color-interpolation-filters="sRGB"
+            filterUnits="userSpaceOnUse"
+          >
+            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+            <feColorMatrix
+              in="SourceAlpha"
+              result="hardAlpha"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            ></feColorMatrix>
+            <feOffset dy="1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+            <feBlend
+              in2="BackgroundImageFix"
+              result="effect1_dropShadow_622_5735"
+            ></feBlend>
+            <feBlend
+              in="SourceGraphic"
+              in2="effect1_dropShadow_622_5735"
+              result="shape"
+            ></feBlend>
+          </filter>
+        </defs>
+      </svg>
+    </div>
+  );
+
+  const CustomNextArrowRecipe = ({ onClick }) => (
+    <div className="custom-arrow_right-arrow_recipe" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="64"
+        height="64"
+        fill="none"
+      >
+        <g filter="url(#ic_btn_chev_right_svg__a)">
+          <circle cx="30.5" cy="29.5" r="27.5" fill="#fff"></circle>
+        </g>
+        <path stroke="#000" d="M25.024 44 40 29.512 25 15"></path>
+        <defs>
+          <filter
+            id="ic_btn_chev_right_svg__a"
+            width="61"
+            height="61"
+            x="0"
+            y="0"
+            color-interpolation-filters="sRGB"
+            filterUnits="userSpaceOnUse"
+          >
+            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+            <feColorMatrix
+              in="SourceAlpha"
+              result="hardAlpha"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            ></feColorMatrix>
+            <feOffset dy="1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+            <feBlend
+              in2="BackgroundImageFix"
+              result="effect1_dropShadow_622_5736"
+            ></feBlend>
+            <feBlend
+              in="SourceGraphic"
+              in2="effect1_dropShadow_622_5736"
+              result="shape"
+            ></feBlend>
+          </filter>
+        </defs>
+      </svg>
+    </div>
+  );
+
+  const settingEvents = {
+    dots: false,
+    fade: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    waitForAnimate: false,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    autoplay: true, // 자동 슬라이더 활성화
+    autoplaySpeed: 3000, // 3초마다 슬라이드 전환 (단위: ms)
+  };
+
+  const settingRecipes = {
     className: "center",
     infinite: true,
     centerPadding: "60px",
-    slidesToShow: 1,
+    slidesToShow: 4,
     swipeToSlide: true,
     arrows: true,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrowRecipe />,
+    nextArrow: <CustomNextArrowRecipe />,
   };
 
   return (
@@ -69,9 +184,9 @@ export default function Main() {
       <div className="main_inner_wrap">
         <div className="main_event_banner_wrap">
           <div className="main_event_banner">
-            <Slider {...settings}>
-              {content.length > 0 ? (
-                content.map((event) => (
+            <Slider {...settingEvents}>
+              {events.length > 0 ? (
+                events.map((event) => (
                   <EventCard event={event} key={event.bannerImage} />
                 ))
               ) : (
@@ -80,7 +195,53 @@ export default function Main() {
             </Slider>
           </div>
         </div>
-        <div className="main_best_recipe"></div>
+        <div className="main_best_recipe_wrap">
+          <div className="main_best_recipe_inner_wrap">
+            <div className="main_best_recipe">
+              <Slider {...settingRecipes}>
+                {recipes.length > 0 ? (
+                  recipes.map((recipe) => (
+                    <Link
+                      to={`/recipes/${recipe.id}`}
+                      key={recipe.id}
+                      className="recipe_state_wrap"
+                    >
+                      <div className="recipe_text_wrap">
+                        <span className="recipe_state_name">
+                          {recipe.title}
+                        </span>
+                        <span className="recipe_state_tags">
+                          {recipe.tags.map((tag, index) => (
+                            <span key={index} className="recipe_tag">
+                              {tag}
+                            </span>
+                          ))}
+                        </span>
+                        <span className="recipe_state_level">
+                          {recipe.level} level
+                        </span>
+                        <span className="recipe_state_servings">
+                          {recipe.servings}인분
+                        </span>
+                        <span className="recipe_state_viewcount">
+                          조회수 {recipe.viewCount}
+                        </span>
+                      </div>
+                      <div className="recipe_imageUrl">
+                        <img
+                          src={recipe.bannerImage}
+                          alt="recipe_bannerImage"
+                        />
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div>No recipes found.</div>
+                )}
+              </Slider>
+            </div>
+          </div>
+        </div>
         <div className="main_category_recipe"></div>
         <div className="main_chef"></div>
         <div className="main_introduce"></div>
