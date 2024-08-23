@@ -43,7 +43,11 @@ export default function Main() {
         fill="none"
         viewBox="0 0 19 18"
       >
-        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+        <path
+          stroke="#000"
+          strokeWidth="0.5"
+          d="m14.953 6.469-5.07 5.062L4.828 6.47"
+        ></path>
       </svg>
     </div>
   );
@@ -57,7 +61,11 @@ export default function Main() {
         fill="none"
         viewBox="0 0 19 18"
       >
-        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+        <path
+          stroke="#000"
+          strokeWidth="0.5"
+          d="m14.953 6.469-5.07 5.062L4.828 6.47"
+        ></path>
       </svg>
     </div>
   );
@@ -166,6 +174,18 @@ export default function Main() {
     nextArrow: <CustomNextArrow />,
     autoplay: true, // 자동 슬라이더 활성화
     autoplaySpeed: 3000, // 3초마다 슬라이드 전환 (단위: ms)
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: false, // 768px 이하에서 오토플레이 비활성화
+          swipe: true, // 손가락으로 슬라이드 가능
+          arrows: true, // 화살표 네비게이션 활성화
+        },
+      },
+    ],
   };
 
   const settingRecipes = {
@@ -177,6 +197,25 @@ export default function Main() {
     arrows: true,
     prevArrow: <CustomPrevArrowRecipe />,
     nextArrow: <CustomNextArrowRecipe />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          infinite: true,
+        },
+      },
+    ],
   };
 
   return (
