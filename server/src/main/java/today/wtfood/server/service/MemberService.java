@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.member.MemberCreateRequest;
+import today.wtfood.server.dto.member.MemberProfileDetail;
 import today.wtfood.server.dto.member.MemberProfileUpdateRequest;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.entity.member.Member;
@@ -115,13 +116,26 @@ public class MemberService {
     }
 
     /**
+     * 회원 프로필 조회
+     *
+     * @param memberId      조회할 회원의 아이디
+     * @param currentUserId 현재 로그인한 회원의 아이디
+     * @return 회원 프로필 정보
+     * @throws NotFoundException 회원 정보를 찾을 수 없을 때 발생
+     */
+    public MemberProfileDetail getMemberProfile(long memberId, Long currentUserId) {
+        return memberRepository.findProfileById(memberId, currentUserId)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
+    }
+
+    /**
      * 회원 프로필 변경
      *
      * @param memberId    변경할 회원의 ID
      * @param requestData 변경할 프로필 정보
      */
     @Transactional(rollbackFor = Exception.class)
-    public void updateMember(long memberId, MemberProfileUpdateRequest requestData) {
+    public void updateMemberProfile(long memberId, MemberProfileUpdateRequest requestData) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
 

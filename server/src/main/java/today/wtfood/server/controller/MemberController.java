@@ -11,10 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.PageResponse;
-import today.wtfood.server.dto.member.MemberDetail;
-import today.wtfood.server.dto.member.MemberProfileSummary;
-import today.wtfood.server.dto.member.MemberProfileUpdateRequest;
-import today.wtfood.server.dto.member.MemberSummary;
+import today.wtfood.server.dto.member.*;
 import today.wtfood.server.dto.member.admin.MemberAdmin;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.MemberFollowService;
@@ -90,6 +87,20 @@ public class MemberController {
         memberService.validateUsernameFormatAndUnique(username);
     }
 
+    @GetMapping("/{memberId}/profile")
+    @PreAuthorize("permitAll()")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberProfileDetail getMembers(
+            @PathVariable
+            long memberId,
+
+            @Nullable
+            @CurrentUser
+            Long currentUserId
+    ) {
+        return memberService.getMemberProfile(memberId, currentUserId);
+    }
+
     @PostMapping("/{memberId}/profile")
     @PreAuthorize("hasRole('ROLE_USER') and #memberId == authentication.principal.id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -101,7 +112,7 @@ public class MemberController {
             @Validated
             MemberProfileUpdateRequest requestData
     ) {
-        memberService.updateMember(memberId, requestData);
+        memberService.updateMemberProfile(memberId, requestData);
     }
 
     @DeleteMapping("/{memberId}")

@@ -16,7 +16,7 @@ export default function MemberDetail() {
   const isMe = user?.id === Number(id) ? user : null;
 
   useEffect(() => {
-    axios.get(`/api/members/${id}`).then((response) => {
+    axios.get(`/api/members/${id}/profile`).then((response) => {
       setMember(response.data);
     });
   }, [id, isMe]);
