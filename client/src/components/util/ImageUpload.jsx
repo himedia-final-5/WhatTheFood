@@ -138,7 +138,7 @@ function ImageUploadLabel({ children, ...props }) {
   const { inputId } = useImageUploadValue();
 
   return (
-    <label htmlFor={inputId} {...props}>
+    <label htmlFor={inputId} role="button" {...props}>
       {children}
     </label>
   );
