@@ -29,17 +29,18 @@ function getNotFoundMessage(url) {
   return NOT_FOUND_MESSAGES[index];
 }
 
-export default function NotFoundRender() {
+/** @param {{message: ?string}} */
+export default function NotFoundRender({ message }) {
   return (
     <div className="flex justify-center items-center h-full w-full">
       <div className="flex flex-col justify-center items-center w-60 mx-3 gap-4 transition-transform xs:scale-125">
         <UndrawDonutLove className="object-contain  text-primary" />
         <div className="text-base">
-          {getNotFoundMessage(window.location.href)}
+          {message || getNotFoundMessage(window.location.href)}
         </div>
         <Link
           to="/"
-          className="px-4 py-1 text-lg bg-primary rounded-lg text-white font-bold"
+          className="w-28 py-1 text-lg text-center bg-primary rounded-lg text-white font-bold"
         >
           홈으로
         </Link>
