@@ -14,6 +14,7 @@ export default function Main() {
   const [recipes, setLatestRecipe] = useState([]); //배열
   const [chef, setChef] = useState([]);
   const user = useSelector((state) => state.user);
+  const memberId = user.id;
 
   // 메인 이벤트를 가져오는 함수
   async function fetchEvents() {
@@ -37,7 +38,7 @@ export default function Main() {
 
   async function fetchChef() {
     const response = await axios.get(`/api/members`, {
-      params: { size: 8, role: "ROLE_CHEF" },
+      params: { size: 8, role: "ROLE_CHEF", memberId },
     });
     setChef(response.data.content);
   }
@@ -305,7 +306,7 @@ export default function Main() {
                 chef.map((item, index) => (
                   <div key={index} className="chef_container">
                     <div className="chef_image_wrap">
-                      <Link to={`/events/${item.id}`}>
+                      <Link to={`/members/${user.id}/profile`}>
                         <img
                           className="chef_image"
                           src={item.profileImage}
