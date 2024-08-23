@@ -7,7 +7,16 @@ export default function Main() {
 
   return (
     <div className="flex flex-col w-full h-full items-center justify-center">
-      {user ? (
+      <div className="main_wrap">
+        <div className="main_inner_wrap">
+          <div className="main_event_banner"></div>
+          <div className="main_best_recipe"></div>
+          <div className="main_category_recipe"></div>
+          <div className="main_chef"></div>
+          <div className="main_introduce"></div>
+        </div>
+      </div>
+      {user ? ( // user를 위한 공간
         <div className="flex flex-col items-center">
           <div className="text-lg">
             <span className="font-bold">{user.nickname}</span>님 환영합니다!
