@@ -10,7 +10,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import today.wtfood.server.dto.member.IMember;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.MemberService;
 

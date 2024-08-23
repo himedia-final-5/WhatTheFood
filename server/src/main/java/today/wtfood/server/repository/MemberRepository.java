@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.member.MemberSummary;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 
 import java.util.Optional;
 

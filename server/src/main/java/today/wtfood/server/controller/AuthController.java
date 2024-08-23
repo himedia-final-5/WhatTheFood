@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.member.MemberCreateRequest;
-import today.wtfood.server.entity.EmailToken;
+import today.wtfood.server.entity.member.EmailToken;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.dto.JwtAuthResponse;
 import today.wtfood.server.security.service.JwtService;

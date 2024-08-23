@@ -1,7 +1,7 @@
 package today.wtfood.server.service;
 
 import org.springframework.stereotype.Service;
-import today.wtfood.server.entity.EmailToken;
+import today.wtfood.server.entity.member.EmailToken;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.repository.EmailTokenRepository;
 

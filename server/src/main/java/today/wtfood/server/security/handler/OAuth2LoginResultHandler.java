@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.service.JwtService;
 

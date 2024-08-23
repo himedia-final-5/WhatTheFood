@@ -18,7 +18,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 import today.wtfood.server.dto.member.MemberPrincipal;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.exception.GlobalExceptionHandler;
 import today.wtfood.server.security.enums.TokenPurpose;
 import today.wtfood.server.security.service.JwtService;

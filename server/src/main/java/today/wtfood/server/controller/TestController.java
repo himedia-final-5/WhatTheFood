@@ -9,7 +9,7 @@ import today.wtfood.server.dto.member.IMember;
 import today.wtfood.server.dto.member.MemberAuth;
 import today.wtfood.server.dto.member.MemberDetail;
 import today.wtfood.server.dto.member.MemberSummary;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.security.annotation.CurrentUser;
 
 import java.util.List;

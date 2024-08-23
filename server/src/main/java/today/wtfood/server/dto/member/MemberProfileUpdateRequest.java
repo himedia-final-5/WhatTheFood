@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 
 /**
  * 회원 프로필 수정 시 필요한 정보 DTO

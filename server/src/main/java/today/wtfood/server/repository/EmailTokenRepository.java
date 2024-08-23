@@ -2,7 +2,7 @@ package today.wtfood.server.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import today.wtfood.server.entity.EmailToken;
+import today.wtfood.server.entity.member.EmailToken;
 
 import java.sql.Timestamp;
 import java.util.Optional;

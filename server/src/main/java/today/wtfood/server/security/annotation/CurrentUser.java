@@ -1,7 +1,7 @@
 package today.wtfood.server.security.annotation;
 
 import today.wtfood.server.dto.member.IMember;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 
 import java.lang.annotation.*;
 

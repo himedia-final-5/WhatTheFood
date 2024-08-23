@@ -3,12 +3,12 @@ package today.wtfood.server.dto.member;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 
 /**
  * 회원가입 요청 시 필요한 정보 DTO
  *
- * @implNote DTO for {@link today.wtfood.server.entity.Member}
+ * @implNote DTO for {@link Member}
  */
 public record MemberCreateRequest(
         @NotBlank

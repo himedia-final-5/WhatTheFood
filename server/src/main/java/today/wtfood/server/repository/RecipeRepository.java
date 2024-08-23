@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.recipe.RecipeDetail;
 import today.wtfood.server.dto.recipe.RecipeSummary;
-import today.wtfood.server.entity.Member;
 import today.wtfood.server.entity.Recipe;
+import today.wtfood.server.entity.member.Member;
 
 import java.util.Optional;
 
@@ -51,10 +51,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
      * @return 페이지네이션된 레시피 목록
      */
     @Query("SELECT r FROM Recipe r WHERE " +
-            "(:title IS NULL OR r.title LIKE %:title%) AND " +
-            "(:category IS NULL OR r.category LIKE %:category%) AND " +
-            "(:description IS NULL OR r.description LIKE %:description%) AND " +
-            "(:hashtag IS NULL OR :hashtag MEMBER OF r.tags)")
+           "(:title IS NULL OR r.title LIKE %:title%) AND " +
+           "(:category IS NULL OR r.category LIKE %:category%) AND " +
+           "(:description IS NULL OR r.description LIKE %:description%) AND " +
+           "(:hashtag IS NULL OR :hashtag MEMBER OF r.tags)")
     Page<Recipe> searchRecipes(
             @Param("title") String title,
             @Param("category") String category,

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import today.wtfood.server.dto.member.MemberCreateRequest;
 import today.wtfood.server.dto.member.MemberProfileUpdateRequest;
 import today.wtfood.server.dto.member.MemberSummary;
-import today.wtfood.server.entity.Member;
+import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.ConflictException;
 import today.wtfood.server.exception.NotFoundException;
