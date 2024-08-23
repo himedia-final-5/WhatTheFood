@@ -128,7 +128,7 @@ export default function RecipeUpdate() {
         />
       </div>
       <div className="createRecipe_field">
-        <label htmlFor="servings">음식량</label>
+        <label htmlFor="servings">요리량</label>
         <input
           type="text"
           id="servings"
@@ -185,6 +185,7 @@ export default function RecipeUpdate() {
           >
             {selectedCategory || "카테고리 선택"}
           </button>
+
           {isCategoryDropdownOpen && (
             <div className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 w-full shadow-lg">
               {categories.map((category) => (

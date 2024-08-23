@@ -5,29 +5,41 @@ import "./EventUpCreate.css";
 import { axios, cn } from "utils";
 import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
-import { useInputs } from "hooks";
+import { useInputs } from "hooks"; //수정시 삽입 데이터 hooks
 
 export default function EventUpdate() {
   const navigate = useNavigate();
-
-  const { id } = useParams();
   const user = useSelector((state) => state.user);
+  const { id } = useParams();
 
+  // 데이터 수정시 저장변수
   const [event, setEvent] = useState({});
+  // 데이터 삽입시 필요한 변수
   const { inputs, onInputChange } = useInputs(event);
 
   useEffect(() => {
+    // 컴포넌트가 마운트되거나 id가 변경될 때 실행됩니다.
     axios
-      .get(`/api/events/${id}`)
-      .then((result) => setEvent(result.data))
-      .catch(console.error);
-  }, [id]);
+      .get(`/api/events/${id}`) // 서버로부터 특정 ID를 가진 이벤트 데이터를 GET 요청으로 가져옵니다.
+      .then((result) => setEvent(result.data)) // 서버로부터 받은 데이터를 setEvent를 사용해 상태에 저장합니다.
+      .catch(console.error); // 요청이 실패하면 오류를 콘솔에 출력합니다.
+  }, [id]); // id가 변경될 때마다 이 useEffect가 다시 실행됩니다.
 
   function onSubmit() {
+    // 서버에 POST 요청을 보내는 함수입니다.
+    // `/api/events/${id}` 경로로 데이터를 전송합니다.
     axios
-      .post(`/api/events/${id}`, { ...event, ...inputs })
-      .then(() => navigate(`/events/${id}`))
+      .post(`/api/events/${id}`, {
+        // event 객체와 inputs 객체의 내용을 하나로 병합하여 서버로 보냅니다.
+        ...event,
+        ...inputs,
+      })
+      .then(() => {
+        // POST 요청이 성공하면 `/events/${id}` 경로로 리다이렉트합니다.
+        navigate(`/events/${id}`);
+      })
       .catch(console.error);
+    // 에러가 발생할 경우, 에러 메시지를 콘솔에 출력합니다.
   }
 
   return (
