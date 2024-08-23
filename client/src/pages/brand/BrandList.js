@@ -61,7 +61,6 @@ export default function BrandList() {
       <div>
         <div>
           <ul className="relative flex right-28 top-10 border-b ml-96 mr-44 pb-0 text-lg">
-            //("식품회사", "단체/기관", "쇼핑몰") 생성 및 클릭 시 css 변화//
             {items.map((item, index) => (
               <li
                 key={index}
@@ -73,7 +72,6 @@ export default function BrandList() {
             ))}
           </ul>
           <div className="chef_banner_wrap">
-            // ROLE_BRAND 만 출력, 페이지 들어올 때 항목 랜덤으로 선택
             {filterContent.length > 0 ? (
               filterContent
                 .filter((member) => member.role === "ROLE_BRAND")
@@ -82,7 +80,7 @@ export default function BrandList() {
                     <p className="chef_num">
                       <b>{index + 1}</b>
                     </p>
-                    <Link to={`/events/${member.id}`}>
+                    <Link to={`/brands/${member.id}`}>
                       <div className="chef_imageUrl">
                         <img
                           className="rounded-full size-28"
