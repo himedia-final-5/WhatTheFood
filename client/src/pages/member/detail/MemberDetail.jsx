@@ -56,7 +56,7 @@ export default function MemberDetail() {
         setFollowDialogMode,
       }}
     >
-      <div className="flex flex-col w-full h-hit mt-[-86px]">
+      <div className="flex flex-col flex-1 w-full mt-[-86px]">
         <MemberProfileCard />
         <MemberProfileContent />
       </div>
