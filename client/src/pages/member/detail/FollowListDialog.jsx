@@ -71,12 +71,12 @@ function PartOfTitle() {
   const { followDialogMode, setFollowDialogMode } = useMemberDetail();
 
   return (
-    <div className="flex justify-around items-center w-full h-fit md:mt-2 px-2 py-1 text-2xl bg-neutral-200 rounded-lg">
+    <div className="flex justify-around items-center w-full h-fit md:mt-2 p-1 text-2xl bg-neutral-100 rounded-lg">
       <button
         className={cn(
           "flex-1 rounded-lg transition-colors",
           followDialogMode
-            ? "text-neutral-900 bg-neutral-50"
+            ? "text-neutral-900 bg-white shadow-sm"
             : "text-neutral-500",
         )}
         onClick={() => setFollowDialogMode(true)}
@@ -88,7 +88,7 @@ function PartOfTitle() {
           "flex-1 rounded-lg transition-colors",
           followDialogMode
             ? " text-neutral-500"
-            : "text-neutral-900 bg-neutral-50",
+            : "text-neutral-900 bg-white shadow-sm",
         )}
         onClick={() => setFollowDialogMode(false)}
       >
@@ -151,6 +151,32 @@ function PartOfContent() {
 const ProfileCard = memo(
   /** @param {{profile: MemberProfileSummary}} */
   ({ profile }) => {
+    return (
+      <div
+        aria-label="profile"
+        className="flex justify-around items-center w-full gap-4 shadow-md p-2 border border-neutral-200 rounded-md"
+      >
+        <img
+          src={profile.profileImage}
+          alt="profile"
+          aria-label="profile-image"
+          className="w-10 object-cover rounded-full"
+        />
+        <div
+          aria-label="profile-nickname"
+          className="flex-1 text-base text-neutral-900"
+        >
+          {profile.nickname}
+        </div>
+        <FollowButton profile={profile} />
+      </div>
+    );
+  },
+);
+
+const FollowButton = memo(
+  /** @param {{profile: MemberProfileSummary}} */
+  ({ profile }) => {
     const [member, setMember] = useState(profile);
     const user = useSelector((state) => state.user);
 
@@ -182,34 +208,18 @@ const ProfileCard = memo(
     }, 3000);
 
     return (
-      <div
-        aria-label="profile"
-        className="flex justify-around items-center w-full gap-4 shadow-md p-2 border border-neutral-200 rounded-md"
-      >
-        <img
-          src={member.profileImage}
-          alt="profile"
-          aria-label="profile-image"
-          className="w-10 object-cover rounded-full"
-        />
-        <div
-          aria-label="profile-nickname"
-          className="flex-1 text-base text-neutral-900"
+      user?.id &&
+      user.id !== member.id && (
+        <button
+          className={cn(
+            "w-20 px-2 py-1 shadow-md text-sm font-bold border border-neutral-200 rounded-md",
+            member.following ? "text-neutral-500" : "text-green-500",
+          )}
+          onClick={toggleFollow}
         >
-          {member.nickname}
-        </div>
-        {user?.id && user.id !== member.id && (
-          <button
-            className={cn(
-              "text-sm text-primary w-20 px-2 py-1 shadow-md p-2 border border-neutral-200 rounded-md",
-              member.following ? "text-primary" : "text-neutral-700",
-            )}
-            onClick={toggleFollow}
-          >
-            {member.following ? "언팔로우" : "팔로우"}
-          </button>
-        )}
-      </div>
+          {member.following ? "언팔로우" : "팔로우"}
+        </button>
+      )
     );
   },
 );
