@@ -12,10 +12,9 @@ import { LoadingRender, NotFoundRender } from "layouts/fallback";
 import { usePromise } from "hooks";
 
 export default function MemberDetail() {
-  /** @type {[MemberProfileDetail, React.Dispatch<React.SetStateAction<MemberProfileDetail>>]} */
   const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
   const [isFollowDialogOpen, setFollowDialogOpen] = useState(null);
-  const [fetchProfile, member, isLoading, error] = usePromise(
+  const [fetchProfile, profile, isLoading, error] = usePromise(
     null,
     useCallback(
       /** @type {() => Promise<MemberProfileDetail} */
@@ -28,19 +27,19 @@ export default function MemberDetail() {
   const isMe = user?.id === Number(id) ? user : null;
 
   const toggleFollow = useThrottle(async () => {
-    if (!member || !user) return;
+    if (!profile || !user) return;
 
-    if (member.id === user.id) {
+    if (profile.id === user.id) {
       toast.error("자기 자신을 팔로우할 수 없습니다");
       return;
     }
 
     try {
-      if (member.following) {
-        await axios.delete(`/api/members/${member.id}/follow`);
+      if (profile.following) {
+        await axios.delete(`/api/members/${profile.id}/follow`);
         toast.success("팔로우를 취소했습니다");
       } else {
-        await axios.post(`/api/members/${member.id}/follow`);
+        await axios.post(`/api/members/${profile.id}/follow`);
         toast.success("팔로우했습니다");
       }
 
@@ -56,18 +55,18 @@ export default function MemberDetail() {
 
   return isLoading ? (
     <LoadingRender message="회원 정보를 불러오는 중입니다" />
-  ) : member === null || error ? (
+  ) : profile === null || error ? (
     <NotFoundRender message="회원 정보를 찾을 수 없습니다" />
   ) : (
     <div className="flex flex-col w-full h-hit mt-[-86px]">
       <ProfileUpdateDialog
         open={isUpdateDialogOpen}
-        member={member}
+        member={profile}
         setOpen={(val) => val || setUpdateDialogOpen(false)}
       />
       <FollowListDialog
         open={isFollowDialogOpen !== null}
-        member={member}
+        member={profile}
         isFollower={isFollowDialogOpen}
         setOpen={(val) => val || setFollowDialogOpen(null)}
       />
@@ -93,32 +92,32 @@ export default function MemberDetail() {
             >
               <StarFilledIcon
                 className={cn("w-5 h-5 text-neutral-400", {
-                  "text-yellow-400": member?.following,
+                  "text-yellow-400": profile?.following,
                 })}
               />
             </button>
           ))}
         <img
-          src={member?.bannerImage || "/images/member/default_banner.png"}
+          src={profile?.bannerImage || "/images/member/default_banner.png"}
           alt="background-banner"
           className="absolute w-full h-full object-cover -z-10"
         />
         <div className="flex justify-start items-center">
           <img
-            src={member?.profileImage || "/images/member/default_profile.png"}
+            src={profile?.profileImage || "/images/member/default_profile.png"}
             alt="profile"
             className="w-16 h-16 mt-2 ml-2 rounded-full object-cover"
           />
           <div className="flex flex-col text-white text-lg ml-2">
             <div className="flex flex-col text-white text-lg ml-2">
-              {member?.nickname}
+              {profile?.nickname}
             </div>
             <div className="flex flex-wrap text-neutral-300 text-sm ml-2 [&_span]:mx-1 [&_span]:text-primary">
               <button
                 className="text-neutral-300"
                 onClick={setFollowDialogOpen.bind(null, true)}
               >
-                팔로워 <span>{member?.followerCount || 0}</span>
+                팔로워 <span>{profile?.followerCount || 0}</span>
               </button>
               <div className="mx-1">|</div>
               <button
@@ -126,21 +125,21 @@ export default function MemberDetail() {
                 onClick={setFollowDialogOpen.bind(null, false)}
               >
                 팔로잉
-                <span>{member?.followingCount || 0}</span>
+                <span>{profile?.followingCount || 0}</span>
               </button>
               <div className="mx-1">|</div>
               <button className="text-neutral-300">
                 누적조회수
-                <span>{member?.totalViewCount || 0}</span>
+                <span>{profile?.totalViewCount || 0}</span>
               </button>
             </div>
           </div>
         </div>
         <div className="flex flex-col text-neutral-300 text-base my-2 ml-6 justify-center items-start">
-          <div>{member?.introduce || "안녕하세요"}</div>
+          <div>{profile?.introduce || "안녕하세요"}</div>
         </div>
         <div className="flex justify-end items-center gap-2 mb-2 mr-2">
-          {member?.socialUrls?.map(({ name, url }) => (
+          {profile?.socialUrls?.map(({ name, url }) => (
             <a
               key={name}
               href={url}
