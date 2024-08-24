@@ -35,9 +35,10 @@ import cn from "utils/cn";
 import axios from "utils/jwtUtil";
 import { useDispatch, updateProfile } from "stores";
 import { useInput } from "hooks";
+import { useMemberDetail } from "./MemberDetail";
 
-/** @param {{  member: MemberProfileDetail, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
-export default function ProfileUpdateDialog({ open, setOpen, member }) {
+/** @param {{ open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
+export default function ProfileUpdateDialog({ open, setOpen }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
@@ -52,7 +53,7 @@ export default function ProfileUpdateDialog({ open, setOpen, member }) {
               <PartOfDescription />
             </DialogDescription>
           </DialogHeader>
-          <PartOfContent setOpen={setOpen} member={member} />
+          <PartOfContent setOpen={setOpen} />
         </DialogContent>
       </Dialog>
     );
@@ -69,7 +70,7 @@ export default function ProfileUpdateDialog({ open, setOpen, member }) {
             <PartOfDescription />
           </DrawerDescription>
         </DrawerHeader>
-        <PartOfContent setOpen={setOpen} member={member} />
+        <PartOfContent setOpen={setOpen} />
       </DrawerContent>
     </Drawer>
   );
@@ -106,22 +107,24 @@ function ImageButton({ srText = "button", children, ...props }) {
 
 /**
  *
- * @param {{member: MemberProfileDetail, setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
+ * @param {{setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
  */
-function PartOfContent({ member, setOpen }) {
+function PartOfContent({ setOpen }) {
+  const { profile } = useMemberDetail();
+
   const dispatch = useDispatch();
-  const [profileImage, setProfileImageState] = useState(member.profileImage);
-  const [bannerImage, setBannerImageState] = useState(member.bannerImage);
+  const [profileImage, setProfileImageState] = useState(profile.profileImage);
+  const [bannerImage, setBannerImageState] = useState(profile.bannerImage);
   const [profileLoading, setProfileLoading] = useState(true);
   const [bannerLoading, setBannerLoading] = useState(true);
-  const [nickname, onNicknameInputChange] = useInput(member.nickname);
-  const [introduce, onIntroduceInputChange] = useInput(member.introduce);
+  const [nickname, onNicknameInputChange] = useInput(profile.nickname);
+  const [introduce, onIntroduceInputChange] = useInput(profile.introduce);
 
   const isDirty =
-    profileImage !== member.profileImage ||
-    bannerImage !== member.bannerImage ||
-    nickname !== member.nickname ||
-    introduce !== member.introduce;
+    profileImage !== profile.profileImage ||
+    bannerImage !== profile.bannerImage ||
+    nickname !== profile.nickname ||
+    introduce !== profile.introduce;
 
   function setProfileImage(image) {
     setProfileLoading(true);
@@ -135,18 +138,18 @@ function PartOfContent({ member, setOpen }) {
 
   /** @param {z.infer<typeof formSchema>} */
   function onSubmit() {
-    const profile = {
+    const inputs = {
       profileImage,
       bannerImage,
       nickname,
       introduce,
     };
 
-    toast.promise(axios.post(`/api/members/${member.id}/profile`, profile), {
+    toast.promise(axios.post(`/api/members/${profile.id}/profile`, inputs), {
       pending: "프로필 업데이트 중입니다",
       success: {
         render() {
-          dispatch(updateProfile(profile));
+          dispatch(updateProfile(inputs));
           setOpen(false);
           return "프로필 업데이트에 성공했습니다";
         },
