@@ -12,6 +12,7 @@ import { axios } from "utils";
 import { usePromise } from "hooks";
 
 import MemberProfileCard from "./MemberProfileCard";
+import MemberProfileContent from "./MemberProfileContent";
 
 /** @type {React.Context<{profile: MemberProfileDetail, fetchProfile: () => void, followDialogMode: boolean, setFollowDialogMode: React.Dispatch<React.SetStateAction<boolean>}>} */
 const MemberDetailContext = createContext();
@@ -57,9 +58,7 @@ export default function MemberDetail() {
     >
       <div className="flex flex-col w-full h-hit mt-[-86px]">
         <MemberProfileCard />
-        <div className="flex flex-col w-full h-hit">
-          {/** TODO: 레시피 및 댓글 등 탭 추가 */}
-        </div>
+        <MemberProfileContent />
       </div>
     </MemberDetailContext.Provider>
   );
