@@ -374,7 +374,30 @@ export default function Main() {
           </Slider>
         </div>
       </div>
-      <div className="main_introduce"></div>
+      <div className="main_introduce">
+        <div className="main_introduce_inner">
+          <div className="introduce_content">
+            <div className="introduce_text_wrap">
+              <img
+                src="/images/logo.png"
+                alt="logo"
+                className="h-10 min-w-42 transition-transform hover:scale-110 object-contain"
+              />
+              <p>지금 가입하고 다양한 레시피를 만나보세요!</p>
+              <button
+                className="introduce_button"
+                onClick={() => (window.location.href = "/join")}
+              >
+                지금 가입하기
+              </button>
+            </div>
+            <div className="introduce_image_wrap">
+              <img src="/images/join-banner.jpg" alt="Join us" />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* {user ? ( // user를 위한 공간
         <div className="flex flex-col items-center">
           <div className="text-lg">
