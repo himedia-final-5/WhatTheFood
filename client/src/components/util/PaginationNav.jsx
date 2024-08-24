@@ -10,6 +10,8 @@ import PaginationRight from "components/asset/PaginationRight";
 /** @type {function(Props): React.JSX.Element} */
 
 export default function PaginationNav({ pagination, onSelectPage }) {
+  if (pagination.totalPages <= 1) return <div></div>;
+
   const current = pagination.page;
   const start = Math.max(0, Math.min(current - 2, pagination.totalPages - 5));
   const end = Math.min(pagination.totalPages - 1, start + 4);
