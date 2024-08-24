@@ -12,7 +12,6 @@ export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
   const [recipes, setLatestRecipe] = useState([]); //배열
   const [chef, setChef] = useState([]);
-  const [introduce, setIntroduce] = useState([]);
   const { id } = useParams(); //레시피 아이디 가져오는 변수
 
   const extractYouTubeVideoId = (url) => {
@@ -49,31 +48,10 @@ export default function Main() {
     setChef(response.data.content);
   }
 
-  // 소개파트 레시피 디테일 가져오는 함수
-  async function fetchIntroduce() {
-    if (!id) {
-      console.error("ID is missing for fetchIntroduce");
-      return;
-    }
-    try {
-      const response = await axios.get(`/api/recipes/${id}`, {
-        params: { size: 8 }, // Validate if this is needed
-      });
-      console.log("API Response:", response.data);
-      setIntroduce(response.data.content);
-    } catch (error) {
-      console.error(
-        "Error fetching introduce:",
-        error.response ? error.response.data : error.message,
-      );
-    }
-  }
-
   useEffect(() => {
     fetchEvents();
     fetchRecipes();
     fetchChef();
-    fetchIntroduce();
   }, []);
 
   // Custom Arrow Components
