@@ -1,7 +1,6 @@
 import { UndrawEatingTogether } from "components/asset";
 import { useEffect, useState, memo } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "stores";
 import "./Main.css";
 import { axios, defaultErrorHandler } from "utils";
@@ -13,6 +12,15 @@ export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
   const [recipes, setLatestRecipe] = useState([]); //배열
   const [chef, setChef] = useState([]);
+  const [introduce, setIntroduce] = useState([]);
+  const { id } = useParams(); //레시피 아이디 가져오는 변수
+
+  const extractYouTubeVideoId = (url) => {
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|watch\?.+v=)?([^"&?/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
 
   // 메인 이벤트를 가져오는 함수
   async function fetchEvents() {
@@ -41,10 +49,31 @@ export default function Main() {
     setChef(response.data.content);
   }
 
+  // 소개파트 레시피 디테일 가져오는 함수
+  async function fetchIntroduce() {
+    if (!id) {
+      console.error("ID is missing for fetchIntroduce");
+      return;
+    }
+    try {
+      const response = await axios.get(`/api/recipes/${id}`, {
+        params: { size: 8 }, // Validate if this is needed
+      });
+      console.log("API Response:", response.data);
+      setIntroduce(response.data.content);
+    } catch (error) {
+      console.error(
+        "Error fetching introduce:",
+        error.response ? error.response.data : error.message,
+      );
+    }
+  }
+
   useEffect(() => {
     fetchEvents();
     fetchRecipes();
     fetchChef();
+    fetchIntroduce();
   }, []);
 
   // Custom Arrow Components
@@ -372,29 +401,6 @@ export default function Main() {
               <div className="no_chefs">No chefs found.</div>
             )}
           </Slider>
-        </div>
-      </div>
-      <div className="main_introduce">
-        <div className="main_introduce_inner">
-          <div className="introduce_content">
-            <div className="introduce_text_wrap">
-              <img
-                src="/images/logo.png"
-                alt="logo"
-                className="h-10 min-w-42 transition-transform hover:scale-110 object-contain"
-              />
-              <p>지금 가입하고 다양한 레시피를 만나보세요!</p>
-              <button
-                className="introduce_button"
-                onClick={() => (window.location.href = "/join")}
-              >
-                지금 가입하기
-              </button>
-            </div>
-            <div className="introduce_image_wrap">
-              <img src="/images/join-banner.jpg" alt="Join us" />
-            </div>
-          </div>
         </div>
       </div>
 
