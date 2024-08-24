@@ -1,16 +1,116 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 import PaginationNav from "components/util/PaginationNav";
-import UndrawBugFixing from "components/asset/UndrawBugFixing";
+import { UndrawBarista, UndrawTasting, UndrawBarbecue } from "components/asset";
 import { usePageResponse } from "hooks";
-import { initialPagination, cn } from "utils";
+import { initialPagination, cn, axios, defaultErrorHandler } from "utils";
+import { useMemberDetail } from "./MemberDetail";
 
 const TAB_LIST = [
-  { name: "레시피", component: RecipeTab },
-  { name: "댓글", component: CommentTab },
-  { name: "즐겨찾기", component: FavoriteTab },
+  { name: "레시피", api: "/api/recipes?memberId=%s", component: RecipeTab },
+  {
+    name: "댓글",
+    api: "/api/recipes/comments?memberId=%s",
+    component: CommentTab,
+  },
+  {
+    name: "즐겨찾기",
+    api: "/api/recipes/favorites?memberId=%s",
+    component: FavoriteTab,
+  },
 ];
+
+function RecipeTab({ content }) {
+  return content.length === 0 ? (
+    <div className="flex flex-col w-full h-full items-center justify-center gap-4 p-8">
+      <UndrawBarbecue className="w-3/5 md:w-72 text-primary" />
+      <span className="text-lg font-bold">작성한 레시피가 없습니다.</span>
+    </div>
+  ) : (
+    <div className="grid gap-4 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 p-2">
+      {content.map((item, index) => (
+        <RecipeCard key={index} item={item} />
+      ))}
+    </div>
+  );
+}
+
+function RecipeCard({ item: recipe }) {
+  const handleRecipeClick = async (recipeId) => {
+    try {
+      await axios.put(`/api/recipes/${recipeId}/incrementViewCount`);
+    } catch (error) {
+      console.error("Failed to increment view count:", error);
+    }
+  };
+
+  return (
+    <Link
+      to={`/recipes/${recipe.id}`}
+      key={recipe.id}
+      className="recipe_state_wrap"
+      onClick={() => handleRecipeClick(recipe.id)}
+    >
+      <div className="recipe_text_wrap">
+        <span className="recipe_state_name">{recipe.title}</span>
+        <span className="recipe_state_tags">
+          {recipe.tags.map((tag, index) => (
+            <span key={index} className="recipe_tag">
+              {tag}
+            </span>
+          ))}
+        </span>
+        <span className="recipe_state_level">{recipe.level} level</span>
+        <span className="recipe_state_servings">{recipe.servings}인분</span>
+        <span className="recipe_state_viewcount">
+          조회수 {recipe.viewCount}
+        </span>
+      </div>
+      <div className="recipe_imageUrl">
+        <img src={recipe.bannerImage} alt="recipe_bannerImage" />
+      </div>
+    </Link>
+  );
+}
+
+function CommentTab({ content }) {
+  return content.length === 0 ? (
+    <div className="flex flex-col w-full h-full items-center justify-center gap-4 p-8">
+      <UndrawTasting className="w-full md:w-96 text-primary" />
+      <span className="text-lg font-bold">작성한 댓글이 없습니다.</span>
+    </div>
+  ) : (
+    <div className="flex flex-col gap-2 p-2">
+      {content.map((item, index) => (
+        <CommentCard key={index} item={item} />
+      ))}
+    </div>
+  );
+}
+
+function CommentCard({ item: comment }) {
+  return (
+    <div className="flex flex-col gap-2 p-2 border-b">
+      <div className="text-sm">{comment.content}</div>
+    </div>
+  );
+}
+
+function FavoriteTab({ content }) {
+  return content.length === 0 ? (
+    <div className="flex flex-col w-full h-full items-center justify-center gap-4 p-8">
+      <UndrawBarista className="w-1/2 md:w-56 text-primary" />
+      <span className="text-lg font-bold">즐겨찾기한 레시피가 없습니다.</span>
+    </div>
+  ) : (
+    <div className="flex flex-col gap-2 p-2">
+      {content.map((item, index) => (
+        <RecipeCard key={index} item={item} />
+      ))}
+    </div>
+  );
+}
 
 function TabHeader({ tab, setTab }) {
   return (
@@ -33,62 +133,55 @@ function TabHeader({ tab, setTab }) {
   );
 }
 
-function RecipeTab({ page, setPage }) {
-  return (
-    <div className="flex flex-col flex-1 w-full h-full justify-center items-center">
-      <UndrawBugFixing className="w-1/2 h-1/2 text-red-600" />
-      <div className="text-lg">준비 중인 기능입니다</div>
-    </div>
-  );
-}
-
-function CommentTab({ page, setPage }) {
-  return (
-    <div className="flex flex-col flex-1 w-full h-full justify-center items-center">
-      <UndrawBugFixing className="w-1/2 h-1/2 text-green-600" />
-      <div className="text-lg">준비 중인 기능입니다</div>
-    </div>
-  );
-}
-
-function FavoriteTab({ page, setPage }) {
-  return (
-    <div className="flex flex-col flex-1 w-full h-full justify-center items-center">
-      <UndrawBugFixing className="w-1/2 h-1/2  text-blue-600" />
-      <div className="text-lg">준비 중인 기능입니다</div>
-    </div>
-  );
-}
-
 export default function MemberProfileContent() {
+  const { profile } = useMemberDetail();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(searchParams.get("page") | 0);
   const [tab, setTabState] = useState(searchParams.get("tab") | 0);
-  const { content, pagination, setPageResponse } = usePageResponse(
-    initialPagination(page),
-  );
+  const initialPage = searchParams.get("page") | 0;
+  const { content, setContent, pagination, setPagination, setPageResponse } =
+    usePageResponse([], initialPagination(initialPage));
 
   // 탭 변경 시 페이지를 0으로 초기화하기 위한 함수
-  const setTab = (tab) => {
-    setPage(0);
-    setTabState(tab);
+  const setTab = (newTab) => {
+    if (tab === newTab) return;
+
+    setPagination(initialPagination(0));
+    setContent([]);
+    setTabState(newTab);
   };
+
+  const onSelectPage = useCallback(
+    (page) =>
+      axios
+        .get(TAB_LIST[tab].api.replace("%s", profile.id), {
+          params: { page, size: 12 },
+        })
+        .then((result) => setPageResponse(result.data))
+        .catch(defaultErrorHandler),
+    [setPageResponse, tab, profile.id],
+  );
 
   // 탭 혹은 페이지 변경 시 URL 변경
   useEffect(() => {
     setSearchParams({
       ...(tab ? { tab } : {}),
-      ...(page ? { page } : {}),
+      ...(pagination.page ? { page: pagination.page } : {}),
     });
 
     //eslint-disable-next-line
-  }, [page, tab]);
+  }, [pagination.page, tab]);
+
+  useEffect(() => {
+    onSelectPage(0);
+
+    //eslint-disable-next-line
+  }, [onSelectPage]);
 
   return (
     <div className="flex flex-col flex-1 w-full h-full">
       <TabHeader tab={tab} setTab={setTab} />
-      {TAB_LIST[tab].component({ pagination, setPageResponse, content })}
-      <PaginationNav pagination={pagination} onSelectPage={setPage} />
+      {TAB_LIST[tab].component({ content })}
+      <PaginationNav pagination={pagination} onSelectPage={onSelectPage} />
     </div>
   );
 }
