@@ -68,11 +68,32 @@ export default function FollowListDialog({ open, setOpen, children }) {
 }
 
 function PartOfTitle() {
-  const { followDialogMode } = useMemberDetail();
+  const { followDialogMode, setFollowDialogMode } = useMemberDetail();
 
   return (
-    <div className="text-2xl">
-      {followDialogMode ? "팔로워 목록" : "팔로잉 목록"}
+    <div className="flex justify-around items-center w-full h-fit md:mt-2 px-2 py-1 text-2xl bg-neutral-200 rounded-lg">
+      <button
+        className={cn(
+          "flex-1 rounded-lg transition-colors",
+          followDialogMode
+            ? "text-neutral-900 bg-neutral-50"
+            : "text-neutral-500",
+        )}
+        onClick={() => setFollowDialogMode(true)}
+      >
+        팔로워
+      </button>
+      <button
+        className={cn(
+          "flex-1 rounded-lg transition-colors",
+          followDialogMode
+            ? " text-neutral-500"
+            : "text-neutral-900 bg-neutral-50",
+        )}
+        onClick={() => setFollowDialogMode(false)}
+      >
+        팔로잉
+      </button>
     </div>
   );
 }
@@ -82,6 +103,7 @@ function PartOfDescription() {
 }
 
 function PartOfContent() {
+  const [fetched, setFetched] = useState(false);
   const { profile, followDialogMode } = useMemberDetail();
   /** @type {{content: MemberProfileSummary[], pagination: Pagination, setPageResponse: (response: PageResponse<MemberProfileSummary>) => void}} */
   const { content, pagination, setPageResponse } = usePageResponse();
@@ -96,15 +118,20 @@ function PartOfContent() {
           },
         )
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(console.error)
+        .finally(() => setFetched(true)),
     [setPageResponse, profile?.id, followDialogMode],
   );
 
   useEffect(() => {
-    if (content.length === 0) {
+    if (!fetched) {
       onSelectPage(0);
     }
-  }, [onSelectPage, content]);
+  }, [onSelectPage, fetched]);
+
+  useEffect(() => {
+    setFetched(false);
+  }, [followDialogMode]);
 
   return (
     <div
