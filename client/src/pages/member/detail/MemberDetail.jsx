@@ -17,7 +17,7 @@ export default function MemberDetail() {
   const isMe = user?.id === Number(id) ? user : null;
   const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
   const [isFollowDialogOpen, setFollowDialogOpen] = useState(null);
-  const [fetchProfile, profile, isLoading, error] = usePromise(
+  const [fetchProfile, profile, , error] = usePromise(
     null,
     useCallback(
       /** @type {() => Promise<MemberProfileDetail} */
@@ -53,9 +53,9 @@ export default function MemberDetail() {
     fetchProfile();
   }, [fetchProfile]);
 
-  return isLoading ? (
+  return profile === null ? (
     <LoadingRender message="회원 정보를 불러오는 중입니다" />
-  ) : profile === null || error ? (
+  ) : error ? (
     <NotFoundRender message="회원 정보를 찾을 수 없습니다" />
   ) : (
     <div className="flex flex-col w-full h-hit mt-[-86px]">
