@@ -138,14 +138,19 @@ export default function MemberProfileContent() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [tab, setTabState] = useState(searchParams.get("tab") | 0);
   const initialPage = searchParams.get("page") | 0;
-  const { content, setContent, pagination, setPagination, setPageResponse } =
-    usePageResponse([], initialPagination(initialPage));
+  const { content, setContent, pagination, setPageResponse } = usePageResponse(
+    [],
+    initialPagination(initialPage),
+  );
 
   // 탭 변경 시 페이지를 0으로 초기화하기 위한 함수
   const setTab = (newTab) => {
     if (tab === newTab) return;
 
-    setPagination(initialPagination(0));
+    setSearchParams((prev) => ({
+      ...prev,
+      page: 0,
+    }));
     setContent([]);
     setTabState(newTab);
   };
@@ -172,7 +177,7 @@ export default function MemberProfileContent() {
   }, [pagination.page, tab]);
 
   useEffect(() => {
-    onSelectPage(0);
+    onSelectPage(initialPage);
 
     //eslint-disable-next-line
   }, [onSelectPage]);
