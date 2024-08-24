@@ -136,11 +136,13 @@ function PartOfContent() {
   return (
     <div
       aria-label="member-profile-list"
-      className="flex flex-col gap-2 items-center w-full flex-1 max-md:px-4 py-4"
+      className="flex flex-col items-center w-full h-[420px] max-md:px-4 py-4"
     >
-      {content.map((profile) => (
-        <ProfileCard key={profile.id} profile={profile} />
-      ))}
+      <div className="flex flex-col gap-2 items-center w-full flex-1">
+        {content.map((profile) => (
+          <ProfileCard key={profile.id} profile={profile} />
+        ))}
+      </div>
       <PaginationNav {...{ pagination, onSelectPage }} />
     </div>
   );
