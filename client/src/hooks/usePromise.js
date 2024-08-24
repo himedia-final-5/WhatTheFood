@@ -24,6 +24,7 @@ export default function usePromise(
 
       try {
         setData(await promiseFn(...args));
+        setError(null);
       } catch (error) {
         if (!onError || !onError(error)) {
           setError(error);
