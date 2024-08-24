@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import {
@@ -17,8 +18,14 @@ import { signoutAction, useDispatch, useSelector } from "stores";
 import { axios } from "utils";
 
 export default function ProfilePopover() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [navigate]);
 
   function signout() {
     // 사용자가 더이상 사용하지 않는 토큰을 제거하기 위해 서버에 로그아웃 요청을 보냅니다.
@@ -33,7 +40,7 @@ export default function ProfilePopover() {
   }
 
   return (
-    <Popover aria-label="profile-popover">
+    <Popover aria-label="profile-popover" open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button className="w-10 h-10 rounded-full ml-4">
           <Avatar>
