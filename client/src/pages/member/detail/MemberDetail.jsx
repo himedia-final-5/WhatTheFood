@@ -1,7 +1,7 @@
 import {
   createContext,
-  useCallback,
   useContext,
+  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -11,11 +11,10 @@ import { Link2Icon, GearIcon, StarFilledIcon } from "@radix-ui/react-icons";
 
 import ProfileUpdateDialog from "./ProfileUpdateDialog";
 import FollowListDialog from "./FollowListDialog";
+import { LoadingRender, NotFoundRender } from "layouts/fallback";
 import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
-import useThrottle from "hooks/useThrottle";
-import { LoadingRender, NotFoundRender } from "layouts/fallback";
-import { usePromise } from "hooks";
+import { usePromise, useThrottle } from "hooks";
 
 /** @type {React.Context<{profile: MemberProfileDetail}, fetchProfile: () => void>} */
 const MemberDetailContext = createContext();
