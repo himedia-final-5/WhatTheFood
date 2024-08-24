@@ -34,7 +34,8 @@ export default function MemberDetail() {
   const user = useSelector((state) => state.user);
   const isMe = user?.id === Number(id) ? user : null;
   const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
-  const [isFollowDialogOpen, setFollowDialogOpen] = useState(null);
+  const [isFollowDialogOpen, setFollowDialogOpen] = useState(false);
+  const [followDialogMode, setFollowDialogMode] = useState(false);
   const [fetchProfile, profile, , error] = usePromise(
     null,
     useCallback(
@@ -78,31 +79,23 @@ export default function MemberDetail() {
   ) : (
     <MemberDetailContext.Provider value={{ profile, fetchProfile }}>
       <div className="flex flex-col w-full h-hit mt-[-86px]">
-        <ProfileUpdateDialog
-          open={isUpdateDialogOpen}
-          setOpen={(val) => val || setUpdateDialogOpen(false)}
-        />
-        <FollowListDialog
-          open={isFollowDialogOpen !== null}
-          member={profile}
-          isFollower={isFollowDialogOpen}
-          setOpen={(val) => val || setFollowDialogOpen(null)}
-        />
         <div className="relative flex flex-col w-full h-hit">
           {user?.id &&
             (isMe ? (
-              <button
-                className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full"
-                onClick={setUpdateDialogOpen.bind(null, true)}
+              <ProfileUpdateDialog
+                open={isUpdateDialogOpen}
+                setOpen={setUpdateDialogOpen}
               >
-                <GearIcon
-                  className={cn(
-                    "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
-                    "hover:rotate-45 hover:scale-125",
-                    isUpdateDialogOpen ? "rotate-45 scale-125" : "",
-                  )}
-                />
-              </button>
+                <button className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full">
+                  <GearIcon
+                    className={cn(
+                      "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
+                      "hover:rotate-45 hover:scale-110",
+                      isUpdateDialogOpen ? "rotate-90 scale-125" : "",
+                    )}
+                  />
+                </button>
+              </ProfileUpdateDialog>
             ) : (
               <button
                 className="absolute top-2 right-2 flex gap-2 p-1 bg-neutral-700 rounded-full"
@@ -133,25 +126,40 @@ export default function MemberDetail() {
                 {profile?.nickname}
               </div>
               <div className="flex flex-wrap text-neutral-300 text-sm ml-2 [&_span]:mx-1 [&_span]:text-primary">
-                <button
-                  className="text-neutral-300"
-                  onClick={setFollowDialogOpen.bind(null, true)}
+                <FollowListDialog
+                  open={isFollowDialogOpen}
+                  setOpen={setFollowDialogOpen}
+                  member={profile}
+                  isFollower={followDialogMode}
                 >
-                  팔로워 <span>{profile?.followerCount || 0}</span>
-                </button>
+                  <>
+                    <button
+                      className="text-neutral-300"
+                      onClick={() => {
+                        setFollowDialogOpen(true);
+                        setFollowDialogMode(true);
+                      }}
+                    >
+                      팔로워 <span>{profile?.followerCount || 0}</span>
+                    </button>
+                    <div className="mx-1">|</div>
+                    <button
+                      className="text-neutral-300"
+                      onClick={() => {
+                        setFollowDialogOpen(true);
+                        setFollowDialogMode(false);
+                      }}
+                    >
+                      팔로잉
+                      <span>{profile?.followingCount || 0}</span>
+                    </button>
+                  </>
+                </FollowListDialog>
                 <div className="mx-1">|</div>
-                <button
-                  className="text-neutral-300"
-                  onClick={setFollowDialogOpen.bind(null, false)}
-                >
-                  팔로잉
-                  <span>{profile?.followingCount || 0}</span>
-                </button>
-                <div className="mx-1">|</div>
-                <button className="text-neutral-300">
+                <div className="text-neutral-300">
                   누적조회수
                   <span>{profile?.totalViewCount || 0}</span>
-                </button>
+                </div>
               </div>
             </div>
           </div>

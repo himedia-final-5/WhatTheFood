@@ -8,6 +8,7 @@ import {
 
 import {
   Dialog,
+  DialogTrigger,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -15,10 +16,9 @@ import {
 } from "components/shadcn/ui/dialog";
 import {
   Drawer,
-  //DrawerClose,
+  DrawerTrigger,
   DrawerContent,
   DrawerDescription,
-  //DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "components/shadcn/ui/drawer";
@@ -38,12 +38,13 @@ import { useInput } from "hooks";
 import { useMemberDetail } from "./MemberDetail";
 
 /** @param {{ open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
-export default function ProfileUpdateDialog({ open, setOpen }) {
+export default function ProfileUpdateDialog({ open, setOpen, children }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
@@ -61,6 +62,7 @@ export default function ProfileUpdateDialog({ open, setOpen }) {
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>
