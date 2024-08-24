@@ -77,7 +77,7 @@ export default function MemberProfileCard() {
           className="w-16 h-16 mt-2 ml-2 rounded-full object-cover"
         />
         <div className="flex flex-col text-white text-lg ml-2">
-          <div className="flex flex-col text-white text-lg ml-2">
+          <div className="flex flex-col text-white text-lg my-2 ml-2">
             {profile?.nickname}
           </div>
           <div className="flex flex-wrap text-neutral-300 text-sm ml-2 [&_span]:mx-1 [&_span]:text-primary">
