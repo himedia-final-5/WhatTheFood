@@ -13,8 +13,6 @@ export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
   const [recipes, setLatestRecipe] = useState([]); //배열
   const [chef, setChef] = useState([]);
-  const user = useSelector((state) => state.user);
-  const memberId = user.id;
 
   // 메인 이벤트를 가져오는 함수
   async function fetchEvents() {
@@ -38,7 +36,7 @@ export default function Main() {
 
   async function fetchChef() {
     const response = await axios.get(`/api/members`, {
-      params: { size: 8, role: "ROLE_CHEF", memberId },
+      params: { size: 8, role: "ROLE_CHEF" },
     });
     setChef(response.data.content);
   }
@@ -278,7 +276,7 @@ export default function Main() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 10,
     slidesToScroll: 2,
     prevArrow: <CustomPrevArrowChefs />,
     nextArrow: <CustomNextArrowChefs />,
@@ -286,7 +284,7 @@ export default function Main() {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: 6,
           slidesToScroll: 2,
         },
       },
@@ -348,37 +346,35 @@ export default function Main() {
             </div>
           </div>
         </div>
-        <div className="main_chef">
-          <h2 className="chef_section_title">Meet Our Top Chefs</h2>
-          <div className="chef_section_wrap">
-            <Slider {...settingChefs}>
-              {chef.length > 0 ? (
-                chef.map((item, index) => (
-                  <div key={index} className="chef_container">
-                    <div className="chef_image_wrap">
-                      <Link to={`/members/${user.id}/profile`}>
-                        <img
-                          className="chef_image"
-                          src={item.profileImage}
-                          alt="member_profileImage"
-                        />
-                      </Link>
-                    </div>
-                    <div className="chef_info">
-                      <p className="chef_name">{item.nickname}</p>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="no_chefs">No chefs found.</div>
-              )}
-            </Slider>
-          </div>
-        </div>
-
-        <div className="main_introduce"></div>
       </div>
-
+      <div className="main_chef">
+        <h2 className="chef_section_title">Meet Our Top Chefs</h2>
+        <div className="chef_section_wrap">
+          <Slider {...settingChefs}>
+            {chef.length > 0 ? (
+              chef.map((item, index) => (
+                <div key={index} className="chef_container">
+                  <div className="chef_image_wrap">
+                    <Link to={`/members/${item.id}`}>
+                      <img
+                        className="chef_image"
+                        src={item.profileImage}
+                        alt="member_profileImage"
+                      />
+                    </Link>
+                  </div>
+                  <div className="chef_info">
+                    <p className="chef_name">{item.nickname}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no_chefs">No chefs found.</div>
+            )}
+          </Slider>
+        </div>
+      </div>
+      <div className="main_introduce"></div>
       {/* {user ? ( // user를 위한 공간
         <div className="flex flex-col items-center">
           <div className="text-lg">
