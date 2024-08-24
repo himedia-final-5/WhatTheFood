@@ -110,7 +110,7 @@ function ImageButton({ srText = "button", children, ...props }) {
  * @param {{setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
  */
 function PartOfContent({ setOpen }) {
-  const { profile } = useMemberDetail();
+  const { profile, fetchProfile } = useMemberDetail();
 
   const dispatch = useDispatch();
   const [profileImage, setProfileImageState] = useState(profile.profileImage);
@@ -151,6 +151,7 @@ function PartOfContent({ setOpen }) {
         render() {
           dispatch(updateProfile(inputs));
           setOpen(false);
+          fetchProfile();
           return "프로필 업데이트에 성공했습니다";
         },
       },
