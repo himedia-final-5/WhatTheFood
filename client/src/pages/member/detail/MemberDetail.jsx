@@ -8,7 +8,7 @@ import FollowListDialog from "./FollowListDialog";
 import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
 import useThrottle from "hooks/useThrottle";
-import { NotFoundRender } from "layouts/fallback";
+import { LoadingRender, NotFoundRender } from "layouts/fallback";
 import { usePromise } from "hooks";
 
 /** @type {MemberProfileDetail} */
@@ -24,7 +24,6 @@ export default function MemberDetail() {
       async (id) => (await axios.get(`/api/members/${id}/profile`)).data,
       [],
     ),
-    null,
   );
   const { id } = useParams();
   const user = useSelector((state) => state.user);
@@ -54,17 +53,13 @@ export default function MemberDetail() {
   }, 3000);
 
   useEffect(() => {
-    fetchProfile(id).catch(() => {});
+    fetchProfile(id);
   }, [fetchProfile, id]);
 
   return isLoading ? (
-    <NotFoundRender message="회원 정보를 불러오는 중입니다" />
+    <LoadingRender message="회원 정보를 불러오는 중입니다" />
   ) : member === null || error ? (
-    <NotFoundRender
-      message={
-        error?.toastMessage ?? "회원 정보를 불러오는 중 오류가 발생했습니다"
-      }
-    />
+    <NotFoundRender message="회원 정보를 찾을 수 없습니다" />
   ) : (
     <div className="flex flex-col w-full h-hit mt-[-86px]">
       <ProfileUpdateDialog
