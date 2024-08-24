@@ -12,46 +12,46 @@ import { LoadingRender, NotFoundRender } from "layouts/fallback";
 import { usePromise } from "hooks";
 
 export default function MemberDetail() {
+  const { id } = useParams();
+  const user = useSelector((state) => state.user);
+  const isMe = user?.id === Number(id) ? user : null;
   const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
   const [isFollowDialogOpen, setFollowDialogOpen] = useState(null);
   const [fetchProfile, profile, isLoading, error] = usePromise(
     null,
     useCallback(
       /** @type {() => Promise<MemberProfileDetail} */
-      async (id) => (await axios.get(`/api/members/${id}/profile`)).data,
-      [],
+      async () => (await axios.get(`/api/members/${id}/profile`)).data,
+      [id],
     ),
   );
-  const { id } = useParams();
-  const user = useSelector((state) => state.user);
-  const isMe = user?.id === Number(id) ? user : null;
 
   const toggleFollow = useThrottle(async () => {
     if (!profile || !user) return;
 
-    if (profile.id === user.id) {
+    if (isMe) {
       toast.error("자기 자신을 팔로우할 수 없습니다");
       return;
     }
 
     try {
       if (profile.following) {
-        await axios.delete(`/api/members/${profile.id}/follow`);
+        await axios.delete(`/api/members/${id}/follow`);
         toast.success("팔로우를 취소했습니다");
       } else {
-        await axios.post(`/api/members/${profile.id}/follow`);
+        await axios.post(`/api/members/${id}/follow`);
         toast.success("팔로우했습니다");
       }
 
-      fetchProfile(id);
+      fetchProfile();
     } catch (error) {
       defaultErrorHandler(error);
     }
   }, 3000);
 
   useEffect(() => {
-    fetchProfile(id);
-  }, [fetchProfile, id]);
+    fetchProfile();
+  }, [fetchProfile]);
 
   return isLoading ? (
     <LoadingRender message="회원 정보를 불러오는 중입니다" />
