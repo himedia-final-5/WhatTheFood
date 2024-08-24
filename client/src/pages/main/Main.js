@@ -178,41 +178,41 @@ export default function Main() {
     </div>
   );
 
-    const CustomPrevArrowChefs = ({ onClick }) => (
-      <div className="custom-arrow_left-arrow_chef" onClick={onClick}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          fill="none"
-          viewBox="0 0 19 18"
-        >
-          <path
-            stroke="#666"
-            strokeWidth="0.5"
-            d="m14.953 6.469-5.07 5.062L4.828 6.47"
-          ></path>
-        </svg>
-      </div>
-    );
+  const CustomPrevArrowChefs = ({ onClick }) => (
+    <div className="custom-arrow_left-arrow_chef" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 19 18"
+      >
+        <path
+          stroke="#666"
+          strokeWidth="0.5"
+          d="m14.953 6.469-5.07 5.062L4.828 6.47"
+        ></path>
+      </svg>
+    </div>
+  );
 
-    const CustomNextArrowChefs = ({ onClick }) => (
-      <div className="custom-arrow_right-arrow_chef" onClick={onClick}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          fill="none"
-          viewBox="0 0 19 18"
-        >
-          <path
-            stroke="#000"
-            strokeWidth="0.5"
-            d="m14.953 6.469-5.07 5.062L4.828 6.47"
-          ></path>
-        </svg>
-      </div>
-    );
+  const CustomNextArrowChefs = ({ onClick }) => (
+    <div className="custom-arrow_right-arrow_chef" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 19 18"
+      >
+        <path
+          stroke="#000"
+          strokeWidth="0.5"
+          d="m14.953 6.469-5.07 5.062L4.828 6.47"
+        ></path>
+      </svg>
+    </div>
+  );
 
   const settingEvents = {
     dots: false,
@@ -279,7 +279,7 @@ export default function Main() {
     infinite: true,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
     prevArrow: <CustomPrevArrowChefs />,
     nextArrow: <CustomNextArrowChefs />,
     responsive: [
@@ -287,7 +287,7 @@ export default function Main() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
         },
       },
       {
