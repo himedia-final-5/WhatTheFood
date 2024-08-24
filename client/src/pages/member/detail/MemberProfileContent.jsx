@@ -28,7 +28,7 @@ function RecipeTab({ content }) {
       <span className="text-lg font-bold">작성한 레시피가 없습니다.</span>
     </div>
   ) : (
-    <div className="grid gap-4 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 p-2">
+    <div className="grid gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-2">
       {content.map((item, index) => (
         <RecipeCard key={index} item={item} />
       ))}
@@ -54,7 +54,7 @@ function RecipeCard({ item: recipe }) {
     >
       <div className="recipe_text_wrap">
         <span className="recipe_state_name">{recipe.title}</span>
-        <span className="recipe_state_tags">
+        <span className="recipe_state_tags text-ellipsis overflow-hidden">
           {recipe.tags.map((tag, index) => (
             <span key={index} className="recipe_tag">
               {tag}
@@ -68,7 +68,11 @@ function RecipeCard({ item: recipe }) {
         </span>
       </div>
       <div className="recipe_imageUrl">
-        <img src={recipe.bannerImage} alt="recipe_bannerImage" />
+        <img
+          className="max-h-48"
+          src={recipe.bannerImage}
+          alt="recipe_bannerImage"
+        />
       </div>
     </Link>
   );

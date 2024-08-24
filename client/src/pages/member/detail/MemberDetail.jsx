@@ -8,7 +8,7 @@ import {
 import { useParams } from "react-router-dom";
 
 import { LoadingRender, NotFoundRender } from "layouts/fallback";
-import { axios } from "utils";
+import { axios, cn } from "utils";
 import { usePromise } from "hooks";
 
 import MemberProfileCard from "./MemberProfileCard";
@@ -56,8 +56,20 @@ export default function MemberDetail() {
         setFollowDialogMode,
       }}
     >
-      <div className="flex flex-col flex-1 w-full mt-[-86px]">
-        <MemberProfileCard />
+      <div
+        className={cn(
+          "flex flex-col flex-1 w-full mt-[-86px]",
+          "lg:px-16 lg:pt-4 lg:flex-row-reverse",
+        )}
+      >
+        <div
+          className={cn(
+            "w-full h-fit overflow-hidden",
+            "lg:ml-4 lg:w-72 xl:w-80 2xl:w-96 lg:rounded-lg",
+          )}
+        >
+          <MemberProfileCard />
+        </div>
         <MemberProfileContent />
       </div>
     </MemberDetailContext.Provider>
