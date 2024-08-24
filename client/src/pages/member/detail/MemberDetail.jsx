@@ -11,16 +11,14 @@ import useThrottle from "hooks/useThrottle";
 import { LoadingRender, NotFoundRender } from "layouts/fallback";
 import { usePromise } from "hooks";
 
-/** @type {MemberProfileDetail} */
-const DEFAULT_PROFILE = null;
-
 export default function MemberDetail() {
   /** @type {[MemberProfileDetail, React.Dispatch<React.SetStateAction<MemberProfileDetail>>]} */
   const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
   const [isFollowDialogOpen, setFollowDialogOpen] = useState(null);
   const [fetchProfile, member, isLoading, error] = usePromise(
-    DEFAULT_PROFILE,
+    null,
     useCallback(
+      /** @type {() => Promise<MemberProfileDetail} */
       async (id) => (await axios.get(`/api/members/${id}/profile`)).data,
       [],
     ),
