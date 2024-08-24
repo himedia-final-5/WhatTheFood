@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.recipe.*;
+import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
@@ -33,12 +34,16 @@ public class RecipeController {
     public PageResponse<RecipeSummary> getRecipeList(
             @RequestParam(value = "category", required = false)
             String category,
+            @RequestParam(value = "memberId", required = false)
+            Long memberId,
             Pageable pageable
     ) {
-        if (category == null || category.isEmpty()) {
-            return PageResponse.of(rs.getRecipeList(pageable));
-        } else {
+        if (category != null && !category.isEmpty()) {
             return PageResponse.of(rs.getRecipesByCategory(category, pageable));
+        } else if (memberId != null) {
+            return PageResponse.of(rs.getRecipesByMemberId(memberId, pageable));
+        } else {
+            return PageResponse.of(rs.getRecipeList(pageable));
         }
     }
 
@@ -167,6 +172,25 @@ public class RecipeController {
 
         return ResponseEntity.ok(rankings);
 
+    }
+
+    // 댓글 가져오기
+    @GetMapping("/comments")
+    @PreAuthorize("permitAll()")
+    public PageResponse<CommentSummary> getCommentsList(
+            @RequestParam(value = "recipeId", required = false)
+            Long recipeId,
+            @RequestParam(value = "memberId", required = false)
+            Long memberId,
+            Pageable pageable
+    ) {
+        if (recipeId != null) {
+            return PageResponse.of(rs.getCommentsList(recipeId, pageable));
+        } else if (memberId != null) {
+            return PageResponse.of(rs.getCommentsListOfMember(memberId, pageable));
+        } else {
+            throw new BadRequestException("recipeId 또는 memberId 중 하나는 필수입니다.");
+        }
     }
 
     // 댓글 가져오기

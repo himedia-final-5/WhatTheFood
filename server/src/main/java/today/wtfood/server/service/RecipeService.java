@@ -143,6 +143,10 @@ public class RecipeService {
         mr.save(member);
     }
 
+    public Page<RecipeSummary> getRecipesByMemberId(long memberId, Pageable pageable) {
+        return rr.findAllByMember_Id(memberId, pageable);
+    }
+
     // 카테고리
     public Page<RecipeSummary> getRecipesByCategory(String category, Pageable pageable) {
         return rr.findByCategory(category, pageable);
@@ -187,6 +191,11 @@ public class RecipeService {
     // 댓글 목록 조회
     public Page<CommentSummary> getCommentsList(long recipeId, Pageable pageable) {
         return cr.findByRecipeIdOrderByIdDesc(pageable, recipeId);
+    }
+
+    // 댓글 목록 조회
+    public Page<CommentSummary> getCommentsListOfMember(long memberId, Pageable pageable) {
+        return cr.findAllByMember_IdOrderByCreatedDateDesc(pageable, memberId);
     }
 
     // 댓글 추가
