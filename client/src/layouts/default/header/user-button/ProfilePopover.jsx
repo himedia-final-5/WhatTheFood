@@ -14,14 +14,22 @@ import {
 import { Button } from "components/shadcn/ui/button";
 import { Separator } from "components/shadcn/ui/separator";
 import { signoutAction, useDispatch, useSelector } from "stores";
+import { axios } from "utils";
 
-export default function ProfilePopover(props) {
+export default function ProfilePopover() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   function signout() {
-    dispatch(signoutAction());
-    toast.success("로그아웃 되었습니다");
+    // 사용자가 더이상 사용하지 않는 토큰을 제거하기 위해 서버에 로그아웃 요청을 보냅니다.
+    // 로그아웃 성공 여부와 상관없이 로컬 스토리지와 리덕스 스토어에서 사용자 정보를 제거합니다.
+    axios
+      .post("/api/auth/signout")
+      .catch(() => {})
+      .finally(() => {
+        dispatch(signoutAction());
+        toast.success("로그아웃 되었습니다");
+      });
   }
 
   return (
