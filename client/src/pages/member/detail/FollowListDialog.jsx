@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from "@reactuses/core";
 import { toast } from "react-toastify";
 
@@ -19,11 +20,10 @@ import {
   DrawerTitle,
 } from "components/shadcn/ui/drawer";
 
-import { usePageResponse } from "hooks";
+import { usePageResponse, useThrottle } from "hooks";
 import PaginationNav from "components/util/PaginationNav";
 import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
-import useThrottle from "hooks/useThrottle";
 import { useMemberDetail } from "./MemberDetail";
 
 /** @param {{  pen: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
@@ -156,12 +156,14 @@ const ProfileCard = memo(
         aria-label="profile"
         className="flex justify-around items-center w-full gap-4 shadow-md p-2 border border-neutral-200 rounded-md"
       >
-        <img
-          src={profile.profileImage}
-          alt="profile"
-          aria-label="profile-image"
-          className="w-10 object-cover rounded-full"
-        />
+        <Link to={`/members/${profile.id}`}>
+          <img
+            src={profile.profileImage}
+            alt="profile"
+            aria-label="profile-image"
+            className="w-10 object-cover rounded-full"
+          />
+        </Link>
         <div
           aria-label="profile-nickname"
           className="flex-1 text-base text-neutral-900"
@@ -181,7 +183,6 @@ const FollowButton = memo(
     const user = useSelector((state) => state.user);
 
     const toggleFollow = useThrottle(async () => {
-      console.log("toggleFollow", { member, user });
       if (!member || !user) return;
 
       if (member.id === user.id) {
