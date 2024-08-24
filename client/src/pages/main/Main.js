@@ -178,6 +178,42 @@ export default function Main() {
     </div>
   );
 
+    const CustomPrevArrowChefs = ({ onClick }) => (
+      <div className="custom-arrow_left-arrow_chef" onClick={onClick}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="none"
+          viewBox="0 0 19 18"
+        >
+          <path
+            stroke="#666"
+            strokeWidth="0.5"
+            d="m14.953 6.469-5.07 5.062L4.828 6.47"
+          ></path>
+        </svg>
+      </div>
+    );
+
+    const CustomNextArrowChefs = ({ onClick }) => (
+      <div className="custom-arrow_right-arrow_chef" onClick={onClick}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="none"
+          viewBox="0 0 19 18"
+        >
+          <path
+            stroke="#000"
+            strokeWidth="0.5"
+            d="m14.953 6.469-5.07 5.062L4.828 6.47"
+          ></path>
+        </svg>
+      </div>
+    );
+
   const settingEvents = {
     dots: false,
     fade: true,
@@ -240,14 +276,28 @@ export default function Main() {
 
   const settingChefs = {
     dots: false,
-    fade: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 10,
-    slidesToScroll: 5,
-    waitForAnimate: false,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    prevArrow: <CustomPrevArrowChefs />,
+    nextArrow: <CustomNextArrowChefs />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -300,7 +350,7 @@ export default function Main() {
         </div>
         <div className="main_chef">
           <h2 className="chef_section_title">Meet Our Top Chefs</h2>
-          <div className="chef_secion_wrap">
+          <div className="chef_section_wrap">
             <Slider {...settingChefs}>
               {chef.length > 0 ? (
                 chef.map((item, index) => (
@@ -315,9 +365,6 @@ export default function Main() {
                       </Link>
                     </div>
                     <div className="chef_info">
-                      <p className="chef_number">
-                        <b>{index + 1}</b>
-                      </p>
                       <p className="chef_name">{item.nickname}</p>
                     </div>
                   </div>
