@@ -24,15 +24,10 @@ import PaginationNav from "components/util/PaginationNav";
 import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
 import useThrottle from "hooks/useThrottle";
+import { useMemberDetail } from "./MemberDetail";
 
-/** @param {{  member: MemberProfileDetail, isFollower:boolean, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
-export default function FollowListDialog({
-  open,
-  setOpen,
-  member,
-  isFollower,
-  children,
-}) {
+/** @param {{  pen: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
+export default function FollowListDialog({ open, setOpen, children }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
@@ -42,13 +37,13 @@ export default function FollowListDialog({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              <PartOfTitle isFollower={isFollower} />
+              <PartOfTitle />
             </DialogTitle>
             <DialogDescription>
               <PartOfDescription />
             </DialogDescription>
           </DialogHeader>
-          <PartOfContent member={member} isFollower={isFollower} />
+          <PartOfContent />
         </DialogContent>
       </Dialog>
     );
@@ -60,22 +55,25 @@ export default function FollowListDialog({
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>
-            <PartOfTitle isFollower={isFollower} />
+            <PartOfTitle />
           </DrawerTitle>
           <DrawerDescription>
             <PartOfDescription />
           </DrawerDescription>
         </DrawerHeader>
-        <PartOfContent member={member} isFollower={isFollower} />
+        <PartOfContent />
       </DrawerContent>
     </Drawer>
   );
 }
 
-/** @param {{isFollower: boolean}} */
-function PartOfTitle({ isFollower }) {
+function PartOfTitle() {
+  const { followDialogMode } = useMemberDetail();
+
   return (
-    <div className="text-2xl">{isFollower ? "팔로워 목록" : "팔로잉 목록"}</div>
+    <div className="text-2xl">
+      {followDialogMode ? "팔로워 목록" : "팔로잉 목록"}
+    </div>
   );
 }
 
@@ -83,8 +81,8 @@ function PartOfDescription() {
   return <span className="block w-full h-0.5 bg-border" />;
 }
 
-/** @param {{member: MemberProfileDetail, isFollower: boolean}} */
-function PartOfContent({ member, isFollower }) {
+function PartOfContent() {
+  const { profile, followDialogMode } = useMemberDetail();
   /** @type {{content: MemberProfileSummary[], pagination: Pagination, setPageResponse: (response: PageResponse<MemberProfileSummary>) => void}} */
   const { content, pagination, setPageResponse } = usePageResponse();
 
@@ -92,14 +90,14 @@ function PartOfContent({ member, isFollower }) {
     (page) =>
       axios
         .get(
-          `/api/members/${member?.id}/${isFollower ? "followers" : "followings"}`,
+          `/api/members/${profile?.id}/${followDialogMode ? "followers" : "followings"}`,
           {
             params: { page, size: 5 },
           },
         )
         .then((result) => setPageResponse(result.data))
         .catch(console.error),
-    [setPageResponse, member?.id, isFollower],
+    [setPageResponse, profile?.id, followDialogMode],
   );
 
   useEffect(() => {

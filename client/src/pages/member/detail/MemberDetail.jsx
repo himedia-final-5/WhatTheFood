@@ -16,7 +16,7 @@ import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
 import { usePromise, useThrottle } from "hooks";
 
-/** @type {React.Context<{profile: MemberProfileDetail}, fetchProfile: () => void>} */
+/** @type {React.Context<{profile: MemberProfileDetail, fetchProfile: () => void, followDialogMode: boolean, setFollowDialogMode: React.Dispatch<React.SetStateAction<boolean>}>} */
 const MemberDetailContext = createContext();
 
 export const useMemberDetail = () => {
@@ -35,7 +35,7 @@ export default function MemberDetail() {
   const isMe = user?.id === Number(id) ? user : null;
   const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
   const [isFollowDialogOpen, setFollowDialogOpen] = useState(false);
-  const [followDialogMode, setFollowDialogMode] = useState(false);
+  const [followDialogMode, setFollowDialogMode] = useState(true);
   const [fetchProfile, profile, , error] = usePromise(
     null,
     useCallback(
@@ -77,7 +77,14 @@ export default function MemberDetail() {
   ) : error ? (
     <NotFoundRender message="회원 정보를 찾을 수 없습니다" />
   ) : (
-    <MemberDetailContext.Provider value={{ profile, fetchProfile }}>
+    <MemberDetailContext.Provider
+      value={{
+        profile,
+        fetchProfile,
+        followDialogMode,
+        setFollowDialogMode,
+      }}
+    >
       <div className="flex flex-col w-full h-hit mt-[-86px]">
         <div className="relative flex flex-col w-full h-hit">
           {user?.id &&
@@ -129,8 +136,6 @@ export default function MemberDetail() {
                 <FollowListDialog
                   open={isFollowDialogOpen}
                   setOpen={setFollowDialogOpen}
-                  member={profile}
-                  isFollower={followDialogMode}
                 >
                   <>
                     <button
