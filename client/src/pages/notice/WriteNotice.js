@@ -21,31 +21,29 @@ function WriteNotice() {
   }
 
   return (
-    <div className="writeBoard">
-      <div className="form-container">
-        <div className="field">
-          <label>제목</label>
-          <input
-            className="noticeWrite-title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.currentTarget.value)}
-          />
-        </div>
-        <div className="field">
-          <label>내용</label>
-          <textarea
-            id="content"
-            rows="10"
-            value={content}
-            style={{ resize: "none" }}
-            onChange={(e) => setContent(e.currentTarget.value)}
-          ></textarea>
-        </div>
-        <div className="btns">
-          <button onClick={() => onSubmit()}>작성완료</button>
-          <button onClick={() => navigate("/Notice")}>돌아가기</button>
-        </div>
+    <div className="container max-w-screen-sm mb-8">
+      <div className="field">
+        <label>제목</label>
+        <input
+          className="noticeWrite-title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.currentTarget.value)}
+        />
+      </div>
+      <div className="field">
+        <label>내용</label>
+        <textarea
+          id="content"
+          rows="10"
+          value={content}
+          style={{ resize: "none" }}
+          onChange={(e) => setContent(e.currentTarget.value)}
+        ></textarea>
+      </div>
+      <div className="btns">
+        <button onClick={() => onSubmit()}>작성완료</button>
+        <button onClick={() => navigate("/Notice")}>돌아가기</button>
       </div>
     </div>
   );

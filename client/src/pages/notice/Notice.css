@@ -1,63 +1,9 @@
-/* Container */
-.notice_container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  margin-bottom: 50px;
-}
-
-/* Header */
-.notice_header {
-  text-align: center;
-  margin-bottom: 0px;
-}
-
-.notice_title {
-  font-size: 1.8em;
-  font-weight: bold;
-  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
-  letter-spacing: 5.85px;
-}
-
-.notice_title::before,
-.notice_title::after {
-  display: inline-block;
-  width: 1px;
-  height: 20px;
-  content: "";
-  background-color: rgb(0, 0, 0);
-}
-
 .notice_col {
   margin-top: 2px;
   font-weight: normal;
-  font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
   font-size: 17px;
   line-height: 20px;
   letter-spacing: -0.5px;
-}
-
-.notice_subtitle {
-  font-weight: normal;
-  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  letter-spacing: 0px;
-  text-align: center;
-  margin-top: 16px;
-  white-space: pre-line;
-}
-
-.notice_line {
-  border-bottom: 2px solid rgb(147, 112, 98);
-  padding: 50px;
-}
-
-/* Notices */
-.notices {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 .notice {
@@ -83,62 +29,15 @@
   flex: 1;
 }
 
+.notice-content {
+  width: 100%;
+  padding: 0 1.25rem;
+  margin-top: 1rem;
+}
+
 .notice-date {
   font-size: 13px;
   color: #888;
-  font-family: "Noto Serif KR", serif, Helvetica, "Helvetica Neue", Arial;
-}
-
-.notice-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #000;
-}
-
-/* 기본 스타일 리셋 */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-.noticeWrite-container {
-  width: 417.91px;
-  /* height: 214.6px; */
-  position: relative; /* 부모 요소에 relative positioning 적용 */
-  /* padding: 20px; 여백 추가 */
-}
-
-.background-circle {
-  width: 220px; /* 부모 요소의 너비를 기준으로 설정 */
-  height: 70px; /* 부모 요소의 높이를 기준으로 설정 */
-  border-radius: 133.93px; /* 둥근 모서리 설정 */
-  background-color: #d9d9d9; /* 배경색 설정 */
-  position: absolute;
-  top: 50px;
-  left: 900px;
-}
-
-.noticeWrite-text {
-  position: relative;
-  left: 800px; /* 중앙 정렬을 위한 상대적 위치 설정 */
-  top: 75px; /* 중앙 정렬을 위한 상대적 위치 설정 */
-  font-family: Impact, Charcoal, sans-serif;
-  font-size: 24px; /* 폰트 크기 설정 */
-  font-weight: 500; /* 폰트 두께 설정 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  color: #000; /* 텍스트 색상 설정 */
-  margin: 0; /* 기본 여백 제거 */
-}
-
-/* 전체 폼 컨테이너 */
-.form-container {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #noticeWrite-title {
