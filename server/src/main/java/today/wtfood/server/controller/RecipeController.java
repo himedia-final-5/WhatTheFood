@@ -37,6 +37,7 @@ public class RecipeController {
             String category,
             @RequestParam(value = "memberId", required = false)
             Long memberId,
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {
         if (category != null && !category.isEmpty()) {

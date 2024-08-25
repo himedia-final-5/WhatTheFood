@@ -158,9 +158,7 @@ VALUES (35, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1092
 '레어 치즈케이크', '부드럽고 풍부한 치즈 맛이 일품인 레어 치즈케이크입니다. 상큼한 레몬과 크림치즈의 조화로 입안에서 부드럽고 고소한 맛이 느껴지는 디저트입니다.',
 '4시간', 8, 2, 'https://www.youtube.com/watch?v=Kh9Tdukm0qA&pp=ygUg66CI7Ja0IOy5mOymiOy8gOydtO2BrCDrp4zrk6TquLA%3D', '베이킹', 0);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
-VALUES (36, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1092/0a2bb178-ac96-4c04-85e9-bd424f4d849b.jpg?size=800x800',
-'레어 치즈케이크', '부드럽고 풍부한 치즈 맛이 일품인 레어 치즈케이크입니다. 상큼한 레몬과 크림치즈의 조화로 입안에서 부드럽고 고소한 맛이 느껴지는 디저트입니다.',
-'4시간', 8, 2, 'https://www.youtube.com/watch?v=Kh9Tdukm0qA&pp=ygUg66CI7Ja0IOy5mOymiOy8gOydtO2BrCDrp4zrk6TquLA%3D', '베이킹', 0);
+
 
 -- 재료 사진 삽입
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
@@ -233,8 +231,7 @@ INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (34, 'https://static.wtable.co.kr/image/production/service/recipe/1653/42eaa243-ddb5-4092-b1a3-dca15c807aa9.jpg?size=800x800');
 INSERT INTO recipe_ingredient_image (id, ingredient_image)
 VALUES (35, 'https://static.wtable.co.kr/image/production/service/recipe/1092/84f6defa-6529-4295-84e3-3c301175cbc0.jpg?size=800x800');
-INSERT INTO recipe_ingredient_image (id, ingredient_image)
-VALUES (36, 'https://static.wtable.co.kr/image/production/service/recipe/1092/84f6defa-6529-4295-84e3-3c301175cbc0.jpg?size=800x800');
+
 
 -- 재료 삽입
 INSERT INTO recipe_ingredient (id, ingredients)
@@ -1024,28 +1021,7 @@ VALUES
     (35, '2개'),
     (35, '바닐라 익스트랙'),
     (35, '1작은술');
-INSERT INTO recipe_ingredient (id, ingredients)
-VALUES
-    (36, '크림치즈'),
-    (36, '250g'),
-    (36, '사워크림'),
-    (36, '150g'),
-    (36, '설탕'),
-    (36, '100g'),
-    (36, '레몬즙'),
-    (36, '2큰술'),
-    (36, '젤라틴'),
-    (36, '10g'),
-    (36, '물'),
-    (36, '50ml'),
-    (36, '비스킷'),
-    (36, '150g'),
-    (36, '버터'),
-    (36, '50g'),
-    (36, '계란'),
-    (36, '2개'),
-    (36, '바닐라 익스트랙'),
-    (36, '1작은술');
+
 
 -- Recipe Tools
 INSERT INTO recipe_tool (id, cooking_tools)
@@ -1118,8 +1094,7 @@ INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (34, '오븐'), (34, '믹서기'), (34, '혼합볼'), (34, '베이킹 팬');
 INSERT INTO recipe_tool (id, cooking_tools)
 VALUES (35, '믹서기'), (35, '혼합볼'), (35, '베이킹 팬'), (35, '냉장고');
-INSERT INTO recipe_tool (id, cooking_tools)
-VALUES (36, '믹서기'), (36, '혼합볼'), (36, '베이킹 팬'), (36, '냉장고');
+
 
 -- Recipe Guide Links
 INSERT INTO recipe_guide_link (id, guide_links)
@@ -1192,8 +1167,7 @@ INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (34, 'https://blog.naver.com/jeemiyoung/222224728004');
 INSERT INTO recipe_guide_link (id, guide_links)
 VALUES (35, 'https://www.10000recipe.com/recipe/6920803');
-INSERT INTO recipe_guide_link (id, guide_links)
-VALUES (36, 'https://www.10000recipe.com/recipe/6920803');
+
 
 
 -- Recipe Cooking Steps
@@ -1451,27 +1425,7 @@ VALUES
                                                                                                                                        13. 순서12를 냉장고에서 꺼낸 뒤 뜨거운 행주로 틀을 감싸주세요.
                                                                                                                                        (Tip! 너무 오랫동안 감싸고 있으면 케이크가 다 녹아내릴 수 있으니 주의합니다.)
                                                                                                                                        14. 원형 통 위에 순서13을 올려두고 팬을 제거합니다.15. 우유, 커피 등과 함께 맛있게 즐겨주세요!');
-INSERT INTO recipe_cooking_step (recipe_id, step_number, image_url, description)
-VALUES
-    (36, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1092/b23fd045-a406-48d4-a985-13173ef035c2.jpg?size=800x800', '
-                                                                                                                                       1. 통밀쿠키를 비닐 팩에 넣고 밀대로 밀어 최대한 곱게 부숴주세요.
-                                                                                                                                       (Tip! 통밀쿠키는 시중에서 판매하는 것을 사용해도 괜찮습니다.)
-                                                                                                                                       2. 곱게 부서진 통밀쿠키를 볼에 넣고 미리 녹여둔 버터를 부어 잘 섞어주세요.
-                                                                                                                                       3. 유산지를 깐 팬에 순서2를 붓고 밀대의 동그란 부분을 이용해 평평하게 펴준 뒤 냉장고에 넣 어주세요.
-                                                                                                                                       4. 볼에 크림치즈를 담고 부드럽게 풀어주다가 설탕을 더해 마요네즈 상태가 될 때까지 섞어 주세요.'),
-    (36, 2, 'https://static.wtable.co.kr/image/production/service/recipe/1092/9b35504c-b0e9-4f34-8d56-c348dff54cfb.jpg?size=800x800', '5. 물에 젤라틴을 넣고 충분히 불려주세요.
-                                                                                                                                       (Tip! 젤라틴을 처음 불려줄 때 사용할 물은 반드시 차가운 것으로 합니다.)
-                                                                                                                                       6. 그사이 플레인 요거트를 순서4에 붓고 잘 섞어주세요.
-                                                                                                                                       7. 순서6에 준비한 생크림의 절반만 넣어 저어주다가 나머지 생크림을 모두 붓고 골고루 믹싱합니다.
-                                                                                                                                       (Tip! 거품기를 들어 올렸을 때 끝에 묻은 반죽이 아래로 떨어져 바로 사라지지 않고 몇 초 동안 남아 있으면 완성입니다.)'),
-    (36, 3, 'https://static.wtable.co.kr/image/production/service/recipe/1092/4accaee9-1575-471d-902d-62e610915d48.jpg?size=800x800', '8. 찬물에 불려 놓았던 젤라틴의 물기를 꽉 짜서 작은 그릇에 넣어주세요.
-                                                                                                                                       9. 커다란 냄비에 뜨거운 물을 붓고 순서8을 올려 중탕으로 젤라틴을 완전히 녹여주세요.
-                                                                                                                                       10. 순서7에 녹은 젤라틴을 넣고 잘 저어준 다음 레몬즙을 더해 골고루 섞어줍니다.'),
-    (36, 4, 'https://static.wtable.co.kr/image/production/service/recipe/1092/7fe49adc-14b0-4da2-bdf3-04afdbef5533.jpg?size=800x800', '11. 냉장고에 넣어두었던 순서3을 꺼내 통밀쿠키 반죽 위에 순서10을 부어주세요.
-                                                                                                                                       12. 젓가락으로 표면에 발생한 기포를 없애준 뒤 냉장고에 다시 넣어 3시간 이상 굳힙니다.
-                                                                                                                                       13. 순서12를 냉장고에서 꺼낸 뒤 뜨거운 행주로 틀을 감싸주세요.
-                                                                                                                                       (Tip! 너무 오랫동안 감싸고 있으면 케이크가 다 녹아내릴 수 있으니 주의합니다.)
-                                                                                                                                       14. 원형 통 위에 순서13을 올려두고 팬을 제거합니다.15. 우유, 커피 등과 함께 맛있게 즐겨주세요!');
+
 
 
 INSERT INTO recipe_finished_image (id, finished_images)
@@ -1544,8 +1498,7 @@ INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (34, 'https://static.wtable.co.kr/image/production/service/recipe/1653/f6a04a92-56da-4ab0-86ab-d426e03318f3.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (35, 'https://static.wtable.co.kr/image/production/service/recipe/1092/bf2af94a-69d6-4a0f-a46b-b4ffcb7af121.jpg?size=800x800');
-INSERT INTO recipe_finished_image (id, finished_images)
-VALUES (36, 'https://static.wtable.co.kr/image/production/service/recipe/1092/bf2af94a-69d6-4a0f-a46b-b4ffcb7af121.jpg?size=800x800');
+
 
 
 -- Recipe Tags
@@ -1619,8 +1572,7 @@ INSERT INTO recipe_tag (id, tags)
 VALUES (34, '브라우니'), (34, '아보카도'), (34, '디저트'), (34, '초콜릿');
 INSERT INTO recipe_tag (id, tags)
 VALUES (35, '치즈케이크'), (35, '레어 치즈케이크'), (35, '디저트'), (35, '레몬');
-INSERT INTO recipe_tag (id, tags)
-VALUES (36, '치즈케이크'), (36, '레어 치즈케이크'), (36, '디저트'), (36, '레몬');
+
 
 
 -- Comments for Recipe
@@ -1799,11 +1751,7 @@ VALUES
     (35, 1, '부드럽고 상큼한 맛이 일품입니다! 레몬의 향이 정말 좋네요.'),
     (35, 2, '만들기 쉽고, 맛도 훌륭해요. 가족 모두가 좋아했습니다.'),
     (35, 3, '치즈케이크가 이렇게 가벼울 수 있다니 놀라워요. 자주 만들어 먹을 것 같아요.');
-INSERT INTO recipe_comments (recipe_id, member_id, content)
-VALUES
-    (36, 1, '부드럽고 상큼한 맛이 일품입니다! 레몬의 향이 정말 좋네요.'),
-    (36, 2, '만들기 쉽고, 맛도 훌륭해요. 가족 모두가 좋아했습니다.'),
-    (36, 3, '치즈케이크가 이렇게 가벼울 수 있다니 놀라워요. 자주 만들어 먹을 것 같아요.');
+
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
@@ -1876,8 +1824,7 @@ INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 34);  -- 사용자가 33번 레시피를 찜한 경우
 INSERT INTO favorite_recipes (member_id, recipe_id)
 VALUES (1, 35);  -- 사용자가 33번 레시피를 찜한 경우
-INSERT INTO favorite_recipes (member_id, recipe_id)
-VALUES (1, 36);  -- 사용자가 33번 레시피를 찜한 경우
+
 
 -- 외래키 제약조건을 다시 활성화
 SET SESSION FOREIGN_KEY_CHECKS = 1;
