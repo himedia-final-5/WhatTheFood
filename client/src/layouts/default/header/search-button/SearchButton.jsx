@@ -1,37 +1,19 @@
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
+import { IconSearch } from "@tabler/icons-react";
+
 import cn from "utils/cn";
-import { useState } from "react";
+import { useInput } from "hooks";
 
 export default function SearchButton() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [searchTerm, onTermChange, setSearchTerm] = useInput("");
 
   const handleSearch = async () => {
     const trimTerm = searchTerm.trim();
 
     if (trimTerm) {
-      setLoading(true);
-      setError(null);
-
-      try {
-        // 서버의 검색 API를 호출합니다.
-        // const response = await axios.get(`/api/recipes/search`, {
-        //   params: { term: trimTerm, page: 0, size: 8 },
-        // });
-
-        // if (response.statusText.toUpperCase() != 'OK') {
-        //   throw new Error("error");
-        // }
-        setSearchTerm("");
-        navigate(`/recipes/`, { state: { searchTerm: trimTerm } });
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+      setSearchTerm("");
+      navigate(`/recipes/`, { state: { searchTerm: trimTerm } });
     }
   };
 
@@ -52,18 +34,15 @@ export default function SearchButton() {
         type="search"
         placeholder="레시피 검색"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={onTermChange}
         className="w-full text-base p-0"
       />
       <button
         type="submit"
         className="absolute right-2 top-0 flex items-center h-full z-20"
-        disabled={loading}
       >
-        <MagnifyingGlassIcon className="h-8 w-8" />
+        <IconSearch className="h-6 w-6" />
       </button>
-      {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
     </form>
   );
 }
