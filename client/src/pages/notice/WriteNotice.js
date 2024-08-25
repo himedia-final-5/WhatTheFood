@@ -43,7 +43,7 @@ function WriteNotice() {
       </div>
       <div className="btns">
         <button onClick={() => onSubmit()}>작성완료</button>
-        <button onClick={() => navigate("/Notice")}>돌아가기</button>
+        <button onClick={() => navigate("/notices")}>돌아가기</button>
       </div>
     </div>
   );
