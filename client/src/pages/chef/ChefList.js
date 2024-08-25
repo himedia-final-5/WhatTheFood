@@ -9,7 +9,7 @@ const items = ["일간", "주간", "월간"];
 const periodMapping = { 일간: "d", 주간: "w", 월간: "m" };
 
 export default function ChefList() {
-  const [setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const [selectedPeriod] = useState("d");
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
