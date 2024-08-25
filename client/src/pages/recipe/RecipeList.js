@@ -127,8 +127,7 @@ export default function RecipeList() {
   //
   useEffect(() => {
     reset();
-    fetchPage(0).catch(defaultErrorHandler);
-  }, [selectedCategory, searchTerm, fetchPage, reset]);
+  }, [selectedCategory, searchTerm, reset]);
 
   return (
     <div className="recipeList_wrap">
