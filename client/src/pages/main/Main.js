@@ -227,10 +227,10 @@ export default function Main() {
     slidesToShow: 1,
     slidesToScroll: 1,
     waitForAnimate: false,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
     autoplay: true, // 자동 슬라이더 활성화
     autoplaySpeed: 3000, // 3초마다 슬라이드 전환 (단위: ms)
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
     responsive: [
       {
         breakpoint: 768,
@@ -239,7 +239,7 @@ export default function Main() {
           slidesToScroll: 1,
           autoplay: false, // 768px 이하에서 오토플레이 비활성화
           swipe: true, // 손가락으로 슬라이드 가능
-          arrows: true, // 화살표 네비게이션 활성화
+          arrows: false, // 화살표 네비게이션 비활성화
         },
       },
     ],
@@ -300,6 +300,8 @@ export default function Main() {
         settings: {
           slidesToShow: 4,
           slidesToScroll: 2,
+          prevArrow: false,
+          nextArrow: false,
         },
       },
     ],
@@ -320,6 +322,7 @@ export default function Main() {
               )}
             </Slider>
           </div>
+          <button></button>
         </div>
         <div className="main_best_recipe_wrap">
           <div className="main_best_recipe_inner_wrap">
