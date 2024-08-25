@@ -11,6 +11,7 @@ import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.recipe.*;
 import today.wtfood.server.exception.BadRequestException;
+import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
@@ -128,14 +129,23 @@ public class RecipeController {
 
     // 찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("permitAll()")
     public PageResponse<RecipeSummary> getFavoriteRecipes(
             Pageable pageable,
 
+            @RequestParam(value = "memberId", required = false)
+            Long memberId,
+
             @CurrentUser
-            long memberId
+            Long currentMemberId
     ) {
-        return PageResponse.of(rs.getFavoriteRecipes(memberId, pageable));
+        // memberId 파라미터가 없고, 로그인 정보가 없으면 예외 발생
+        if (memberId == null && currentMemberId == null) {
+            throw new UnauthorizedException("로그인이 필요합니다.");
+        }
+
+        // 입력된 memberId가 없으면 현재 로그인한 사용자의 memberId를 사용
+        return PageResponse.of(rs.getFavoriteRecipes(memberId == null ? currentMemberId : memberId, pageable));
     }
 
     // 찜하기 취소
