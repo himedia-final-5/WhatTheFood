@@ -78,10 +78,11 @@
   transform: translateY(-5px);
 }
 
-.recipe_imageUrl img {
+/* .recipe_imageUrl img {
   width: 100%;
+  aspect-ratio: 16 / 16;
   object-fit: cover;
-}
+} */
 
 /* 텍스트 영역 스타일링 */
 .recipe_text_wrap {
