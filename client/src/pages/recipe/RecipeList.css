@@ -8,6 +8,8 @@
 
 /* 게시글쓰기 버튼 스타일 */
 .create_recipe_button {
+  position: absolute;
+  top: -2.5rem;
   background-color: #ffffff; /* 버튼 배경색 */
   color: #000000; /* 버튼 글자색 */
   border: 2px solid #d7d7d7;
@@ -44,6 +46,7 @@
 
 .category_filter {
   display: flex;
+  position: relative;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -53,9 +56,10 @@
   background-color: #ffffff;
   color: #333;
   border: 0.5px solid #dddddd;
-  border-radius: 8px;
-  padding: 5px 20px;
+  border-radius: 0.5rem;
+  padding: 0.25rem 1rem;
   font-size: 1rem;
+  text-wrap: nowrap;
   cursor: pointer;
   transition:
     background-color 0.3s,
