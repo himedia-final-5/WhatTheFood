@@ -8,12 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { DefaultLayout, AdminLayout } from "layouts";
 import { ErrorRender, NotFoundRender } from "layouts/fallback";
 import { Main } from "pages/main";
-import {
-  EmailLogin,
-  MemberDetail,
-  MemberUpdate,
-  OAuth2Login,
-} from "pages/member";
+import { EmailLogin, MemberDetail, OAuth2Login } from "pages/member";
 import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
 import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
 import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
@@ -89,7 +84,6 @@ function App() {
               <Route path="/events/write/:id" element={<EventUpdate />} />
 
               <Route path="/members/:id" element={<MemberDetail />} />
-              <Route path="/setting" element={<MemberUpdate />} />
               <Route path="/login/email/:token" element={<EmailLogin />} />
               <Route path="/login/oauth2" element={<OAuth2Login />} />
 
