@@ -9,12 +9,15 @@ function UpdateNotice() {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
-  const [, setNotice] = useState({});
 
   useEffect(() => {
     axios
       .get(`/api/notices/${id}`)
-      .then((result) => setNotice(result.data))
+      .then((result) => {
+        const { title, content } = result.data;
+        setTitle(title);
+        setContent(content);
+      })
       .catch(console.error);
   }, [id]);
 
@@ -36,7 +39,7 @@ function UpdateNotice() {
         <input
           className="noticeWrite-title"
           type="text"
-          value={title}
+          defaultValue={title}
           onChange={(e) => setTitle(e.currentTarget.value)}
         />
         {UpdateNotice.title}
@@ -46,7 +49,7 @@ function UpdateNotice() {
         <textarea
           id="content"
           rows="10"
-          value={content}
+          defaultValue={content}
           style={{ resize: "none" }}
           onChange={(e) => setContent(e.currentTarget.value)}
         ></textarea>
