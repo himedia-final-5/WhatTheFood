@@ -5,7 +5,7 @@ export default function initialPagination(page = 0) {
     size: 0,
     totalElements: 0,
     totalPages: 0,
-    first: true,
-    last: true,
+    first: page === 0,
+    last: false,
   };
 }
