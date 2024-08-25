@@ -1,9 +1,11 @@
 import { memo, useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from "@reactuses/core";
 import { toast } from "react-toastify";
 
 import {
   Dialog,
+  DialogTrigger,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -11,40 +13,37 @@ import {
 } from "components/shadcn/ui/dialog";
 import {
   Drawer,
+  DrawerTrigger,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
 } from "components/shadcn/ui/drawer";
 
-import { usePageResponse } from "hooks";
+import { usePageResponse, useThrottle } from "hooks";
 import PaginationNav from "components/util/PaginationNav";
 import { useSelector } from "stores";
 import { axios, cn, defaultErrorHandler } from "utils";
-import useThrottle from "hooks/useThrottle";
+import { useMemberDetail } from "./MemberDetail";
 
-/** @param {{  member: MemberProfileDetail, isFollower:boolean, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
-export default function FollowListDialog({
-  open,
-  setOpen,
-  member,
-  isFollower,
-}) {
+/** @param {{  pen: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
+export default function FollowListDialog({ open, setOpen, children }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              <PartOfTitle isFollower={isFollower} />
+              <PartOfTitle />
             </DialogTitle>
             <DialogDescription>
               <PartOfDescription />
             </DialogDescription>
           </DialogHeader>
-          <PartOfContent member={member} isFollower={isFollower} />
+          <PartOfContent />
         </DialogContent>
       </Dialog>
     );
@@ -52,25 +51,50 @@ export default function FollowListDialog({
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>
-            <PartOfTitle isFollower={isFollower} />
+            <PartOfTitle />
           </DrawerTitle>
           <DrawerDescription>
             <PartOfDescription />
           </DrawerDescription>
         </DrawerHeader>
-        <PartOfContent member={member} isFollower={isFollower} />
+        <PartOfContent />
       </DrawerContent>
     </Drawer>
   );
 }
 
-/** @param {{isFollower: boolean}} */
-function PartOfTitle({ isFollower }) {
+function PartOfTitle() {
+  const { followDialogMode, setFollowDialogMode } = useMemberDetail();
+
   return (
-    <div className="text-2xl">{isFollower ? "팔로워 목록" : "팔로잉 목록"}</div>
+    <div className="flex justify-around items-center w-full h-fit md:mt-2 p-1 text-2xl bg-neutral-100 rounded-lg">
+      <button
+        className={cn(
+          "flex-1 rounded-lg transition-colors",
+          followDialogMode
+            ? "text-neutral-900 bg-white shadow-sm"
+            : "text-neutral-500",
+        )}
+        onClick={() => setFollowDialogMode(true)}
+      >
+        팔로워
+      </button>
+      <button
+        className={cn(
+          "flex-1 rounded-lg transition-colors",
+          followDialogMode
+            ? " text-neutral-500"
+            : "text-neutral-900 bg-white shadow-sm",
+        )}
+        onClick={() => setFollowDialogMode(false)}
+      >
+        팔로잉
+      </button>
+    </div>
   );
 }
 
@@ -78,8 +102,9 @@ function PartOfDescription() {
   return <span className="block w-full h-0.5 bg-border" />;
 }
 
-/** @param {{member: MemberProfileDetail, isFollower: boolean}} */
-function PartOfContent({ member, isFollower }) {
+function PartOfContent() {
+  const [fetched, setFetched] = useState(false);
+  const { profile, followDialogMode } = useMemberDetail();
   /** @type {{content: MemberProfileSummary[], pagination: Pagination, setPageResponse: (response: PageResponse<MemberProfileSummary>) => void}} */
   const { content, pagination, setPageResponse } = usePageResponse();
 
@@ -87,30 +112,37 @@ function PartOfContent({ member, isFollower }) {
     (page) =>
       axios
         .get(
-          `/api/members/${member?.id}/${isFollower ? "followers" : "followings"}`,
+          `/api/members/${profile?.id}/${followDialogMode ? "followers" : "followings"}`,
           {
             params: { page, size: 5 },
           },
         )
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
-    [setPageResponse, member?.id, isFollower],
+        .catch(console.error)
+        .finally(() => setFetched(true)),
+    [setPageResponse, profile?.id, followDialogMode],
   );
 
   useEffect(() => {
-    if (content.length === 0) {
+    if (!fetched) {
       onSelectPage(0);
     }
-  }, [onSelectPage, content]);
+  }, [onSelectPage, fetched]);
+
+  useEffect(() => {
+    setFetched(false);
+  }, [followDialogMode]);
 
   return (
     <div
       aria-label="member-profile-list"
-      className="flex flex-col gap-2 items-center w-full flex-1 max-md:px-4 py-4"
+      className="flex flex-col items-center w-full h-[420px] max-md:px-4 py-4"
     >
-      {content.map((profile) => (
-        <ProfileCard key={profile.id} profile={profile} />
-      ))}
+      <div className="flex flex-col gap-2 items-center w-full flex-1">
+        {content.map((profile) => (
+          <ProfileCard key={profile.id} profile={profile} />
+        ))}
+      </div>
       <PaginationNav {...{ pagination, onSelectPage }} />
     </div>
   );
@@ -119,11 +151,38 @@ function PartOfContent({ member, isFollower }) {
 const ProfileCard = memo(
   /** @param {{profile: MemberProfileSummary}} */
   ({ profile }) => {
+    return (
+      <div
+        aria-label="profile"
+        className="flex justify-around items-center w-full gap-4 shadow-md p-2 border border-neutral-200 rounded-md"
+      >
+        <Link to={`/members/${profile.id}`}>
+          <img
+            src={profile.profileImage}
+            alt="profile"
+            aria-label="profile-image"
+            className="w-10 object-cover rounded-full"
+          />
+        </Link>
+        <div
+          aria-label="profile-nickname"
+          className="flex-1 text-base text-neutral-900"
+        >
+          {profile.nickname}
+        </div>
+        <FollowButton profile={profile} />
+      </div>
+    );
+  },
+);
+
+const FollowButton = memo(
+  /** @param {{profile: MemberProfileSummary}} */
+  ({ profile }) => {
     const [member, setMember] = useState(profile);
     const user = useSelector((state) => state.user);
 
     const toggleFollow = useThrottle(async () => {
-      console.log("toggleFollow", { member, user });
       if (!member || !user) return;
 
       if (member.id === user.id) {
@@ -150,34 +209,18 @@ const ProfileCard = memo(
     }, 3000);
 
     return (
-      <div
-        aria-label="profile"
-        className="flex justify-around items-center w-full gap-4 shadow-md p-2 border border-neutral-200 rounded-md"
-      >
-        <img
-          src={member.profileImage}
-          alt="profile"
-          aria-label="profile-image"
-          className="w-10 object-cover rounded-full"
-        />
-        <div
-          aria-label="profile-nickname"
-          className="flex-1 text-base text-neutral-900"
+      user?.id &&
+      user.id !== member.id && (
+        <button
+          className={cn(
+            "w-20 px-2 py-1 shadow-md text-sm font-bold border border-neutral-200 rounded-md",
+            member.following ? "text-neutral-500" : "text-green-500",
+          )}
+          onClick={toggleFollow}
         >
-          {member.nickname}
-        </div>
-        {user?.id && user.id !== member.id && (
-          <button
-            className={cn(
-              "text-sm text-primary w-20 px-2 py-1 shadow-md p-2 border border-neutral-200 rounded-md",
-              member.following ? "text-primary" : "text-neutral-700",
-            )}
-            onClick={toggleFollow}
-          >
-            {member.following ? "언팔로우" : "팔로우"}
-          </button>
-        )}
-      </div>
+          {member.following ? "언팔로우" : "팔로우"}
+        </button>
+      )
     );
   },
 );

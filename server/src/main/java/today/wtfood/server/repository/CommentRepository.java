@@ -10,4 +10,6 @@ public interface CommentRepository extends JpaRepository<Recipe.Comment, Long> {
 
     Page<CommentSummary> findByRecipeIdOrderByIdDesc(Pageable pageable, long recipeId);
 
+    Page<CommentSummary> findAllByMember_IdOrderByCreatedDateDesc(Pageable pageable, long memberId);
+
 }

@@ -5,9 +5,11 @@ import {
   IconReload,
   IconLibraryPhoto as IconImageInPicture,
 } from "@tabler/icons-react";
+import { GearIcon } from "@radix-ui/react-icons";
 
 import {
   Dialog,
+  DialogTrigger,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -15,10 +17,9 @@ import {
 } from "components/shadcn/ui/dialog";
 import {
   Drawer,
-  //DrawerClose,
+  DrawerTrigger,
   DrawerContent,
   DrawerDescription,
-  //DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "components/shadcn/ui/drawer";
@@ -35,14 +36,18 @@ import cn from "utils/cn";
 import axios from "utils/jwtUtil";
 import { useDispatch, updateProfile } from "stores";
 import { useInput } from "hooks";
+import { useMemberDetail } from "./MemberDetail";
 
-/** @param {{  member: MemberProfileDetail, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
-export default function ProfileUpdateDialog({ open, setOpen, member }) {
+export default function ProfileUpdateDialog() {
+  const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger>
+          <Trigger open={open} />
+        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
@@ -52,7 +57,7 @@ export default function ProfileUpdateDialog({ open, setOpen, member }) {
               <PartOfDescription />
             </DialogDescription>
           </DialogHeader>
-          <PartOfContent setOpen={setOpen} member={member} />
+          <PartOfContent setOpen={setOpen} />
         </DialogContent>
       </Dialog>
     );
@@ -60,6 +65,9 @@ export default function ProfileUpdateDialog({ open, setOpen, member }) {
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger>
+        <Trigger open={open} />
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>
@@ -69,9 +77,23 @@ export default function ProfileUpdateDialog({ open, setOpen, member }) {
             <PartOfDescription />
           </DrawerDescription>
         </DrawerHeader>
-        <PartOfContent setOpen={setOpen} member={member} />
+        <PartOfContent setOpen={setOpen} />
       </DrawerContent>
     </Drawer>
+  );
+}
+
+function Trigger({ open }) {
+  return (
+    <div className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full">
+      <GearIcon
+        className={cn(
+          "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
+          "hover:rotate-45 hover:scale-110",
+          open ? "rotate-90 scale-125" : "",
+        )}
+      />
+    </div>
   );
 }
 
@@ -106,22 +128,24 @@ function ImageButton({ srText = "button", children, ...props }) {
 
 /**
  *
- * @param {{member: MemberProfileDetail, setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
+ * @param {{setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
  */
-function PartOfContent({ member, setOpen }) {
+function PartOfContent({ setOpen }) {
+  const { profile, fetchProfile } = useMemberDetail();
+
   const dispatch = useDispatch();
-  const [profileImage, setProfileImageState] = useState(member.profileImage);
-  const [bannerImage, setBannerImageState] = useState(member.bannerImage);
+  const [profileImage, setProfileImageState] = useState(profile.profileImage);
+  const [bannerImage, setBannerImageState] = useState(profile.bannerImage);
   const [profileLoading, setProfileLoading] = useState(true);
   const [bannerLoading, setBannerLoading] = useState(true);
-  const [nickname, onNicknameInputChange] = useInput(member.nickname);
-  const [introduce, onIntroduceInputChange] = useInput(member.introduce);
+  const [nickname, onNicknameInputChange] = useInput(profile.nickname);
+  const [introduce, onIntroduceInputChange] = useInput(profile.introduce);
 
   const isDirty =
-    profileImage !== member.profileImage ||
-    bannerImage !== member.bannerImage ||
-    nickname !== member.nickname ||
-    introduce !== member.introduce;
+    profileImage !== profile.profileImage ||
+    bannerImage !== profile.bannerImage ||
+    nickname !== profile.nickname ||
+    introduce !== profile.introduce;
 
   function setProfileImage(image) {
     setProfileLoading(true);
@@ -135,19 +159,20 @@ function PartOfContent({ member, setOpen }) {
 
   /** @param {z.infer<typeof formSchema>} */
   function onSubmit() {
-    const profile = {
+    const inputs = {
       profileImage,
       bannerImage,
       nickname,
       introduce,
     };
 
-    toast.promise(axios.post(`/api/members/${member.id}/profile`, profile), {
+    toast.promise(axios.post(`/api/members/${profile.id}/profile`, inputs), {
       pending: "프로필 업데이트 중입니다",
       success: {
         render() {
-          dispatch(updateProfile(profile));
+          dispatch(updateProfile(inputs));
           setOpen(false);
+          fetchProfile();
           return "프로필 업데이트에 성공했습니다";
         },
       },

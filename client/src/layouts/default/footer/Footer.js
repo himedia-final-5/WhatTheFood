@@ -11,10 +11,10 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-top">
-          <Link className="footer-logo" to="/">
+          <Link className="footer-logo hidden xs:block" to="/">
             <img src="/images/logo.png" alt="Logo" />
           </Link>
-          <div className="footer-links">
+          <div className="footer-links hidden xs:block">
             <ul>
               <li>
                 <Link to="/about">회사소개</Link>
@@ -34,28 +34,30 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="footer-social">
-          <a
-            href="https://www.facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="/images/facebook.png" alt="Facebook" />
-          </a>
-          <a
-            href="https://www.instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="/images/instagram.png" alt="Instagram" />
-          </a>
-          <a
-            href="https://www.youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="/images/utube.png" alt="YouTube" />
-          </a>
+        <div className="footer-bottom hidden xs:block">
+          <div className="footer-social">
+            <a
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/images/facebook.png" alt="Facebook" />
+            </a>
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/images/instagram.png" alt="Instagram" />
+            </a>
+            <a
+              href="https://www.youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/images/utube.png" alt="YouTube" />
+            </a>
+          </div>
         </div>
         <div className="footer-info">
           <p>
@@ -63,7 +65,7 @@ function Footer() {
             &nbsp;&nbsp;|&nbsp;&nbsp; 책임자3 : 김태희&nbsp;&nbsp;|&nbsp;&nbsp;
             책임자4 : 김재연
           </p>
-          <p>
+          <p className="hidden xs:block">
             E-mail : help@wtf.com / Fax : 02-123-4567 / 서울시 종로구 인사동 /
             문의전화(운영시간 평일 10:00~18:00) : 02-1111-2222 / 서비스 이용문의
             : 070-1234-4321 / 광고 및 제휴 문의 : WTF@wtf.com / (주)오늘뭐먹지?
