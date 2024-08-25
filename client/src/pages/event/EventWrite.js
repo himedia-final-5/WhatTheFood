@@ -42,12 +42,9 @@ export default function EventWrite() {
         // event 상태 객체에 저장된 모든 데이터를 요청 본문에 포함시킵니다.
         ...event,
       })
-      .then(() => {
-        // POST 요청이 성공하면, 사용자를 "/events" 경로로 리다이렉트합니다.
-        navigate("/events");
-
-        // 현재 상태 객체 event의 내용을 콘솔에 출력합니다.
-        console.log(event);
+      .then(({ data }) => {
+        // 작성된 게시글로 이동합니다.
+        navigate(`/events/${data.id}`);
       });
   }
 

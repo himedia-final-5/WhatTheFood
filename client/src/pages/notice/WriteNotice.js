@@ -12,9 +12,7 @@ function WriteNotice() {
   function onSubmit() {
     axios
       .post("/api/notices", { title, content })
-      .then(() => {
-        navigate("/notices");
-      })
+      .then(({ data }) => navigate(`/notices/${data.id}`))
       .catch((err) => {
         console.error(err);
       });
