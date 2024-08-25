@@ -11,10 +11,10 @@ import { useState } from "react";
  *
  * @template T
  * @param {T} defaultValue - 입력의 기본 값
- * @returns {[T, React.Dispatch<UseInputsAction>]} - 입력 상태와 핸들러
+ * @returns {[T, React.Dispatch<UseInputsAction>, React.Dispatch<React.SetStateAction<T>>]} - 입력 값, 입력 값 변경 함수
  */
 export default function useInputs(defaultValue) {
   const [input, setInput] = useState(defaultValue);
 
-  return [input, (e) => setInput(e.target.value)];
+  return [input, (e) => setInput(e.target.value), (value) => setInput(value)];
 }
