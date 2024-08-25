@@ -1,11 +1,11 @@
 package today.wtfood.server.entity.member;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -130,6 +130,7 @@ public class Member implements UserDetails, OAuth2User {
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
+    @OnDelete(action = OnDeleteAction.CASCADE) // 사용자가 삭제되면 찜한 레시피 목록에서도 삭제
     private Set<Recipe> favoriteRecipes; // 사용자가 찜한 레시피 목록
 
 }

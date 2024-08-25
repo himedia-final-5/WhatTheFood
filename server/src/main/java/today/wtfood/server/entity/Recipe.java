@@ -3,6 +3,8 @@ package today.wtfood.server.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import today.wtfood.server.entity.member.Member;
 
 import java.sql.Timestamp;
@@ -147,7 +149,7 @@ public class Recipe {
 
     // 찜한 멤버들 목록
     @ManyToMany(mappedBy = "favoriteRecipes")
-    //@ManyToMany(mappedBy = "favoriteRecipes", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE) // 찜한 레시피가 삭제되면 찜한 멤버 목록에서도 삭제
     private Set<Member> favoriteByMembers; // 이 레시피를 찜한 멤버 목록
 
     public void setCookingStep(List<CookingStep> cookingStep) {
