@@ -46,7 +46,9 @@ export default function RecipeDetail() {
       fetchRecipe();
     }
     fetchComments();
-  }, [id, isLoading, recipe, fetchRecipe, fetchComments]);
+
+    //eslint-disable-next-line
+  }, [id]);
 
   // Extract YouTube video ID from URL
   const extractYouTubeVideoId = (url) => {
