@@ -8,7 +8,7 @@ import "./RecipeDetail.css";
 import { AdminFeature } from "components/util";
 import { axios } from "utils";
 import { usePromise } from "hooks";
-import Popup from "../event/PopUp";
+import Popup from "./PopUp";
 
 /** @type {?RecipeDetail} */
 const DEFAULT_RECIPE = null;

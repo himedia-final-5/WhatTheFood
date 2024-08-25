@@ -1,7 +1,6 @@
 import { UndrawEatingTogether } from "components/asset";
 import { useEffect, useState, memo } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "stores";
 import "./Main.css";
 import { axios, defaultErrorHandler } from "utils";
@@ -13,7 +12,14 @@ export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
   const [recipes, setLatestRecipe] = useState([]); //배열
   const [chef, setChef] = useState([]);
-  const user = useSelector((state) => state.user);
+  const { id } = useParams(); //레시피 아이디 가져오는 변수
+
+  const extractYouTubeVideoId = (url) => {
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|watch\?.+v=)?([^"&?/\s]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
 
   // 메인 이벤트를 가져오는 함수
   async function fetchEvents() {
@@ -177,6 +183,42 @@ export default function Main() {
     </div>
   );
 
+  const CustomPrevArrowChefs = ({ onClick }) => (
+    <div className="custom-arrow_left-arrow_chef" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 19 18"
+      >
+        <path
+          stroke="#666"
+          strokeWidth="0.5"
+          d="m14.953 6.469-5.07 5.062L4.828 6.47"
+        ></path>
+      </svg>
+    </div>
+  );
+
+  const CustomNextArrowChefs = ({ onClick }) => (
+    <div className="custom-arrow_right-arrow_chef" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 19 18"
+      >
+        <path
+          stroke="#000"
+          strokeWidth="0.5"
+          d="m14.953 6.469-5.07 5.062L4.828 6.47"
+        ></path>
+      </svg>
+    </div>
+  );
+
   const settingEvents = {
     dots: false,
     fade: true,
@@ -209,6 +251,7 @@ export default function Main() {
     speed: 500,
     centerPadding: "60px",
     slidesToShow: 4,
+    slidesToScroll: 2,
     swipeToSlide: true,
     arrows: true,
     prevArrow: <CustomPrevArrowRecipe />,
@@ -238,14 +281,28 @@ export default function Main() {
 
   const settingChefs = {
     dots: false,
-    fade: true,
     infinite: true,
     speed: 500,
     slidesToShow: 10,
-    slidesToScroll: 5,
-    waitForAnimate: false,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
+    slidesToScroll: 3,
+    prevArrow: <CustomPrevArrowChefs />,
+    nextArrow: <CustomNextArrowChefs />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+        },
+      },
+    ],
   };
 
   return (
@@ -296,38 +353,33 @@ export default function Main() {
             </div>
           </div>
         </div>
-        <div className="main_chef">
-          <h2 className="chef_section_title">Meet Our Top Chefs</h2>
-          <div className="chef_secion_wrap">
-            <Slider {...settingChefs}>
-              {chef.length > 0 ? (
-                chef.map((item, index) => (
-                  <div key={index} className="chef_container">
-                    <div className="chef_image_wrap">
-                      <Link to={`/events/${item.id}`}>
-                        <img
-                          className="chef_image"
-                          src={item.profileImage}
-                          alt="member_profileImage"
-                        />
-                      </Link>
-                    </div>
-                    <div className="chef_info">
-                      <p className="chef_number">
-                        <b>{index + 1}</b>
-                      </p>
-                      <p className="chef_name">{item.nickname}</p>
-                    </div>
+      </div>
+      <div className="main_chef">
+        <h2 className="chef_section_title">Meet Our Top Chefs</h2>
+        <div className="chef_section_wrap">
+          <Slider {...settingChefs}>
+            {chef.length > 0 ? (
+              chef.map((item, index) => (
+                <div key={index} className="chef_container">
+                  <div className="chef_image_wrap">
+                    <Link to={`/members/${item.id}`}>
+                      <img
+                        className="chef_image"
+                        src={item.profileImage}
+                        alt="member_profileImage"
+                      />
+                    </Link>
                   </div>
-                ))
-              ) : (
-                <div className="no_chefs">No chefs found.</div>
-              )}
-            </Slider>
-          </div>
+                  <div className="chef_info">
+                    <p className="chef_name">{item.nickname}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no_chefs">No chefs found.</div>
+            )}
+          </Slider>
         </div>
-
-        <div className="main_introduce"></div>
       </div>
 
       {/* {user ? ( // user를 위한 공간
