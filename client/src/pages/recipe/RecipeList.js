@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
@@ -30,7 +30,7 @@ export default function RecipeList() {
   const throttle = usePromiseThrottle(throttleInterval);
   const location = useLocation();
   const navigate = useNavigate();
-  let searchTerm = location.state?.searchTerm || "";
+  const searchTerm = location.state?.searchTerm || "";
 
   // 레시피 목록 및 찜한 레시피 불러오기
   useEffect(() => {
@@ -52,20 +52,24 @@ export default function RecipeList() {
   }, [memberId]);
 
   // 페이지 번호와 카테고리/검색어에 따라 레시피 목록을 서버에서 가져옵니다.
-  const fetchPage = async (page) => {
-    let response = null;
-    if (searchTerm) {
-      response = await axios.get(`/api/recipes/search`, {
-        params: { term: searchTerm, page: 0, size: 8 },
-      });
-    } else {
-      response = await axios.get(`/api/recipes`, {
-        params: { page, size: 8, category: selectedCategory },
-      });
-    }
-    setThrottleInterval(0);
-    return response.data;
-  };
+  const fetchPage = useCallback(
+    async (page) => {
+      let response = null;
+      if (searchTerm) {
+        response = await axios.get(`/api/recipes/search`, {
+          params: { term: searchTerm, page: 0, size: 8 },
+        });
+      } else {
+        response = await axios.get(`/api/recipes`, {
+          params: { page, size: 8, category: selectedCategory },
+        });
+      }
+      setThrottleInterval(0);
+      return response.data;
+    },
+    [searchTerm, selectedCategory],
+  );
+
   // 무한 스크롤 기능
   const { ref, content, reset } = useInfiniteScroll(
     throttle(fetchPage),
@@ -123,10 +127,8 @@ export default function RecipeList() {
   //
   useEffect(() => {
     reset();
-    fetchPage(0).catch((error) => {
-      defaultErrorHandler(error);
-    });
-  }, [selectedCategory, searchTerm, reset]);
+    fetchPage(0).catch(defaultErrorHandler);
+  }, [selectedCategory, searchTerm, fetchPage, reset]);
 
   return (
     <div className="recipeList_wrap">

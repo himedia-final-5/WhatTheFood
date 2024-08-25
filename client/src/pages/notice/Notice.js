@@ -26,15 +26,18 @@ function Notice() {
   }, [content, onSelectPage]);
 
   return (
-    <div class="notice_container">
-      <header class="notice_header">
-        <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
-        <h2 class="notice_subtitle">공지사항</h2>
+    <div className="notice_container">
+      <header className="notice_header">
+        <h1 className="notice_title">&nbsp;Notice&nbsp;</h1>
+        <h2 className="notice_subtitle">공지사항</h2>
 
         <AdminFeature>
-          <div class="noticeWrite-container">
-            <div class="background-circle"></div>
-            <Link to="/notices/write" class="noticeWrite-text cursor-pointer">
+          <div className="noticeWrite-container">
+            <div className="background-circle"></div>
+            <Link
+              to="/notices/write"
+              className="noticeWrite-text cursor-pointer"
+            >
               게시글 쓰기
             </Link>
           </div>
@@ -45,9 +48,9 @@ function Notice() {
       {content.length
         ? content.map((notice, idx) => {
             return (
-              <main class="notices">
-                <article class="notice">
-                  <div class="notice-icon">
+              <main className="notices">
+                <article className="notice">
+                  <div className="notice-icon">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24px"
@@ -60,7 +63,7 @@ function Notice() {
                       </g>
                     </svg>
                   </div>
-                  <div class="notice-details">
+                  <div className="notice-details">
                     <div className="notice-date">
                       {notice.writeDate.slice(0, 10)}
                     </div>

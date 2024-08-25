@@ -1,19 +1,21 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+
 import "./Chef.css";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
+const items = ["일간", "주간", "월간"];
+const periodMapping = { 일간: "d", 주간: "w", 월간: "m" };
+
 export default function ChefList() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedPeriod, setSelectedPeriod] = useState("d");
+  const [setSearchParams] = useSearchParams();
+  const [selectedPeriod] = useState("d");
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
-  const [rankings, setRankings] = useState([]);
-  const periodMapping = { 일간: "d", 주간: "w", 월간: "m" };
-  const items = ["일간", "주간", "월간"];
+  const [, setRankings] = useState([]);
   const [period, setPeriod] = useState();
-  const [page, setPage] = useState(1);
+
   const fetchRankings = useCallback(async () => {
     try {
       const periodParam = periodMapping[selectedPeriod] || "d";
@@ -55,8 +57,6 @@ export default function ChefList() {
     if (period !== newPeriod) {
       setPeriod(newPeriod);
       setSearchParams({ period: periodMapping[newPeriod] });
-
-      setPage(1); // Reset page
     }
   };
 

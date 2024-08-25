@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
@@ -32,21 +32,21 @@ export default function RecipeDetail() {
   );
 
   // 댓글 목록을 가져오는 함수
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const result = await axios.get(`/api/recipes/${id}/comments`);
       setCommentContent(result.data.content || []); // commentText가 배열임을 보장
     } catch (error) {
       console.error("Failed to fetch comments:", error);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     if (!isLoading && (recipe == null || recipe?.id !== id)) {
       fetchRecipe();
     }
     fetchComments();
-  }, [id]);
+  }, [id, isLoading, recipe, fetchRecipe, fetchComments]);
 
   // Extract YouTube video ID from URL
   const extractYouTubeVideoId = (url) => {

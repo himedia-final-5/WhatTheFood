@@ -1,25 +1,25 @@
-import { UndrawEatingTogether } from "components/asset";
 import { useEffect, useState, memo } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useSelector } from "stores";
-import "./Main.css";
-import { axios, defaultErrorHandler } from "utils";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import "./Main.css";
+import { axios, defaultErrorHandler } from "utils";
 
 export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
   const [recipes, setLatestRecipe] = useState([]); //배열
   const [chef, setChef] = useState([]);
-  const { id } = useParams(); //레시피 아이디 가져오는 변수
 
+  /*
   const extractYouTubeVideoId = (url) => {
     const regex =
       /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|watch\?.+v=)?([^"&?/\s]{11})/;
     const match = url.match(regex);
     return match ? match[1] : null;
   };
+  */
 
   // 메인 이벤트를 가져오는 함수
   async function fetchEvents() {
@@ -110,10 +110,10 @@ export default function Main() {
             height="61"
             x="0"
             y="0"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
             filterUnits="userSpaceOnUse"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+            <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
             <feColorMatrix
               in="SourceAlpha"
               result="hardAlpha"
@@ -156,10 +156,10 @@ export default function Main() {
             height="61"
             x="0"
             y="0"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
             filterUnits="userSpaceOnUse"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+            <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
             <feColorMatrix
               in="SourceAlpha"
               result="hardAlpha"

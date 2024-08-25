@@ -1,28 +1,18 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
 import SubMenu from "../SubMenu";
 const { kakao } = window;
 
 function BrandList() {
-  const [map, setMap] = useState(null);
   const [word, setWord] = useState("");
 
-  useEffect(() => {
-    // 카카오맵 API 스크립트가 로드된 후 실행될 수 있도록 보장
-    if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
-      initializeMap();
-    } else {
-      console.error("오류다 이것아.");
-    }
-  }, [word]);
-
-  const initializeMap = () => {
+  const initializeMap = useCallback(() => {
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(37.5718407, 126.9872086),
       level: 3,
     };
     const kakaoMap = new kakao.maps.Map(container, options);
-    setMap(kakaoMap);
 
     // 고정 위치에 마커 추가
     const centerPosition = new kakao.maps.LatLng(37.5718407, 126.9872086);
@@ -58,11 +48,16 @@ function BrandList() {
         }
       });
     });
-  };
+  }, [word]);
 
-  // function onSearch(){
-
-  // }
+  useEffect(() => {
+    // 카카오맵 API 스크립트가 로드된 후 실행될 수 있도록 보장
+    if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
+      initializeMap();
+    } else {
+      console.error("오류다 이것아.");
+    }
+  }, [word, initializeMap]);
 
   return (
     <div className="mapPage" style={{ width: "100%" }}>
@@ -80,9 +75,7 @@ function BrandList() {
         type="text"
         className="adminSearch"
         value={word}
-        onChange={(e) => {
-          setWord(e.currentTarget.value);
-        }}
+        onChange={(e) => setWord(e.currentTarget.value)}
       />
       {/* <button
           onClick={() => {

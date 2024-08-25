@@ -10,9 +10,7 @@ function InquiryWriteForm() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setAppendImage] = useState("");
-  const [appendImageSrc, setAppendImageSrc] = useState("");
-  const [appendImageStyle, setAppendImageStyle] = useState({ display: "none" });
+  const [image] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,21 +28,6 @@ function InquiryWriteForm() {
       .catch((err) => {
         console.error(err);
       });
-  }
-
-  async function onFileUpload(e) {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-
-    const response = await axios.post("/api/file/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    const imageSrc = `/api/static/${response.data.name}`;
-    setAppendImage(imageSrc);
-    setAppendImageSrc(imageSrc);
-    setAppendImageStyle({ width: "200px", height: "200px", display: "block" });
   }
 
   return (

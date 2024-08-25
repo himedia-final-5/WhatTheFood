@@ -9,7 +9,7 @@ function UpdateNotice() {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
-  const [notice, setNotice] = useState({});
+  const [, setNotice] = useState({});
 
   useEffect(() => {
     axios
@@ -31,18 +31,18 @@ function UpdateNotice() {
 
   return (
     <div className="writeBoard">
-      <div class="form-container">
-        <div class="field">
+      <div className="form-container">
+        <div className="field">
           <label>제목</label>
           <input
-            class="noticeWrite-title"
+            className="noticeWrite-title"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.currentTarget.value)}
           />
           {UpdateNotice.title}
         </div>
-        <div class="field">
+        <div className="field">
           <label>내용</label>
           <textarea
             id="content"
@@ -52,7 +52,7 @@ function UpdateNotice() {
             onChange={(e) => setContent(e.currentTarget.value)}
           ></textarea>
         </div>
-        <div class="btns">
+        <div className="btns">
           <button onClick={() => onSubmit()}>수정완료</button>
           <button onClick={() => navigate("/Notice")}>돌아가기</button>
         </div>

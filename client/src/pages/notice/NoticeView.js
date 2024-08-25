@@ -46,19 +46,19 @@ function NoticeView() {
 
   return (
     <div className="notice_container">
-      <header class="notice_header">
-        <h1 class="notice_title">&nbsp;Notice&nbsp;</h1>
-        <h2 class="notice_subtitle">공지사항</h2>
+      <header className="notice_header">
+        <h1 className="notice_title">&nbsp;Notice&nbsp;</h1>
+        <h2 className="notice_subtitle">공지사항</h2>
         <AdminFeature>
           <Link
             to={`/notices/write/${id}`}
-            class="noticeWrite-text cursor-pointer"
+            className="noticeWrite-text cursor-pointer"
             style={{ left: "265px", top: "75px" }}
           >
             <button>수정하기</button>
           </Link>
           <button
-            class="noticeWrite-text cursor-pointer"
+            className="noticeWrite-text cursor-pointer"
             onClick={() => {
               deleteNotice();
             }}
@@ -69,9 +69,9 @@ function NoticeView() {
         </AdminFeature>
         <div className="notice_line"></div>
       </header>
-      <main class="notices">
-        <article class="notice">
-          <div class="notice-icon">
+      <main className="notices">
+        <article className="notice">
+          <div className="notice-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"

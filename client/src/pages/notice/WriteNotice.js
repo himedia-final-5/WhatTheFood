@@ -22,17 +22,17 @@ function WriteNotice() {
 
   return (
     <div className="writeBoard">
-      <div class="form-container">
-        <div class="field">
+      <div className="form-container">
+        <div className="field">
           <label>제목</label>
           <input
-            class="noticeWrite-title"
+            className="noticeWrite-title"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.currentTarget.value)}
           />
         </div>
-        <div class="field">
+        <div className="field">
           <label>내용</label>
           <textarea
             id="content"
@@ -42,7 +42,7 @@ function WriteNotice() {
             onChange={(e) => setContent(e.currentTarget.value)}
           ></textarea>
         </div>
-        <div class="btns">
+        <div className="btns">
           <button onClick={() => onSubmit()}>작성완료</button>
           <button onClick={() => navigate("/Notice")}>돌아가기</button>
         </div>
