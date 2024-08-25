@@ -84,7 +84,6 @@ export default function RecipeList() {
     navigate("/recipes", { state: { searchTerm: "" } });
 
     reset();
-    fetchPage(0);
   };
 
   // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
