@@ -36,9 +36,9 @@ import cn from "utils/cn";
 import axios from "utils/jwtUtil";
 import { useDispatch, updateProfile } from "stores";
 import { useInput } from "hooks";
-import { useMemberDetail } from "./MemberDetail";
+import { useProfileDetail, useProfileFetch } from "stores/context";
 
-export default function ProfileUpdateDialog() {
+export default function ProfileUpdateButton() {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -131,7 +131,8 @@ function ImageButton({ srText = "button", children, ...props }) {
  * @param {{setOpen: React.Dispatch<React.SetStateAction<boolean>>}}
  */
 function PartOfContent({ setOpen }) {
-  const { profile, fetchProfile } = useMemberDetail();
+  const profile = useProfileDetail();
+  const fetchProfile = useProfileFetch();
 
   const dispatch = useDispatch();
   const [profileImage, setProfileImageState] = useState(profile.profileImage);
@@ -157,7 +158,6 @@ function PartOfContent({ setOpen }) {
     setBannerImageState(image);
   }
 
-  /** @param {z.infer<typeof formSchema>} */
   function onSubmit() {
     const inputs = {
       profileImage,

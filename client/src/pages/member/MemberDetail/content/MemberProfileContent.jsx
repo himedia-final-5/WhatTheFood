@@ -5,7 +5,7 @@ import PaginationNav from "components/util/PaginationNav";
 import { UndrawBarista, UndrawTasting, UndrawBarbecue } from "components/asset";
 import { usePageResponse } from "hooks";
 import { initialPagination, cn, axios, defaultErrorHandler } from "utils";
-import { useMemberDetail } from "./MemberDetail";
+import { useProfileDetail } from "stores/context";
 
 const TAB_LIST = [
   { name: "레시피", api: "/api/recipes?memberId=%s", component: RecipeTab },
@@ -138,7 +138,7 @@ function TabHeader({ tab, setTab }) {
 }
 
 export default function MemberProfileContent() {
-  const { profile } = useMemberDetail();
+  const profile = useProfileDetail();
   const [searchParams, setSearchParams] = useSearchParams();
   const [tab, setTabState] = useState(searchParams.get("tab") | 0);
   const initialPage = searchParams.get("page") | 0;

@@ -1,7 +1,6 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { forwardRef, memo, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "@reactuses/core";
-import { toast } from "react-toastify";
 
 import {
   Dialog,
@@ -20,55 +19,103 @@ import {
   DrawerTitle,
 } from "components/shadcn/ui/drawer";
 
-import { usePageResponse, useThrottle } from "hooks";
+import { usePageResponse } from "hooks";
 import PaginationNav from "components/util/PaginationNav";
-import { useSelector } from "stores";
-import { axios, cn, defaultErrorHandler } from "utils";
-import { useMemberDetail } from "./MemberDetail";
+import { axios, cn } from "utils";
+import TextFollowButton from "./TextFollowButton";
+import {
+  useProfileDetail,
+  FollowDialogValueContext,
+  FollowDialogActionContext,
+  useFollowDialogValue,
+  useFollowDialogAction,
+} from "stores/context";
 
-/** @param {{  pen: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}} */
-export default function FollowListDialog({ open, setOpen, children }) {
+export default function FollowListButton() {
+  const profile = useProfileDetail();
+  const [open, setOpen] = useState(false);
+  const [followDialogMode, setFollowDialogMode] = useState(true);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  if (isDesktop) {
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              <PartOfTitle />
-            </DialogTitle>
-            <DialogDescription>
-              <PartOfDescription />
-            </DialogDescription>
-          </DialogHeader>
-          <PartOfContent />
-        </DialogContent>
-      </Dialog>
-    );
-  }
+  useEffect(() => {
+    setOpen(false);
+  }, [profile.id]);
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader className="text-left">
-          <DrawerTitle>
-            <PartOfTitle />
-          </DrawerTitle>
-          <DrawerDescription>
-            <PartOfDescription />
-          </DrawerDescription>
-        </DrawerHeader>
-        <PartOfContent />
-      </DrawerContent>
-    </Drawer>
+    <FollowDialogValueContext.Provider value={{ followDialogMode }}>
+      <FollowDialogActionContext.Provider value={{ setFollowDialogMode }}>
+        {isDesktop ? (
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Trigger setOpen={setOpen} />
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>
+                  <PartOfTitle />
+                </DialogTitle>
+                <DialogDescription>
+                  <PartOfDescription />
+                </DialogDescription>
+              </DialogHeader>
+              <PartOfContent />
+            </DialogContent>
+          </Dialog>
+        ) : (
+          <Drawer open={open} onOpenChange={setOpen}>
+            <DrawerTrigger asChild>
+              <Trigger setOpen={setOpen} />
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader className="text-left">
+                <DrawerTitle>
+                  <PartOfTitle />
+                </DrawerTitle>
+                <DrawerDescription>
+                  <PartOfDescription />
+                </DrawerDescription>
+              </DrawerHeader>
+              <PartOfContent />
+            </DrawerContent>
+          </Drawer>
+        )}
+      </FollowDialogActionContext.Provider>
+    </FollowDialogValueContext.Provider>
   );
 }
 
+const Trigger = forwardRef(({ setOpen }, ref) => {
+  const profile = useProfileDetail();
+  const { setFollowDialogMode } = useFollowDialogAction();
+  return (
+    <>
+      <button
+        className="text-neutral-300 lg:text-neutral-700"
+        onClick={() => {
+          setOpen(true);
+          setFollowDialogMode(true);
+        }}
+      >
+        팔로워 <span>{profile?.followerCount || 0}</span>
+      </button>
+      <div className="mx-1">|</div>
+      <button
+        className="text-neutral-300 lg:text-neutral-700"
+        onClick={() => {
+          setOpen(true);
+          setFollowDialogMode(false);
+        }}
+      >
+        팔로잉
+        <span>{profile?.followingCount || 0}</span>
+      </button>
+    </>
+  );
+});
+
 function PartOfTitle() {
-  const { followDialogMode, setFollowDialogMode } = useMemberDetail();
+  const { followDialogMode } = useFollowDialogValue();
+  const { setFollowDialogMode } = useFollowDialogAction();
 
   return (
     <div className="flex justify-around items-center w-full h-fit md:mt-2 p-1 text-2xl bg-neutral-100 rounded-lg">
@@ -104,7 +151,8 @@ function PartOfDescription() {
 
 function PartOfContent() {
   const [fetched, setFetched] = useState(false);
-  const { profile, followDialogMode } = useMemberDetail();
+  const profile = useProfileDetail();
+  const { followDialogMode } = useFollowDialogValue();
   /** @type {{content: MemberProfileSummary[], pagination: Pagination, setPageResponse: (response: PageResponse<MemberProfileSummary>) => void}} */
   const { content, pagination, setPageResponse } = usePageResponse();
 
@@ -170,57 +218,8 @@ const ProfileCard = memo(
         >
           {profile.nickname}
         </div>
-        <FollowButton profile={profile} />
+        <TextFollowButton profile={profile} />
       </div>
-    );
-  },
-);
-
-const FollowButton = memo(
-  /** @param {{profile: MemberProfileSummary}} */
-  ({ profile }) => {
-    const [member, setMember] = useState(profile);
-    const user = useSelector((state) => state.user);
-
-    const toggleFollow = useThrottle(async () => {
-      if (!member || !user) return;
-
-      if (member.id === user.id) {
-        toast.error("자기 자신을 팔로우할 수 없습니다");
-        return;
-      }
-
-      try {
-        if (member.following) {
-          await axios.delete(`/api/members/${member.id}/follow`);
-          toast.success("팔로우를 취소했습니다");
-        } else {
-          await axios.post(`/api/members/${member.id}/follow`);
-          toast.success("팔로우했습니다");
-        }
-
-        setMember({
-          ...member,
-          following: !member.following,
-        });
-      } catch (error) {
-        defaultErrorHandler(error);
-      }
-    }, 3000);
-
-    return (
-      user?.id &&
-      user.id !== member.id && (
-        <button
-          className={cn(
-            "w-20 px-2 py-1 shadow-md text-sm font-bold border border-neutral-200 rounded-md",
-            member.following ? "text-neutral-500" : "text-green-500",
-          )}
-          onClick={toggleFollow}
-        >
-          {member.following ? "언팔로우" : "팔로우"}
-        </button>
-      )
     );
   },
 );
