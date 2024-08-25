@@ -44,7 +44,7 @@ export default function MemberDetail() {
   }, [fetchProfile]);
 
   return profile === null ? (
-    <LoadingRender message="회원 정보를 불러오는 중입니다" />
+    <LoadingRender />
   ) : error ? (
     <NotFoundRender message="회원 정보를 찾을 수 없습니다" />
   ) : (

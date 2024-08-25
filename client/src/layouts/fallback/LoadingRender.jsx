@@ -1,9 +1,8 @@
 import "./LoadingRender.css";
 
-/** @param {{message: ?string}} */
-export default function LoadingRender({ message }) {
+export default function LoadingRender() {
   return (
-    <div className="flex justify-center h-full mt-[-86px]">
+    <div className="flex justify-center w-full h-full">
       <span className="loader"></span>
     </div>
   );
