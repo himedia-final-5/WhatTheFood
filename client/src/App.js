@@ -45,6 +45,7 @@ import {
   NoticeWrite,
   NoticeUpdate,
 } from "pages/notice";
+import { Privacy, Terms } from "pages/policy";
 import {
   RecipeDetail,
   RecipeFavorite,
@@ -96,6 +97,9 @@ function App() {
               <Route path="/brands" element={<BrandList />} />
 
               <Route path="/store" element={<SearchingStore />} />
+
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
 
               <Route path="/test/assets" element={<TestAssets />} />
               <Route path="/test/profile" element={<TestProfileGenerator />} />
