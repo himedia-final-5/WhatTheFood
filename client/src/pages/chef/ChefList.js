@@ -28,7 +28,7 @@ export default function ChefList() {
   const fetchMore = async (page) => {
     try {
       const response = await axios.get(`/api/members`, {
-        params: { period: selectedPeriod, page, size: 8 },
+        params: { period: selectedPeriod, page, size: 8, role: "ROLE_CHEF" },
       });
       setThrottleInterval(0);
       return response.data;
@@ -73,27 +73,25 @@ export default function ChefList() {
         </ul>
         <div className="chef_banner_wrap">
           {content.length > 0 ? (
-            content
-              .filter((member) => member.role === "ROLE_CHEF")
-              .map((member, index) => (
-                <div key={index} className="chef_container">
-                  <p className="chef_num">
-                    <b>{index + 1}</b>
-                  </p>
-                  <Link to={`/events/${member.id}`}>
-                    <div className="chef_imageUrl">
-                      <img
-                        className="rounded-full size-28"
-                        src={member.profileImage}
-                        alt="member_profileImage"
-                      />
-                    </div>
-                  </Link>
-                  <div className="flex justify-center py-2 text-base font-bold">
-                    <p>{member.nickname}</p>
+            content.map((member, index) => (
+              <div key={index} className="chef_container">
+                <p className="chef_num">
+                  <b>{index + 1}</b>
+                </p>
+                <Link to={`/events/${member.id}`}>
+                  <div className="chef_imageUrl">
+                    <img
+                      className="rounded-full size-28"
+                      src={member.profileImage}
+                      alt="member_profileImage"
+                    />
                   </div>
+                </Link>
+                <div className="flex justify-center py-2 text-base font-bold">
+                  <p>{member.nickname}</p>
                 </div>
-              ))
+              </div>
+            ))
           ) : (
             <div>No members found.</div>
           )}

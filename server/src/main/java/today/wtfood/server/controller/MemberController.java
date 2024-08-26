@@ -28,7 +28,16 @@ public class MemberController {
     @GetMapping("")
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponse<MemberSummary> getMembers(@PageableDefault(sort = "id") Pageable pageable) {
+    public PageResponse<MemberSummary> getMembers(
+            @PageableDefault(sort = "id")
+            Pageable pageable,
+
+            @RequestParam(value = "role", required = false)
+            String role
+    ) {
+        if (role != null && !role.isEmpty()) {
+            return PageResponse.of(memberService.getMembersByRole(role, pageable, MemberSummary.class));
+        }
         return PageResponse.of(memberService.getMembers(pageable, MemberSummary.class));
     }
 
