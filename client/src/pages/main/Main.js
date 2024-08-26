@@ -30,14 +30,10 @@ export default function Main() {
   }
 
   async function fetchRecipes() {
-    try {
-      const response = await axios.get(`/api/recipes`, {
-        params: { size: 8 },
-      });
-      setLatestRecipe(response.data.content);
-    } catch (error) {
-      defaultErrorHandler(error);
-    }
+    const response = await axios.get(`/api/recipes`, {
+      params: { size: 8 },
+    });
+    setLatestRecipe(response.data.content);
   }
 
   async function fetchChef() {
@@ -48,9 +44,9 @@ export default function Main() {
   }
 
   useEffect(() => {
-    fetchEvents();
-    fetchRecipes();
-    fetchChef();
+    Promise.all([fetchEvents(), fetchRecipes(), fetchChef()]).catch(
+      defaultErrorHandler,
+    );
   }, []);
 
   // Custom Arrow Components
