@@ -7,14 +7,15 @@ import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
 export default function RecipeFavorite() {
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
-  const memberId = user.id; // 로그인한 사용자의 ID를 가져옵니다
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
+
   const { ref, content: favoritedRecipes } = useInfiniteScroll(
     throttle(async (page) => {
+      if (!user) return { data: { content: [] } };
       /** @type {{data: PageResponse<RecipeSummary>}} */
       const response = await axios.get(`/api/recipes/favorites`, {
-        params: { page, size: 8, memberId },
+        params: { page, size: 8, memberId: user.id },
       });
       setThrottleInterval(0);
       return response.data;
