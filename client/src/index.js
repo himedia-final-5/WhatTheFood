@@ -19,9 +19,7 @@ const options = {
 };
 
 // 채널톡 초기화
-ChannelService.boot(options, () => {
-  console.log("ChannelTalk has been booted");
-});
+ChannelService.boot(options, () => {});
 
 const reportWebVitals = () => {
   import("./reportWebVitals").then((module) => module.default());
@@ -46,7 +44,5 @@ root.render(
   </BrowserRouter>,
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Learn more: https://bit.ly/CRA-vitals
+reportWebVitals(console.log);

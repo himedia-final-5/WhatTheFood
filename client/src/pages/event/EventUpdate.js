@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import "./EventUpCreate.css";
-import { axios, cn } from "utils";
+import { axios, cn, defaultErrorHandler } from "utils";
 import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 import { useInputs } from "hooks"; //수정시 삽입 데이터 hooks
@@ -22,7 +23,7 @@ export default function EventUpdate() {
     axios
       .get(`/api/events/${id}`) // 서버로부터 특정 ID를 가진 이벤트 데이터를 GET 요청으로 가져옵니다.
       .then((result) => setEvent(result.data)) // 서버로부터 받은 데이터를 setEvent를 사용해 상태에 저장합니다.
-      .catch(console.error); // 요청이 실패하면 오류를 콘솔에 출력합니다.
+      .catch(defaultErrorHandler); // 요청이 실패하면 오류를 출력합니다.
   }, [id]); // id가 변경될 때마다 이 useEffect가 다시 실행됩니다.
 
   function onSubmit() {
@@ -37,9 +38,9 @@ export default function EventUpdate() {
       .then(() => {
         // POST 요청이 성공하면 `/events/${id}` 경로로 리다이렉트합니다.
         navigate(`/events/${id}`);
+        toast.success("이벤트가 수정되었습니다");
       })
-      .catch(console.error);
-    // 에러가 발생할 경우, 에러 메시지를 콘솔에 출력합니다.
+      .catch(defaultErrorHandler);
   }
 
   return (

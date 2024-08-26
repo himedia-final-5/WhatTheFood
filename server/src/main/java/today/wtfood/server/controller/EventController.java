@@ -1,6 +1,8 @@
 package today.wtfood.server.controller;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,7 @@ public class EventController {
     // 이벤트리스트(페이징)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<EventSummary> getEventList(Pageable pageable) {
+    public PageResponse<EventSummary> getEventList(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return PageResponse.of(es.getEventList(pageable));
     }
 

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
@@ -32,7 +32,7 @@ function RecipeList() {
           params: { page, category: selectedCategory },
         })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(defaultErrorHandler),
     [selectedCategory, setPageResponse],
   );
 

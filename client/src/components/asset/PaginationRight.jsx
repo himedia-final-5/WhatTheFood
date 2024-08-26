@@ -1,5 +1,5 @@
 /** @type {function(React.SVGProps<SVGElement): React.JSX.Element} */
-export default function PaginationLeft(props) {
+export default function PaginationRight(props) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 10" {...props}>
       <path

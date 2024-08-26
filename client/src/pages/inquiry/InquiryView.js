@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import "./InquiryView.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 
 function InquiryView() {
   const { id } = useParams();
@@ -12,12 +12,8 @@ function InquiryView() {
   useEffect(() => {
     axios
       .get(`/api/inquiries/${id}`)
-      .then((result) => {
-        setInquiry(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setInquiry(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   return (

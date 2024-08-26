@@ -8,8 +8,6 @@
 
 /* 게시글쓰기 버튼 스타일 */
 .create_recipe_button {
-  position: absolute;
-  top: -2.5rem;
   background-color: #ffffff; /* 버튼 배경색 */
   color: #000000; /* 버튼 글자색 */
   border: 2px solid #d7d7d7;
@@ -124,6 +122,7 @@
 }
 
 .recipe_state_tags {
+  height: 50px;
   display: block;
   font-size: 0.9rem;
   color: #777;

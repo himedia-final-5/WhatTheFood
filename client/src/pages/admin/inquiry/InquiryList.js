@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
@@ -15,11 +15,9 @@ function InquiryList() {
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/inquiries`, {
-          params: { page },
-        })
+        .get(`/api/inquiries`, { params: { page } })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(defaultErrorHandler),
     [setPageResponse],
   );
 

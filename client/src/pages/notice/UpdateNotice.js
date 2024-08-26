@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import "./Notice.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 
 function UpdateNotice() {
   const [title, setTitle] = useState("");
@@ -18,7 +19,7 @@ function UpdateNotice() {
         setTitle(title);
         setContent(content);
       })
-      .catch(console.error);
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function onSubmit() {
@@ -26,10 +27,9 @@ function UpdateNotice() {
       .post(`/api/notices/${id}`, { title, content })
       .then(() => {
         navigate("/notices");
+        toast.success("공지사항이 수정되었습니다");
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(defaultErrorHandler);
   }
 
   return (

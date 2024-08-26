@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
@@ -16,11 +16,9 @@ function SearchIList() {
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/inquiries/username/${username}`, {
-          params: { page },
-        })
+        .get(`/api/inquiries/username/${username}`, { params: { page } })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(defaultErrorHandler),
     [username, setPageResponse],
   );
 

@@ -69,14 +69,14 @@
   color: #666;
 }
 
-.event_custom-button_total_wrap {
+.recipe_custom-button_total_wrap {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box;
 }
 
-.event_custom_button {
+.recipe_custom_button {
   width: 35px;
   height: 35px;
   margin-left: 10px; /* 오른쪽으로 정렬된 버튼 간의 간격을 유지 */

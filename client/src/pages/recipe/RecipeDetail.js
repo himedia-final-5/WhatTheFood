@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 import "./RecipeDetail.css";
 import { AdminFeature } from "components/util";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { usePromise } from "hooks";
 import Popup from "./PopUp";
 
@@ -149,53 +149,40 @@ export default function RecipeDetail() {
     });
   };
 
-  async function addComment() {
+  function addComment() {
     if (commentText) {
-      try {
-        if (!memberId) {
-          toast.error("로그인 후 댓글을 작성할 수 있습니다.");
-          return;
-        }
+      if (!memberId) {
+        toast.error("로그인 후 댓글을 작성할 수 있습니다.");
+        return;
+      }
 
-        await axios.post(`/api/recipes/${recipe.id}/addComment`, {
+      axios
+        .post(`/api/recipes/${recipe.id}/addComment`, {
           memberId,
           content: commentText,
-        });
-        fetchComments();
-      } catch (err) {
-        console.error(err);
-        toast.error("댓글 작성에 실패했습니다.");
-      }
+        })
+        .then(() => fetchComments())
+        .catch(defaultErrorHandler);
     }
   }
 
-  async function deleteComment(commentId) {
-    try {
-      await axios.delete(`/api/recipes/${commentId}/deleteComment`, {
+  function deleteComment(commentId) {
+    axios
+      .delete(`/api/recipes/${commentId}/deleteComment`, {
         params: { memberId },
-      });
-
-      // 댓글 삭제 후 새로 고침
-      fetchComments();
-    } catch (err) {
-      console.error(err);
-      toast.error("댓글 삭제에 실패했습니다.");
-    }
+      })
+      .then(() => fetchComments())
+      .catch(defaultErrorHandler);
   }
 
-  async function updateComment(commentId, newContent) {
-    try {
-      await axios.put(`/api/recipes/${commentId}/editComment`, {
+  function updateComment(commentId, newContent) {
+    axios
+      .put(`/api/recipes/${commentId}/editComment`, {
         memberId: memberId,
         content: newContent,
-      });
-
-      // 댓글 수정 후 새로 고침
-      fetchComments();
-    } catch (err) {
-      console.error(err);
-      toast.error("댓글 수정에 실패했습니다.");
-    }
+      })
+      .then(() => fetchComments())
+      .catch(defaultErrorHandler);
   }
 
   const handleEditClick = (comment) => {
@@ -251,10 +238,10 @@ export default function RecipeDetail() {
             <strong>{recipe.category}</strong>
           </p>
 
-          <div className="event_custom-button_total_wrap">
-            <div className="event_custom-button_wrap">
+          <div className="recipe_custom-button_total_wrap">
+            <div className="recipe_custom-button_wrap">
               <button
-                className="event_custom_button"
+                className="recipe_custom_button"
                 onClick={sendLinkKakaoShare}
               >
                 <img src="/images/kakao.png" alt="KakaoShare" />
@@ -262,7 +249,7 @@ export default function RecipeDetail() {
               <CopyToClipboard text={currentUrl}>
                 <button
                   type="submit"
-                  className="event_custom_button"
+                  className="recipe_custom_button"
                   onClick={() => setButtonPopup(true)}
                 >
                   <img src="/images/share_copy.png" alt="linkShare" />

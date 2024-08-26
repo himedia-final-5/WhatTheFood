@@ -2,7 +2,7 @@ import { useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import "./Faq.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
@@ -14,7 +14,7 @@ function Faq() {
       axios
         .get("/api/faqs", { params: { page } })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(defaultErrorHandler),
     [setPageResponse],
   );
 
@@ -29,7 +29,7 @@ function Faq() {
       <div className="faqCenter">
         <div id="faq1">&nbsp;FAQ&nbsp;</div>
         <br></br>
-        {/* <br></br> */}
+
         <div id="faq2">자주 묻는 질문</div>
         <div className="faq_line"></div>
         {content.map((inquirylist, idx) => {

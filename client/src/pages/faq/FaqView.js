@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import "./FaqView.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 
 function FaqView() {
   const [faqiew, setFaqView] = useState({});
@@ -11,13 +11,8 @@ function FaqView() {
   useEffect(() => {
     axios
       .get(`/api/faqs/${id}`)
-      .then((result) => {
-        setFaqView(result.data);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setFaqView(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   return (

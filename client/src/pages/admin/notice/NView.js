@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useParams, useNavigate } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function NView() {
   const navigate = useNavigate();
@@ -11,13 +12,8 @@ function NView() {
   useEffect(() => {
     axios
       .get(`/api/notices/${id}`)
-      .then((result) => {
-        setNoticeView(result.data);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setNoticeView(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function deleteNotice() {
@@ -25,14 +21,11 @@ function NView() {
     if (ans) {
       axios
         .delete(`/api/notices/${id}`)
-        .then(() => {
-          navigate("/noticeList");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        .then(() => navigate("/noticeList"))
+        .catch(defaultErrorHandler);
     }
   }
+
   return (
     <div className="adminContainer">
       <SubMenu />

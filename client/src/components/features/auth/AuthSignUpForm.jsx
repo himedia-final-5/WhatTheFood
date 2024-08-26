@@ -8,7 +8,7 @@ import {
   IconMailFilled,
 } from "@tabler/icons-react";
 
-import { cn, axios, debounce, memoize } from "utils";
+import { cn, axios, debounce, memoize, defaultErrorHandler } from "utils";
 import usePromise from "hooks/usePromise";
 
 import {
@@ -39,7 +39,7 @@ const formSchema = z
               });
               return true;
             } catch (error) {
-              console.error(error);
+              defaultErrorHandler(error);
               return false;
             }
           }),
