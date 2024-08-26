@@ -41,7 +41,7 @@ const responseInterceptor = async (error) => {
   }
 
   // 응답이 없는 경우 바로 반환
-  if (!error.response) {
+  if (!error.response || error.response.status === 504) {
     error.toastMessage = "서버와 연결할 수 없습니다.";
     return Promise.reject(error);
   }
