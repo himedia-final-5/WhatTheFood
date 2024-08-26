@@ -11,6 +11,8 @@ public interface MemberProfileDetail {
 
     long getId();
 
+    String getRole();
+
     String getNickname();
 
     String getIntroduce();

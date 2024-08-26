@@ -18,6 +18,7 @@ declare type User = {
 
 declare type MemberProfileDetail = {
   id: number;
+  role: string;
   nickname: string;
   introduce: string;
   profileImage: string;
