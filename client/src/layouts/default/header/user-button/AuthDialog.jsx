@@ -133,7 +133,7 @@ function PartOfContent({
 }) {
   async function onSocialLogin(provider) {
     window.open(
-      `http://wtfood.today:3000/api/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(window.location.href)}`,
+      `/api/oauth2/authorization/${provider}?redirect_uri=${encodeURIComponent(window.location.href)}`,
       "소셜 로그인",
       "width=500,height=800",
     );
