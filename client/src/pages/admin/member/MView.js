@@ -24,7 +24,7 @@ function MView() {
     const mCheck = window.confirm("회원 삭제하시겠습니까?");
     if (mCheck) {
       axios
-        .delete(`/api/members/admin/${id}`)
+        .delete(`/api/members/${memberView.id}`)
         .then(() => navigate("/memberList"))
         .catch(defaultErrorHandler);
     }
