@@ -38,7 +38,7 @@ function EUpdate() {
       <div className="adminCategory">이벤트 수정</div>
       <div className="productTableEvent">
         <div className="adminfield">
-          <label className="labellabel">이밴트 진행여부</label>
+          <label className="labellabel">진행 여부</label>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"

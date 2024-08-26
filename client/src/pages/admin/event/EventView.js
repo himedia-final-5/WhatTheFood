@@ -33,7 +33,7 @@ function EventView() {
       <br></br>
       <div className="productTableEvent">
         <div className="adminfieldEvent">
-          <label className="labellabel">이벤트 진행여부</label>
+          <label className="labellabel">진행 여부</label>
 
           <div className="labelcontent">{eventView.title}</div>
         </div>

@@ -25,6 +25,16 @@ function InquiryView() {
       .catch(defaultErrorHandler);
   }
 
+  function deleteInquiry() {
+    const ans = window.confirm("해당 문의사항을 삭제하시겠습니까?");
+    if (ans) {
+      axios
+        .delete(`/api/inquiries/${id}`)
+        .then(() => navigate("/iList"))
+        .catch(defaultErrorHandler);
+    }
+  }
+
   return (
     <div className="adminContainer">
       <SubMenu />
@@ -74,7 +84,13 @@ function InquiryView() {
           >
             답변등록/수정
           </button>
-          <button onClick={() => {}}>삭제</button>
+          <button
+            onClick={() => {
+              deleteInquiry();
+            }}
+          >
+            삭제
+          </button>
           <button
             onClick={() => {
               navigate("/iList");

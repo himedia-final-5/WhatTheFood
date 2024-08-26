@@ -64,9 +64,9 @@ function RecipeView() {
         </div>
 
         <div className="adminfield">
-          <label className="labellabel">???</label>
+          <label className="labellabel">기타 사항</label>
           <div className="labelcontent">
-            <span>{recipe.cookingTime}분</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>{recipe.cookingTime}</span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span>{recipe.servings}인분</span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span>{recipe.level} level</span>
           </div>
