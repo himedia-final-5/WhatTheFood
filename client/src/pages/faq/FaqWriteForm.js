@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import "./FaqWriteForm.css";
 import { useSelector } from "stores";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 
 function FaqWriteForm() {
   const user = useSelector((state) => state.user);
@@ -20,12 +20,8 @@ function FaqWriteForm() {
         title,
         content,
       })
-      .then(() => {
-        navigate("/idk");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => navigate("/idk"))
+      .catch(defaultErrorHandler);
   }
 
   return (

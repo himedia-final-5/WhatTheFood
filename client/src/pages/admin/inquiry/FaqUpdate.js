@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useNavigate, useParams } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function FaqUpdate() {
   const navigate = useNavigate();
@@ -14,24 +15,15 @@ function FaqUpdate() {
   useEffect(() => {
     axios
       .get(`/api/faqs/${id}`)
-      .then((result) => {
-        setFaqView(result.data);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setFaqView(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function submitFaqud() {
     axios
       .post(`/api/faqs/${id}`, { title: title, content: content })
-      .then(() => {
-        navigate("/faqList");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => navigate("/faqList"))
+      .catch(defaultErrorHandler);
   }
 
   return (

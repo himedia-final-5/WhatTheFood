@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useNavigate, useParams } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function RecipeView() {
   const navigate = useNavigate();
@@ -19,12 +20,8 @@ function RecipeView() {
   useEffect(() => {
     axios
       .get(`/api/recipes/${id}`)
-      .then((result) => {
-        setRecipe(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setRecipe(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function deleteRecipe(id) {

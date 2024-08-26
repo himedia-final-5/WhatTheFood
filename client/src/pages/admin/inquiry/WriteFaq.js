@@ -1,7 +1,8 @@
 import { useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useNavigate } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function WriteFaq() {
   const navigate = useNavigate();
@@ -11,13 +12,10 @@ function WriteFaq() {
   function submitfaq() {
     axios
       .post(`/api/faqs`, { title: title, content: content })
-      .then(() => {
-        navigate("/faqList");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => navigate("/faqList"))
+      .catch(defaultErrorHandler);
   }
+
   return (
     <div className="adminContainer">
       <SubMenu />

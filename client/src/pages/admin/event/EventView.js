@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useParams, useNavigate } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function EventView() {
   const navigate = useNavigate();
@@ -11,13 +12,8 @@ function EventView() {
   useEffect(() => {
     axios
       .get(`/api/events/${id}`)
-      .then((result) => {
-        setEventView(result.data);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setEventView(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function deleteEvent() {
@@ -25,12 +21,8 @@ function EventView() {
     if (eCheck) {
       axios
         .delete(`/api/events/${id}`)
-        .then(() => {
-          navigate("/eList");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        .then(() => navigate("/eList"))
+        .catch(defaultErrorHandler);
     }
   }
 

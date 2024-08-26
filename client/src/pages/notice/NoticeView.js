@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 
 import "./Notice.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { AdminFeature } from "components/util";
 
 function NoticeView() {
@@ -20,13 +20,8 @@ function NoticeView() {
   useEffect(() => {
     axios
       .get(`/api/notices/${id}`)
-      .then((result) => {
-        setNoticeView(result.data);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setNoticeView(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function deleteNotice() {
@@ -34,13 +29,8 @@ function NoticeView() {
     if (isDel) {
       axios
         .delete(`/api/notices/${id}`)
-        .then(() => {
-          navigate("/notices");
-        })
-        .catch((err) => {
-          console.error(err);
-          alert("삭제에 실패했습니다.");
-        });
+        .then(() => navigate("/notices"))
+        .catch(defaultErrorHandler);
     }
   }
 

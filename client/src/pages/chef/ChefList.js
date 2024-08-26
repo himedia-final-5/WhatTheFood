@@ -17,19 +17,11 @@ export default function ChefList() {
   const [period, setPeriod] = useState();
 
   const fetchRankings = useCallback(async () => {
-    try {
-      const periodParam = periodMapping[selectedPeriod] || "d";
-      const response = await axios.get(
-        `/api/recipes/view?period=${periodParam}`,
-      );
-      if (Array.isArray(response.data)) {
-        setRankings(response.data);
-      } else {
-        console.error("Unexpected response data:", response.data);
-      }
-    } catch (error) {
-      defaultErrorHandler(error);
-    }
+    const periodParam = periodMapping[selectedPeriod] || "d";
+    axios
+      .get(`/api/recipes/view?period=${periodParam}`)
+      .then((response) => setRankings(response.data))
+      .catch((error) => defaultErrorHandler(error));
   }, [selectedPeriod]);
 
   // 서버에서 페이지네이션 데이터 가져오기
