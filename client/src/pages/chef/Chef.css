@@ -14,13 +14,14 @@
   top: 5rem;
   padding-top: 90px;
   padding-left: 0;
+  margin-bottom: 100px;
 }
 .chef_inner_category {
   display: flex;
-  width: 300px;
-  height: 60px;
+  width: 240px;
+  height: auto;
   margin: 0 auto;
-  margin-bottom: 40px;
+  margin-bottom: 100px;
 }
 
 .chef_state_wrap {
