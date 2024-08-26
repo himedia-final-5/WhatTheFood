@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios, cn, defaultErrorHandler, toastify } from "utils";
+import { axios, cn, defaultErrorHandler } from "utils";
 import { ImageUploadInput } from "components/util";
 import { useInputs } from "hooks";
 
@@ -15,11 +15,10 @@ function EUpdate() {
 
   const fetchEvent = useCallback(async () => {
     setEvent({});
-    const response = await toastify(axios.get(`/api/events/${id}`), {
-      error: "이벤트 정보를 불러오는데 실패했습니다.",
-      fallback: { data: {} },
-    });
-    setEvent(response.data);
+    axios
+      .get(`/api/events/${id}`)
+      .then((response) => setEvent(response.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   useEffect(() => {
