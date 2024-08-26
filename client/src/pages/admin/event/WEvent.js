@@ -35,7 +35,7 @@ function WEvent() {
       <div className="adminCategory">이벤트 등록</div>
       <div className="productTableEvent">
         <div className="adminfield">
-          <label className="labellabel">이벤트 진행여부</label>
+          <label className="labellabel">진행 여부</label>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"

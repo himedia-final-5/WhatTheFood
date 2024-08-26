@@ -54,7 +54,7 @@ function EventList() {
           <div className="admincol">번호</div>
           <div className="admincol">이벤트 제목</div>
           <div className="admincol">이벤트 기간</div>
-          <div className="admincol">이벤트 진행여부</div>
+          <div className="admincol">진행 여부</div>
         </div>
         {content.map((eventlist, idx) => {
           return (
