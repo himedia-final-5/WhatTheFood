@@ -2,7 +2,6 @@ package today.wtfood.server.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.member.*;
-import today.wtfood.server.dto.member.admin.MemberAdmin;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.MemberFollowService;
 import today.wtfood.server.service.MemberService;
@@ -33,10 +31,16 @@ public class MemberController {
             Pageable pageable,
 
             @RequestParam(value = "role", required = false)
-            String role
+            String role,
+
+            @RequestParam(value = "username", required = false)
+            String username
     ) {
         if (role != null && !role.isEmpty()) {
             return PageResponse.of(memberService.getMembersByRole(role, pageable, MemberSummary.class));
+        }
+        if (username != null && !username.isEmpty()) {
+            return PageResponse.of(memberService.getMembersByUsername(username, pageable));
         }
         return PageResponse.of(memberService.getMembers(pageable, MemberSummary.class));
     }
@@ -48,45 +52,11 @@ public class MemberController {
         return memberService.getMemberById(memberId, MemberDetail.class);
     }
 
-    @GetMapping("admin")
+    @PutMapping("/{memberId}/role")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponse<MemberAdmin> getMembersAdmin(
-            @RequestParam("role")
-            String role,
-            @PageableDefault(sort = "id")
-            Pageable pageable
-    ) {
-        if (role == null || role.isEmpty()) {
-            return PageResponse.of(memberService.getMembers(pageable, MemberAdmin.class));
-        } else {
-            return PageResponse.of(memberService.getMembersByRole(role, pageable, MemberAdmin.class));
-        }
-    }
-
-    @GetMapping("admin/{memberId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public MemberAdmin getMemberAdmin(@PathVariable long memberId) {
-        return memberService.getMemberById(memberId, MemberAdmin.class);
-    }
-
-    @PutMapping("updateMemberGrade/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public void updateMemberGrade(@PathVariable long id, @RequestParam String role) {
-        memberService.updateMemberGrade(id, role);
-    }
-
-    @GetMapping("username/{username}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public PageResponse<MemberSummary> getMemberList(
-            @PathVariable("username")
-            String username,
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable
-    ) {
-        return PageResponse.of(memberService.getMemberList(username, pageable));
+    public void updateMemberRole(@PathVariable long memberId, @RequestParam String role) {
+        memberService.updateMemberRole(memberId, role);
     }
 
     @GetMapping("/check-username")

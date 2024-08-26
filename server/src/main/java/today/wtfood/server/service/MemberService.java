@@ -165,14 +165,14 @@ public class MemberService {
         memberRepository.deleteById(memberId);
     }
 
-    public Page<MemberSummary> getMemberList(String username, Pageable pageable) {
+    public Page<MemberSummary> getMembersByUsername(String username, Pageable pageable) {
         return memberRepository.findAllByUsername(username, pageable);
     }
 
-
     @Transactional(rollbackFor = Exception.class)
-    public void updateMemberGrade(long id, String role) {
-        Member member = memberRepository.findById(id).get();
+    public void updateMemberRole(long memberId, String role) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
         member.setRole(Member.Role.valueOf(role));
     }
 

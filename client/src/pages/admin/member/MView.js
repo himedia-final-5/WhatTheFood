@@ -12,7 +12,7 @@ function MView() {
 
   useEffect(() => {
     axios
-      .get(`/api/members/admin/${id}`)
+      .get(`/api/members/${id}`)
       .then((result) => {
         setMemberView(result.data);
         setRole(result.data.role);
@@ -38,7 +38,7 @@ function MView() {
     const ans = window.confirm("해당 회원등급을 수정하시겠습니까?");
     if (ans) {
       axios
-        .put(`/api/members/updateMemberGrade/${id}`, null, {
+        .put(`/api/members/${id}/role`, null, {
           params: { role },
         })
         .then(() => setMemberView({ ...memberView, role }))

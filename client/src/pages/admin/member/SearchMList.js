@@ -16,7 +16,7 @@ function SearchMList() {
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/members/username/${username}`, { params: { page } })
+        .get(`/api/members`, { params: { page, username } })
         .then((result) => setPageResponse(result.data))
         .catch(defaultErrorHandler),
     [username, setPageResponse],

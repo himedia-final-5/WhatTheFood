@@ -29,7 +29,7 @@ function MemberList() {
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/members/admin`, {
+        .get(`/api/members`, {
           params: { page, role: selectedRoleCategory },
         })
         .then((result) => setPageResponse(result.data))
