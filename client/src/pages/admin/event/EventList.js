@@ -26,10 +26,6 @@ function EventList() {
     }
   }, [content, onSelectPage]);
 
-  useEffect(() => {
-    axios.get(`/api/events`);
-  });
-
   function eView(id) {
     navigate(`/eView/${id}`);
   }

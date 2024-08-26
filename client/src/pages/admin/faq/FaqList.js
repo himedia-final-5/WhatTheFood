@@ -26,10 +26,6 @@ function FaqList() {
     }
   }, [content, onSelectPage]);
 
-  useEffect(() => {
-    axios.get(`/api/faqs`);
-  });
-
   function faqView(id) {
     navigate(`/fView/${id}`);
   }

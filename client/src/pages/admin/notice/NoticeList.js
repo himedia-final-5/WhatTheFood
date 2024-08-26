@@ -26,10 +26,6 @@ function NoticeList() {
     }
   }, [content, onSelectPage]);
 
-  useEffect(() => {
-    axios.get(`/api/notices`);
-  });
-
   function nView(id) {
     navigate(`/nView/${id}`);
   }
