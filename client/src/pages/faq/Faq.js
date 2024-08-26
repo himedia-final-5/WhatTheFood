@@ -29,7 +29,7 @@ function Faq() {
       <div className="faqCenter">
         <div id="faq1">&nbsp;FAQ&nbsp;</div>
         <br></br>
-        {/* <br></br> */}
+
         <div id="faq2">자주 묻는 질문</div>
         <div className="faq_line"></div>
         {content.map((inquirylist, idx) => {
