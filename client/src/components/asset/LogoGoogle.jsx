@@ -1,5 +1,5 @@
 /** @type {function(React.SVGProps<SVGElement): React.JSX.Element} */
-export default function UndrawChef(props) {
+export default function LogoGoogle(props) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 0 262 262" {...props}>
       <path
