@@ -27,6 +27,7 @@ public class Recipe {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member; // 작성자 (회원)
 
     @CreationTimestamp
@@ -79,6 +80,7 @@ public class Recipe {
 
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<CookingStep> cookingStep = new ArrayList<>(); // ArrayList 넣어서 null 값 상관없게 해줄수 있음
 
     @Getter
@@ -95,6 +97,7 @@ public class Recipe {
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "recipe_id", nullable = false)
+        @OnDelete(action = OnDeleteAction.CASCADE)
         private Recipe recipe;
 
         @Column(name = "step_number", nullable = false)
@@ -129,10 +132,12 @@ public class Recipe {
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "recipe_id", nullable = false)
+        @OnDelete(action = OnDeleteAction.CASCADE)
         private Recipe recipe;
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "member_id", nullable = false)
+        @OnDelete(action = OnDeleteAction.CASCADE)
         private Member member;
 
         @Column(name = "content", nullable = false, length = 500)
