@@ -6,15 +6,13 @@ import FollowListButton from "./button/FollowListButton";
 import { useSelector } from "stores";
 import { useProfileDetail } from "stores/context";
 import {
-  IconBadgeTm,
-  IconBadgeTmFilled,
   IconBrandFlightradar24,
   IconChefHat,
   IconUserStar,
 } from "@tabler/icons-react";
 
 const ROLE_ICON = {
-  ROLE_USER: "사용자",
+  ROLE_USER: <></>,
   ROLE_CHEF: (
     <IconChefHat className="p-1 bg-neutral-700 text-yellow-400 w-8 h-8 rounded-full" />
   ),
