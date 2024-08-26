@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SearchButton from "../../layouts/default/header/search-button/SearchButton";
+import SearchButton from "layouts/default/header/search-button/SearchButton";
 
 function SearchRList() {
   const [title, setTitle] = useState("");
