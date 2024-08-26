@@ -1,5 +1,8 @@
 /* chef.css */
-
+.chef_wrap {
+  width: 80%;
+  margin: 0 auto;
+}
 .chef_banner_wrap {
   display: grid;
   grid-template-columns: repeat(
@@ -11,6 +14,13 @@
   top: 5rem;
   padding-top: 90px;
   padding-left: 0;
+}
+.chef_inner_category {
+  display: flex;
+  width: 300px;
+  height: 60px;
+  margin: 0 auto;
+  margin-bottom: 40px;
 }
 
 .chef_state_wrap {
@@ -45,4 +55,53 @@
 .chef_container {
   margin-bottom: 20px; /* 이벤트 항목 간 간격 조정 */
   position: relative;
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .chef_wrap {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .chef_banner_wrap {
+    grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개의 열 */
+    padding-top: 20px;
+  }
+  .chef_state_wrap {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .chef_wrap {
+    width: 90%;
+  }
+  .chef_banner_wrap {
+    grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개의 열 */
+    padding-top: 30px;
+  }
+}
+
+/* Small Desktop */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .chef_wrap {
+    width: 85%;
+  }
+  .chef_banner_wrap {
+    grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개의 열 */
+    padding-top: 50px;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1280px) and (max-width: 1799px) {
+  .chef_wrap {
+    width: 80%;
+  }
+  .chef_banner_wrap {
+    grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개의 열 */
+    padding-top: 70px;
+  }
 }

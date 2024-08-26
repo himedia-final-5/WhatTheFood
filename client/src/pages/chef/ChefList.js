@@ -66,9 +66,9 @@ export default function ChefList() {
   }, [fetchRankings]);
 
   return (
-    <div>
-      <div>
-        <ul className="relative flex justify-end right-28 top-10 border-b ml-96 mr-44 pb-10">
+    <div className="chef_wrap">
+      <div className="chef_inner_container">
+        <ul className="chef_inner_category">
           {items.map((item, index) => (
             <li
               key={index}
