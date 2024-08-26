@@ -5,6 +5,26 @@ import ProfileUpdateButton from "./button/ProfileUpdateButton";
 import FollowListButton from "./button/FollowListButton";
 import { useSelector } from "stores";
 import { useProfileDetail } from "stores/context";
+import {
+  IconBadgeTm,
+  IconBadgeTmFilled,
+  IconBrandFlightradar24,
+  IconChefHat,
+  IconUserStar,
+} from "@tabler/icons-react";
+
+const ROLE_ICON = {
+  ROLE_USER: "사용자",
+  ROLE_CHEF: (
+    <IconChefHat className="p-1 bg-neutral-700 text-yellow-400 w-8 h-8 rounded-full" />
+  ),
+  ROLE_BRAND: (
+    <IconBrandFlightradar24 className="p-1 bg-neutral-700 text-green-400 w-8 h-8 rounded-full" />
+  ),
+  ROLE_ADMIN: (
+    <IconUserStar className="p-1 bg-neutral-700 text-blue-400 w-8 h-8 rounded-full" />
+  ),
+};
 
 export default function MemberProfileCard() {
   const profile = useProfileDetail();
@@ -13,11 +33,16 @@ export default function MemberProfileCard() {
 
   return (
     <div className="relative flex flex-col w-full h-hit lg:border-2 rounded-sm lg:shadow-md">
-      {isMe ? (
-        <ProfileUpdateButton />
-      ) : (
-        <StarFollowButton key={profile.id} {...profile} />
-      )}
+      <div className="absolute top-2 right-2 ">
+        {isMe ? (
+          <ProfileUpdateButton />
+        ) : (
+          <StarFollowButton key={profile.id} {...profile} />
+        )}
+      </div>
+      <div className="absolute top-2 left-2 ">
+        {ROLE_ICON[profile?.role] || <></>}
+      </div>
       <img
         src={profile?.bannerImage || "/images/member/default_banner.png"}
         alt="background-banner"

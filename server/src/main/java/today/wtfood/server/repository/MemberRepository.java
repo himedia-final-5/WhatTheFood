@@ -49,6 +49,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
      */
     @Query("""
             SELECT m.id AS id,\s
+                   m.role AS role,\s
                    m.nickname AS nickname,\s
                    m.introduce AS introduce,\s
                    m.profileImage AS profileImage,\s

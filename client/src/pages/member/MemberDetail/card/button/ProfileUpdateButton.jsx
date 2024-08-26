@@ -85,7 +85,7 @@ export default function ProfileUpdateButton() {
 
 function Trigger({ open }) {
   return (
-    <div className="absolute top-2 right-2 p-1 bg-neutral-700 rounded-full">
+    <div className="p-1 bg-neutral-700 rounded-full">
       <GearIcon
         className={cn(
           "w-5 h-5 text-neutral-400 transition-transform duration-500 ease-in-out",
