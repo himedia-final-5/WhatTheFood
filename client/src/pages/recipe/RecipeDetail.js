@@ -251,10 +251,10 @@ export default function RecipeDetail() {
             <strong>{recipe.category}</strong>
           </p>
 
-          <div className="event_custom-button_total_wrap">
-            <div className="event_custom-button_wrap">
+          <div className="recipe_custom-button_total_wrap">
+            <div className="recipe_custom-button_wrap">
               <button
-                className="event_custom_button"
+                className="recipe_custom_button"
                 onClick={sendLinkKakaoShare}
               >
                 <img src="/images/kakao.png" alt="KakaoShare" />
@@ -262,7 +262,7 @@ export default function RecipeDetail() {
               <CopyToClipboard text={currentUrl}>
                 <button
                   type="submit"
-                  className="event_custom_button"
+                  className="recipe_custom_button"
                   onClick={() => setButtonPopup(true)}
                 >
                   <img src="/images/share_copy.png" alt="linkShare" />

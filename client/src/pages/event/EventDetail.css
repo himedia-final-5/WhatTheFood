@@ -58,6 +58,7 @@
 .event_custom-button_wrap {
   width: 100px;
   height: 50px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
