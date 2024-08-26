@@ -3,6 +3,8 @@ import { signoutAction, useDispatch } from "stores";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+import "./AdminLayout.css";
+
 export default function AdminLayout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

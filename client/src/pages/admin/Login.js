@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-import "./Admin.css";
 import AuthSignInForm from "components/features/auth/AuthSignInForm";
 
 function Login() {
