@@ -6,7 +6,7 @@ import "./InquiryList.css";
 import { axios } from "utils";
 import { useSelector } from "stores";
 import { usePageResponse } from "hooks";
-import { PaginationNav } from "components/util";
+import { PaginationNav, UserFeatureContainer } from "components/util";
 
 function InquiryList() {
   const user = useSelector((state) => state.user);
@@ -37,8 +37,7 @@ function InquiryList() {
   useEffect(() => onSelectPage(0), []);
 
   return (
-    //<UserFeatureContainer>
-    <div className="inquiryBody">
+    <UserFeatureContainer className="inquiryBody">
       <div className="inquiryCenter">
         <br></br>
         <div id="inquiry1">
@@ -76,8 +75,7 @@ function InquiryList() {
         <br></br>
       </div>
       <br></br>
-    </div>
-    //</UserFeatureContainer>
+    </UserFeatureContainer>
   );
 }
 
