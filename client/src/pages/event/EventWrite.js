@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import "./EventUpCreate.css";
-import { axios, cn } from "utils";
+import { axios, cn, defaultErrorHandler } from "utils";
 import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 
@@ -38,14 +39,13 @@ export default function EventWrite() {
   function onSubmit() {
     // axios 라이브러리를 사용해 POST 요청을 보냅니다.
     axios
-      .post("/api/events/", {
-        // event 상태 객체에 저장된 모든 데이터를 요청 본문에 포함시킵니다.
-        ...event,
-      })
+      .post("/api/events/", event)
       .then(({ data }) => {
         // 작성된 게시글로 이동합니다.
         navigate(`/events/${data.id}`);
-      });
+        toast.success("이벤트가 등록되었습니다");
+      })
+      .catch(defaultErrorHandler);
   }
 
   return (

@@ -4,7 +4,6 @@ export const LogoGoogle = $(() => import("./LogoGoogle"));
 export const LogoKakao = $(() => import("./LogoKakao"));
 export const LogoNaver = $(() => import("./LogoNaver"));
 
-export const CloseMark = $(() => import("./CloseMark"));
 export const PaginationLeft = $(() => import("./PaginationLeft"));
 export const PaginationRight = $(() => import("./PaginationRight"));
 

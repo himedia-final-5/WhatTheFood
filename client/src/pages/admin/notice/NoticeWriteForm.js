@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 
 function NoticeWriteForm() {
   const navigate = useNavigate();
@@ -12,12 +12,8 @@ function NoticeWriteForm() {
   function submitNotice() {
     axios
       .post(`/api/notices`, { title: title, content: content })
-      .then(() => {
-        navigate("/noticeList");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => navigate("/noticeList"))
+      .catch(defaultErrorHandler);
   }
 
   return (

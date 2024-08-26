@@ -34,7 +34,6 @@ export default function Main() {
       const response = await axios.get(`/api/recipes`, {
         params: { size: 8 },
       });
-      console.log("API Response:", response.data); // Check the structure of the response
       setLatestRecipe(response.data.content);
     } catch (error) {
       defaultErrorHandler(error);

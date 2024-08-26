@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useParams, useNavigate } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function FaqView() {
   const navigate = useNavigate();
@@ -11,13 +12,8 @@ function FaqView() {
   useEffect(() => {
     axios
       .get(`/api/faqs/${id}`)
-      .then((result) => {
-        setFaqView(result.data);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setFaqView(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function deleteFaq() {
@@ -25,12 +21,8 @@ function FaqView() {
     if (ans) {
       axios
         .delete(`/api/faqs/${id}`)
-        .then(() => {
-          navigate("/faqList");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        .then(() => navigate("/faqList"))
+        .catch(defaultErrorHandler);
     }
   }
 

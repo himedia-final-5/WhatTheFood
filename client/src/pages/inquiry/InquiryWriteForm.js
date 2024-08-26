@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./InquiryWriteForm.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { useSelector } from "stores";
 
 function InquiryWriteForm() {
@@ -22,12 +22,8 @@ function InquiryWriteForm() {
         content,
         image,
       })
-      .then(() => {
-        navigate("/inquiries");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => navigate("/inquiries"))
+      .catch(defaultErrorHandler);
   }
 
   return (

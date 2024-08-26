@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import "./Notice.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 
 function WriteNotice() {
   const [title, setTitle] = useState("");
@@ -12,10 +13,12 @@ function WriteNotice() {
   function onSubmit() {
     axios
       .post("/api/notices", { title, content })
-      .then(({ data }) => navigate(`/notices/${data.id}`))
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(({ data }) => {
+        // 작성된 게시글로 이동합니다.
+        navigate(`/notices/${data.id}`);
+        toast.success("공지사항이 등록되었습니다");
+      })
+      .catch(defaultErrorHandler);
   }
 
   return (

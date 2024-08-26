@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./RecipeUpWrite.css";
-import { axios, cn } from "utils";
+import { axios, cn, defaultErrorHandler } from "utils";
 import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 
@@ -85,10 +85,8 @@ export default function RecipeWrite() {
         category: selectedCategory,
         level: selectedLevel,
       })
-      .then(() => {
-        navigate("/recipes");
-        console.log(recipe);
-      });
+      .then(() => navigate("/recipes"))
+      .catch(defaultErrorHandler);
   }
 
   return (

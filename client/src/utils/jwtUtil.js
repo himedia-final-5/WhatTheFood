@@ -26,7 +26,8 @@ const requestInterceptor = (config) => {
   // 요청 정보 반환
   return config;
 };
-jaxios.interceptors.request.use(requestInterceptor, console.log);
+
+jaxios.interceptors.request.use(requestInterceptor, console.error);
 
 /** axios 실패 응답을 가로채 토큰 갱신을 시도하는 인터셉터 */
 const responseInterceptor = async (error) => {

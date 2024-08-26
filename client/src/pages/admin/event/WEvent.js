@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import SubMenu from "../SubMenu";
-import { axios, cn } from "utils";
+import { axios, cn, defaultErrorHandler } from "utils";
 import { ImageUploadInput } from "components/util";
 
 function WEvent() {
@@ -23,13 +24,9 @@ function WEvent() {
 
   function submitEvent() {
     axios
-      .post("/api/events/", {
-        ...event,
-      })
-      .then(() => {
-        navigate("/eList");
-        console.log(event);
-      });
+      .post("/api/events/", event)
+      .then(() => navigate("/eList"))
+      .catch(defaultErrorHandler);
   }
 
   return (

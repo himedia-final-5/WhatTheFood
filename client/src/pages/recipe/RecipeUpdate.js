@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
 import "./RecipeUpWrite.css";
-import { axios, cn } from "utils";
+import { axios, cn, defaultErrorHandler } from "utils";
 import { AdminFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 import { useInputs } from "hooks";
@@ -45,7 +46,7 @@ export default function RecipeUpdate() {
         setSelectedCategory(result.data.category || "");
         setSelectedLevel(result.data.level || "");
       })
-      .catch(console.error);
+      .catch(defaultErrorHandler);
   }, [id]);
 
   const toggleCategoryDropdown = () => {
@@ -67,7 +68,7 @@ export default function RecipeUpdate() {
         level: selectedLevel,
       })
       .then(() => navigate(`/recipes/${id}`))
-      .catch(console.error);
+      .catch(defaultErrorHandler);
   }
 
   return (

@@ -54,7 +54,7 @@ public class FormLoginResultHandler implements AuthenticationSuccessHandler, Aut
     ) throws IOException {
         log.error("FormLogin Failed : {}", exception.getMessage());
 
-        ResponseHelper.write(response, GlobalExceptionHandler.createResponseEntity(HttpStatus.UNAUTHORIZED, "인증이 필요합니다"));
+        ResponseHelper.write(response, GlobalExceptionHandler.createResponseEntity(HttpStatus.UNAUTHORIZED, "로그인 실패"));
     }
 
 }

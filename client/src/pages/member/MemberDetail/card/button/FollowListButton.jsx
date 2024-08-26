@@ -21,7 +21,7 @@ import {
 
 import { usePageResponse } from "hooks";
 import PaginationNav from "components/util/PaginationNav";
-import { axios, cn } from "utils";
+import { axios, cn, defaultErrorHandler } from "utils";
 import TextFollowButton from "./TextFollowButton";
 import {
   useProfileDetail,
@@ -161,12 +161,10 @@ function PartOfContent() {
       axios
         .get(
           `/api/members/${profile?.id}/${followDialogMode ? "followers" : "followings"}`,
-          {
-            params: { page, size: 5 },
-          },
+          { params: { page, size: 5 } },
         )
         .then((result) => setPageResponse(result.data))
-        .catch(console.error)
+        .catch(defaultErrorHandler)
         .finally(() => setFetched(true)),
     [setPageResponse, profile?.id, followDialogMode],
   );

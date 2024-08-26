@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./InquiryList.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { useSelector } from "stores";
 import { usePageResponse } from "hooks";
 import { PaginationNav, UserFeatureContainer } from "components/util";
@@ -25,7 +25,7 @@ function InquiryList() {
           params: { page },
         })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error);
+        .catch(defaultErrorHandler);
     },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

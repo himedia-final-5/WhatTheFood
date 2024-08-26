@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./Notice.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
@@ -15,7 +15,7 @@ function Notice() {
       axios
         .get("/api/notices", { params: { page } })
         .then((result) => setPageResponse(result.data))
-        .catch(console.error),
+        .catch(defaultErrorHandler),
     [setPageResponse],
   );
 

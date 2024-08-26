@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useParams, useNavigate } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function MView() {
   const navigate = useNavigate();
@@ -16,10 +17,7 @@ function MView() {
         setMemberView(result.data);
         setRole(result.data.role);
       })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function deleteMember() {
@@ -27,14 +25,11 @@ function MView() {
     if (mCheck) {
       axios
         .delete(`/api/members/admin/${id}`)
-        .then(() => {
-          navigate("/memberList");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        .then(() => navigate("/memberList"))
+        .catch(defaultErrorHandler);
     }
   }
+
   function handleRoleChange(e) {
     setRole(e.currentTarget.value);
   }
@@ -46,14 +41,11 @@ function MView() {
         .put(`/api/members/updateMemberGrade/${id}`, null, {
           params: { role },
         })
-        .then(() => {
-          setMemberView({ ...memberView, role });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        .then(() => setMemberView({ ...memberView, role }))
+        .catch(defaultErrorHandler);
     }
   }
+
   return (
     <div className="adminContainer">
       <SubMenu />

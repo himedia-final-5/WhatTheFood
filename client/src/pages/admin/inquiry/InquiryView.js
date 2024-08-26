@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import SubMenu from "../SubMenu";
-import { axios } from "utils";
 import { useNavigate, useParams } from "react-router-dom";
+
+import SubMenu from "../SubMenu";
+import { axios, defaultErrorHandler } from "utils";
 
 function InquiryView() {
   const navigate = useNavigate();
@@ -13,23 +14,15 @@ function InquiryView() {
   useEffect(() => {
     axios
       .get(`/api/inquiries/${id}`)
-      .then((result) => {
-        setInquiry(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setInquiry(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   function submitAnswer() {
     axios
       .put(`/api/inquiries/${id}/answer`, null, { params: { answer } })
-      .then(() => {
-        navigate("/iList");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => navigate("/iList"))
+      .catch(defaultErrorHandler);
   }
 
   return (

@@ -1,5 +1,5 @@
 /** @type {function(React.SVGProps<SVGElement): React.JSX.Element} */
-export default function UndrawChef(props) {
+export default function LogoNaver(props) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 60 403 403" {...props}>
       <rect fill="#FFFFFF" x="88" y="132" width="272" height="248"></rect>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import "./Notice.css";
-import { axios } from "utils";
+import { axios, defaultErrorHandler } from "utils";
 
 function NoticeView() {
   const [noticeView, setNoticeView] = useState({
@@ -18,13 +18,8 @@ function NoticeView() {
   useEffect(() => {
     axios
       .get(`/api/notices/${id}`)
-      .then((result) => {
-        setNoticeView(result.data);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
+      .then((result) => setNoticeView(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   return (
