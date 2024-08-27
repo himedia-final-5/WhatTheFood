@@ -2,16 +2,18 @@
 SET SESSION FOREIGN_KEY_CHECKS = 0;
 
 -- 기존 데이터 삭제
-DELETE FROM recipe_comments WHERE recipe_id = 1;
-DELETE FROM recipe_ingredient WHERE id = 1;
-DELETE FROM recipe_tool WHERE id = 1;
-DELETE FROM recipe_guide_link WHERE id = 1;
-DELETE FROM recipe_cooking_step WHERE recipe_id = 1;
-DELETE FROM recipe_finished_image WHERE id = 1;
-DELETE FROM recipe_tag WHERE id = 1;
-DELETE FROM favorite_recipes WHERE recipe_id = 1;
-DELETE FROM recipe WHERE id = 1;
-DELETE FROM recipe_ingredient_image WHERE id = 1;
+-- 1번부터 35번까지의 recipe_id에 해당하는 데이터를 삭제
+DELETE FROM recipe_comments WHERE recipe_id BETWEEN 1 AND 35;
+DELETE FROM recipe_ingredient WHERE id BETWEEN 1 AND 35;
+DELETE FROM recipe_tool WHERE id BETWEEN 1 AND 35;
+DELETE FROM recipe_guide_link WHERE id BETWEEN 1 AND 35;
+DELETE FROM recipe_cooking_step WHERE recipe_id BETWEEN 1 AND 35;
+DELETE FROM recipe_finished_image WHERE id BETWEEN 1 AND 35;
+DELETE FROM recipe_tag WHERE id BETWEEN 1 AND 35;
+DELETE FROM favorite_recipes WHERE recipe_id BETWEEN 1 AND 35;
+DELETE FROM recipe WHERE id BETWEEN 1 AND 35;
+DELETE FROM recipe_ingredient_image WHERE id BETWEEN 1 AND 35;
+
 
 
 -- 데이터베이스 구조 변경
@@ -157,7 +159,6 @@ INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_tim
 VALUES (35, 1, 'https://static.wtable.co.kr/image/production/service/recipe/1092/0a2bb178-ac96-4c04-85e9-bd424f4d849b.jpg?size=800x800',
 '레어 치즈케이크', '부드럽고 풍부한 치즈 맛이 일품인 레어 치즈케이크입니다. 상큼한 레몬과 크림치즈의 조화로 입안에서 부드럽고 고소한 맛이 느껴지는 디저트입니다.',
 '4시간', 8, 2, 'https://www.youtube.com/watch?v=Kh9Tdukm0qA&pp=ygUg66CI7Ja0IOy5mOymiOy8gOydtO2BrCDrp4zrk6TquLA%3D', '베이킹', 0);
-INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link, category, view_count)
 
 
 -- 재료 사진 삽입
@@ -1428,6 +1429,7 @@ VALUES
 
 
 
+
 INSERT INTO recipe_finished_image (id, finished_images)
 VALUES (1, 'https://static.wtable.co.kr/image/production/service/recipe/2329/d093364a-c4f9-4586-9cba-871290070cef.jpg?size=800x800');
 INSERT INTO recipe_finished_image (id, finished_images)
@@ -1751,7 +1753,6 @@ VALUES
     (35, 1, '부드럽고 상큼한 맛이 일품입니다! 레몬의 향이 정말 좋네요.'),
     (35, 2, '만들기 쉽고, 맛도 훌륭해요. 가족 모두가 좋아했습니다.'),
     (35, 3, '치즈케이크가 이렇게 가벼울 수 있다니 놀라워요. 자주 만들어 먹을 것 같아요.');
-
 
 -- 찜 목록
 INSERT INTO favorite_recipes (member_id, recipe_id)
