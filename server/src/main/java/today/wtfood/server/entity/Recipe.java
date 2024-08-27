@@ -150,7 +150,7 @@ public class Recipe {
 
     @ElementCollection
     @CollectionTable(name = "recipe_tag", joinColumns = @JoinColumn(name = "id"))
-    private List<String> tags; // 해쉬태그
+    private Set<String> tags; // 해쉬태그
 
     // 찜한 멤버들 목록
     @ManyToMany(mappedBy = "favoriteRecipes")

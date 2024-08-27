@@ -6,6 +6,7 @@ import today.wtfood.server.entity.member.Member;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * DTO for {@link today.wtfood.server.entity.Recipe}
@@ -27,7 +28,7 @@ public class RecipeDto implements Serializable {
     private List<String> guideLinks;
     private List<Recipe.CookingStep> cookingStep;
     private List<String> finishedImages;
-    private List<String> tags;
+    private Set<String> tags;
 
     public Recipe toEntity(Member member) {
         Recipe recipe = new Recipe();
