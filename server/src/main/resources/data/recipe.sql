@@ -14,6 +14,7 @@ DELETE FROM favorite_recipes WHERE recipe_id BETWEEN 1 AND 35;
 DELETE FROM recipe WHERE id BETWEEN 1 AND 35;
 DELETE FROM recipe_ingredient_image WHERE id BETWEEN 1 AND 35;
 
+DELETE FROM `WhatTheFood`.`recipe` WHERE (`id` = '36');
 
 
 -- 데이터베이스 구조 변경
