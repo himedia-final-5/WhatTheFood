@@ -67,7 +67,7 @@ public class Member implements UserDetails, OAuth2User {
     @Column(name = "email", length = 45, unique = true)
     private String email;
 
-    @Column(name = "nickname", length = 15)
+    @Column(name = "nickname", length = 200)
     private String nickname;
 
     @Column(name = "profile_image", length = 200)
