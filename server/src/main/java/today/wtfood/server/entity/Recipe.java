@@ -67,6 +67,7 @@ public class Recipe {
     private List<String> ingredientImage; // 재료 이미지 경로
 
     @ElementCollection
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @CollectionTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "id"))
     private List<String> ingredients; // 재료
 
