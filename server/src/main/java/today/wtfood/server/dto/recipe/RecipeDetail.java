@@ -2,6 +2,7 @@ package today.wtfood.server.dto.recipe;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 디테일
@@ -38,7 +39,7 @@ public interface RecipeDetail extends RecipeSummary {
 
     List<String> finishedImages();
 
-    List<String> tags();
+    Set<String> tags();
 
     List<CommentSummary> getComments();
 
