@@ -190,9 +190,35 @@ export default function RecipeList() {
             </Link>
           ))
         ) : (
-          <div>No recipes found.</div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+            }}
+          >
+            <br></br>
+            <div>
+              <img
+                src="/images/suprize.png"
+                alt="recipe_surchImage"
+                style={{ width: "100px", height: "100px" }}
+              />
+            </div>
+            <br></br>
+            <div style={{ fontSize: "170%", textAlign: "center" }}>
+              "{searchTerm}"<br />
+              검색 결과가 없다. 애송아
+            </div>
+          </div>
         )}
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
       <div aria-label="scroll-trigger" ref={ref} />
     </div>
   );

@@ -7,10 +7,12 @@ import cn from "utils/cn";
 
 const links = [
   ["/recipes", "레시피"],
-  ["/store", "오프라인 매장"],
   ["/chefs", "쉐프"],
-  ["/notices", "공지사항"],
+  ["/brands", "브랜드"],
+  ["/store", "오프라인 매장"],
   ["/events", "이벤트"],
+  ["/notices", "공지사항"],
+  ["/faqs", "FAQ"],
 ];
 
 function Header() {

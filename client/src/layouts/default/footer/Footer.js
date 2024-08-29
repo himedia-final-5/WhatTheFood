@@ -28,9 +28,9 @@ function Footer() {
               {/* <li>
                 <Link to="/contact">광고/제휴</Link>
               </li> */}
-              <li>
+              {/* <li>
                 <Link to="/faqs">FAQ</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
