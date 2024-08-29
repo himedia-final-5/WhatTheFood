@@ -211,7 +211,7 @@ export default function RecipeList() {
             <br></br>
             <div style={{ fontSize: "170%", textAlign: "center" }}>
               "{searchTerm}"<br />
-              검색 결과가 없다. 애송아
+              검색 결과가 없습니다.
             </div>
           </div>
         )}
