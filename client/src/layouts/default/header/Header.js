@@ -70,7 +70,7 @@ function Header() {
             )}
           >
             <Link to="/">
-              <LogoYorijoriMain />
+              <LogoYorijoriMain className="w-36" />
             </Link>
             <div className="flex-1 flex justify-end gap-2">
               <SearchButton />
