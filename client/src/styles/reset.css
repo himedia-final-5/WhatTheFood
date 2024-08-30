@@ -139,3 +139,22 @@ select {
   background-color: #b5fcb3;
   text-shadow: none;
 }
+
+/* 얇은 스크롤바 (웹킷 기반 브라우저) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
