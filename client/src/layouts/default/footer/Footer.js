@@ -11,9 +11,6 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-top">
-          <Link className="footer-logo hidden xs:block" to="/">
-            <img src="/images/logo.PNG" alt="Logo" />
-          </Link>
           <div className="footer-links hidden xs:block">
             <ul>
               <li>
