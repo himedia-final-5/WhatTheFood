@@ -370,7 +370,7 @@ function SearchingStore() {
                     &nbsp;
                     <img
                       src="/images/subway1.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="1호선 종로3가"
                     />
                     &nbsp; 1호선 종로3가,
@@ -379,7 +379,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/subway3.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="3호선 종로3가"
                     />
                     &nbsp; 3호선 종로3가,
@@ -388,7 +388,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/subway5.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="5호선 종로3가"
                     />
                     &nbsp; 5호선 종로3가
@@ -405,7 +405,7 @@ function SearchingStore() {
                     <div style={{ display: "flex" }}>
                       <img
                         src="/images/busblue.png"
-                        style={{ width: "25px;", height: "25px" }}
+                        style={{ width: "25px", height: "25px" }}
                         alt="간선버스"
                       />
                       101, 140, 273, 370, 720
@@ -413,7 +413,7 @@ function SearchingStore() {
                     <div style={{ display: "flex" }}>
                       <img
                         src="/images/busgreen.png"
-                        style={{ width: "25px;", height: "25px" }}
+                        style={{ width: "25px", height: "25px" }}
                         alt="지선버스"
                       />
                       7212, 8101
@@ -422,7 +422,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/busred.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="광역버스"
                     />
                     9301, 7101, 1101, 1102
@@ -441,7 +441,7 @@ function SearchingStore() {
                   &nbsp;
                   <img
                     src="/images/subway1.png"
-                    style={{ width: "25px;", height: "25px" }}
+                    style={{ width: "25px", height: "25px" }}
                     alt="1호선 구로역"
                   />
                   &nbsp;1호선 구로역(3번 출구)
@@ -459,7 +459,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/busblue.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="간선버스"
                     />
                     571, 654
@@ -467,7 +467,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/busgreen.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="지선버스"
                     />
                     5630, 6411, 6516, 6613, 구로09, 양천04
@@ -487,7 +487,7 @@ function SearchingStore() {
                   &nbsp;
                   <img
                     src="/images/subway4.png"
-                    style={{ width: "25px;", height: "25px" }}
+                    style={{ width: "25px", height: "25px" }}
                     alt="4호선 노원역"
                   />
                   &nbsp;&nbsp; 4호선 노원역(9번 출구)
@@ -503,7 +503,7 @@ function SearchingStore() {
                     <div style={{ display: "flex" }}>
                       <img
                         src="/images/busblue.png"
-                        style={{ width: "25px;", height: "25px" }}
+                        style={{ width: "25px", height: "25px" }}
                         alt="간선버스"
                       />
                       102, N13, N61, 서울09출근
@@ -511,7 +511,7 @@ function SearchingStore() {
                     <div style={{ display: "flex" }}>
                       <img
                         src="/images/busgreen.png"
-                        style={{ width: "25px;", height: "25px" }}
+                        style={{ width: "25px", height: "25px" }}
                         alt="지선버스"
                       />
                       1129, 8112, 노원02, 노원08
@@ -520,7 +520,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/busred.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="광역버스"
                     />
                     1100
@@ -540,7 +540,7 @@ function SearchingStore() {
                   &nbsp;
                   <img
                     src="/images/subway2.png"
-                    style={{ width: "25px;", height: "25px" }}
+                    style={{ width: "25px", height: "25px" }}
                     alt="2호선 신촌역"
                   />
                   &nbsp;&nbsp; 2호선 신촌역(2번 출구 또는 3번 출구)
@@ -553,7 +553,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/busblue.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="간선버스"
                     />
                     171, 172, 173, 472, 674, 700
@@ -561,7 +561,7 @@ function SearchingStore() {
                   <div style={{ display: "flex" }}>
                     <img
                       src="/images/busgreen.png"
-                      style={{ width: "25px;", height: "25px" }}
+                      style={{ width: "25px", height: "25px" }}
                       alt="지선버스"
                     />
                     7720, 7727, 7728, 7737, 7024, 75
