@@ -72,8 +72,9 @@ function Header() {
               <svg
                 width="150.657"
                 height="45.945"
-                viewBox="0 0 164.657 45.945"
+                viewBox="0 0 170.657 55.945"
                 xmlns="http://www.w3.org/2000/svg"
+                transform="translate(0,5)"
               >
                 <g stroke-linecap="round" fill-rule="evenodd" font-size="9pt">
                   <path
