@@ -51,11 +51,15 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
      * @param term 단어
      * @return 페이지네이션된 레시피 목록
      */
-    @Query("SELECT DISTINCT r FROM Recipe r WHERE " +
-           "(:term IS NULL OR r.title LIKE %:term%) OR " +
-           "(:term IS NULL OR r.category LIKE %:term%) OR " +
-           "(:term IS NULL OR r.description LIKE %:term%) OR " +
-           "(:term IS NULL OR :term MEMBER OF r.tags)")
+    @Query("""
+            SELECT DISTINCT r \
+            FROM Recipe r \
+            WHERE :term IS NULL \
+                OR r.title LIKE %:term% \
+                OR r.category LIKE %:term% \
+                OR r.description LIKE %:term% \
+                OR :term MEMBER OF r.tags
+            """)
     Page<RecipeSummary> searchRecipes(
             @Param("term") String term,
             Pageable pageable
