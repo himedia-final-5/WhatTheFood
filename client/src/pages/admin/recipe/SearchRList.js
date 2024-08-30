@@ -17,9 +17,7 @@ function SearchRecipeList() {
   const onSelectPage = useCallback(
     (page) =>
       axios
-        .get(`/api/recipes/username/${username}`, {
-          params: { page },
-        })
+        .get(`/api/recipes`, { params: { page, username } })
         .then((result) => setPageResponse(result.data))
         .catch(() => {
           setPageResponse({

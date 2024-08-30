@@ -37,6 +37,8 @@ public class RecipeController {
             String category,
             @RequestParam(value = "memberId", required = false)
             Long memberId,
+            @RequestParam(value = "username", required = false)
+            String username,
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {
@@ -44,20 +46,11 @@ public class RecipeController {
             return PageResponse.of(rs.getRecipesByCategory(category, pageable));
         } else if (memberId != null) {
             return PageResponse.of(rs.getRecipesByMemberId(memberId, pageable));
+        } else if (username != null) {
+            return PageResponse.of(rs.getUserRecipeList(username, pageable));
         } else {
             return PageResponse.of(rs.getRecipeList(pageable));
         }
-    }
-
-    @GetMapping("/username/{username}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public PageResponse<RecipeSummary> getUserRecipeList(
-            @PathVariable("username")
-            String username,
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable
-    ) {
-        return PageResponse.of(rs.getUserRecipeList(username, pageable));
     }
 
     // 레시피 리스트 //레시피번호(id)
