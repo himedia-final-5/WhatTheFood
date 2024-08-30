@@ -94,3 +94,10 @@
   font-size: 130%;
   color: gray;
 }
+
+@media screen and (max-width: 768px) {
+  .inquiryCenter {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}

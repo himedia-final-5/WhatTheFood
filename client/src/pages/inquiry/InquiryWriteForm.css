@@ -91,3 +91,10 @@
   padding: 10px;
   width: 90%;
 }
+
+@media screen and (max-width: 768px) {
+  #inquiryWriteForm {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}
