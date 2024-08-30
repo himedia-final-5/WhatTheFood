@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 import "./RecipeDetail.css";
-import { AdminFeature } from "components/util";
 import { axios, defaultErrorHandler } from "utils";
 import { usePromise } from "hooks";
 import Popup from "./PopUp";
