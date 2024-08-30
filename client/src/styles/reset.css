@@ -133,3 +133,9 @@ select {
   font-size: inherit;
   line-height: inherit;
 }
+
+/* 선택 스타일 지정 */
+::selection {
+  background-color: #b5fcb3;
+  text-shadow: none;
+}
