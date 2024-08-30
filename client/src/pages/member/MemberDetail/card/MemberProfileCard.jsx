@@ -14,13 +14,13 @@ import {
 const ROLE_ICON = {
   ROLE_USER: <></>,
   ROLE_CHEF: (
-    <IconChefHat className="p-1 bg-neutral-700 text-yellow-400 w-8 h-8 rounded-full" />
+    <IconChefHat className="p-1 bg-neutral-700 text-yellow-400 w-7 h-7 rounded-full" />
   ),
   ROLE_BRAND: (
-    <IconBrandFlightradar24 className="p-1 bg-neutral-700 text-green-400 w-8 h-8 rounded-full" />
+    <IconBrandFlightradar24 className="p-1 bg-neutral-700 text-green-400 w-7 h-7 rounded-full" />
   ),
   ROLE_ADMIN: (
-    <IconUserStar className="p-1 bg-neutral-700 text-blue-400 w-8 h-8 rounded-full" />
+    <IconUserStar className="p-1 bg-neutral-700 text-blue-400 w-7 h-7 rounded-full" />
   ),
 };
 
@@ -38,7 +38,7 @@ export default function MemberProfileCard() {
           <StarFollowButton key={profile.id} {...profile} />
         )}
       </div>
-      <div className="absolute top-2 left-2 ">
+      <div className="absolute top-2 right-10 lg:left-2">
         {ROLE_ICON[profile?.role] || <></>}
       </div>
       <img
