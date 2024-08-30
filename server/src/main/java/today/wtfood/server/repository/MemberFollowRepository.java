@@ -49,21 +49,21 @@ public interface MemberFollowRepository extends JpaRepository<MemberFollow, Memb
      */
     @Query("""
             SELECT\s
-                 f.toMember.id AS id,\s
-                 f.toMember.nickname AS nickname,\s
-                 f.toMember.profileImage AS profileImage,
-                 CASE\s
-                     WHEN :currentUserId IS NOT NULL AND (
-                         SELECT COUNT(sub)
-                         FROM MemberFollow sub
-                         WHERE sub.fromMember.id = :currentUserId
-                           AND sub.toMember.id = f.toMember.id
-                     ) > 0\s
-                     THEN true\s
-                     ELSE false\s
-                 END AS following
-             FROM MemberFollow f
-             WHERE f.fromMember.id = :fromMemberId""")
+                f.toMember.id AS id,\s
+                f.toMember.nickname AS nickname,\s
+                f.toMember.profileImage AS profileImage,
+                CASE\s
+                    WHEN :currentUserId IS NOT NULL AND (
+                        SELECT COUNT(sub)
+                        FROM MemberFollow sub
+                        WHERE sub.fromMember.id = :currentUserId
+                            AND sub.toMember.id = f.toMember.id
+                    ) > 0\s
+                    THEN true\s
+                    ELSE false\s
+                END AS following
+            FROM MemberFollow f
+            WHERE f.fromMember.id = :fromMemberId""")
     Page<MemberProfileSummary> findByFromMemberId(
             @NonNull
             @Param("fromMemberId")
@@ -87,21 +87,21 @@ public interface MemberFollowRepository extends JpaRepository<MemberFollow, Memb
      */
     @Query("""
             SELECT\s
-                 f.fromMember.id AS id,\s
-                 f.fromMember.nickname AS nickname,\s
-                 f.fromMember.profileImage AS profileImage,
-                 CASE\s
-                     WHEN :currentUserId IS NOT NULL AND (
-                         SELECT COUNT(sub)
-                         FROM MemberFollow sub
-                         WHERE sub.fromMember.id = :currentUserId
-                           AND sub.toMember.id = f.fromMember.id
-                     ) > 0\s
-                     THEN true\s
-                     ELSE false\s
-                 END AS following
-             FROM MemberFollow f
-             WHERE f.toMember.id = :toMemberId""")
+                f.fromMember.id AS id,\s
+                f.fromMember.nickname AS nickname,\s
+                f.fromMember.profileImage AS profileImage,
+                CASE\s
+                    WHEN :currentUserId IS NOT NULL AND (
+                        SELECT COUNT(sub)
+                        FROM MemberFollow sub
+                        WHERE sub.fromMember.id = :currentUserId
+                            AND sub.toMember.id = f.fromMember.id
+                    ) > 0\s
+                    THEN true\s
+                    ELSE false\s
+                END AS following
+            FROM MemberFollow f
+            WHERE f.toMember.id = :toMemberId""")
     Page<MemberProfileSummary> findByToMemberId(
             @NonNull
             @Param("toMemberId")
