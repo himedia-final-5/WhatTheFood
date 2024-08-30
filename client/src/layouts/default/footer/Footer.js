@@ -22,12 +22,12 @@ function Footer() {
               <li>
                 <Link to="/privacy">개인정보처리방침</Link>
               </li>
-              {/* <li>
-                <Link to="/contact">광고/제휴</Link>
-              </li> */}
-              {/* <li>
+              <li>
+                <Link to="/notices">공지사항</Link>
+              </li>
+              <li>
                 <Link to="/faqs">FAQ</Link>
-              </li> */}
+              </li>
             </ul>
           </div>
         </div>

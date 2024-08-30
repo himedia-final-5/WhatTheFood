@@ -12,8 +12,6 @@ const links = [
   ["/brands", "브랜드"],
   ["/store", "오프라인 매장"],
   ["/events", "이벤트"],
-  ["/notices", "공지사항"],
-  ["/faqs", "FAQ"],
 ];
 
 function Header() {
