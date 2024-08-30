@@ -360,7 +360,7 @@ function SearchingStore() {
               <p>서울특별시 종로구 인사동길 12</p>
               <p>서울특별시 종로구 인사동 43</p>
               <br />
-              <p className="bmw">
+              <div className="bmw">
                 지하철
                 <br />
                 <div
@@ -394,9 +394,9 @@ function SearchingStore() {
                     &nbsp; 5호선 종로3가
                   </div>
                 </div>
-              </p>
+              </div>
               <br></br>
-              <p className="bmw">
+              <div className="bmw">
                 버스 : 종로2가에서 하차
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -428,14 +428,14 @@ function SearchingStore() {
                     9301, 7101, 1101, 1102
                   </div>
                 </div>
-              </p>
+              </div>
               <br></br>
               <br></br>
               <p>[구로]</p>
               <p>서울특별시 구로구 경인로 557</p>
               <p>서울특별시 구로구 구로동 606-4</p>
               <br />
-              <p className="bmw">
+              <div className="bmw">
                 지하철 <br />
                 <div style={{ display: "flex" }}>
                   &nbsp;
@@ -446,9 +446,9 @@ function SearchingStore() {
                   />
                   &nbsp;1호선 구로역(3번 출구)
                 </div>
-              </p>
+              </div>
               <br></br>
-              <p className="bmw">
+              <div className="bmw">
                 버스 : 구로공구상가 또는 구로역(구로기계공구상가)에서 하차
                 <div
                   style={{
@@ -473,14 +473,14 @@ function SearchingStore() {
                     5630, 6411, 6516, 6613, 구로09, 양천04
                   </div>
                 </div>
-              </p>
+              </div>
               <br></br>
               <br></br>
               <p>[노원]</p>
               <p>서울특별시 노원구 상계로5길 32</p>
               <p>서울특별시 노원구 상계동 357-2</p>
               <br />
-              <p className="bmw">
+              <div className="bmw">
                 지하철
                 <br />
                 <div style={{ display: "flex" }}>
@@ -492,9 +492,9 @@ function SearchingStore() {
                   />
                   &nbsp;&nbsp; 4호선 노원역(9번 출구)
                 </div>
-              </p>
+              </div>
               <br></br>
-              <p className="bmw">
+              <div className="bmw">
                 버스 : 지하철 4호선 노원역 9번출구에서 하차
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -526,14 +526,14 @@ function SearchingStore() {
                     1100
                   </div>
                 </div>
-              </p>
+              </div>
               <br></br>
               <br></br>
               <p>[신촌]</p>
               <p>서울특별시 서대문구 연세로 8-1</p>
               <p>서울특별시 서대문구 창천동 18-29</p>
               <br />
-              <p className="bmw">
+              <div className="bmw">
                 지하철
                 <br />
                 <div style={{ display: "flex" }}>
@@ -545,9 +545,9 @@ function SearchingStore() {
                   />
                   &nbsp;&nbsp; 2호선 신촌역(2번 출구 또는 3번 출구)
                 </div>
-              </p>
+              </div>
               <br></br>
-              <p className="bmw">
+              <div className="bmw">
                 버스 : 연세로 문학의거리 또는 연세로 스타광장에서 하차
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <div style={{ display: "flex" }}>
@@ -567,7 +567,7 @@ function SearchingStore() {
                     7720, 7727, 7728, 7737, 7024, 75
                   </div>
                 </div>
-              </p>
+              </div>
             </div>
             <br></br>
             <br></br>
