@@ -208,12 +208,14 @@ export default function RecipeDetail() {
     recipe && (
       <div className="recipedetail_wrap">
         <div className="recipedetail_btn_wrap">
-          <AdminFeature>
-            <Link to={`/recipes/write/${recipe.id}`}>
-              <button>수정</button>
-            </Link>
-            <button onClick={deleteRecipe}>삭제</button>
-          </AdminFeature>
+          {user?.id == recipe?.member?.id && (
+            <>
+              <Link to={`/recipes/write/${recipe.id}`}>
+                <button>수정</button>
+              </Link>
+              <button onClick={deleteRecipe}>삭제</button>
+            </>
+          )}
           <Link to="/recipes">
             <button>돌아가기</button>
           </Link>

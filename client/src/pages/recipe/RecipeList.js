@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
-import { AdminFeature } from "components/util";
+import UserFeature from "components/util/UserFeature";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 import { useSelector } from "react-redux"; // Redux를 가져옵니다
@@ -132,11 +132,11 @@ export default function RecipeList() {
     <div className="recipeList_wrap">
       <div className="recipe_category_wrap">
         <div className="category_filter">
-          <AdminFeature>
+          <UserFeature>
             <Link to="/recipes/write" className="create_recipe_button">
               게시글쓰기
             </Link>
-          </AdminFeature>
+          </UserFeature>
           {category.map((cat) => (
             <button
               key={cat.query}

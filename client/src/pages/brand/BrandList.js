@@ -41,9 +41,9 @@ export default function BrandList() {
   // 클릭된 항목에 따라 필터 키워드를 설정
   const handleClick = (id) => {
     setActiveId(id);
-    if (id === 0) setKeyword("cp");
-    else if (id === 1) setKeyword("gm");
-    else if (id === 2) setKeyword("mall");
+    if (id === 0) setKeyword("brand22");
+    else if (id === 1) setKeyword("brand23");
+    else if (id === 2) setKeyword("brand24");
     else setKeyword("");
   };
 
