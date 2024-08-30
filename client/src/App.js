@@ -45,7 +45,7 @@ import {
   NoticeWrite,
   NoticeUpdate,
 } from "pages/notice";
-import { Privacy, Terms } from "pages/policy";
+import { About, Privacy, Terms } from "pages/policy";
 import {
   RecipeDetail,
   RecipeFavorite,
@@ -105,6 +105,7 @@ function App() {
             <Route element={<EmptyLayout />}>
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
+              <Route path="/about" element={<About />} />
             </Route>
 
             <Route element={<AdminLayout />}>
