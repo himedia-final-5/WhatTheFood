@@ -207,7 +207,7 @@ export default function RecipeDetail() {
     recipe && (
       <div className="recipedetail_wrap">
         <div className="recipedetail_btn_wrap">
-          {user?.id == recipe?.member?.id && (
+          {user?.id === recipe?.member?.id && (
             <>
               <Link to={`/recipes/write/${recipe.id}`}>
                 <button>수정</button>
