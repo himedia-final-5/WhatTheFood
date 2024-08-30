@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
-  function onTerms() {
-    window.open("/terms", "_blank", "width=600,height=800");
+  function openPopupPage(url) {
+    window.open(url, "_blank", "width=600,height=800");
   }
 
   return (
@@ -14,13 +14,19 @@ function Footer() {
           <div className="footer-links hidden xs:block">
             <ul>
               <li>
-                <Link to="/about">회사소개</Link>
+                <button onClick={() => openPopupPage("/about")}>
+                  회사소개
+                </button>
               </li>
               <li>
-                <button onClick={onTerms}>이용약관</button>
+                <button onClick={() => openPopupPage("/terms")}>
+                  이용약관
+                </button>
               </li>
               <li>
-                <Link to="/privacy">개인정보처리방침</Link>
+                <button onClick={() => openPopupPage("/privacy")}>
+                  개인정보처리방침
+                </button>
               </li>
               <li>
                 <Link to="/notices">공지사항</Link>

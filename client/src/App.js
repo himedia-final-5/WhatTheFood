@@ -5,7 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { DefaultLayout, AdminLayout } from "layouts";
+import { DefaultLayout, EmptyLayout, AdminLayout } from "layouts";
 import { ErrorRender, NotFoundRender } from "layouts/fallback";
 import {
   AdminMain,
@@ -98,11 +98,13 @@ function App() {
 
               <Route path="/store" element={<SearchingStore />} />
 
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-
               <Route path="/test/assets" element={<TestAssets />} />
               <Route path="/test/profile" element={<TestProfileGenerator />} />
+            </Route>
+
+            <Route element={<EmptyLayout />}>
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
             </Route>
 
             <Route element={<AdminLayout />}>
