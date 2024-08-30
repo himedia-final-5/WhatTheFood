@@ -165,3 +165,15 @@
   background-color: #f9f9f9; /* 버튼 호버 색상 */
   transform: scale(1.05); /* 버튼 확대 효과 */
 }
+
+@media screen and (max-width: 768px) {
+  .faqCenter {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  #qvbody {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}
