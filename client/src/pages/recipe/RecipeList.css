@@ -183,6 +183,12 @@
     margin-bottom: 20px;
   }
 
+  .create_recipe_button {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+  }
+
   .category_button {
     width: 100%; /* 버튼이 grid 아이템을 꽉 채우도록 */
     text-align: center;
