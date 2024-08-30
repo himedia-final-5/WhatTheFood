@@ -38,7 +38,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
     Member findByUsername(String username);
 
-    <T> Page<T> findByRole(Enum role, Pageable pageable, Class<T> memberAdminClass);
+    <T> Page<T> findByRole(Member.Role role, Pageable pageable, Class<T> memberAdminClass);
 
     /**
      * 회원 프로필 조회
