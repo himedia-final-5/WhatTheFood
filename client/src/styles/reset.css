@@ -98,3 +98,63 @@ input:focus ~ span,
 input:valid ~ span {
   width: 100%;
 }
+
+/* 검색 창의 버튼 제거 */
+input[type="search"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+input[type="search"]::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* 테이블 기본 간격 제거 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 폼 요소 스타일 상속 */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* 선택 스타일 지정 */
+::selection {
+  background-color: #b5fcb3;
+  text-shadow: none;
+}
+
+/* 얇은 스크롤바 (웹킷 기반 브라우저) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
