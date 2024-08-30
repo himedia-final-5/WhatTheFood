@@ -8,6 +8,7 @@ import "./RecipeDetail.css";
 import { axios, defaultErrorHandler } from "utils";
 import { usePromise } from "hooks";
 import Popup from "./PopUp";
+import { UserFeature } from "components/util";
 
 /** @type {?RecipeDetail} */
 const DEFAULT_RECIPE = null;
@@ -207,14 +208,12 @@ export default function RecipeDetail() {
     recipe && (
       <div className="recipedetail_wrap">
         <div className="recipedetail_btn_wrap">
-          {user?.id === recipe?.member?.id && (
-            <>
-              <Link to={`/recipes/write/${recipe.id}`}>
-                <button>수정</button>
-              </Link>
-              <button onClick={deleteRecipe}>삭제</button>
-            </>
-          )}
+          <UserFeature expectId={recipe.member.id}>
+            <Link to={`/recipes/write/${recipe.id}`}>
+              <button>수정</button>
+            </Link>
+            <button onClick={deleteRecipe}>삭제</button>
+          </UserFeature>
           <Link to="/recipes">
             <button>돌아가기</button>
           </Link>
