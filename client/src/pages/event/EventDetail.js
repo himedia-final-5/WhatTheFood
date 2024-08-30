@@ -112,8 +112,8 @@ export default function EventDetail() {
         title: event.title,
         imageUrl: imageUrl,
         link: {
-          mobileWebUrl: `http://wtfood.today:3000/events${event.id}`,
-          webUrl: `http://wtfood.today:3000/events/${event.id}`,
+          mobileWebUrl: `http://yorijori.recipes/events${event.id}`,
+          webUrl: `http://yorijori.recipes/events/${event.id}`,
         },
       },
       social: {
@@ -125,15 +125,15 @@ export default function EventDetail() {
         {
           title: "웹으로 보기",
           link: {
-            mobileWebUrl: `http://wtfood.today:3000/events/${event.id}`,
-            webUrl: `http://wtfood.today:3000/events/${event.id}`,
+            mobileWebUrl: `http://yorijori.recipes/events/${event.id}`,
+            webUrl: `http://yorijori.recipes/events/${event.id}`,
           },
         },
         {
           title: "앱으로 보기",
           link: {
-            mobileWebUrl: `http://wtfood.today:3000/events/${event.id}`,
-            webUrl: `http://wtfood.today:3000/events/${event.id}`,
+            mobileWebUrl: `http://yorijori.recipes/events/${event.id}`,
+            webUrl: `http://yorijori.recipes/events/${event.id}`,
           },
         },
       ],
