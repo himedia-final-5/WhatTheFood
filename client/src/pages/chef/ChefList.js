@@ -9,53 +9,25 @@ const items = ["일간", "주간", "월간"];
 const periodMapping = { 일간: "d", 주간: "w", 월간: "m" };
 
 export default function ChefList() {
-  const [, setSearchParams] = useSearchParams();
   const [selectedPeriod] = useState("d");
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
-  const [, setRankings] = useState([]);
-  const [period, setPeriod] = useState();
 
-  const fetchRankings = useCallback(async () => {
-    const periodParam = periodMapping[selectedPeriod] || "d";
-    axios
-      .get(`/api/recipes/view?period=${periodParam}`)
-      .then((response) => setRankings(response.data))
-      .catch((error) => defaultErrorHandler(error));
-  }, [selectedPeriod]);
-
-  // 서버에서 페이지네이션 데이터 가져오기
-  const fetchMore = async (page) => {
-    try {
+  const { ref, content } = useInfiniteScroll(
+    throttle(async (page) => {
       const response = await axios.get(`/api/members`, {
-        params: { period: selectedPeriod, page, size: 8, role: "ROLE_CHEF" },
+        params: { page, size: 8, role: "ROLE_CHEF" },
       });
       setThrottleInterval(0);
       return response.data;
-    } catch (error) {
+    }),
+    (error) => {
       setThrottleInterval(3000);
       defaultErrorHandler(error);
-      return { content: [], pagination: {} }; // 오류 시 빈 데이터 반환
-    }
-  };
+    },
+  );
 
-  // useInfiniteScroll 훅 사용
-  const { ref, content } = useInfiniteScroll(throttle(fetchMore), (error) => {
-    setThrottleInterval(3000);
-    defaultErrorHandler(error);
-  });
-
-  const handlePeriodChange = (newPeriod) => {
-    if (period !== newPeriod) {
-      setPeriod(newPeriod);
-      setSearchParams({ period: periodMapping[newPeriod] });
-    }
-  };
-
-  useEffect(() => {
-    // 초기 데이터 가져오기
-    fetchRankings();
-  }, [fetchRankings]);
+  const handlePeriodChange = () => {};
 
   return (
     <div className="chef_wrap">
@@ -64,8 +36,8 @@ export default function ChefList() {
           {items.map((item, index) => (
             <li
               key={index}
-              onClick={() => handlePeriodChange(periodMapping[item])}
-              className={`border px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg ${selectedPeriod === periodMapping[item] ? "font-bold" : ""}`}
+              onClick={() => handlePeriodChange()}
+              className={`border px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg `}
             >
               {item}
             </li>
