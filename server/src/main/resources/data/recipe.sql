@@ -48,171 +48,182 @@ VALUES (1, 1,
         'https://static.wtable.co.kr/image/production/service/recipe/2329/e9c09320-6913-4632-a77d-b35dc529012e.jpg?size=800x800',
         '멍게비빔밥', '바다의 향이 가득한 멍게와 신선한 야채들이 조화롭게 어우러진 비빔밥입니다. 상큼한 초고추장과 함께 비벼 먹는 이 요리는 간단하면서도 영양 가득한 한 끼로 손색이 없습니다.',
         '20분', 2, 2, 'https://www.youtube.com/watch?v=wlbWyB9cSS0&pp=ygUZ66mN6rKM67mE67mU67ClIOunjOuTpOq4sA%3D%3D',
-        '한식', 0);
+        '한식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (2, 2,
         'https://static.wtable.co.kr/image/production/service/recipe/2344/9a1bd1e4-cbf9-4e2c-857a-56c95078bf4c.jpg?size=800x800',
         '매콤하면서 술안주로 딱', '매콤한 고추와 고기를 이용해 만든 간단하면서도 맛있는 고추전입니다. 주말 저녁이나 명절에 딱 어울리는 요리입니다.',
+        '20분', 2, 2, 'https://youtu.be/IoSwCiTghf0?si=kCGsdD3ZhO5ElycY', '한식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (3, 3,
         'https://static.wtable.co.kr/image/production/service/recipe/2328/91ec15ed-2f6a-464e-ac1b-5b08eaffda0e.jpg?size=800x800',
         '시원하고 깊은 맛', '성게와 미역의 조화로 깊고 시원한 국물 맛을 내는 성게미역국 레시피입니다. 간단하면서도 영양 가득한 한 그릇 요리로, 특히 여름철 보양식으로도 좋습니다.',
-        '40뷴', 4, 2, 'https://youtu.be/z6ZGxPUd4Ac?si=BmKii98w1dDr6Ffq', '한식', 0);
+        '40뷴', 4, 2, 'https://youtu.be/z6ZGxPUd4Ac?si=BmKii98w1dDr6Ffq', '한식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (4, 4,
         'https://static.wtable.co.kr/image/production/service/recipe/2137/d1c42852-eb66-4f04-a678-083f6608f082.jpg?size=800x800',
         '밥 한그릇 뚝딱!', '풍성한 양의 목살과 잘 익은 김치가 어우러져 부드럽고 맛있는 김치찜을 완성할 수 있습니다. 이 레시피로 감칠맛 나는 김치찜을 손쉽게 만들어 보세요.',
-        '1시간 20분', 4, 2, 'https://www.youtube.com/watch?v=cIDqDT5RF3U&pp=ygUP6rmA7LmY66qp7IK07LCc', '한식', 0);
+        '1시간 20분', 4, 2, 'https://www.youtube.com/watch?v=cIDqDT5RF3U&pp=ygUP6rmA7LmY66qp7IK07LCc', '한식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (5, 1,
         'https://static.wtable.co.kr/image/production/service/recipe/1532/259cb807-ada0-402b-bbd3-6ab5b1ee4767.jpg?size=800x800',
         '보기만 해도 시원해지는',
         '잘 삶은 홍합은 그냥 먹어도 맛있지만 다양한 요리에도 잘 어울리죠~ 10월부터 12월이 제철인 살이 통통한 홍합으로 홍합탕을 끓이면 더욱 깊은 맛을 낸답니다. 따로 간을 하지 않아도 되기 때문에 제대로 손질만 하면 실패 없이 만들 수 있어요. 송송 썬 고추를 넣으면 국물이 시원하면서도 칼칼해서 국물이 금세 동나도록 먹게 될거예요!',
-        '20분', 4, 1, 'https://www.youtube.com/watch?v=t63aSsdvZKs&pp=ygUJ7ZmN7ZWp7YOV', '한식', 0);
+        '20분', 4, 1, 'https://www.youtube.com/watch?v=t63aSsdvZKs&pp=ygUJ7ZmN7ZWp7YOV', '한식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (6, 2,
         'https://static.wtable.co.kr/image/production/service/recipe/1268/942a38ee-ceda-4ae7-850d-c6ba39542a07.jpg?size=800x800',
         '고소하고 유니크한', '고급스러운 송로 오일과 육회가 만난 특별한 스파게티! 진한 풍미와 부드러운 식감이 일품으로, 특별한 날에 어울리는 요리입니다.',
-        '25분', 2, 3, 'https://www.youtube.com/watch?v=y0ecwbUGvW4&pp=ygUT7Jyh7ZqMIOyKpO2MjOqyjO2LsA%3D%3D', '양식', 0);
+        '25분', 2, 3, 'https://www.youtube.com/watch?v=y0ecwbUGvW4&pp=ygUT7Jyh7ZqMIOyKpO2MjOqyjO2LsA%3D%3D', '양식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (7, 3,
         'https://static.wtable.co.kr/image/production/service/recipe/2681/1d0a0dc0-b3d2-4784-9e99-fd0750fa97c4.jpg?size=800x800',
         '요즘 트렌드 초콜릿', '두바이에서 영감을 받은 풍부한 초콜릿 맛의 디저트입니다. 달콤하고 진한 초콜릿의 맛이 일품으로, 특별한 날에 어울리는 디저트입니다.',
         '30분', 4, 2, 'https://www.youtube.com/watch?v=yVuprH1DTLg&pp=ygUd65GQ67CU7J20IOy0iOy9nOumvyDrp4zrk6TquLA%3D',
-        '양식', 0);
+        '양식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (8, 4,
         'https://static.wtable.co.kr/image/production/service/recipe/1412/c9052b39-229d-4a42-88fd-7ea8b5a27df1.jpg?size=500x500',
         '이탈리아의 감성 그대로', '풍부한 소스와 층층이 쌓인 면이 어우러지는 이탈리안 전통 요리, 라자냐입니다. 치즈와 미트 소스의 조화가 일품으로, 특별한 날에 적합한 요리입니다.',
-        '1시간', 6, 4, 'https://www.youtube.com/watch?v=ZTkLFFEXQ4s&pp=ygUT65287J6Q64OQIOunjOuTpOq4sA%3D%3D', '양식', 0);
+        '1시간', 6, 4, 'https://www.youtube.com/watch?v=ZTkLFFEXQ4s&pp=ygUT65287J6Q64OQIOunjOuTpOq4sA%3D%3D', '양식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (9, 1,
         'https://static.wtable.co.kr/image/production/service/recipe/1012/0221329d-24f5-44fc-bc7d-6cd9bdd10e77.jpg?size=800x800',
         '고수와 파스타의 만남', '신선한 고수와 페스토를 활용한 크림 파스타로, 독특한 향과 부드러운 크림 소스가 조화를 이루는 요리입니다. 색다른 맛을 원하는 분들에게 추천합니다.',
         '30분', 2, 3, 'https://www.youtube.com/watch?v=ivNam7sY94c&pp=ygUh6rOg7IiYIO2BrOumvCDtjpjsiqTthqAg7YyM7Iqk7YOA',
-        '양식', 0);
+        '양식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (10, 2,
         'https://static.wtable.co.kr/image/production/service/recipe/992/33096f46-a8fd-4b78-ae56-bba7a012fe54.jpg?size=800x800',
         '간편하고 맛있는', '간편하게 한 팬에서 조리할 수 있는 새우 파스타로, 신선한 새우와 풍부한 토마토 소스가 어우러져 맛을 더합니다.',
+        '30분', 2, 2, 'https://www.youtube.com/watch?v=shYlVEzum1g&pp=ygUX7JuQ7YysIOyDiOyasCDtjIzsiqTtg4A%3D', '양식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (11, 3,
         'https://static.wtable.co.kr/image/production/service/recipe/1675/0c6d386e-2ff4-4c23-8327-b2608d7cd418.jpg?size=800x800',
         '시원하게 탱글하게', '시원한 국물과 쫄깃한 우동 면이 어우러지는 붓카케 우동입니다. 간단하게 만들 수 있으며, 뜨거운 여름 날씨에 제격인 일본식 냉우동입니다.',
         '20분', 2, 1, 'https://www.youtube.com/watch?v=PQQNE2dMh1U&pp=ygUa67aT7Lm07LyAIOyasOuPmSDrp4zrk6TquLA%3D', '일식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (12, 4,
         'https://static.wtable.co.kr/image/production/service/recipe/719/23757871-daf5-4a3d-b6e3-87b0a975f8d8.jpg?size=800x800',
         '바삭하니 너무 좋아요', '바삭한 튀김과 부드러운 덮밥이 어우러진 일본식 텐동입니다. 다양한 해산물과 채소 튀김이 간장 소스와 함께 제공되어 맛있고 풍부한 한 끼 식사입니다.',
-        '40분', 2, 3, 'https://www.youtube.com/watch?v=Qc_R4Rg2jsM&pp=ygUQ7YWQ64-ZIOunjOuTpOq4sA%3D%3D', '일식', 0);
+        '40분', 2, 3, 'https://www.youtube.com/watch?v=Qc_R4Rg2jsM&pp=ygUQ7YWQ64-ZIOunjOuTpOq4sA%3D%3D', '일식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (13, 1,
         'https://static.wtable.co.kr/image/production/service/recipe/629/d3d12973-e5ce-4d73-8baa-d98922ef2937.jpg?size=800x800',
         '스테미나에 최고', '달콤하고 짭조름한 장어 소스가 밥과 잘 어우러지는 장어덮밥입니다. 부드러운 장어와 풍미 깊은 소스가 특징인 일식 요리입니다.',
         '30분', 2, 3, 'https://www.youtube.com/watch?v=4VhCur_-_Xk&pp=ygUW7J6l7Ja0642u67ClIOunjOuTpOq4sA%3D%3D', '일식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (14, 2,
         'https://static.wtable.co.kr/image/production/service/recipe/996/d27420df-f867-4e0d-a39e-7421a0f3bc3c.jpg?size=800x800',
         '환상의 조합', '부드러운 연어와 신선한 아보카도가 밥과 잘 어우러지는 연어 아보카도 덮밥입니다. 건강하고 맛있는 일식 덮밥으로, 간편하게 만들 수 있는 레시피입니다.',
         '25분', 2, 2,
-        'https://www.youtube.com/watch?v=9GZS3tb1Du4&pp=ygUk7Jew7Ja0IOyVhOuztOy5tOuPhCDrja7rsKUg66eM65Ok6riw', '일식', 0);
+        'https://www.youtube.com/watch?v=9GZS3tb1Du4&pp=ygUk7Jew7Ja0IOyVhOuztOy5tOuPhCDrja7rsKUg66eM65Ok6riw', '일식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (15, 3,
         'https://static.wtable.co.kr/image/production/service/recipe/948/5780ac56-3357-422f-b0ad-4240a3fff910.jpg?size=500x500',
         '길거리에서 먹던 그맛', '부드럽고 맛있는 타코야끼를 집에서도 쉽게 만들 수 있는 레시피입니다. 타코야끼는 일본의 대표적인 길거리 음식으로, 문어와 다양한 재료가 어우러진 맛있는 간식입니다.',
         '30분', 4, 3, 'https://www.youtube.com/watch?v=ek0y6luCQyE&pp=ygUW7YOA7L2U7JW864G8IOunjOuTpOq4sA%3D%3D', '일식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (16, 4,
         'https://static.wtable.co.kr/image/production/service/recipe/1298/425048b6-8000-45bc-978b-7c8fc0337a81.jpg?size=800x800',
         '술안주로 최고', '겉은 바삭하고 속은 촉촉한 교자 레시피입니다. 다양한 재료를 사용해 만든 교자는 간단하게 집에서도 맛있게 즐길 수 있는 일식 대표 만두입니다.',
-        '40분', 4, 3, 'https://www.youtube.com/watch?v=znsJrojoTj4&pp=ygUQ6rWQ7J6QIOunjOuTpOq4sA%3D%3D', '중식', 0);
+        '40분', 4, 3, 'https://www.youtube.com/watch?v=znsJrojoTj4&pp=ygUQ6rWQ7J6QIOunjOuTpOq4sA%3D%3D', '중식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (17, 1,
         'https://static.wtable.co.kr/image/production/service/recipe/1217/8dd89b20-d8b4-4d10-89ee-144b510b0691.jpg?size=800x800',
         '집에서도 만들기 쉬운', '해물과 매콤한 짜장 소스가 어우러진 매운 해물짜장 레시피입니다. 다양한 해산물과 매운 맛이 잘 어우러진 요리로, 중화 요리의 매력을 한층 높여줍니다.',
         '40분', 4, 3, 'https://www.youtube.com/watch?v=SlY4xf8Dk1c&pp=ygUd66ek7Jq0IO2VtOusvOynnOyepSDrp4zrk6TquLA%3D',
-        '중식', 0);
+        '중식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (18, 2,
         'https://static.wtable.co.kr/image/production/service/recipe/1220/8d0908bd-24e2-4e6e-982d-2c0b5594c4a8.jpg?size=800x800',
         '매콤 짭잘 탱탱한 면발', '매콤하고 칼칼한 국물 맛이 일품인 해물 볶음 짬뽕입니다. 신선한 해산물과 다양한 채소가 어우러져 풍부한 맛을 제공합니다. 집에서도 쉽게 즐길 수 있는 중화 요리입니다.',
         '35분', 4, 3, 'https://www.youtube.com/watch?v=Qapbhge2LvA&pp=ygUe7ZW066y8IOuztuydjCDsp6zrvZUg66eM65Ok6riw',
-        '중식', 0);
+        '중식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (19, 3,
         'https://static.wtable.co.kr/image/production/service/recipe/1213/806a52e8-4c12-4900-9380-d1bc5ed276f5.jpg?size=800x800',
         '비벼비벼 잡채랑 함께', '맛있고 간편한 중국식 잡채 덮밥입니다. 달콤하고 짭조름한 잡채와 밥이 잘 어우러져 한 끼 식사로 적합합니다. 다양한 채소와 고기의 조화가 일품입니다.',
-        '30분', 4, 2, 'https://www.youtube.com/watch?v=Dw342KkUa4U&pp=ygUYCOyeoeyxhCDrja7rsKUg66eM65Ok6riw', '중식', 0);
+        '30분', 4, 2, 'https://www.youtube.com/watch?v=Dw342KkUa4U&pp=ygUYCOyeoeyxhCDrja7rsKUg66eM65Ok6riw', '중식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (20, 4,
         'https://static.wtable.co.kr/image/production/service/recipe/1224/59fb77e4-dc72-48f2-9b68-d39c578409bc.jpg?size=800x800',
         '쫄깃쫄깃 너무 맛있는', '바삭한 찹쌀 옷을 입힌 탕수육에 새콤달콤한 소스를 더한 요리입니다. 찹쌀가루를 사용하여 더욱 바삭한 식감을 자랑하며, 집에서도 간편하게 즐길 수 있는 중식 요리입니다.',
         '40분', 4, 3, 'https://www.youtube.com/watch?v=WfGs1hMSqhk&pp=ygUa7LC57IyAIO2DleyImOycoSDrp4zrk6TquLA%3D', '중식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (21, 1,
         'https://static.wtable.co.kr/image/production/service/recipe/972/3c5e9f76-20bf-409b-a003-daba4eb60627.jpg?size=800x800',
         '간단하면서 마라마라 얼큰맛',
         '요즘 인기 있는 음식하면 빠질 수 없는 마라! 알싸하고 매콤한 맛에 모두 빠질 만큼 중독성 있는데요. 마라 소스만 있다면 간단하게 만들 수 있는 간식, 마라 어묵꼬치을 준비했어요! 매력 있는 어묵꼬치를 집에서 만들어 보세요.',
-        '30분', 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '분식', 0);
+        '30분', 4, 2, 'https://www.youtube.com/embed/hQp0LoZsGq8', '분식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (22, 2,
         'https://static.wtable.co.kr/image/production/service/recipe/765/8356fd78-351a-4134-accb-255155f90263.jpg?size=500x500',
         '국민 분식 빠질수 없는', '부드러운 차돌박이와 쫄깃한 떡이 어우러진 매콤달콤한 떡볶이입니다. 간단한 재료로도 깊은 맛을 내며, 특별한 날은 물론 일상적인 한 끼 식사로도 손색이 없습니다.',
         '25분', 2, 2,
-        'https://www.youtube.com/watch?v=_KojB9WA8vQ&pp=ygUg7LCo64-M67CV7J20IOuWoeuztuydtCDrp4zrk6TquLA%3D', '분식', 0);
+        'https://www.youtube.com/watch?v=_KojB9WA8vQ&pp=ygUg7LCo64-M67CV7J20IOuWoeuztuydtCDrp4zrk6TquLA%3D', '분식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (23, 3,
         'https://static.wtable.co.kr/image/production/service/recipe/605/32cf80a5-ffaa-436f-8d15-9d581e8e662f.jpg?size=500x500',
         '피크닉 갈때도 유용하게', '달콤하고 짭짤한 불고기를 넣어 만든 김밥으로, 풍부한 맛과 영양이 가득합니다. 누구나 쉽게 만들 수 있는 한끼 식사로, 도시락이나 피크닉에 제격입니다.',
         '30분', 4, 2, 'https://www.youtube.com/watch?v=YkjZCoKq6MM&pp=ygUa67aI6rOg6riwIOq5gOuwpSDrp4zrk6TquLA%3D', '분식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (24, 4,
         'https://static.wtable.co.kr/image/production/service/recipe/1033/be94ce10-5f15-4fbd-8923-91fe2bdb7b59.jpg?size=800x800',
         '새콤달콤 맛있는', '아삭한 콩나물과 쫄깃한 쫄면의 조화가 매력적인 매콤새콤한 쫄면 요리입니다. 간단하게 만들 수 있어 가벼운 한 끼로 좋습니다.',
         '20분', 2, 2, 'https://www.youtube.com/watch?v=ddEsVpxZiYQ&pp=ygUa7L2p64KY66y8IOyrhOuptCDrp4zrk6TquLA%3D', '분식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (25, 1,
         'https://static.wtable.co.kr/image/production/service/recipe/886/882096fb-aa2f-4c8e-92aa-38eeb17c9fb1.jpg?size=800x800',
         '칠리와 김말이의 만남', '바삭한 김말이를 매콤달콤한 칠리 소스에 버무린 독특한 탕수 요리입니다. 아이들도 어른들도 좋아할 맛있는 간식입니다.',
         '30분', 3, 2, 'https://www.youtube.com/watch?v=SPS6mKl8buk&pp=ygUh6rmA66eQ7J20IOy5oOumrCDtg5XsiJgg66eM65Ok6riw',
-        '분식', 0);
+        '분식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (26, 2,
         'https://static.wtable.co.kr/image/production/service/recipe/2281/8290385a-be07-4650-9223-26ea063b044c.jpg?size=800x800',
         '중독되는 맛', '달콤하고 짭짤한 맛이 일품인 마약옥수수! 한 번 먹으면 멈출 수 없는 중독적인 맛을 자랑합니다. 간단한 재료로 손쉽게 만들 수 있어 누구나 쉽게 따라할 수 있는 간식입니다.',
         '15분', 2, 1, 'https://www.youtube.com/watch?v=U9aE_igKu7w&pp=ygUZ66eI7JW97Jil7IiY7IiYIOunjOuTpOq4sA%3D%3D',
-        '간식', 0);
+        '간식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (27, 3,
@@ -220,13 +231,14 @@ VALUES (27, 3,
         '어린이들 입맛에 딱',
         '간단하면서도 맛있는 소떡소떡! 소시지와 떡을 번갈아 가며 꼬치에 끼워 구운 후, 달콤한 소스를 발라 완성하는 간식으로, 어린이들부터 어른들까지 모두가 좋아할 만한 맛입니다.',
         '20분', 4, 1, 'https://www.youtube.com/watch?v=6_1T8uA894E&pp=ygUW7IaM65ah7IaM65ahIOunjOuTpOq4sA%3D%3D', '간식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (28, 4,
         'https://static.wtable.co.kr/image/production/service/recipe/2276/0553d553-a0a3-4336-80bb-4f6a0fa10e38.jpg?size=500x500',
         '고소하고 먹기 편한', '쫀득한 식감과 고소한 치즈의 풍미가 일품인 치즈볼! 달콤한 설탕을 뿌려서 먹으면 더 맛있어요. 집에서도 간단하게 만들어 먹을 수 있는 간식입니다.',
-        '30분', 4, 2, 'https://www.youtube.com/watch?v=iFgLLF0m_Ts&pp=ygUT7LmY7KaI67O8IOunjOuTpOq4sA%3D%3D', '간식', 0);
+        '30분', 4, 2, 'https://www.youtube.com/watch?v=iFgLLF0m_Ts&pp=ygUT7LmY7KaI67O8IOunjOuTpOq4sA%3D%3D', '간식',
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (29, 201,
@@ -235,35 +247,35 @@ VALUES (29, 201,
         '크리미한 아보카도의 풍미를 가득 담은 아이스크림! 건강하고 고소한 맛으로, 디저트로 손색없는 아이스크림입니다. 아보카도와 몇 가지 재료만으로 간단하게 만들 수 있어요.',
         '15분', 4, 1,
         'https://www.youtube.com/watch?v=Km9IHFX66K0&pp=ygUm7JWE67O07Lm064-EIOyVhOydtOyKpO2BrOumvCDrp4zrk6TquLA%3D',
-        '간식', 0);
+        '간식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (30, 201,
         'https://static.wtable.co.kr/image/production/service/recipe/2667/3aaa6a5a-33b4-4b57-abea-14d6f36d82ed.jpg?size=500x500',
         '새콤달콤 여름에 시원하게', '상큼하고 시원한 과일 셔벗! 제철 과일을 이용해 간편하게 만들 수 있는 여름철 디저트입니다. 달콤함과 상큼함이 어우러져 입맛을 돋우는 데 최고입니다.',
         '20분', 4, 2, 'https://www.youtube.com/watch?v=JnNLlLX-6Vs&pp=ygUa6rO87J28IOyDpOuyoO2KuCDrp4zrk6TquLA%3D', '간식',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (31, 201,
         'https://static.wtable.co.kr/image/production/service/recipe/1920/6d82db45-4439-403f-b6e1-e519c87cc8e8.jpg?size=500x500',
         '우리 강아지를 위한 특별한 선물', '반려견과 함께하는 분들이라면 주목! 소중한 우리 강아지의 생일을 특별한 순간으로 장식해줄 반려견 생일 케이크 레시피 소개해요.',
         '40분', 1, 2, 'https://www.youtube.com/watch?v=l9M60-5dxEU&pp=ygUd6rCV7JWE7KeAIOy8gOydtO2BrCDrp4zrk6TquLA%3D',
-        '베이킹', 0);
+        '베이킹', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (32, 201,
         'https://static.wtable.co.kr/image/production/service/recipe/2560/0430c30b-fb6f-48f8-acb4-56f0bfd4534b.jpg?size=800x800',
         '거북이 메론빵', '달콤하고 바삭한 메론빵에 귀여운 거북이 모양을 더한 레시피입니다. 부드러운 반죽과 고소한 메론 크림이 잘 어우러져 모든 연령층이 좋아할 맛입니다.',
         '60분', 6, 2, 'https://www.youtube.com/watch?v=ZpSgjYxJNEQ&pp=ygUd6rGw67aB7J20IOuplOuhoOu5tSDrp4zrk6TquLA%3D',
-        '베이킹', 0);
+        '베이킹', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (33, 301,
         'https://static.wtable.co.kr/image/production/service/recipe/822/1dc498fd-46cb-46e6-9ac3-3be7e66e8593.jpg?size=800x800',
         '딸기 초콜릿', '상큼한 딸기와 부드러운 초콜릿이 만나 완성된 디저트입니다. 초콜릿의 달콤함과 딸기의 상큼함이 조화를 이루며, 입안에서 사르르 녹는 맛이 매력적입니다.',
         '30분', 4, 1, 'https://www.youtube.com/watch?v=fI2TnEY3S5A&pp=ygUa65S46riwIOy0iOy9nOumvyDrp4zrk6TquLA%3D', '베이킹',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (34, 301,
@@ -271,14 +283,15 @@ VALUES (34, 301,
         '아보카도 브라우니', '부드럽고 진한 초콜릿 맛이 특징인 브라우니에 아보카도를 더하여 건강하게 즐길 수 있는 레시피입니다. 아보카도의 크리미한 식감이 브라우니를 더욱 풍부하게 만들어줍니다.',
         '45분', 8, 2,
         'https://www.youtube.com/watch?v=WyT0uN-U7lU&pp=ygUj7JWE67O07Lm064-EIOu4jOudvOyasOuLiCDrp4zrk6TquLA%3D', '베이킹',
-        0);
+        RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
 VALUES (35, 301,
         'https://static.wtable.co.kr/image/production/service/recipe/1092/0a2bb178-ac96-4c04-85e9-bd424f4d849b.jpg?size=800x800',
         '레어 치즈케이크', '부드럽고 풍부한 치즈 맛이 일품인 레어 치즈케이크입니다. 상큼한 레몬과 크림치즈의 조화로 입안에서 부드럽고 고소한 맛이 느껴지는 디저트입니다.',
         '4시간', 8, 2,
-        'https://www.youtube.com/watch?v=Kh9Tdukm0qA&pp=ygUg66CI7Ja0IOy5mOymiOy8gOydtO2BrCDrp4zrk6TquLA%3D', '베이킹', 0);
+        'https://www.youtube.com/watch?v=Kh9Tdukm0qA&pp=ygUg66CI7Ja0IOy5mOymiOy8gOydtO2BrCDrp4zrk6TquLA%3D', '베이킹',
+        RAND() * 10000);
 
 
 -- 재료 사진 삽입
