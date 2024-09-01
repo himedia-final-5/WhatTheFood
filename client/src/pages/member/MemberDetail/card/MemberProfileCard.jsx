@@ -61,7 +61,7 @@ export default function MemberProfileCard() {
             <div className="mx-1">|</div>
             <div className="text-neutral-300 lg:text-neutral-700">
               누적조회수
-              <span>{profile?.totalViewCount || 0}</span>
+              <span>{profile?.viewCount || 0}</span>
             </div>
           </div>
         </div>
