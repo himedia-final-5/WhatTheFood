@@ -63,7 +63,7 @@ function Header() {
         <div className="flex justify-around w-full border-b border-gray-300">
           <div
             className={cn(
-              "flex gap-8 justify-between items-center w-full max-w-screen-lg",
+              "flex gap-8 justify-between items-center w-full max-w-screen-2xl",
               "transition-shape py-2 px-4 md:py-2.5 md:px-8",
             )}
           >
