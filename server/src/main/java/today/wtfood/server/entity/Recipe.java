@@ -2,6 +2,7 @@ package today.wtfood.server.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -35,6 +36,7 @@ public class Recipe {
     private Timestamp createdDate; // 작성 시간
 
     @Column(name = "view_count", nullable = false)
+    @ColumnDefault("0")
     private Integer viewCount = 0; // 조회수
 
     @Column(name = "banner_image", length = 200)
