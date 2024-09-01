@@ -33,7 +33,7 @@ export default function MemberDetail() {
       <ProfileFetchContext.Provider value={fetchProfile}>
         <div
           className={cn(
-            "flex flex-col flex-1 w-full mt-[-86px]",
+            "flex flex-col flex-1 w-full mt-[-86px] max-w-screen-2xl mx-auto",
             "lg:px-16 lg:pt-4 lg:flex-row-reverse",
           )}
         >
