@@ -17,7 +17,7 @@ export default function BrandList() {
     throttle(async (page) => {
       /** @type {{data: PageResponse<User>}} */
       const response = await axios.get(`/api/members`, {
-        params: { page, size: 8 },
+        params: { page, size: 8, role: "ROLE_BRAND" },
       });
       setThrottleInterval(0);
       return response.data;
