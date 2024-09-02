@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import "./RecipeUpWrite.css";
 import { axios, cn, defaultErrorHandler } from "utils";
-import { AdminFeatureContainer, ImageUploadInput } from "components/util";
+import { UserFeatureContainer, ImageUploadInput } from "components/util";
 import { useSelector } from "stores";
 import { useInputs } from "hooks";
 
@@ -72,7 +72,7 @@ export default function RecipeUpdate() {
   }
 
   return (
-    <AdminFeatureContainer className="createRecipe">
+    <UserFeatureContainer className="createRecipe">
       <div className="createRecipe_field">
         <label>작성자</label>
         <input type="text" defaultValue={user && user.nickname} readOnly />
@@ -702,6 +702,6 @@ export default function RecipeUpdate() {
           <button>돌아가기</button>
         </Link>
       </div>
-    </AdminFeatureContainer>
+    </UserFeatureContainer>
   );
 }
