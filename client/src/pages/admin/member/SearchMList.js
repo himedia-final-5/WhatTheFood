@@ -18,7 +18,7 @@ function SearchMList() {
       axios
         .get(`/api/members`, { params: { page, username } })
         .then((result) => setPageResponse(result.data))
-        .catch(defaultErrorHandler, alert("검색결과 없음")),
+        .catch(defaultErrorHandler),
     [username, setPageResponse],
   );
 
