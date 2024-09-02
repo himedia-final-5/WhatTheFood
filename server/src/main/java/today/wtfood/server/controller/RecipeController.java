@@ -65,7 +65,7 @@ public class RecipeController {
 
     // 레시피 수정
     @PostMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateRecipe(@PathVariable("id") long id, @RequestBody RecipeDto recipedto) {
         rs.updateRecipe(id, recipedto);
@@ -73,7 +73,7 @@ public class RecipeController {
 
     // 레시피 삭제
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRecipe(@PathVariable("id") long id) {
         rs.deleteRecipe(id);
@@ -81,7 +81,7 @@ public class RecipeController {
 
     // 새로운 레시피 생성
     @PostMapping("")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public GeneratedId<Long> createRecipe(
             @RequestBody
             RecipeDto recipedto,
@@ -95,7 +95,7 @@ public class RecipeController {
 
     // 찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public PageResponse<RecipeSummary> getFavoriteRecipes(
             Pageable pageable,
 
@@ -107,7 +107,7 @@ public class RecipeController {
 
     // 레시피 찜하기
     @PostMapping("/{recipeId}/favorite")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void addFavoriteRecipe(
             @PathVariable
             long recipeId,
@@ -120,7 +120,7 @@ public class RecipeController {
 
     // 찜하기 취소
     @DeleteMapping("/{recipeId}/favorite")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFavoriteRecipe(
             @PathVariable
@@ -182,7 +182,7 @@ public class RecipeController {
 
     // 댓글 추가
     @PostMapping("/{recipeId}/addComment")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<HashMap<String, Object>> addComment(
             @PathVariable
             long recipeId,
@@ -202,7 +202,7 @@ public class RecipeController {
 
     // 댓글 수정
     @PutMapping("/{commentId}/editComment")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<String> updateComment(
             @PathVariable
             long commentId,
@@ -218,7 +218,7 @@ public class RecipeController {
 
     // 댓글 삭제
     @DeleteMapping("/{commentId}/deleteComment")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<String> deleteComment(
             @PathVariable
             long commentId,
