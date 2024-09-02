@@ -83,7 +83,7 @@ export default function BrandList() {
                     <p className="chef_num">
                       <b>{index + 1}</b>
                     </p>
-                    <Link to={`/brands/${member.id}`}>
+                    <Link to={`/members/${member.id}`}>
                       <div className="chef_imageUrl">
                         <img
                           className="rounded-full size-28"
