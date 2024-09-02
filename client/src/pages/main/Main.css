@@ -355,9 +355,9 @@
   }
   .main_best_recipe_wrap {
     width: 100%;
-    height: 450px;
+    height: 350px;
     overflow: hidden;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
   }
   .main_chef {
     width: 100%;

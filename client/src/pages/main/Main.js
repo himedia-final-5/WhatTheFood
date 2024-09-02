@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "./Main.css";
 import { axios, defaultErrorHandler } from "utils";
+import { Arrow } from "@radix-ui/react-popover";
 
 export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
@@ -269,6 +270,9 @@ export default function Main() {
           slidesToScroll: 2,
           initialSlide: 2,
           infinite: true,
+          prevArrow: false,
+          nextArrow: false,
+          arrows: false,
         },
       },
     ],
@@ -297,6 +301,7 @@ export default function Main() {
           slidesToScroll: 2,
           prevArrow: false,
           nextArrow: false,
+          arrows: false,
         },
       },
     ],
