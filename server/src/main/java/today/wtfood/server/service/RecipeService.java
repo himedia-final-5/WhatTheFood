@@ -3,9 +3,8 @@ package today.wtfood.server.service;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.dto.member.IMember;
 import today.wtfood.server.dto.recipe.*;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.entity.member.Member;
@@ -54,23 +53,22 @@ public class RecipeService {
     }
 
     // 레시피 리스트 (페이지네이션)
-    public Page<RecipeSummary> getRecipeList(Pageable pageable) {
-        return rr.findAllBy(pageable);
-    }
+    public Page<RecipeSummaryWithFavorite> getRecipes(
+            Pageable pageable,
+            @Nullable String category,
+            @Nullable Long memberId,
+            @Nullable String username,
+            @Nullable String term,
+            @Nullable Long currentUserId
+    ) {
 
-    // 모든 레시피 조회
-    public List<Recipe> getRecipeList() {
-        return rr.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return rr.findAllBy(pageable, category, memberId, username, term, currentUserId);
     }
 
     // ID로 레시피 조회
     public RecipeDetail getRecipeById(long id) {
         return rr.findDetailById(id)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
-    }
-
-    public Page<RecipeSummary> searchRecipes(String term, Pageable pageable) {
-        return rr.searchRecipes(term, pageable);
     }
 
     // 조회수
@@ -141,21 +139,6 @@ public class RecipeService {
 
         member.getFavoriteRecipes().remove(recipe);
         mr.save(member);
-    }
-
-    public Page<RecipeSummary> getRecipesByMemberId(long memberId, Pageable pageable) {
-        return rr.findAllByMember_Id(memberId, pageable);
-    }
-
-    // 카테고리
-    public Page<RecipeSummary> getRecipesByCategory(String category, Pageable pageable) {
-        return rr.findByCategory(category, pageable);
-    }
-
-    public Page<RecipeSummary> getUserRecipeList(String username, Pageable pageable) {
-        IMember member = mr.findByUsername(username, IMember.class)
-                .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다", "username"));
-        return rr.findAllByMember_Id(member.getId(), pageable);
     }
 
     public List<Map<String, Object>> getDailyViewsRanking() {

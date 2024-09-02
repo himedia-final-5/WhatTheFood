@@ -22,41 +22,20 @@ const category = [
 export default function RecipeList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(category[0].query);
-  const [favoritedRecipes, setFavoritedRecipes] = useState(new Set());
 
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
-  const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
 
   const throttle = usePromiseThrottle(throttleInterval);
   const location = useLocation();
   const navigate = useNavigate();
   const searchTerm = location.state?.searchTerm || "";
 
-  // 레시피 목록 및 찜한 레시피 불러오기
-  useEffect(() => {
-    if (memberId) {
-      const fetchFavoritedRecipes = async () => {
-        try {
-          const response = await axios.get(`/api/recipes/favorites`, {
-            params: { memberId },
-          });
-          const recipes = response.data.content.map((recipe) => recipe.id);
-          setFavoritedRecipes(new Set(recipes));
-        } catch (error) {
-          console.error("Failed to fetch favorited recipes:", error);
-        }
-      };
-
-      fetchFavoritedRecipes();
-    }
-  }, [memberId]);
-
   // 페이지 번호와 카테고리/검색어에 따라 레시피 목록을 서버에서 가져옵니다.
   const fetchPage = useCallback(
     async (page) => {
       let response = null;
       if (searchTerm) {
-        response = await axios.get(`/api/recipes/search`, {
+        response = await axios.get(`/api/recipes`, {
           params: { term: searchTerm, page: 0, size: 8 },
         });
       } else {
@@ -101,21 +80,17 @@ export default function RecipeList() {
       return;
     }
 
-    if (favoritedRecipes.has(recipeId)) {
+    if (content.find((recipe) => recipe.id === recipeId).favorite) {
       try {
         await axios.delete(`/api/recipes/${recipeId}/favorite`);
-        setFavoritedRecipes((prev) => {
-          const newSet = new Set(prev);
-          newSet.delete(recipeId);
-          return newSet;
-        });
+        // TODO: 컴포넌트에서 찜레시피 목록 업데이트
       } catch (error) {
         console.error("Failed to remove favorite:", error);
       }
     } else {
       try {
         await axios.post(`/api/recipes/${recipeId}/favorite`);
-        setFavoritedRecipes((prev) => new Set(prev).add(recipeId));
+        // TODO: 컴포넌트에서 찜레시피 목록 업데이트
       } catch (error) {
         console.error("Failed to add favorite:", error);
       }
@@ -160,13 +135,6 @@ export default function RecipeList() {
             >
               <div className="recipe_text_wrap">
                 <span className="recipe_state_name">{recipe.title}</span>
-                <span className="recipe_state_tags">
-                  {recipe.tags.map((tag, index) => (
-                    <span key={index} className="recipe_tag">
-                      {tag}
-                    </span>
-                  ))}
-                </span>
                 <span className="recipe_state_level">{recipe.level} level</span>
                 <span className="recipe_state_servings">
                   {recipe.servings}인분
@@ -176,7 +144,7 @@ export default function RecipeList() {
                 </span>
                 {user && (
                   <button
-                    className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
+                    className={`heart-button ${recipe.favorite ? "favorited" : ""}`}
                     onClick={(e) => {
                       e.preventDefault();
                       handleFavoriteClick(recipe.id);

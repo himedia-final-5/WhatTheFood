@@ -5,13 +5,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.GeneratedId;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.recipe.*;
-import today.wtfood.server.exception.BadRequestException;
-import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.RecipeService;
 
@@ -32,25 +31,23 @@ public class RecipeController {
     // 레시피 리스트 (페이지네이션)
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> getRecipeList(
+    public PageResponse<RecipeSummaryWithFavorite> getRecipeList(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable,
             @RequestParam(value = "category", required = false)
             String category,
             @RequestParam(value = "memberId", required = false)
             Long memberId,
             @RequestParam(value = "username", required = false)
             String username,
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable
+            @RequestParam(value = "term", required = false)
+            String term,
+
+            @Nullable
+            @CurrentUser
+            Long currentUserId
     ) {
-        if (category != null && !category.isEmpty()) {
-            return PageResponse.of(rs.getRecipesByCategory(category, pageable));
-        } else if (memberId != null) {
-            return PageResponse.of(rs.getRecipesByMemberId(memberId, pageable));
-        } else if (username != null) {
-            return PageResponse.of(rs.getUserRecipeList(username, pageable));
-        } else {
-            return PageResponse.of(rs.getRecipeList(pageable));
-        }
+        return PageResponse.of(rs.getRecipes(pageable, category, memberId, username, term, currentUserId));
     }
 
     // 레시피 리스트 //레시피번호(id)
@@ -59,18 +56,6 @@ public class RecipeController {
     public RecipeDetail getRecipeById(@PathVariable("id") long id) {
         return rs.getRecipeById(id);
     }
-
-    // 제목, 카테고리, 설명, 해시태그로 레시피 검색
-    @GetMapping("/search")
-    @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> searchRecipes(
-            @RequestParam(value = "term", required = false)
-            String term,
-            Pageable pageable
-    ) {
-        return PageResponse.of(rs.searchRecipes(term, pageable));
-    }
-
 
     //조회수
     @PutMapping("{id}/incrementViewCount")
