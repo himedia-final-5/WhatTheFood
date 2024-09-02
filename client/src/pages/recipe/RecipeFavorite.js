@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { axios, defaultErrorHandler } from "utils";
-import { useSelector } from "react-redux";
 import "./RecipeFavorite.css"; // 스타일 파일
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
+import UserFeatureContainer from "components/util/UserFeatureContainer";
+import { useSelector } from "react-redux";
 
 export default function RecipeFavorite() {
-  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
+  const userId = useSelector((state) => state?.user?.id);
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
 
-  const { ref, content: favoritedRecipes } = useInfiniteScroll(
+  const {
+    ref,
+    content: favoritedRecipes,
+    reset,
+  } = useInfiniteScroll(
     throttle(async (page) => {
-      if (!user) return { data: { content: [] } };
       /** @type {{data: PageResponse<RecipeSummary>}} */
       const response = await axios.get(`/api/recipes/favorites`, {
-        params: { page, size: 8, memberId: user.id },
+        params: { page, size: 8 },
       });
       setThrottleInterval(0);
       return response.data;
@@ -26,8 +30,12 @@ export default function RecipeFavorite() {
     },
   );
 
+  useEffect(() => {
+    reset();
+  }, [reset, userId]);
+
   return (
-    <div className="favorite-recipes-page">
+    <UserFeatureContainer className="favorite-recipes-page">
       <h1>찜한 레시피 목록</h1>
       {favoritedRecipes.length > 0 ? (
         <div className="recipe-list">
@@ -50,6 +58,6 @@ export default function RecipeFavorite() {
         <p>찜한 레시피가 없습니다.</p>
       )}
       <div aria-label="scroll-trigger" ref={ref} />
-    </div>
+    </UserFeatureContainer>
   );
 }
