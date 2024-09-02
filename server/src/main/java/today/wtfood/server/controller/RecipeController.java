@@ -96,7 +96,7 @@ public class RecipeController {
 
     // 새로운 레시피 생성
     @PostMapping("")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public GeneratedId<Long> createRecipe(
             @RequestBody
             RecipeDto recipedto,
