@@ -1,23 +1,40 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import "./Brand.css";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
+import { useLayoutEffect } from "react";
+
+const CATEGORY_BRAND = "brand";
+const CATEGORY_ORGANIC = "organic";
+const CATEGORY_MALL = "mall";
+const CATEGORIES = [
+  [CATEGORY_BRAND, "식품회사"],
+  [CATEGORY_ORGANIC, "단체/기관"],
+  [CATEGORY_MALL, "쇼핑몰"],
+];
 
 export default function BrandList() {
-  const [activeId, setActiveId] = useState(null);
-  const [keyword, setKeyword] = useState("");
-  const items = ["식품회사", "단체/기관", "쇼핑몰"];
+  const [searchParams, setSearchParams] = useSearchParams();
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
+
+  const category = searchParams.get("category") || CATEGORY_BRAND;
+
+  // 카테고리가 없으면 기본값으로 설정
+  useLayoutEffect(() => {
+    if (!category) {
+      setSearchParams({ category: CATEGORY_BRAND });
+    }
+  }, [category, setSearchParams]);
 
   // 무한 스크롤 및 데이터 가져오기
   const { ref, content } = useInfiniteScroll(
     throttle(async (page) => {
       /** @type {{data: PageResponse<User>}} */
       const response = await axios.get(`/api/members`, {
-        params: { page, size: 8 },
+        params: { page, role: "ROLE_BRAND" },
       });
       setThrottleInterval(0);
       return response.data;
@@ -28,53 +45,45 @@ export default function BrandList() {
     },
   );
 
-  // 랜덤으로 항목을 선택하는 함수
-  const randomItem = useCallback(() => {
-    const randomId = Math.floor(Math.random() * items.length);
-    setActiveId(randomId);
-    if (randomId === 0) setKeyword("cp");
-    else if (randomId === 1) setKeyword("gm");
-    else if (randomId === 2) setKeyword("mall");
-    else setKeyword("");
-  }, [items.length]);
-
-  // 클릭된 항목에 따라 필터 키워드를 설정
-  const handleClick = (id) => {
-    setActiveId(id);
-    if (id === 0) setKeyword("brand22");
-    else if (id === 1) setKeyword("brand23");
-    else if (id === 2) setKeyword("brand24");
-    else setKeyword("");
+  // 클릭된 카테고리에 따라 쿼리 파라미터 설정
+  const handleTabClick = (category) => {
+    searchParams.set("category", category);
+    setSearchParams(searchParams);
   };
 
   // 필터링 로직
-  const filterContent = content.filter((member) =>
-    keyword ? member.username.includes(keyword) : true,
-  );
+  const filterContent = content.filter(function (member) {
+    // TODO: 카테고리 별 필터링 로직 추가
+    // 임시로 임의의 값으로 필터링
 
-  useEffect(() => {
-    // 브랜드 리스트 페이지 들어갈때 랜덤으로 항목 선택
-    randomItem();
-  }, [randomItem]);
+    switch (category) {
+      case CATEGORY_BRAND:
+        return member.id % 3 === 0;
+      case CATEGORY_ORGANIC:
+        return member.id % 3 === 1;
+      case CATEGORY_MALL:
+        return member.id % 3 === 2;
+      default:
+        return true;
+    }
+  });
 
   return (
     <div>
       <div>
         <div>
           <ul className="relative flex right-28 top-10 border-b ml-96 mr-44 pb-0 text-lg">
-            {/*("식품회사", "단체/기관", "쇼핑몰") 생성 및 클릭 시 css 변화*/}
-            {items.map((item, index) => (
+            {CATEGORIES.map(([key, name]) => (
               <li
-                key={index}
-                className={`cursor-pointer border-s-transparent px-6 py-2 ${activeId === index ? "active" : ""}`}
-                onClick={() => handleClick(index)}
+                key={key}
+                className={`cursor-pointer border-s-transparent px-6 py-2 ${category === key ? "active" : ""}`}
+                onClick={() => handleTabClick(key)}
               >
-                {item}
+                {name}
               </li>
             ))}
           </ul>
           <div className="chef_banner_wrap">
-            {/* ROLE_BRAND 만 출력, 페이지 들어올 때 항목 랜덤으로 선택 */}
             {filterContent.length > 0 ? (
               filterContent
                 .filter((member) => member.role === "ROLE_BRAND")
@@ -83,7 +92,7 @@ export default function BrandList() {
                     <p className="chef_num">
                       <b>{index + 1}</b>
                     </p>
-                    <Link to={`/brands/${member.id}`}>
+                    <Link to={`/members/${member.id}`}>
                       <div className="chef_imageUrl">
                         <img
                           className="rounded-full size-28"
