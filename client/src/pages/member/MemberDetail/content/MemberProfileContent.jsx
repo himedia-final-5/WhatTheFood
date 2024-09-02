@@ -14,11 +14,6 @@ const TAB_LIST = [
     api: "/api/recipes/comments?memberId=%s",
     component: CommentTab,
   },
-  {
-    name: "찜한 레시피",
-    api: "/api/recipes/favorites?memberId=%s",
-    component: FavoriteTab,
-  },
 ];
 
 function RecipeTab({ content }) {
@@ -97,21 +92,6 @@ function CommentCard({ item: comment }) {
   return (
     <div className="flex flex-col gap-2 p-2 border-b">
       <div className="text-sm">{comment.content}</div>
-    </div>
-  );
-}
-
-function FavoriteTab({ content }) {
-  return content.length === 0 ? (
-    <div className="flex flex-col w-full h-full items-center justify-center gap-4 p-8">
-      <UndrawBarista className="w-1/2 md:w-56 text-primary" />
-      <span className="text-lg font-bold">찜한 레시피가 없습니다.</span>
-    </div>
-  ) : (
-    <div className="grid gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-2">
-      {content.map((item, index) => (
-        <RecipeCard key={index} item={item} />
-      ))}
     </div>
   );
 }
