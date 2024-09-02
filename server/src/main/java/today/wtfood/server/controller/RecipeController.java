@@ -67,16 +67,30 @@ public class RecipeController {
     @PostMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateRecipe(@PathVariable("id") long id, @RequestBody RecipeDto recipedto) {
-        rs.updateRecipe(id, recipedto);
+    public void updateRecipe(
+            @PathVariable("id")
+            long recipeId,
+            @RequestBody
+            RecipeDto recipedto,
+
+            @CurrentUser
+            long currentUserId
+    ) {
+        rs.updateRecipe(recipeId, currentUserId, recipedto);
     }
 
     // 레시피 삭제
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRecipe(@PathVariable("id") long id) {
-        rs.deleteRecipe(id);
+    public void deleteRecipe(
+            @PathVariable("id")
+            long recipeId,
+
+            @CurrentUser
+            long currentUserId
+    ) {
+        rs.deleteRecipe(recipeId, currentUserId);
     }
 
     // 새로운 레시피 생성
@@ -133,7 +147,7 @@ public class RecipeController {
     }
 
     @GetMapping("/view")
-    public ResponseEntity<List<Map<String, Object>>> getRanking(@RequestParam(value="period",defaultValue = "d") String period) {
+    public ResponseEntity<List<Map<String, Object>>> getRanking(@RequestParam(value = "period", defaultValue = "d") String period) {
         List<Map<String, Object>> rankings;
 
         switch (period.toLowerCase()) {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import today.wtfood.server.dto.recipe.*;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.entity.member.Member;
+import today.wtfood.server.exception.ForbiddenException;
 import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.repository.CommentRepository;
@@ -82,9 +83,13 @@ public class RecipeService {
 
     // 레시피 수정
     @Transactional
-    public void updateRecipe(long id, RecipeDto recipedto) {
-        Recipe recipe = rr.findById(id)
+    public void updateRecipe(long recipeId, long currentUserId, RecipeDto recipedto) {
+        Recipe recipe = rr.findById(recipeId)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
+
+        if (recipe.getMember().getId() != currentUserId) {
+            throw new ForbiddenException("해당 레시피를 삭제할 권한이 없습니다", "recipeId");
+        }
 
         recipe.setTitle(recipedto.getTitle());
         recipe.setDescription(recipedto.getDescription());
@@ -105,11 +110,15 @@ public class RecipeService {
     }
 
     // 레시피 삭제
-    public void deleteRecipe(long id) {
-        if (!rr.existsById(id)) {
-            throw new NotFoundException("레시피를 찾을 수 없습니다", "id");
+    public void deleteRecipe(long recipeId, long currentUserId) {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
+
+        if (recipe.getMember().getId() != currentUserId) {
+            throw new ForbiddenException("해당 레시피를 삭제할 권한이 없습니다", "recipeId");
         }
-        rr.deleteById(id);
+
+        rr.deleteById(recipeId);
     }
 
     // 찜하기 추가
