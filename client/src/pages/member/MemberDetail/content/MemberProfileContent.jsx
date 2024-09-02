@@ -15,7 +15,7 @@ const TAB_LIST = [
     component: CommentTab,
   },
   {
-    name: "즐겨찾기",
+    name: "찜한 레시피",
     api: "/api/recipes/favorites?memberId=%s",
     component: FavoriteTab,
   },
@@ -105,7 +105,7 @@ function FavoriteTab({ content }) {
   return content.length === 0 ? (
     <div className="flex flex-col w-full h-full items-center justify-center gap-4 p-8">
       <UndrawBarista className="w-1/2 md:w-56 text-primary" />
-      <span className="text-lg font-bold">즐겨찾기한 레시피가 없습니다.</span>
+      <span className="text-lg font-bold">찜한 레시피가 없습니다.</span>
     </div>
   ) : (
     <div className="grid gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-2">
