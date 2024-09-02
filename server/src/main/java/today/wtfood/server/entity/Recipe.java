@@ -67,6 +67,7 @@ public class Recipe {
     private List<String> ingredientImage; // 재료 이미지 경로
 
     @ElementCollection
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @CollectionTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "id"))
     private List<String> ingredients; // 재료
 
@@ -150,7 +151,7 @@ public class Recipe {
 
     @ElementCollection
     @CollectionTable(name = "recipe_tag", joinColumns = @JoinColumn(name = "id"))
-    private List<String> tags; // 해쉬태그
+    private Set<String> tags; // 해쉬태그
 
     // 찜한 멤버들 목록
     @ManyToMany(mappedBy = "favoriteRecipes")

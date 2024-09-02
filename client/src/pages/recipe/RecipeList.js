@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
-import { AdminFeature } from "components/util";
+import UserFeature from "components/util/UserFeature";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 import { useSelector } from "react-redux"; // Redux를 가져옵니다
@@ -132,11 +132,11 @@ export default function RecipeList() {
     <div className="recipeList_wrap">
       <div className="recipe_category_wrap">
         <div className="category_filter">
-          <AdminFeature>
+          <UserFeature>
             <Link to="/recipes/write" className="create_recipe_button">
               게시글쓰기
             </Link>
-          </AdminFeature>
+          </UserFeature>
           {category.map((cat) => (
             <button
               key={cat.query}
@@ -190,9 +190,35 @@ export default function RecipeList() {
             </Link>
           ))
         ) : (
-          <div>No recipes found.</div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+            }}
+          >
+            <br></br>
+            <div>
+              <img
+                src="/images/suprize.png"
+                alt="recipe_surchImage"
+                style={{ width: "100px", height: "100px" }}
+              />
+            </div>
+            <br></br>
+            <div style={{ fontSize: "170%", textAlign: "center" }}>
+              "{searchTerm}"<br />
+              검색 결과가 없습니다.
+            </div>
+          </div>
         )}
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
       <div aria-label="scroll-trigger" ref={ref} />
     </div>
   );

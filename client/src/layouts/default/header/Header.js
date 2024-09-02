@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 import SearchButton from "./search-button/SearchButton";
 import UserButton from "./user-button/UserButton";
 import cn from "utils/cn";
+import LogoYorijoriMain from "components/asset/LogoYorijoriMain";
 
 const links = [
   ["/recipes", "레시피"],
-  ["/store", "오프라인 매장"],
   ["/chefs", "쉐프"],
-  ["/notices", "공지사항"],
+  ["/brands", "브랜드"],
+  ["/store", "오프라인 매장"],
   ["/events", "이벤트"],
+  ["/notices", "공지사항"],
+  ["/faqs", "FAQ"],
 ];
 
 function Header() {
@@ -67,11 +70,7 @@ function Header() {
             )}
           >
             <Link to="/">
-              <img
-                src="/images/logo.png"
-                alt="logo"
-                className="h-10 min-w-42 transition-transform hover:scale-110 object-contain"
-              />
+              <LogoYorijoriMain />
             </Link>
             <div className="flex-1 flex justify-end gap-2">
               <SearchButton />

@@ -11,9 +11,6 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-top">
-          <Link className="footer-logo hidden xs:block" to="/">
-            <img src="/images/logo.png" alt="Logo" />
-          </Link>
           <div className="footer-links hidden xs:block">
             <ul>
               <li>
@@ -28,9 +25,9 @@ function Footer() {
               {/* <li>
                 <Link to="/contact">광고/제휴</Link>
               </li> */}
-              <li>
+              {/* <li>
                 <Link to="/faqs">FAQ</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -61,7 +58,7 @@ function Footer() {
         </div>
         <div className="footer-info">
           <p>
-            책임자1 : 김현재&nbsp;&nbsp;|&nbsp;&nbsp; 책임자2 : 이준서
+            책임자1 : 김현재&nbsp;&nbsp;|&nbsp;&nbsp; 책임자2 : 조준서
             &nbsp;&nbsp;|&nbsp;&nbsp; 책임자3 : 김태희&nbsp;&nbsp;|&nbsp;&nbsp;
             책임자4 : 김재연
           </p>

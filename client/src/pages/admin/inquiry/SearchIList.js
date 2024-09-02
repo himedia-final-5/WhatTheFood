@@ -18,7 +18,7 @@ function SearchIList() {
       axios
         .get(`/api/inquiries/username/${username}`, { params: { page } })
         .then((result) => setPageResponse(result.data))
-        .catch(defaultErrorHandler),
+        .catch(defaultErrorHandler, alert("검색결과 없음")),
     [username, setPageResponse],
   );
 

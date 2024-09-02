@@ -133,4 +133,7 @@ public class Member implements UserDetails, OAuth2User {
     @OnDelete(action = OnDeleteAction.CASCADE) // 사용자가 삭제되면 찜한 레시피 목록에서도 삭제
     private Set<Recipe> favoriteRecipes; // 사용자가 찜한 레시피 목록
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Recipe> recipes;
+
 }
