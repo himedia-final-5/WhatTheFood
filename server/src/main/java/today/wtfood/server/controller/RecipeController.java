@@ -148,7 +148,7 @@ public class RecipeController {
     }
 
     @GetMapping("/view")
-    public ResponseEntity<List<Map<String, Object>>> getRanking(@RequestParam("period") String period) {
+    public ResponseEntity<List<Map<String, Object>>> getRanking(@RequestParam(value="period",defaultValue = "d") String period) {
         List<Map<String, Object>> rankings;
 
         switch (period.toLowerCase()) {
