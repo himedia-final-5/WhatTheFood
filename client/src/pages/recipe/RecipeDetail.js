@@ -18,38 +18,43 @@ export default function RecipeDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [commentText, setCommentText] = useState("");
-  const [commentContent, setCommentContent] = useState([]);
+  const [fetchRecipe, recipe, isLoading, isError] = usePromise(
+    DEFAULT_RECIPE,
+    async () => (await axios.get(`/api/recipes/${id}`)).data,
+  );
+  const [comments, setComments] = useState([]);
+  const [favorite, setFavorite] = useState(false);
   const [editingCommentId, setEditingCommentId] = useState(null);
+  const [commentText, setCommentText] = useState("");
   const [buttonPopup, setButtonPopup] = useState(false);
   const [editingContent, setEditingContent] = useState("");
 
   const currentUrl = window.location.href;
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
-  const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
-
-  const [fetchRecipe, recipe, isLoading, isError] = usePromise(
-    DEFAULT_RECIPE,
-    async () => (await axios.get(`/api/recipes/${id}`)).data,
-  );
 
   // 댓글 목록을 가져오는 함수
   const fetchComments = useCallback(async () => {
-    try {
-      const result = await axios.get(`/api/recipes/comments`, {
+    axios
+      .get(`/api/recipes/comments`, {
         params: { recipeId: id },
-      });
-      setCommentContent(result.data.content || []); // commentText가 배열임을 보장
-    } catch (error) {
-      console.error("Failed to fetch comments:", error);
-    }
+      })
+      .then((result) => setComments(result.data.content))
+      .catch(defaultErrorHandler);
+  }, [id]);
+
+  const fetchFavorite = useCallback(async () => {
+    axios
+      .get(`/api/recipes/${id}/favorite`)
+      .then((result) => setFavorite(result.data))
+      .catch(defaultErrorHandler);
   }, [id]);
 
   useEffect(() => {
     if (!isLoading && (recipe == null || recipe?.id !== id)) {
       fetchRecipe();
+      fetchComments();
+      fetchFavorite();
     }
-    fetchComments();
 
     //eslint-disable-next-line
   }, [id]);
@@ -155,7 +160,7 @@ export default function RecipeDetail() {
 
   function addComment() {
     if (commentText) {
-      if (!memberId) {
+      if (!user) {
         toast.error("로그인 후 댓글을 작성할 수 있습니다.");
         return;
       }
@@ -243,7 +248,7 @@ export default function RecipeDetail() {
           <div className="recipe_custom-button_total_wrap">
             <div className="recipe_custom-button_wrap">
               <RecipeFavoriteButton
-                recipe={recipe}
+                recipe={{ ...recipe, favorite }}
                 className="recipe_custom_button"
               />
               <button
@@ -384,8 +389,8 @@ export default function RecipeDetail() {
           <div className="recipedetail_comment_wrap">
             <h3 className="comment-title">댓글</h3>
             <div className="recipedetail_comment">
-              {Array.isArray(commentContent) && commentContent.length > 0 ? (
-                commentContent.map((comment, index) => (
+              {Array.isArray(comments) && comments.length > 0 ? (
+                comments.map((comment, index) => (
                   <div key={index} className="comment-card">
                     <div className="comment-header">
                       <img

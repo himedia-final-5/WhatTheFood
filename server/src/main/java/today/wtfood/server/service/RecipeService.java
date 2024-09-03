@@ -144,6 +144,20 @@ public class RecipeService {
     }
 
     /**
+     * 레시피 찜하기 여부 확인
+     *
+     * @param recipeId      레시피 ID
+     * @param currentMember 현재 회원 엔티티
+     * @return 찜하기 여부
+     */
+    public boolean isFavoriteRecipe(long recipeId, Member currentMember) {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
+
+        return recipe.getFavoriteByMembers().contains(currentMember);
+    }
+
+    /**
      * 레시피 찜하기 생성
      *
      * @param recipeId 레시피 ID

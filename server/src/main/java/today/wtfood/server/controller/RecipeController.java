@@ -158,6 +158,25 @@ public class RecipeController {
     }
 
     /**
+     * 레시피 찜하기 여부 확인
+     *
+     * @param recipeId      레시피 ID
+     * @param currentMember 현재 회원 엔티티
+     * @return 찜하기 여부
+     */
+    @GetMapping("/{recipe-id}/favorite")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public boolean isFavoriteRecipe(
+            @PathVariable("recipe-id")
+            long recipeId,
+
+            @CurrentUser
+            Member currentMember
+    ) {
+        return rs.isFavoriteRecipe(recipeId, currentMember);
+    }
+
+    /**
      * 레시피 찜하기 추가
      *
      * @param recipeId      레시피 ID
