@@ -276,12 +276,13 @@
   margin: 0 auto;
 }
 
-.chef_container {
+.main_chef .chef_container {
   width: 90%;
   height: 100px;
   display: flex;
   justify-content: center;
 }
+
 .chef_image_wrap {
   width: 80px;
   height: 80px;
