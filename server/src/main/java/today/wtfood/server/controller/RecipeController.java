@@ -121,15 +121,13 @@ public class RecipeController {
         rs.addFavoriteRecipe(memberId, recipeId);
     }
 
-    // 찜한 레시피 목록 조회 (페이지네이션 추가)
+
+    //찜한 레시피 목록 조회 (페이지네이션 추가)
     @GetMapping("/favorites")
     @PreAuthorize("permitAll()")
-    public PageResponse<RecipeSummary> getFavoriteRecipes(
-            Pageable pageable,
-
+    public ResponseEntity<HashMap<String, List<RecipeSummary>>> getFavoriteRecipes(
             @RequestParam(value = "memberId", required = false)
             Long memberId,
-
             @CurrentUser
             Long currentMemberId
     ) {
@@ -138,9 +136,13 @@ public class RecipeController {
             throw new UnauthorizedException("로그인이 필요합니다.");
         }
 
+        List<RecipeSummary> result = rs.getFavoriteRecipes(memberId == null ? currentMemberId : memberId);
+        HashMap<String, List<RecipeSummary>> responseMap = new HashMap<>();
+        responseMap.put("content", result);
         // 입력된 memberId가 없으면 현재 로그인한 사용자의 memberId를 사용
-        return PageResponse.of(rs.getFavoriteRecipes(memberId == null ? currentMemberId : memberId, pageable));
+        return ResponseEntity.ok().body(responseMap);
     }
+
 
     // 찜하기 취소
     @DeleteMapping("/{recipeId}/favorite")
