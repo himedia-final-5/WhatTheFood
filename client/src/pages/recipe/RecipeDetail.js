@@ -53,7 +53,10 @@ export default function RecipeDetail() {
     if (!isLoading && (recipe == null || recipe?.id !== id)) {
       fetchRecipe();
       fetchComments();
-      fetchFavorite();
+
+      if (user) {
+        fetchFavorite();
+      }
     }
 
     //eslint-disable-next-line
