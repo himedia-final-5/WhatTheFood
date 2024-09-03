@@ -3,7 +3,6 @@ import { Link, useSearchParams } from "react-router-dom";
 
 import "./Chef.css";
 import { axios, defaultErrorHandler } from "utils";
-import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 
 const CATEGORY_DAY = "d";
 const CATEGORY_WEEK = "w";
@@ -16,10 +15,7 @@ const CATEGORIES = [
 
 export default function ChefList() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [throttleInterval, setThrottleInterval] = useState(0);
-  const throttle = usePromiseThrottle(throttleInterval);
   const [rankingData, setRankingData] = useState([]);
-
   const category = searchParams.get("category");
 
   // 카테고리가 없으면 기본값으로 설정

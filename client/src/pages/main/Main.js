@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "./Main.css";
 import { axios, defaultErrorHandler } from "utils";
-import { Arrow } from "@radix-ui/react-popover";
 
 export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열
