@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
@@ -22,8 +22,6 @@ const category = [
 export default function RecipeList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(category[0].query);
-
-  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
 
   const throttle = usePromiseThrottle(throttleInterval);
   const location = useLocation();
@@ -65,40 +63,7 @@ export default function RecipeList() {
     reset();
   };
 
-  // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
-  const handleRecipeClick = async (recipeId) => {
-    try {
-      await axios.put(`/api/recipes/${recipeId}/view-count`);
-    } catch (error) {
-      console.error("Failed to increment view count:", error);
-    }
-  };
-
-  const handleFavoriteClick = async (recipeId) => {
-    if (!user) {
-      toast.warn("로그인이 필요합니다.");
-      return;
-    }
-
-    if (content.find((recipe) => recipe.id === recipeId).favorite) {
-      try {
-        await axios.delete(`/api/recipes/${recipeId}/favorite`);
-        // TODO: 컴포넌트에서 찜레시피 목록 업데이트
-      } catch (error) {
-        console.error("Failed to remove favorite:", error);
-      }
-    } else {
-      try {
-        await axios.post(`/api/recipes/${recipeId}/favorite`);
-        // TODO: 컴포넌트에서 찜레시피 목록 업데이트
-      } catch (error) {
-        console.error("Failed to add favorite:", error);
-      }
-    }
-  };
-
   // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
-  //
   useEffect(() => {
     reset();
   }, [selectedCategory, searchTerm, reset]);
@@ -127,38 +92,7 @@ export default function RecipeList() {
       <div className="recipe_banner_wrap">
         {content.length > 0 ? (
           content.map((recipe) => (
-            <Link
-              to={`/recipes/${recipe.id}`}
-              key={recipe.id}
-              className="recipe_state_wrap"
-              onClick={() => handleRecipeClick(recipe.id)}
-            >
-              <div className="recipe_text_wrap">
-                <span className="recipe_state_name">{recipe.title}</span>
-                <span className="recipe_state_level">{recipe.level} level</span>
-                <span className="recipe_state_servings">
-                  {recipe.servings}인분
-                </span>
-                <span className="recipe_state_viewcount">
-                  조회수 {recipe.viewCount}
-                </span>
-                <span className="recipe_state_viewcount">
-                  {recipe.member.nickname}
-                </span>
-                {user && (
-                  <button
-                    className={`heart-button ${recipe.favorite ? "favorited" : ""}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleFavoriteClick(recipe.id);
-                    }}
-                  ></button>
-                )}
-              </div>
-              <div className="recipe_imageUrl">
-                <img src={recipe.bannerImage} alt="recipe_bannerImage" />
-              </div>
-            </Link>
+            <RecipeCard key={recipe.id} recipe={recipe} />
           ))
         ) : (
           <div
@@ -194,3 +128,70 @@ export default function RecipeList() {
     </div>
   );
 }
+
+const RecipeCard = memo(({ recipe }) => {
+  const [isFavorite, setIsFavorite] = useState(recipe.favorite);
+  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
+
+  // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
+  const handleRecipeClick = async (recipeId) => {
+    try {
+      await axios.put(`/api/recipes/${recipeId}/view-count`);
+    } catch (error) {
+      console.error("Failed to increment view count:", error);
+    }
+  };
+
+  const handleFavoriteClick = async (recipeId) => {
+    if (!user) {
+      toast.warn("로그인이 필요합니다.");
+      return;
+    }
+
+    if (isFavorite) {
+      try {
+        await axios.delete(`/api/recipes/${recipeId}/favorite`);
+        setIsFavorite(false);
+      } catch (error) {
+        console.error("Failed to remove favorite:", error);
+      }
+    } else {
+      try {
+        await axios.post(`/api/recipes/${recipeId}/favorite`);
+        setIsFavorite(true);
+      } catch (error) {
+        console.error("Failed to add favorite:", error);
+      }
+    }
+  };
+
+  return (
+    <Link
+      to={`/recipes/${recipe.id}`}
+      key={recipe.id}
+      className="recipe_state_wrap"
+      onClick={() => handleRecipeClick(recipe.id)}
+    >
+      <div className="recipe_text_wrap">
+        <span className="recipe_state_name">{recipe.title}</span>
+        <span className="recipe_state_level">{recipe.level} level</span>
+        <span className="recipe_state_servings">{recipe.servings}인분</span>
+        <span className="recipe_state_viewcount">
+          조회수 {recipe.viewCount}
+        </span>
+        {user && (
+          <button
+            className={`heart-button ${isFavorite ? "favorited" : ""}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleFavoriteClick(recipe.id);
+            }}
+          ></button>
+        )}
+      </div>
+      <div className="recipe_imageUrl">
+        <img src={recipe.bannerImage} alt="recipe_bannerImage" />
+      </div>
+    </Link>
+  );
+});
