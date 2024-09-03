@@ -142,6 +142,17 @@ export default function RecipeList() {
                 <span className="recipe_state_viewcount">
                   조회수 {recipe.viewCount}
                 </span>
+                <span className="recipe_state_profileImage">
+                  <img
+                    src={recipe.member.profileImage}
+                    alt={`${recipe.member.nickname}'s profile`}
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </span>
                 <span className="recipe_state_viewcount">
                   {recipe.member.nickname}
                 </span>
