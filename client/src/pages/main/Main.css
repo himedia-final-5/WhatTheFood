@@ -11,7 +11,7 @@
   margin: 0 auto;
   height: auto;
   background-color: #fff;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 }
 
 /* 메인 내부 래퍼 */
@@ -64,9 +64,9 @@
 
 .main_best_recipe_wrap {
   width: 100%;
-  height: 500px;
+  height: 450px;
   overflow: hidden;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 .main_best_recipe .slick-slide {
   margin: 0 10px;
@@ -276,13 +276,12 @@
   margin: 0 auto;
 }
 
-.main_chef .chef_container {
+.chef_container {
   width: 90%;
   height: 100px;
   display: flex;
   justify-content: center;
 }
-
 .chef_image_wrap {
   width: 80px;
   height: 80px;
@@ -334,6 +333,7 @@
 @media screen and (max-width: 767px) {
   .main_wrap {
     width: 100%;
+    margin-bottom: 50px;
   }
   .main_inner_wrap {
     width: 100%;
@@ -356,7 +356,7 @@
   }
   .main_best_recipe_wrap {
     width: 100%;
-    height: 350px;
+    height: 325px;
     overflow: hidden;
     margin-bottom: 100px;
   }

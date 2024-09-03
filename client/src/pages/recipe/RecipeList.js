@@ -147,6 +147,19 @@ const RecipeCard = memo(({ recipe }) => {
     >
       <div className="recipe_text_wrap relative">
         <span className="recipe_state_name">{recipe.title}</span>
+        <span className="recipe_state_profileImage">
+          <img
+            src={recipe.member.profileImage}
+            alt={`${recipe.member.nickname}'s profile`}
+            style={{
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
+        </span>
+        <span className="recipe_state_viewcount">{recipe.member.nickname}</span>
         <span className="recipe_state_level">{recipe.level} level</span>
         <span className="recipe_state_servings">{recipe.servings}인분</span>
         <span className="recipe_state_viewcount">

@@ -81,6 +81,11 @@
   height: 35px;
   margin-left: 10px; /* 오른쪽으로 정렬된 버튼 간의 간격을 유지 */
 }
+.heart-button-detail {
+  position: absolute;
+  top: 100px;
+  right: 15px;
+}
 
 /* 비디오 스타일 */
 .recipedetail_video {

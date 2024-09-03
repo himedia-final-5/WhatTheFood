@@ -74,10 +74,10 @@ function Footer() {
             이용문의 : 070-1234-4321 / 광고 및 제휴 문의 :
             contact@yorijori.recipes / (주)요리조리 / &nbsp;&nbsp;&nbsp;&nbsp;
             사업자등록번호 000-00-00000 / 본 콘텐츠의 저작권은 제공처 또는
-            WhatTheFood에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라
-            법적 책임을 질 수 없습니다.
+            yorijori에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 법적
+            책임을 질 수 없습니다.
           </p>
-          <p>© WhatTheFood Corp.</p>
+          <p>© yorijori Corp.</p>
         </div>
       </div>
     </footer>
