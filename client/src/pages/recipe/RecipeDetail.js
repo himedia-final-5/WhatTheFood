@@ -36,7 +36,9 @@ export default function RecipeDetail() {
   // 댓글 목록을 가져오는 함수
   const fetchComments = useCallback(async () => {
     try {
-      const result = await axios.get(`/api/recipes/${id}/comments`);
+      const result = await axios.get(`/api/recipes/comments`, {
+        params: { recipeId: id },
+      });
       setCommentContent(result.data.content || []); // commentText가 배열임을 보장
     } catch (error) {
       console.error("Failed to fetch comments:", error);
@@ -169,8 +171,8 @@ export default function RecipeDetail() {
       }
 
       axios
-        .post(`/api/recipes/${recipe.id}/addComment`, {
-          memberId,
+        .post(`/api/recipes/comments`, {
+          recipeId: recipe.id,
           content: commentText,
         })
         .then(() => fetchComments())
@@ -180,17 +182,14 @@ export default function RecipeDetail() {
 
   function deleteComment(commentId) {
     axios
-      .delete(`/api/recipes/${commentId}/deleteComment`, {
-        params: { memberId },
-      })
+      .delete(`/api/recipes/comments/${commentId}`)
       .then(() => fetchComments())
       .catch(defaultErrorHandler);
   }
 
   function updateComment(commentId, newContent) {
     axios
-      .put(`/api/recipes/${commentId}/editComment`, {
-        memberId: memberId,
+      .post(`/api/recipes/comments/${commentId}`, {
         content: newContent,
       })
       .then(() => fetchComments())

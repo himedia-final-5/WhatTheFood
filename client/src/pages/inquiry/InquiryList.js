@@ -21,8 +21,8 @@ function InquiryList() {
       }
 
       axios
-        .get(`/api/inquiries/username/${user.username}`, {
-          params: { page },
+        .get(`/api/inquiries`, {
+          params: { page, username: user.username },
         })
         .then((result) => setPageResponse(result.data))
         .catch(defaultErrorHandler);

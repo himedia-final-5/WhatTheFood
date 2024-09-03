@@ -22,37 +22,66 @@ public class FaqController {
         this.fs = fs;
     }
 
-    @PostMapping("")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public GeneratedId<Long> insertFaq(@RequestBody FaqDto faq) {
-        return GeneratedId.of(fs.insertFaq(faq.toEntity()).getId());
-    }
-
+    /**
+     * FAQ 목록 조회
+     *
+     * @param pageable 페이지네이션 정보
+     * @return 페이지네이션된 FAQ 목록
+     */
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public PageResponse<Faq> getFaqList(
+    public PageResponse<Faq> getFaqs(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {
-        return PageResponse.of(fs.getFaqList(pageable));
+        return PageResponse.of(fs.getFaqs(pageable));
     }
 
-    @GetMapping("/{id}")
+    /**
+     * FAQ 조회
+     *
+     * @param faqId FAQ ID
+     * @return FAQ 상세 정보
+     */
+    @GetMapping("/{faq-id}")
     @PreAuthorize("permitAll()")
-    public FaqDetail getFaqView(@PathVariable("id") long id) {
-        return fs.getFaqView(id);
+    public FaqDetail getFaq(@PathVariable("faq-id") long faqId) {
+        return fs.getFaq(faqId);
     }
 
-    @PostMapping("/{id}")
+    /**
+     * FAQ 생성
+     *
+     * @param faqDto FAQ 정보
+     * @return 생성된 FAQ ID
+     */
+    @PostMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateFaq(@PathVariable("id") long id, @RequestBody FaqDto faq) {
-        fs.updateFaq(id, faq);
+    public GeneratedId<Long> createFaq(@RequestBody FaqDto faqDto) {
+        return GeneratedId.of(fs.createFaq(faqDto.apply(new Faq())).getId());
     }
 
-    @DeleteMapping("/{id}")
+    /**
+     * FAQ 수정
+     *
+     * @param faqId  FAQ ID
+     * @param faqDto FAQ 정보
+     */
+    @PostMapping("/{faq-id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteInquiry(@PathVariable("id") long id) {
-        fs.deleteInquiry(id);
+    public void updateFaq(@PathVariable("faq-id") long faqId, @RequestBody FaqDto faqDto) {
+        fs.updateFaq(faqId, faqDto::apply);
+    }
+
+    /**
+     * FAQ 삭제
+     *
+     * @param faqId FAQ ID
+     */
+    @DeleteMapping("/{faq-id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteFaq(@PathVariable("faq-id") long faqId) {
+        fs.deleteFaq(faqId);
     }
 
 }

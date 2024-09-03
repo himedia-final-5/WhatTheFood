@@ -44,26 +44,26 @@ WHERE (`Id` = '36');
 -- Recipe 데이터 삽입 (member_id 추가)
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
-VALUES (1, 1,
+VALUES (1, 202,
         'https://static.wtable.co.kr/image/production/service/recipe/2329/e9c09320-6913-4632-a77d-b35dc529012e.jpg?size=800x800',
         '멍게비빔밥', '바다의 향이 가득한 멍게와 신선한 야채들이 조화롭게 어우러진 비빔밥입니다. 상큼한 초고추장과 함께 비벼 먹는 이 요리는 간단하면서도 영양 가득한 한 끼로 손색이 없습니다.',
         '20분', 2, 2, 'https://www.youtube.com/watch?v=wlbWyB9cSS0&pp=ygUZ66mN6rKM67mE67mU67ClIOunjOuTpOq4sA%3D%3D',
         '한식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
-VALUES (2, 2,
+VALUES (2, 203,
         'https://static.wtable.co.kr/image/production/service/recipe/2344/9a1bd1e4-cbf9-4e2c-857a-56c95078bf4c.jpg?size=800x800',
         '매콤하면서 술안주로 딱', '매콤한 고추와 고기를 이용해 만든 간단하면서도 맛있는 고추전입니다. 주말 저녁이나 명절에 딱 어울리는 요리입니다.',
         '20분', 2, 2, 'https://youtu.be/IoSwCiTghf0?si=kCGsdD3ZhO5ElycY', '한식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
-VALUES (3, 3,
+VALUES (3, 204,
         'https://static.wtable.co.kr/image/production/service/recipe/2328/91ec15ed-2f6a-464e-ac1b-5b08eaffda0e.jpg?size=800x800',
         '시원하고 깊은 맛', '성게와 미역의 조화로 깊고 시원한 국물 맛을 내는 성게미역국 레시피입니다. 간단하면서도 영양 가득한 한 그릇 요리로, 특히 여름철 보양식으로도 좋습니다.',
         '40뷴', 4, 2, 'https://youtu.be/z6ZGxPUd4Ac?si=BmKii98w1dDr6Ffq', '한식', RAND() * 10000);
 INSERT INTO recipe (id, member_id, banner_image, title, description, cooking_time, servings, level, video_link,
                     category, view_count)
-VALUES (4, 4,
+VALUES (4, 205,
         'https://static.wtable.co.kr/image/production/service/recipe/2137/d1c42852-eb66-4f04-a678-083f6608f082.jpg?size=800x800',
         '밥 한그릇 뚝딱!', '풍성한 양의 목살과 잘 익은 김치가 어우러져 부드럽고 맛있는 김치찜을 완성할 수 있습니다. 이 레시피로 감칠맛 나는 김치찜을 손쉽게 만들어 보세요.',
         '1시간 20분', 4, 2, 'https://www.youtube.com/watch?v=cIDqDT5RF3U&pp=ygUP6rmA7LmY66qp7IK07LCc', '한식',

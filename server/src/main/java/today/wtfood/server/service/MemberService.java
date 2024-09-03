@@ -5,15 +5,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import today.wtfood.server.dto.member.MemberCreateRequest;
-import today.wtfood.server.dto.member.MemberProfileDetail;
-import today.wtfood.server.dto.member.MemberProfileUpdateRequest;
-import today.wtfood.server.dto.member.MemberSummary;
+import today.wtfood.server.dto.member.*;
 import today.wtfood.server.entity.member.Member;
 import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.exception.ConflictException;
 import today.wtfood.server.exception.NotFoundException;
 import today.wtfood.server.repository.MemberRepository;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 
 @Service
 public class MemberService {
@@ -52,6 +54,51 @@ public class MemberService {
     }
 
     /**
+     * 일간 레시피 조회수 랭킹 조회
+     *
+     * @return 레시피 조회수 랭킹
+     */
+    public Page<MemberRankingSummary> getDailyViewsRanking(Pageable pageable) {
+        LocalDate today = LocalDate.now();
+        Timestamp startOfDay = Timestamp.valueOf(today.atStartOfDay());
+        Timestamp endOfDay = Timestamp.valueOf(today.atTime(LocalTime.MAX));
+
+        return memberRepository.findAllOrderByTotalViews(startOfDay, endOfDay, pageable);
+    }
+
+    /**
+     * 주간 레시피 조회수 랭킹 조회
+     *
+     * @return 레시피 조회수 랭킹
+     */
+    public Page<MemberRankingSummary> getWeeklyViewsRanking(Pageable pageable) {
+        LocalDate today = LocalDate.now();
+        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
+        LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SUNDAY));
+
+        Timestamp startOfWeekTs = Timestamp.valueOf(startOfWeek.atStartOfDay());
+        Timestamp endOfWeekTs = Timestamp.valueOf(endOfWeek.atTime(LocalTime.MAX));
+
+        return memberRepository.findAllOrderByTotalViews(startOfWeekTs, endOfWeekTs, pageable);
+    }
+
+    /**
+     * 월간 레시피 조회수 랭킹 조회
+     *
+     * @return 레시피 조회수 랭킹
+     */
+    public Page<MemberRankingSummary> getMonthlyViewsRanking(Pageable pageable) {
+        LocalDate today = LocalDate.now();
+        LocalDate startOfMonth = today.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
+
+        Timestamp startOfMonthTs = Timestamp.valueOf(startOfMonth.atStartOfDay());
+        Timestamp endOfMonthTs = Timestamp.valueOf(endOfMonth.atTime(LocalTime.MAX));
+
+        return memberRepository.findAllOrderByTotalViews(startOfMonthTs, endOfMonthTs, pageable);
+    }
+
+    /**
      * 회원 조회
      *
      * @param id 조회할 회원의 ID
@@ -72,18 +119,6 @@ public class MemberService {
      */
     public <T> T getMemberByUsername(String username, Class<T> projectionType) {
         return memberRepository.findByUsername(username, projectionType)
-                .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
-    }
-
-    /**
-     * 회원 조회
-     *
-     * @param email 조회할 회원의 email
-     * @return 조회된 회원 정보
-     * @throws NotFoundException 회원이 존재하지 않을 때 발생
-     */
-    public <T> T getMemberByEmail(String email, Class<T> projectionType) {
-        return memberRepository.findByEmail(email, projectionType)
                 .orElseThrow(() -> new NotFoundException("회원 정보를 찾을 수 없습니다"));
     }
 

@@ -1,13 +1,15 @@
 package today.wtfood.server.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Event {
 
@@ -27,5 +29,4 @@ public class Event {
     private Timestamp endDate;
 
     private String bannerImage;
-
 }

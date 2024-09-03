@@ -3,233 +3,250 @@ package today.wtfood.server.service;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import today.wtfood.server.dto.member.IMember;
-import today.wtfood.server.dto.recipe.*;
+import today.wtfood.server.dto.recipe.CommentSummary;
+import today.wtfood.server.dto.recipe.RecipeDetail;
+import today.wtfood.server.dto.recipe.RecipeSummary;
+import today.wtfood.server.dto.recipe.RecipeSummaryWithFavorite;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.entity.member.Member;
+import today.wtfood.server.exception.ForbiddenException;
 import today.wtfood.server.exception.NotFoundException;
-import today.wtfood.server.exception.UnauthorizedException;
 import today.wtfood.server.repository.CommentRepository;
-import today.wtfood.server.repository.MemberRepository;
 import today.wtfood.server.repository.RecipeRepository;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.temporal.TemporalAdjusters;
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 @Service
 @Transactional
 public class RecipeService {
 
     private final RecipeRepository rr;
-    private final MemberRepository mr;
-    private final CommentRepository cr; // CommentRepository 주입
+    private final CommentRepository cr;
 
-    public RecipeService(RecipeRepository rr, MemberRepository mr, CommentRepository cr) {
+    public RecipeService(RecipeRepository rr, CommentRepository cr) {
         this.rr = rr;
-        this.mr = mr;
         this.cr = cr;
     }
 
-    // 레시피 생성
-    public Recipe createRecipe(RecipeDto recipeDto, long memberId) {
-        // memberId로 회원 정보 조회
-        Member member = mr.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("회원정보를 찾을 수 없습니다", "memberId"));
+    /**
+     * 레시피 목록 조회
+     *
+     * @param pageable      페이지네이션 정보
+     * @param category      카테고리
+     * @param memberId      회원 ID
+     * @param username      회원 이름
+     * @param term          검색어
+     * @param currentUserId 현재 사용자 ID
+     * @return 페이지네이션된 레시피 목록
+     */
+    public Page<RecipeSummaryWithFavorite> getRecipes(
+            Pageable pageable,
+            @Nullable String category,
+            @Nullable Long memberId,
+            @Nullable String username,
+            @Nullable String term,
+            @Nullable Long currentUserId
+    ) {
 
-        // RecipeDto에서 memberId를 사용해 레시피 엔티티 생성
-        Recipe recipe = recipeDto.toEntity(member);
-        rr.save(recipe);
-
-
-        recipeDto.getCookingStep().forEach(step -> step.setRecipe(recipe));
-        recipe.setCookingStep(recipeDto.getCookingStep());
-        // 레시피 저장
-        return recipe;
+        return rr.findAllBy(pageable, category, memberId, username, term, currentUserId);
     }
 
-    // 레시피 리스트 (페이지네이션)
-    public Page<RecipeSummary> getRecipeList(Pageable pageable) {
-        return rr.findAllBy(pageable);
-    }
-
-    // 모든 레시피 조회
-    public List<Recipe> getRecipeList() {
-        return rr.findAll(Sort.by(Sort.Direction.DESC, "id"));
-    }
-
-    // ID로 레시피 조회
-    public RecipeDetail getRecipeById(long id) {
+    /**
+     * 레시피 조회
+     *
+     * @param id 레시피 ID
+     * @return 레시피 상세 정보
+     * @throws NotFoundException 레시피를 찾을 수 없을 때
+     */
+    public RecipeDetail getRecipe(long id) throws NotFoundException {
         return rr.findDetailById(id)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
     }
 
-    public Page<RecipeSummary> searchRecipes(String term, Pageable pageable) {
-        return rr.searchRecipes(term, pageable);
+    /**
+     * 레시피 생성
+     *
+     * @param recipe 레시피 정보
+     * @return 생성된 레시피
+     */
+    public Recipe createRecipe(Recipe recipe) {
+        return recipe;
     }
 
-    // 조회수
+    /**
+     * 레시피 수정
+     *
+     * @param recipeId      레시피 ID
+     * @param currentUserId 현재 사용자 ID
+     * @param updater       레시피 업데이트 함수
+     * @throws NotFoundException  레시피를 찾을 수 없을 때
+     * @throws ForbiddenException 레시피 작성자가 아닐 때
+     */
     @Transactional
-    public void incrementViewCount(Long id) {
-        Recipe recipe = rr.findById(id)
-                .orElseThrow(() -> new NotFoundException("Recipe not found with id " + id));
+    public void updateRecipe(long recipeId, long currentUserId, Consumer<Recipe> updater) throws NotFoundException, ForbiddenException {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
+
+        if (recipe.getMember().getId() != currentUserId) {
+            throw new ForbiddenException("본인의 레시피만 수정할 수 있습니다", "id");
+        }
+
+        updater.accept(recipe);
+    }
+
+    /**
+     * 레시피 조회수 증가
+     *
+     * @param recipeId 레시피 ID
+     * @throws NotFoundException 레시피를 찾을 수 없을 때
+     */
+    @Transactional
+    public void incrementRecipeViewCount(long recipeId) throws NotFoundException {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
+
         recipe.setViewCount(recipe.getViewCount() + 1);
         rr.save(recipe);
     }
 
-    // 레시피 수정
-    @Transactional
-    public void updateRecipe(long id, RecipeDto recipedto) {
-        Recipe recipe = rr.findById(id)
-                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "id"));
+    /**
+     * 레시피 삭제
+     *
+     * @param recipeId 레시피 ID
+     * @param member   현재 사용자 ID
+     * @throws NotFoundException  레시피를 찾을 수 없을 때
+     * @throws ForbiddenException 관리자나 레시피 작성자가 아닐 때
+     */
+    public void deleteRecipe(long recipeId, Member member) throws NotFoundException, ForbiddenException {
+        Recipe recipe = rr.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
 
-        recipe.setTitle(recipedto.getTitle());
-        recipe.setDescription(recipedto.getDescription());
-        recipe.setBannerImage(recipedto.getBannerImage());
-        recipe.setCookingTime(recipedto.getCookingTime());
-        recipe.setServings(recipedto.getServings());
-        recipe.setLevel(recipedto.getLevel());
-        recipe.setVideoLink(recipedto.getVideoLink());
-        recipe.setCategory(recipedto.getCategory());
-        recipe.setIngredientImage(recipedto.getIngredientImage());
-        recipe.setIngredients(recipedto.getIngredients());
-        recipe.setCookingTools(recipedto.getCookingTools());
-        recipe.setGuideLinks(recipedto.getGuideLinks());
-        recipedto.getCookingStep().forEach(step -> step.setRecipe(recipe));
-        recipe.setCookingStep(recipedto.getCookingStep());
-        recipe.setFinishedImages(recipedto.getFinishedImages());
-        recipe.setTags(recipedto.getTags());
-    }
-
-    // 레시피 삭제
-    public void deleteRecipe(long id) {
-        if (!rr.existsById(id)) {
-            throw new NotFoundException("레시피를 찾을 수 없습니다", "id");
+        if (member.getRole() != Member.Role.ROLE_ADMIN && !Objects.equals(recipe.getMember().getId(), member.getId())) {
+            throw new ForbiddenException("본인의 레시피만 삭제할 수 있습니다", "recipeId");
         }
-        rr.deleteById(id);
+
+        rr.deleteById(recipeId);
     }
 
-    // 찜하기 추가
-    public void addFavoriteRecipe(long memberId, long recipeId) {
-        Member member = mr.findById(memberId)
-                .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
+
+    /**
+     * 찜한 레시피 목록 조회
+     *
+     * @param member   회원 정보
+     * @param pageable 페이지네이션 정보
+     * @return 페이지네이션된 레시피 목록
+     */
+    public Page<RecipeSummary> getFavoriteRecipes(Member member, Pageable pageable) {
+        return rr.findByFavoriteByMembersContains(member, pageable);
+    }
+
+    /**
+     * 레시피 찜하기 생성
+     *
+     * @param recipeId 레시피 ID
+     * @param member   회원 정보
+     * @throws NotFoundException 레시피를 찾을 수 없을 때
+     */
+    @Transactional(rollbackOn = Exception.class)
+    public void createFavoriteRecipe(long recipeId, Member member) {
         Recipe recipe = rr.findById(recipeId)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
 
         member.getFavoriteRecipes().add(recipe);
-        mr.save(member);
     }
 
-    // 찜한 레시피 목록 조회
-    public Page<RecipeSummary> getFavoriteRecipes(long memberId, Pageable pageable) {
-        Member member = mr.findById(memberId)
-                .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
-        return rr.findByFavoriteByMembersContains(member, pageable);
-    }
-
-    public List<RecipeSummary> getFavoriteRecipes(long memberId) {
-        Member member = mr.findById(memberId)
-                .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
-        return rr.findByFavoriteByMembersContains(member);
-    }
-
-    // 찜하기 제거
-    public void deleteFavoriteRecipe(long memberId, long recipeId) {
-        Member member = mr.findById(memberId)
-                .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
+    /**
+     * 레시피 찜하기 삭제
+     *
+     * @param recipeId 레시피 ID
+     * @param member   회원 정보
+     * @throws NotFoundException 레시피를 찾을 수 없을 때
+     */
+    @Transactional(rollbackOn = Exception.class)
+    public void deleteFavoriteRecipe(long recipeId, Member member) {
         Recipe recipe = rr.findById(recipeId)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
 
         member.getFavoriteRecipes().remove(recipe);
-        mr.save(member);
     }
 
-    public Page<RecipeSummary> getRecipesByMemberId(long memberId, Pageable pageable) {
-        return rr.findAllByMember_Id(memberId, pageable);
+
+    /**
+     * 레시피 댓글 목록 조회
+     *
+     * @param recipeId 레시피 ID
+     * @param pageable 페이지네이션 정보
+     * @return 페이지네이션된 댓글 목록
+     */
+    public Page<CommentSummary> getRecipeComments(long recipeId, Pageable pageable) {
+        return cr.findByRecipeId(pageable, recipeId);
     }
 
-    // 카테고리
-    public Page<RecipeSummary> getRecipesByCategory(String category, Pageable pageable) {
-        return rr.findByCategory(category, pageable);
+    /**
+     * 회원의 레시피 댓글 목록 조회
+     *
+     * @param memberId 회원 ID
+     * @param pageable 페이지네이션 정보
+     * @return 페이지네이션된 댓글 목록
+     */
+    public Page<CommentSummary> getRecipeCommentsByMemberId(long memberId, Pageable pageable) {
+        return cr.findAllByMember_Id(pageable, memberId);
     }
 
-    public Page<RecipeSummary> getUserRecipeList(String username, Pageable pageable) {
-        IMember member = mr.findByUsername(username, IMember.class)
-                .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다", "username"));
-        return rr.findAllByMember_Id(member.getId(), pageable);
-    }
-
-    public List<Map<String, Object>> getDailyViewsRanking() {
-        LocalDate today = LocalDate.now();
-        Timestamp startOfDay = Timestamp.valueOf(today.atStartOfDay());
-        Timestamp endOfDay = Timestamp.valueOf(today.atTime(LocalTime.MAX));
-
-        return rr.findTotalViewsByMember(startOfDay, endOfDay);
-    }
-
-    public List<Map<String, Object>> getWeeklyViewsRanking() {
-        LocalDate today = LocalDate.now();
-        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
-        LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SUNDAY));
-
-        Timestamp startOfWeekTs = Timestamp.valueOf(startOfWeek.atStartOfDay());
-        Timestamp endOfWeekTs = Timestamp.valueOf(endOfWeek.atTime(LocalTime.MAX));
-
-        return rr.findTotalViewsByMember(startOfWeekTs, endOfWeekTs);
-    }
-
-    public List<Map<String, Object>> getMonthlyViewsRanking() {
-        LocalDate today = LocalDate.now();
-        LocalDate startOfMonth = today.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
-
-        Timestamp startOfMonthTs = Timestamp.valueOf(startOfMonth.atStartOfDay());
-        Timestamp endOfMonthTs = Timestamp.valueOf(endOfMonth.atTime(LocalTime.MAX));
-
-        return rr.findTotalViewsByMember(startOfMonthTs, endOfMonthTs);
-    }
-
-    // 댓글 목록 조회
-    public Page<CommentSummary> getCommentsList(long recipeId, Pageable pageable) {
-        return cr.findByRecipeIdOrderByIdDesc(pageable, recipeId);
-    }
-
-    // 댓글 목록 조회
-    public Page<CommentSummary> getCommentsListOfMember(long memberId, Pageable pageable) {
-        return cr.findAllByMember_IdOrderByCreatedDateDesc(pageable, memberId);
-    }
-
-    // 댓글 추가
-    public void addComment(CommentDto commentDto, long recipeId, long memberId) {
+    /**
+     * 레시피 댓글 생성
+     *
+     * @param recipeId 레시피 ID
+     * @param comment  댓글 정보
+     * @return 생성된 댓글
+     * @throws NotFoundException 레시피를 찾을 수 없을 때
+     */
+    public Recipe.Comment createRecipeComment(long recipeId, Recipe.Comment comment) throws NotFoundException {
         Recipe recipe = rr.findById(recipeId)
                 .orElseThrow(() -> new NotFoundException("레시피를 찾을 수 없습니다", "recipeId"));
-        Member member = mr.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("회원정보를 찾을 수 없습니다", "memberId"));
 
-
-        Recipe.Comment comment = commentDto.toEntity(recipe);
-        comment.setMember(member);
-        cr.save(comment);
+        comment.setRecipe(recipe);
+        return cr.save(comment);
     }
 
-    // 댓글 수정
-    public void updateComment(long commentId, CommentDto commentDto) {
+    /**
+     * 레시피 댓글 수정
+     *
+     * @param commentId 댓글 ID
+     * @param memberId  회원 ID
+     * @param updater   댓글 업데이트 함수
+     * @throws NotFoundException  댓글을 찾을 수 없을 때
+     * @throws ForbiddenException 댓글 작성자가 아닐 때
+     */
+    @Transactional(rollbackOn = Exception.class)
+    public void updateRecipeComment(long commentId, long memberId, Consumer<Recipe.Comment> updater) throws NotFoundException, ForbiddenException {
         Recipe.Comment comment = cr.findById(commentId)
                 .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다", "commentId"));
 
-        comment.setContent(commentDto.getContent());
-        cr.save(comment);
+        if (comment.getMember().getId() != memberId) {
+            throw new ForbiddenException("본인의 댓글만 수정할 수 있습니다", "commentId");
+        }
+
+        updater.accept(comment);
     }
 
-    // 댓글 삭제
-    public void deleteComment(long commentId) {
+    /**
+     * 레시피 댓글 삭제
+     *
+     * @param commentId 댓글 ID
+     * @throws NotFoundException  댓글을 찾을 수 없을 때
+     * @throws ForbiddenException 관리자나 댓글 작성자가 아닐 때
+     */
+    public void deleteRecipeComment(long commentId, Member member) throws NotFoundException, ForbiddenException {
         Recipe.Comment comment = cr.findById(commentId)
                 .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다", "commentId"));
+
+        if (member.getRole() != Member.Role.ROLE_ADMIN && !Objects.equals(comment.getMember().getId(), member.getId())) {
+            throw new ForbiddenException("본인의 댓글만 삭제할 수 있습니다", "commentId");
+        }
 
         cr.delete(comment);
     }

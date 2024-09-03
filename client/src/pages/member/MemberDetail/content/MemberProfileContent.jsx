@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import PaginationNav from "components/util/PaginationNav";
-import { UndrawBarista, UndrawTasting, UndrawBarbecue } from "components/asset";
+import { UndrawTasting, UndrawBarbecue } from "components/asset";
 import { usePageResponse } from "hooks";
 import { initialPagination, cn, axios, defaultErrorHandler } from "utils";
 import { useProfileDetail } from "stores/context";

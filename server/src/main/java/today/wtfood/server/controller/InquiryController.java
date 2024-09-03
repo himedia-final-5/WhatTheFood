@@ -25,55 +25,85 @@ public class InquiryController {
         this.is = is;
     }
 
+    /**
+     * 문의글 목록 조회
+     *
+     * @param pageable 페이지네이션 정보
+     * @param username 유저 이름
+     * @return 페이지네이션된 문의글 목록
+     */
+    @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #username == authentication.principal.username)")
+    public PageResponse<InquirySummary> getInquiries(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable,
+
+            @RequestParam(name = "username", required = false)
+            String username
+    ) {
+        if (username != null) {
+            return PageResponse.of(is.getInquiriesByUsername(username, pageable));
+        }
+        return PageResponse.of(is.getInquiries(pageable));
+    }
+
+    /**
+     * 문의글 조회
+     *
+     * @param inquiryId 문의글 ID
+     * @return 문의글 상세 정보
+     */
+    @GetMapping("/{inquiry-id}")
+    @PostAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and returnObject.username == authentication.principal.username)")
+    public InquiryDetail getInquiry(@PathVariable("inquiry-id") long inquiryId) {
+        return is.getInquiry(inquiryId);
+    }
+
+    /**
+     * 문의글 생성
+     *
+     * @param inquiryDto 문의글 정보
+     * @param username   유저 이름
+     * @return 생성된 문의글 ID
+     */
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public GeneratedId<Long> insertInquiry(
+    public GeneratedId<Long> createInquiry(
             @RequestBody
-            InquiryDto inquiry,
+            InquiryDto inquiryDto,
 
             @CurrentUser
             String username
     ) {
-        return GeneratedId.of(is.insertInquiry(inquiry.toEntity(username)).getId());
+        return GeneratedId.of(is.createInquiry(inquiryDto.apply(new Inquiry(), username)).getId());
     }
 
-    @GetMapping("")
+    /**
+     * 문의글 답변 수정
+     *
+     * @param inquiryId 문의글 ID
+     * @param answer    답변
+     */
+    @PutMapping("/{inquiry-id}/answer")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public PageResponse<Inquiry> allInquiry(
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable
+    public void updateInquiryAnswer(
+            @PathVariable("inquiry-id")
+            long inquiryId,
+            @RequestParam
+            String answer
     ) {
-        return PageResponse.of(is.getAllInquiry(pageable));
+        is.updateInquiryAnswer(inquiryId, answer);
     }
 
-    @GetMapping("/{id}")
-    @PostAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and returnObject.username == authentication.principal.username)")
-    public InquiryDetail getMyInquiryView(@PathVariable("id") long id) {
-        return is.getMyInquiryView(id);
-    }
-
-
-    @GetMapping("/username/{username}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and #username == authentication.principal.username)")
-    public PageResponse<InquirySummary> getMyInquiryList(
-            @PathVariable("username")
-            String username,
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable
-    ) {
-        return PageResponse.of(is.getMyInquiryList(username, pageable));
-    }
-
-    @DeleteMapping("/{id}")
+    /**
+     * 문의글 삭제
+     *
+     * @param inquiryId 문의글 ID
+     */
+    @DeleteMapping("/{inquiry-id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteInquiry(@PathVariable("id") long id) {
-        is.deleteInquiry(id);
-    }
-
-    @PutMapping("/{id}/answer")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void inquiryAnswer(@PathVariable("id") long id, @RequestParam String answer) {
-        is.inquiryAnswer(id, answer);
+    public void deleteInquiry(@PathVariable("inquiry-id") long inquiryId) {
+        is.deleteInquiry(inquiryId);
     }
 
 }

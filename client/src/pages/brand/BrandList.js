@@ -69,49 +69,45 @@ export default function BrandList() {
   });
 
   return (
-    <div>
-      <div>
-        <div>
-          <ul className="relative flex right-28 top-10 border-b ml-96 mr-44 pb-0 text-lg">
-            {CATEGORIES.map(([key, name]) => (
-              <li
-                key={key}
-                className={`cursor-pointer border-s-transparent px-6 py-2 ${category === key ? "active" : ""}`}
-                onClick={() => handleTabClick(key)}
-              >
-                {name}
-              </li>
-            ))}
-          </ul>
-          <div className="chef_banner_wrap">
-            {filterContent.length > 0 ? (
-              filterContent
-                .filter((member) => member.role === "ROLE_BRAND")
-                .map((member, index) => (
-                  <div key={index} className="chef_container">
-                    <p className="chef_num">
-                      <b>{index + 1}</b>
-                    </p>
-                    <Link to={`/members/${member.id}`}>
-                      <div className="chef_imageUrl">
-                        <img
-                          className="rounded-full size-28"
-                          src={member.profileImage}
-                          alt="member_profileImage"
-                        />
-                      </div>
-                    </Link>
-                    <div className="flex justify-center py-2 text-base font-bold">
-                      <p>{member.nickname}</p>
-                    </div>
+    <div className="flex flex-col items-center w-full max-w-screen-lg mx-auto gap-8">
+      <ul className="relative flex border-b text-lg">
+        {CATEGORIES.map(([key, name]) => (
+          <li
+            key={key}
+            className={`cursor-pointer border-s-transparent px-6 py-2 ${category === key ? "active" : ""}`}
+            onClick={() => handleTabClick(key)}
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-wrap justify-center w-full gap-4">
+        {filterContent.length > 0 ? (
+          filterContent
+            .filter((member) => member.role === "ROLE_BRAND")
+            .map((member, index) => (
+              <div key={index} className="chef_container">
+                <p className="chef_num">
+                  <b>{index + 1}</b>
+                </p>
+                <Link to={`/members/${member.id}`}>
+                  <div className="chef_imageUrl">
+                    <img
+                      className="rounded-full size-28"
+                      src={member.profileImage}
+                      alt="member_profileImage"
+                    />
                   </div>
-                ))
-            ) : (
-              <div>No events found.</div>
-            )}
-            <div aria-label="scroll-trigger" ref={ref} />
-          </div>
-        </div>
+                </Link>
+                <div className="flex justify-center py-2 text-base font-bold">
+                  <p>{member.nickname}</p>
+                </div>
+              </div>
+            ))
+        ) : (
+          <div>No events found.</div>
+        )}
+        <div aria-label="scroll-trigger" ref={ref} />
       </div>
     </div>
   );
