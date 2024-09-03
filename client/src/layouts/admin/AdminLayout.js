@@ -1,9 +1,10 @@
-import { Outlet } from "react-router-dom";
-import { signoutAction, useDispatch } from "stores";
+import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { IconLogout } from "@tabler/icons-react";
 
 import "./AdminLayout.css";
+import { signoutAction, useDispatch } from "stores";
+import LogoYorijoriMain from "components/asset/LogoYorijoriMain";
 
 export default function AdminLayout() {
   const dispatch = useDispatch();
@@ -18,30 +19,17 @@ export default function AdminLayout() {
   function toHome() {
     navigate("/");
   }
+
   return (
     <div className="adminTotalContainer">
-      <br></br>
-      <div className="adminIcon">
-        <div
-          className="adminLogoutImg"
-          onClick={() => {
-            signout();
-          }}
-        >
-          <img src="/images/logout.png" alt="logout" />
-        </div>
-        <div
-          className="adminLogoutImg"
-          onClick={() => {
-            toHome();
-          }}
-        >
-          <img src="/images/home.png" alt="home" />
-          <img src="/images/logo.svg" id="adminHlogo" alt="adminHlogo" />
-        </div>
-      </div>
-
-      <br></br>
+      <header className="adminIcon">
+        <button onClick={toHome}>
+          <LogoYorijoriMain className="h-10" />
+        </button>
+        <button onClick={signout}>
+          <IconLogout className="w-20 h-20" />
+        </button>
+      </header>
       <Outlet />
     </div>
   );
