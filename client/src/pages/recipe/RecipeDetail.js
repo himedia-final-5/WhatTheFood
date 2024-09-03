@@ -22,6 +22,8 @@ export default function RecipeDetail() {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [editingContent, setEditingContent] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const currentUrl = window.location.href;
   const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
   const memberId = user ? user.id : null; // 로그인한 사용자의 ID를 가져옵니다
@@ -51,6 +53,15 @@ export default function RecipeDetail() {
 
     //eslint-disable-next-line
   }, [id]);
+
+  useEffect(() => {
+    if (recipe?.favoriteByMembers) {
+      const isFavored = recipe.favoriteByMembers.some(
+        (member) => member.id === memberId && member.username === user.username,
+      );
+      setIsFavorite(isFavored);
+    }
+  }, [recipe, memberId, user]);
 
   // Extract YouTube video ID from URL
   const extractYouTubeVideoId = (url) => {
@@ -203,6 +214,27 @@ export default function RecipeDetail() {
     toast.error("레시피 정보를 불러오는데 실패했습니다.");
     return <div></div>;
   }
+
+  const handleFavoriteClick = async (recipeId) => {
+    if (!user) {
+      toast.warn("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      if (isFavorite) {
+        await axios.delete(`/api/recipes/${recipeId}/favorite`);
+      } else {
+        await axios.post(`/api/recipes/${recipeId}/favorite`);
+      }
+      // 찜하기 상태 변경 후 레시피 데이터를 다시 가져옴
+      fetchRecipe();
+    } catch (error) {
+      console.error("Failed to update favorite status:", error);
+      toast.error("찜하기 상태를 변경하는 데 실패했습니다.");
+    }
+  };
+
   return (
     recipe && (
       <div className="recipedetail_wrap">
@@ -220,6 +252,7 @@ export default function RecipeDetail() {
 
         <div className="recipedetail_content">
           <h1>{recipe.title}</h1>
+          <p>{recipe.member.nickname}</p>
           <p>
             <i>{recipe.createdDate.slice(0, 10)}</i>
           </p>
@@ -236,9 +269,17 @@ export default function RecipeDetail() {
           <p>
             <strong>{recipe.category}</strong>
           </p>
-
           <div className="recipe_custom-button_total_wrap">
             <div className="recipe_custom-button_wrap">
+              {user && recipe.favoriteByMembers && (
+                <button
+                  className={`heart-button ${isFavorite ? "favorited" : ""}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleFavoriteClick(recipe.id);
+                  }}
+                ></button>
+              )}
               <button
                 className="recipe_custom_button"
                 onClick={sendLinkKakaoShare}
