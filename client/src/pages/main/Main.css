@@ -11,7 +11,7 @@
   margin: 0 auto;
   height: auto;
   background-color: #fff;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 }
 
 /* 메인 내부 래퍼 */
@@ -64,9 +64,9 @@
 
 .main_best_recipe_wrap {
   width: 100%;
-  height: 400px;
+  height: 450px;
   overflow: hidden;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 }
 .main_best_recipe .slick-slide {
   margin: 0 10px;
@@ -333,6 +333,7 @@
 @media screen and (max-width: 767px) {
   .main_wrap {
     width: 100%;
+    margin-bottom: 50px;
   }
   .main_inner_wrap {
     width: 100%;
