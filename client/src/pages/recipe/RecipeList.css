@@ -137,6 +137,14 @@
   color: #555;
   margin-right: 12px;
 }
+.recipe_state_profileImage {
+  display: inline-block;
+  margin-bottom: -5px;
+  margin-right: 5px;
+}
+.heart-button {
+  float: right;
+}
 
 /* RecipeList.css */
 
