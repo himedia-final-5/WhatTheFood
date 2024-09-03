@@ -52,6 +52,7 @@ export default function RecipeDetail() {
     //eslint-disable-next-line
   }, [id]);
 
+  // 찜하기를 디테일에 추가하는 useEffect
   useEffect(() => {
     if (recipe?.favoriteByMembers) {
       const isFavored = recipe.favoriteByMembers.some(
