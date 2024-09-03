@@ -24,7 +24,7 @@ function WEvent() {
 
   function submitEvent() {
     axios
-      .post("/api/events/", event)
+      .post("/api/events", event)
       .then(() => navigate("/eList"))
       .catch(defaultErrorHandler);
   }

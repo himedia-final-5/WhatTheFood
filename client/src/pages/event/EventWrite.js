@@ -39,7 +39,7 @@ export default function EventWrite() {
   function onSubmit() {
     // axios 라이브러리를 사용해 POST 요청을 보냅니다.
     axios
-      .post("/api/events/", event)
+      .post("/api/events", event)
       .then(({ data }) => {
         // 작성된 게시글로 이동합니다.
         navigate(`/events/${data.id}`);
