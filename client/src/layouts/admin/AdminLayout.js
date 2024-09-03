@@ -37,7 +37,7 @@ export default function AdminLayout() {
           }}
         >
           <img src="/images/home.png" alt="home" />
-          <img src="/images/logo.png" id="adminHlogo" alt="adminHlogo" />
+          <img src="/images/logo.svg" id="adminHlogo" alt="adminHlogo" />
         </div>
       </div>
 
