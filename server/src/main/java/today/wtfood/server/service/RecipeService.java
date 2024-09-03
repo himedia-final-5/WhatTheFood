@@ -132,6 +132,12 @@ public class RecipeService {
         return rr.findByFavoriteByMembersContains(member, pageable);
     }
 
+    public List<RecipeSummary> getFavoriteRecipes(long memberId) {
+        Member member = mr.findById(memberId)
+                .orElseThrow(() -> new UnauthorizedException("회원 정보를 찾을 수 없습니다", "memberId"));
+        return rr.findByFavoriteByMembersContains(member);
+    }
+
     // 찜하기 제거
     public void deleteFavoriteRecipe(long memberId, long recipeId) {
         Member member = mr.findById(memberId)
