@@ -1,13 +1,20 @@
-import { useState, memo } from "react";
+import { useState, memo, useEffect, useRef } from "react";
 import { useSelector } from "react-redux"; // Redux를 가져옵니다
 import { toast } from "react-toastify";
 
 import "./RecipeFavoriteButton.css";
 import { axios, cn } from "utils";
+import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
 const RecipeFavoriteButton = memo(({ recipe, ...props }) => {
   const [isFavorite, setIsFavorite] = useState(recipe.favorite);
-  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
+  const user = useSelector((state) => state.user);
+  const prevIsFavoriteRef = useRef(recipe.favorite);
+  const playAnimation = isFavorite && !prevIsFavoriteRef.current;
+
+  useEffect(() => {
+    prevIsFavoriteRef.current = isFavorite;
+  }, [isFavorite]);
 
   const handleFavoriteClick = async (event) => {
     event.preventDefault(); // 기본 동작 방지
@@ -18,20 +25,16 @@ const RecipeFavoriteButton = memo(({ recipe, ...props }) => {
       return;
     }
 
-    if (isFavorite) {
-      try {
+    try {
+      if (isFavorite) {
         await axios.delete(`/api/recipes/${recipe.id}/favorite`);
         setIsFavorite(false);
-      } catch (error) {
-        console.error("Failed to remove favorite:", error);
-      }
-    } else {
-      try {
+      } else {
         await axios.post(`/api/recipes/${recipe.id}/favorite`);
         setIsFavorite(true);
-      } catch (error) {
-        console.error("Failed to add favorite:", error);
       }
+    } catch (error) {
+      console.error("Failed to update favorite:", error);
     }
   };
 
@@ -39,14 +42,20 @@ const RecipeFavoriteButton = memo(({ recipe, ...props }) => {
     user && (
       <button
         {...props}
-        className={cn(
-          "heart-button",
-          { favorited: isFavorite },
-          props.className,
-        )}
+        className={cn("relative inline-block w-8 h-8", props.className)}
         onClick={handleFavoriteClick}
-      />
+      >
+        <IconHeart className="absolute w-full h-full top-0 text-neutral-400" />
+        <IconHeartFilled
+          className={cn(
+            "absolute w-full h-full top-0 text-rose-500 transition-all duration-300 delay-0",
+            isFavorite ? "opacity-100" : "opacity-0",
+            playAnimation && "animate-ping repeat-1 ease-in direction-reverse",
+          )}
+        />
+      </button>
     )
   );
 });
+
 export default RecipeFavoriteButton;

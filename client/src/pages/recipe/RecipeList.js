@@ -145,14 +145,17 @@ const RecipeCard = memo(({ recipe }) => {
       className="recipe_state_wrap"
       onClick={handleRecipeClick}
     >
-      <div className="recipe_text_wrap">
+      <div className="recipe_text_wrap relative">
         <span className="recipe_state_name">{recipe.title}</span>
         <span className="recipe_state_level">{recipe.level} level</span>
         <span className="recipe_state_servings">{recipe.servings}인분</span>
         <span className="recipe_state_viewcount">
           조회수 {recipe.viewCount}
         </span>
-        <RecipeFavoriteButton recipe={recipe} />
+        <RecipeFavoriteButton
+          recipe={recipe}
+          className="absolute top-2 right-2"
+        />
       </div>
       <div className="recipe_imageUrl">
         <img src={recipe.bannerImage} alt="recipe_bannerImage" />
