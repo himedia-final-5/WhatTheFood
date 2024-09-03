@@ -174,6 +174,9 @@ export default function RecipeList() {
                 <span className="recipe_state_viewcount">
                   조회수 {recipe.viewCount}
                 </span>
+                <span className="recipe_state_viewcount">
+                  {recipe.member.nickname}
+                </span>
                 {user && (
                   <button
                     className={`heart-button ${favoritedRecipes.has(recipe.id) ? "favorited" : ""}`}
