@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, memo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
-import RecipeFavoriteButton from "./RecipeFavoriteButton";
+import RecipeFavoriteButton from "components/features/recipe/RecipeFavoriteButton";
 import UserFeature from "components/util/UserFeature";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";

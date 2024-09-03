@@ -7,7 +7,7 @@ import "./EventDetail.css";
 import { AdminFeature } from "components/util";
 import { axios } from "utils";
 import { usePromise } from "hooks";
-import Popup from "./PopUp";
+import Popup from "components/util/PopUp";
 
 /** @type {?EventDetail} */
 const DEFAULT_EVENT = null;
