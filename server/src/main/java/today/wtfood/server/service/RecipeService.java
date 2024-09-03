@@ -73,7 +73,7 @@ public class RecipeService {
      * @return 생성된 레시피
      */
     public Recipe createRecipe(Recipe recipe) {
-        return recipe;
+        return rr.save(recipe);
     }
 
     /**
