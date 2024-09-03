@@ -231,7 +231,7 @@ export default function RecipeDetail() {
           <p>
             <img
               src={recipe.member.profileImage}
-              alt="Profile Image"
+              alt="Profile"
               style={{
                 width: "30px",
                 height: "30px",
