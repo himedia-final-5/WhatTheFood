@@ -8,8 +8,8 @@ import today.wtfood.server.entity.Recipe;
 
 public interface CommentRepository extends JpaRepository<Recipe.Comment, Long> {
 
-    Page<CommentSummary> findByRecipeIdOrderByIdDesc(Pageable pageable, long recipeId);
+    Page<CommentSummary> findByRecipeId(Pageable pageable, long recipeId);
 
-    Page<CommentSummary> findAllByMember_IdOrderByCreatedDateDesc(Pageable pageable, long memberId);
+    Page<CommentSummary> findAllByMember_Id(Pageable pageable, long memberId);
 
 }

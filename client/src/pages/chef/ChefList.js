@@ -32,11 +32,11 @@ export default function ChefList() {
   // 서버에서 순위 데이터를 가져오는 함수
   const fetchRankingData = useCallback(async () => {
     try {
-      const response = await axios.get(`/api/recipes/view`, {
-        params: { period: category },
+      const response = await axios.get(`/api/members`, {
+        params: { period: category, size: 30 },
       });
 
-      setRankingData(response.data);
+      setRankingData(response.data.content);
     } catch (error) {
       defaultErrorHandler(error);
     }
@@ -47,25 +47,9 @@ export default function ChefList() {
     fetchRankingData();
   }, [fetchRankingData]);
 
-  const { ref, content } = useInfiniteScroll(
-    throttle(async (page) => {
-      const response = await axios.get(`/api/members`, {
-        params: { page, role: "ROLE_CHEF" },
-      });
-      setThrottleInterval(0);
-      return response.data;
-    }),
-    (error) => {
-      setThrottleInterval(3000);
-      defaultErrorHandler(error);
-    },
-  );
-
   const handlePeriodChange = (newCategory) => {
     setSearchParams({ category: newCategory });
   };
-
-  const filterContent = content.filter(function (recipe) {});
 
   return (
     <div className="chef_wrap">
@@ -83,30 +67,27 @@ export default function ChefList() {
         </ul>
         <div className="chef_banner_wrap">
           {rankingData.length > 0 ? (
-            rankingData
-              .filter((member) => member.role === "ROLE_CHEF")
-              .map((member, index) => (
-                <div key={index} className="chef_container">
-                  <p className="chef_num">
-                    <b>{index + 1}</b>
-                  </p>
-                  <Link to={`/members/${member.id}`}>
-                    <div className="chef_imageUrl">
-                      <img
-                        className="rounded-full size-28"
-                        src={member.profileImage}
-                        alt="member_profileImage"
-                      />
-                    </div>
-                  </Link>
-                  <div className="flex justify-center py-2 text-base font-bold">
-                    <p>{member.nickname}</p>
+            rankingData.map((member, index) => (
+              <div key={index} className="chef_container">
+                <p className="chef_num">
+                  <b>{index + 1}</b>
+                </p>
+                <Link to={`/members/${member.id}`}>
+                  <div className="chef_imageUrl">
+                    <img
+                      className="rounded-full size-28"
+                      src={member.profileImage}
+                      alt="member_profileImage"
+                    />
                   </div>
+                </Link>
+                <div className="flex justify-center py-2 text-base font-bold">
+                  <p>{member.nickname}</p>
                 </div>
-              ))
+              </div>
+            ))
           ) : (
             <div>
-              {" "}
               <img
                 src="/images/suprize.png"
                 alt="recipe_surchImage"
@@ -114,7 +95,6 @@ export default function ChefList() {
               />
             </div>
           )}
-          <div aria-label="scroll-trigger" ref={ref} />
         </div>
       </div>
     </div>

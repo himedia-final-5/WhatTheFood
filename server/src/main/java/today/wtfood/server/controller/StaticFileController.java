@@ -8,7 +8,7 @@ import today.wtfood.server.dto.file.FileResponse;
 import today.wtfood.server.service.StaticFileService;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/static")
 public class StaticFileController {
 
     private final StaticFileService staticFileService;
@@ -17,7 +17,13 @@ public class StaticFileController {
         this.staticFileService = staticFileService;
     }
 
-    @PostMapping("/upload")
+    /**
+     * 파일 업로드 API
+     *
+     * @param file 업로드할 파일
+     * @return 업로드된 파일 정보
+     */
+    @PostMapping("")
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
     public FileResponse updateFile(@RequestParam("file") MultipartFile file) {

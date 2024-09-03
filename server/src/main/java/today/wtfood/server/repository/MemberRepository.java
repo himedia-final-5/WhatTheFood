@@ -8,9 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import today.wtfood.server.dto.member.MemberProfileDetail;
+import today.wtfood.server.dto.member.MemberRankingSummary;
 import today.wtfood.server.dto.member.MemberSummary;
 import today.wtfood.server.entity.member.Member;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 @Repository
@@ -18,9 +20,21 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
     <T> Page<T> findAllBy(Pageable pageable, Class<T> projectionType);
 
-    <T> Optional<T> findByUsername(String username, Class<T> projectionType);
+    @Query("SELECT m.id AS id, m.profileImage AS profileImage, m.nickname AS nickname, COALESCE(SUM(r.viewCount), 0) AS viewCount " +
+           "FROM Member m " +
+           "LEFT JOIN Recipe r ON m.id = r.member.id " +
+           "WHERE r.createdDate BETWEEN :startDate AND :endDate AND m.role = 'ROLE_CHEF'" +
+           "GROUP BY m.id, m.profileImage, m.nickname " +
+           "ORDER BY viewCount DESC")
+    Page<MemberRankingSummary> findAllOrderByTotalViews(
+            @Param("startDate")
+            Timestamp startDate,
+            @Param("endDate")
+            Timestamp endDate,
+            Pageable pageable
+    );
 
-    <T> Optional<T> findByEmail(String email, Class<T> projectionType);
+    <T> Optional<T> findByUsername(String username, Class<T> projectionType);
 
     Optional<Member> findMemberByGoogleOauthId(String googleOauthId);
 
@@ -35,8 +49,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
     <T> Optional<T> findGenericById(long id, Class<T> projectionType);
 
     Page<MemberSummary> findAllByUsername(String username, Pageable pageable);
-
-    Member findByUsername(String username);
 
     <T> Page<T> findByRole(Member.Role role, Pageable pageable, Class<T> memberAdminClass);
 

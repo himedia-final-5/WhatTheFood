@@ -66,7 +66,7 @@ function ImageUploadProvider({ image, setImage, id, children, ...props }) {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await axios.post("/api/file/upload", formData, {
+      const response = await axios.post("/api/static", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

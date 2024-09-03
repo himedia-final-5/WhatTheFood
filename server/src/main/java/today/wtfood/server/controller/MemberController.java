@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import today.wtfood.server.dto.PageResponse;
 import today.wtfood.server.dto.member.*;
+import today.wtfood.server.exception.BadRequestException;
 import today.wtfood.server.security.annotation.CurrentUser;
 import today.wtfood.server.service.MemberFollowService;
 import today.wtfood.server.service.MemberService;
@@ -26,7 +27,7 @@ public class MemberController {
     @GetMapping("")
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponse<MemberSummary> getMembers(
+    public PageResponse<?> getMembers(
             @PageableDefault(sort = "id")
             Pageable pageable,
 
@@ -34,13 +35,26 @@ public class MemberController {
             String role,
 
             @RequestParam(value = "username", required = false)
-            String username
+            String username,
+
+            @RequestParam(value = "period", defaultValue = "d")
+            String period
     ) {
+        // TODO: 동적 쿼리로 변경
         if (role != null && !role.isEmpty()) {
             return PageResponse.of(memberService.getMembersByRole(role, pageable, MemberSummary.class));
         }
         if (username != null && !username.isEmpty()) {
             return PageResponse.of(memberService.getMembersByUsername(username, pageable));
+        }
+
+        if (period != null && !period.isEmpty()) {
+            return PageResponse.of(switch (period.toLowerCase()) {
+                case "d" -> memberService.getDailyViewsRanking(pageable);
+                case "w" -> memberService.getWeeklyViewsRanking(pageable);
+                case "m" -> memberService.getMonthlyViewsRanking(pageable);
+                default -> throw new BadRequestException("period는 'd', 'w', 'm' 중 하나여야 합니다.", "period");
+            });
         }
         return PageResponse.of(memberService.getMembers(pageable, MemberSummary.class));
     }

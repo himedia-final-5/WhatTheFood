@@ -68,7 +68,7 @@ export default function RecipeList() {
   // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
   const handleRecipeClick = async (recipeId) => {
     try {
-      await axios.put(`/api/recipes/${recipeId}/incrementViewCount`);
+      await axios.put(`/api/recipes/${recipeId}/view-count`);
     } catch (error) {
       console.error("Failed to increment view count:", error);
     }

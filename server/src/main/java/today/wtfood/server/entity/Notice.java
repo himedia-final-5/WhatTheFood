@@ -15,10 +15,13 @@ public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @CreationTimestamp
     @Column(name = "write_date")
     private Timestamp writeDate;
+
     private String title;
+
     private String content;
 
 }

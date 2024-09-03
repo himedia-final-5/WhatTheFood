@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
     @NonNull
-    Page<Inquiry> findAll(@NonNull Pageable pageable);
+    Page<InquirySummary> findAllBy(@NonNull Pageable pageable);
 
     Page<InquirySummary> findAllByUsername(String username, Pageable pageable);
 

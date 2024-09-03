@@ -14,9 +14,6 @@ import today.wtfood.server.dto.recipe.RecipeSummaryWithFavorite;
 import today.wtfood.server.entity.Recipe;
 import today.wtfood.server.entity.member.Member;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -72,20 +69,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecif
 
     // 찜하기목록
     Page<RecipeSummary> findByFavoriteByMembersContains(Member member, Pageable pageable);
-
-
-    @Query("SELECT m.id AS memberId, m.profileImage AS profileImage, m.nickname AS nickname, m.role AS role, COALESCE(SUM(r.viewCount), 0) AS totalViews " +
-           "FROM Member m " +
-           "LEFT JOIN Recipe r ON m.id = r.member.id " +
-           "WHERE r.createdDate BETWEEN :startDate AND :endDate " +
-           "GROUP BY m.id, m.profileImage, m.nickname, m.role " +
-           "ORDER BY totalViews DESC")
-    List<Map<String, Object>> findTotalViewsByMember(
-            @Param("startDate")
-            Timestamp startDate,
-
-            @Param("endDate")
-            Timestamp endDate
-    );
 
 }
