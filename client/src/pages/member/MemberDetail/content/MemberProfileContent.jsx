@@ -49,13 +49,6 @@ function RecipeCard({ item: recipe }) {
     >
       <div className="recipe_text_wrap">
         <span className="recipe_state_name">{recipe.title}</span>
-        <span className="recipe_state_tags text-ellipsis overflow-hidden">
-          {recipe.tags.map((tag, index) => (
-            <span key={index} className="recipe_tag">
-              {tag}
-            </span>
-          ))}
-        </span>
         <span className="recipe_state_level">{recipe.level} level</span>
         <span className="recipe_state_servings">{recipe.servings}인분</span>
         <span className="recipe_state_viewcount">
