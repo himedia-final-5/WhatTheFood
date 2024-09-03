@@ -228,6 +228,18 @@ export default function RecipeDetail() {
 
         <div className="recipedetail_content">
           <h1>{recipe.title}</h1>
+          <p>
+            <img
+              src={recipe.member.profileImage}
+              alt="Profile Image"
+              style={{
+                width: "30px",
+                height: "30px",
+                borderRadius: "50%",
+                objectFit: "cover", // 이미지 비율에 맞게 조정
+              }}
+            />
+          </p>
           <p>{recipe.member.nickname}</p>
           <p>
             <i>{recipe.createdDate.slice(0, 10)}</i>

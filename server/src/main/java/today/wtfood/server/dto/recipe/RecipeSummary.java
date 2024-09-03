@@ -57,6 +57,8 @@ public interface RecipeSummary {
         String getNickname();
 
         String getUsername();  // 닉네임
+
+        String getProfileImage();
     }
 
     /**
