@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { axios, defaultErrorHandler } from "utils";
-import "./RecipeFavorite.css"; // 스타일 파일
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
 import UserFeatureContainer from "components/util/UserFeatureContainer";
-import { useSelector } from "react-redux";
 
 export default function RecipeFavorite() {
   const userId = useSelector((state) => state?.user?.id);

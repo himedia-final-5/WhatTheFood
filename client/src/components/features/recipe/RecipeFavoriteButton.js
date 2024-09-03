@@ -2,7 +2,6 @@ import { useState, memo, useEffect, useRef } from "react";
 import { useSelector } from "react-redux"; // Redux를 가져옵니다
 import { toast } from "react-toastify";
 
-import "./RecipeFavoriteButton.css";
 import { axios, cn } from "utils";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
