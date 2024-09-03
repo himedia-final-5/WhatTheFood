@@ -13,7 +13,6 @@ export default function EventWrite() {
 
   // 게시글을 작성하기 위한 데이터 form
   const [event, setEvent] = useState({
-    pass: "",
     title: "",
     date: "",
     bannerImage: "",
@@ -53,15 +52,6 @@ export default function EventWrite() {
       <div className="createEvent_field">
         <label>작성자</label>
         <input type="text" value={user && user.nickname} readOnly />
-      </div>
-      <div className="createEvent_field">
-        <label>PASS</label>
-        <input
-          type="password"
-          name="pass"
-          value={event.pass}
-          onChange={onInputChange}
-        />
       </div>
       <div className="createEvent_field">
         <label>제목</label>
