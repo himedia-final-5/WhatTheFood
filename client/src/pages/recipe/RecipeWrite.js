@@ -105,17 +105,6 @@ export default function RecipeWrite() {
         />
       </div>
       <div className="createRecipe_field">
-        <label htmlFor="createdDate">작성 날짜</label>
-        <input
-          type="date"
-          id="createdDate"
-          name="createdDate"
-          onChange={onInputChange}
-          value={recipe.createdDate || recipe.createdDate?.slice(0, 10) || ""}
-          required
-        />
-      </div>
-      <div className="createRecipe_field">
         <label htmlFor="description">설명</label>
         <input
           type="text"
@@ -137,7 +126,7 @@ export default function RecipeWrite() {
       <div className="createRecipe_field">
         <label>요리량</label>
         <input
-          type="text"
+          type="number"
           name="servings"
           value={recipe.servings}
           onChange={onInputChange}
