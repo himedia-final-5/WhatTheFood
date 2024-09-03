@@ -138,29 +138,6 @@
   margin-right: 12px;
 }
 
-/* RecipeList.css */
-
-/* 기본 하트 버튼 스타일 */
-.heart-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-  transition: color 0.3s ease;
-}
-
-/* 찜하기 상태가 아닐 때 (빈 하트) */
-.heart-button::before {
-  content: "♡"; /* 빈 하트 문자 */
-  color: #ccc; /* 회색으로 표시 */
-}
-
-/* 찜하기 상태일 때 (채워진 빨간 하트) */
-.heart-button.favorited::before {
-  content: "❤️"; /* 채워진 하트 문자 */
-  color: red; /* 빨간색으로 표시 */
-}
-
 /* 반응형 스타일 */
 
 /* Mobile */

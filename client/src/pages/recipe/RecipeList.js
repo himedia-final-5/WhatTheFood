@@ -2,11 +2,10 @@ import { useState, useEffect, useCallback, memo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
+import RecipeFavoriteButton from "./RecipeFavoriteButton";
 import UserFeature from "components/util/UserFeature";
 import { axios, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromiseThrottle } from "hooks";
-import { useSelector } from "react-redux"; // Redux를 가져옵니다
-import { toast } from "react-toastify";
 
 const category = [
   { name: "전체", query: "" },
@@ -130,38 +129,12 @@ export default function RecipeList() {
 }
 
 const RecipeCard = memo(({ recipe }) => {
-  const [isFavorite, setIsFavorite] = useState(recipe.favorite);
-  const user = useSelector((state) => state.user); // 사용자 정보를 가져옵니다
-
   // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
-  const handleRecipeClick = async (recipeId) => {
+  const handleRecipeClick = async () => {
     try {
-      await axios.put(`/api/recipes/${recipeId}/view-count`);
+      await axios.put(`/api/recipes/${recipe.id}/view-count`);
     } catch (error) {
       console.error("Failed to increment view count:", error);
-    }
-  };
-
-  const handleFavoriteClick = async (recipeId) => {
-    if (!user) {
-      toast.warn("로그인이 필요합니다.");
-      return;
-    }
-
-    if (isFavorite) {
-      try {
-        await axios.delete(`/api/recipes/${recipeId}/favorite`);
-        setIsFavorite(false);
-      } catch (error) {
-        console.error("Failed to remove favorite:", error);
-      }
-    } else {
-      try {
-        await axios.post(`/api/recipes/${recipeId}/favorite`);
-        setIsFavorite(true);
-      } catch (error) {
-        console.error("Failed to add favorite:", error);
-      }
     }
   };
 
@@ -170,7 +143,7 @@ const RecipeCard = memo(({ recipe }) => {
       to={`/recipes/${recipe.id}`}
       key={recipe.id}
       className="recipe_state_wrap"
-      onClick={() => handleRecipeClick(recipe.id)}
+      onClick={handleRecipeClick}
     >
       <div className="recipe_text_wrap">
         <span className="recipe_state_name">{recipe.title}</span>
@@ -179,15 +152,7 @@ const RecipeCard = memo(({ recipe }) => {
         <span className="recipe_state_viewcount">
           조회수 {recipe.viewCount}
         </span>
-        {user && (
-          <button
-            className={`heart-button ${isFavorite ? "favorited" : ""}`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleFavoriteClick(recipe.id);
-            }}
-          ></button>
-        )}
+        <RecipeFavoriteButton recipe={recipe} />
       </div>
       <div className="recipe_imageUrl">
         <img src={recipe.bannerImage} alt="recipe_bannerImage" />
