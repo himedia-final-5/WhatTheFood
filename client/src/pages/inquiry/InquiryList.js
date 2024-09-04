@@ -11,7 +11,7 @@ import { PaginationNav, UserFeatureContainer } from "components/util";
 function InquiryList() {
   const user = useSelector((state) => state.user);
 
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
 
   const onSelectPage = useCallback(
     (page) => {
@@ -24,12 +24,11 @@ function InquiryList() {
         .get(`/api/inquiries`, {
           params: { page, username: user.username },
         })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler);
     },
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user],
+    [user, handlePageResponse],
   );
 
   // 페이지 로딩시 첫 페이지 데이터 로드

@@ -9,16 +9,16 @@ import { PaginationNav } from "components/util";
 function InquiryList() {
   const navigate = useNavigate();
 
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
   const [word, setWord] = useState("");
 
   const onSelectPage = useCallback(
     (page) =>
       axios
         .get(`/api/inquiries`, { params: { page } })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler),
-    [setPageResponse],
+    [handlePageResponse],
   );
 
   useEffect(() => {

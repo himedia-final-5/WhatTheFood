@@ -11,22 +11,21 @@ function SearchRecipeList() {
 
   const [isMounted, setMounted] = useState(false);
   const { username } = useParams();
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, setContent, pagination, setPagination, handlePageResponse } =
+    usePageResponse();
   const [word, setWord] = useState("");
 
   const onSelectPage = useCallback(
     (page) =>
       axios
         .get(`/api/recipes`, { params: { page, username } })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(() => {
-          setPageResponse({
-            content: [],
-            pagination: initialPagination(),
-          });
+          setContent([]);
+          setPagination(initialPagination());
           alert("검색결과 없음");
         }),
-    [username, setPageResponse],
+    [username, handlePageResponse, setContent, setPagination],
   );
 
   if (!isMounted) {

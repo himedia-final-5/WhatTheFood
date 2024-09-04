@@ -19,7 +19,7 @@ function MemberList() {
     category[0].query,
   );
   const [page, setPage] = useState(0);
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
   const [word, setWord] = useState("");
 
   function onSearch() {
@@ -32,9 +32,9 @@ function MemberList() {
         .get(`/api/members`, {
           params: { page, role: selectedRoleCategory },
         })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler),
-    [selectedRoleCategory, setPageResponse],
+    [selectedRoleCategory, handlePageResponse],
   );
 
   useEffect(() => {

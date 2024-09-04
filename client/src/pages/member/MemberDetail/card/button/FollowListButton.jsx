@@ -153,8 +153,7 @@ function PartOfContent() {
   const [fetched, setFetched] = useState(false);
   const profile = useProfileDetail();
   const { followDialogMode } = useFollowDialogValue();
-  /** @type {{content: MemberProfileSummary[], pagination: Pagination, setPageResponse: (response: PageResponse<MemberProfileSummary>) => void}} */
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
 
   const onSelectPage = useCallback(
     (page) =>
@@ -163,10 +162,10 @@ function PartOfContent() {
           `/api/members/${profile?.id}/${followDialogMode ? "followers" : "followings"}`,
           { params: { page, size: 5 } },
         )
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler)
         .finally(() => setFetched(true)),
-    [setPageResponse, profile?.id, followDialogMode],
+    [handlePageResponse, profile?.id, followDialogMode],
   );
 
   useEffect(() => {

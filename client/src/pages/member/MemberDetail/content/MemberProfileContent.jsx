@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import PaginationNav from "components/util/PaginationNav";
 import { UndrawTasting, UndrawBarbecue } from "components/asset";
-import { usePageResponse, usePromise, useSearchParamState } from "hooks";
-import { initialPagination, cn, axios, defaultErrorHandler } from "utils";
+import { usePageResponse, useSearchParamState } from "hooks";
+import { cn, axios, defaultErrorHandler } from "utils";
 import { useProfileDetail } from "stores/context";
 
 const TAB_LIST = [
@@ -114,10 +114,8 @@ export default function MemberProfileContent() {
   const profile = useProfileDetail();
   const [tab, setTab] = useSearchParamState("tab", 0);
   const [page, setPage] = useSearchParamState("page", 0);
-  const { content, setContent, pagination, setPageResponse } = usePageResponse(
-    null,
-    initialPagination(parseInt(page)),
-  );
+  const { content, setContent, pagination, handlePageResponse } =
+    usePageResponse(null, parseInt(page));
 
   const fetchContent = useCallback(
     (page) => {
@@ -126,10 +124,10 @@ export default function MemberProfileContent() {
         .get(TAB_LIST[tab | 0].api.replace("%s", profile.id), {
           params: { page, size: 12 },
         })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler);
     },
-    [setContent, setPageResponse, tab, profile.id],
+    [setContent, handlePageResponse, tab, profile.id],
   );
 
   useEffect(() => {

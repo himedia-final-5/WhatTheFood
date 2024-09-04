@@ -2,55 +2,26 @@ import { useCallback, useState } from "react";
 import { initialPagination } from "utils";
 
 /**
+ * 페이지 데이터를 관리하는 훅
+ *
  * @template T
- * @param {?T[]} content
- * @param {?Pagination} pagination
+ * @param {T[]} initialContent
+ * @param {number} initialPage
  */
-export default function usePageResponse(content, pagination) {
-  if (!content) {
-    content = [];
-  }
-  if (!pagination) {
-    pagination = initialPagination();
-  }
-  const [pageResponseState, setPageResponseState] = useState({
-    content,
-    pagination,
-  });
+export default function usePageResponse(initialContent = [], initialPage = 0) {
+  const [content, setContent] = useState(initialContent);
+  const [pagination, setPagination] = useState(initialPagination(initialPage));
 
-  /**
-   * @type {React.Dispatch<React.SetStateAction<T[]>>}
-   */
-  const setContent = useCallback(
-    (newContent) => {
-      setPageResponseState((prevState) => ({
-        ...prevState,
-        content: newContent,
-      }));
-    },
-    [setPageResponseState],
-  );
-
-  /**
-   * @type {React.Dispatch<React.SetStateAction<Pagination>>}
-   */
-  const setPagination = (newPagination) => {
-    setPageResponseState((prevState) => ({
-      ...prevState,
-      pagination: newPagination,
-    }));
-  };
+  const handlePageResponse = useCallback(({ data }) => {
+    setContent(data.content);
+    setPagination(data.pagination);
+  }, []);
 
   return {
-    pageResponse: pageResponseState,
-    setPageResponse: setPageResponseState,
-    get content() {
-      return pageResponseState.content;
-    },
+    content,
     setContent,
-    get pagination() {
-      return pageResponseState.pagination;
-    },
+    pagination,
     setPagination,
+    handlePageResponse,
   };
 }

@@ -9,15 +9,15 @@ import { PaginationNav } from "components/util";
 function EventList() {
   const navigate = useNavigate();
 
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
 
   const onSelectPage = useCallback(
     (page) =>
       axios
         .get(`/api/events`, { params: { page } })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler),
-    [setPageResponse],
+    [handlePageResponse],
   );
 
   useEffect(() => {

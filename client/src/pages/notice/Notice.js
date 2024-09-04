@@ -7,16 +7,16 @@ import { usePageResponse } from "hooks";
 import { PaginationNav } from "components/util";
 
 function Notice() {
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
   /** @type {{data: PageResponse<NoticeSummary>}} */
 
   const onSelectPage = useCallback(
     (page) =>
       axios
         .get("/api/notices", { params: { page } })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler),
-    [setPageResponse],
+    [handlePageResponse],
   );
 
   useEffect(() => {

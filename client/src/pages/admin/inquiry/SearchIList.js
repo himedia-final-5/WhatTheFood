@@ -10,16 +10,16 @@ function SearchIList() {
   const navigate = useNavigate();
   const [isMounted, setMounted] = useState(false);
   const { username } = useParams();
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
   const [word, setWord] = useState("");
 
   const onSelectPage = useCallback(
     (page) =>
       axios
         .get(`/api/inquiries`, { params: { page, username: username } })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler),
-    [username, setPageResponse],
+    [username, handlePageResponse],
   );
 
   if (!isMounted) {
