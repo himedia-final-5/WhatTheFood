@@ -37,6 +37,8 @@ public interface RecipeSummaryWithFavorite {
     interface MemberSummary {
         Long getId();          // 회원 ID
 
+        String getUsername(); // 유저네임
+
         String getNickname(); // 닉네임
 
         String getProfileImage(); // 프로필 사진 경로
