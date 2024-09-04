@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useState, useLayoutEffect, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 
-import "./Brand.css";
-import { axios, defaultErrorHandler } from "utils";
-import { useInfiniteScroll, usePromiseThrottle } from "hooks";
-import { useLayoutEffect } from "react";
+import { ErrorRender } from "layouts/fallback";
+import { MemberRankItem } from "components";
+import { axios, cn, defaultErrorHandler } from "utils";
+import { useInfiniteScroll, usePromise, usePromiseThrottle } from "hooks";
 
 const CATEGORY_BRAND = "brand";
 const CATEGORY_ORGANIC = "organic";
@@ -15,10 +15,27 @@ const CATEGORIES = [
   [CATEGORY_MALL, "쇼핑몰"],
 ];
 
+/** 한번의 요청으로 가져올 데이터 개수 */
+const size = 50;
+
+/** 한번 요청 시 보여줄 스켈레톤 개수 */
+const skeletonCount = size / 3;
+
 export default function BrandList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
+  const [fetchBrand, , isLoading, error] = usePromise(
+    null,
+    useCallback(async (page) => {
+      /** @type {{data: PageResponse<User>}} */
+      const response = await axios.get(`/api/members`, {
+        params: { page, size, role: "ROLE_BRAND" },
+      });
+      setThrottleInterval(0);
+      return response.data;
+    }, []),
+  );
 
   const category = searchParams.get("category") || CATEGORY_BRAND;
 
@@ -32,12 +49,9 @@ export default function BrandList() {
   // 무한 스크롤 및 데이터 가져오기
   const { ref, content } = useInfiniteScroll(
     throttle(async (page) => {
-      /** @type {{data: PageResponse<User>}} */
-      const response = await axios.get(`/api/members`, {
-        params: { page, role: "ROLE_BRAND" },
-      });
+      const response = await fetchBrand(page);
       setThrottleInterval(0);
-      return response.data;
+      return response;
     }),
     (error) => {
       setThrottleInterval(3000);
@@ -46,10 +60,7 @@ export default function BrandList() {
   );
 
   // 클릭된 카테고리에 따라 쿼리 파라미터 설정
-  const handleTabClick = (category) => {
-    searchParams.set("category", category);
-    setSearchParams(searchParams);
-  };
+  const handleTabClick = (category) => setSearchParams({ category });
 
   // 필터링 로직
   const filterContent = content.filter(function (member) {
@@ -68,47 +79,39 @@ export default function BrandList() {
     }
   });
 
-  return (
-    <div className="flex flex-col items-center w-full max-w-screen-lg mx-auto gap-8">
-      <ul className="relative flex border-b text-lg">
+  return error ? (
+    <ErrorRender error={error} />
+  ) : (
+    <div className="flex flex-col w-full max-w-screen-lg mx-auto gap-8">
+      <ul className="relative flex justify-center w-full text-lg border-b">
         {CATEGORIES.map(([key, name]) => (
           <li
             key={key}
-            className={`cursor-pointer border-s-transparent px-6 py-2 ${category === key ? "active" : ""}`}
+            className={cn(
+              "cursor-pointer px-6 py-2 rounded-t",
+              category === key ? "font-bold border border-b-white -mb-px" : "",
+            )}
             onClick={() => handleTabClick(key)}
           >
             {name}
           </li>
         ))}
       </ul>
-      <div className="flex flex-wrap justify-center w-full gap-4">
-        {filterContent.length > 0 ? (
-          filterContent
-            .filter((member) => member.role === "ROLE_BRAND")
-            .map((member, index) => (
-              <div key={index} className="chef_container">
-                <p className="chef_num">
-                  <b>{index + 1}</b>
-                </p>
-                <Link to={`/members/${member.id}`}>
-                  <div className="chef_imageUrl">
-                    <img
-                      className="rounded-full size-28"
-                      src={member.profileImage}
-                      alt="member_profileImage"
-                    />
-                  </div>
-                </Link>
-                <div className="flex justify-center py-2 text-base font-bold">
-                  <p>{member.nickname}</p>
-                </div>
-              </div>
-            ))
-        ) : (
-          <div>No events found.</div>
-        )}
-        <div aria-label="scroll-trigger" ref={ref} />
-      </div>
+
+      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center">
+        {filterContent.map((member, index) => (
+          <li key={member.id}>
+            <MemberRankItem member={member} rank={index + 1} />
+          </li>
+        ))}
+        {isLoading &&
+          Array.from({ length: skeletonCount }).map((_, index) => (
+            <li key={`loading-${index}`}>
+              <MemberRankItem isLoading={true} />
+            </li>
+          ))}
+      </ul>
+      <div aria-label="scroll-trigger" ref={ref} />
     </div>
   );
 }
