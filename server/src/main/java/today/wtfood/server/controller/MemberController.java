@@ -37,7 +37,7 @@ public class MemberController {
             @RequestParam(value = "username", required = false)
             String username,
 
-            @RequestParam(value = "period", defaultValue = "d")
+            @RequestParam(value = "period", required = false)
             String period
     ) {
         // TODO: 동적 쿼리로 변경
