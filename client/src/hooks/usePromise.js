@@ -7,7 +7,7 @@ import { defaultErrorHandler } from "utils";
  * @param {T} initialValue
  * @param {() => Promise<T>} promiseFn
  * @param {(error: Error) => void} onError
- * @returns {[() => void,T,  boolean, boolean]}
+ * @returns {[() => Promise<T>, T,  boolean, boolean]}
  */
 export default function usePromise(
   initialValue,
@@ -23,16 +23,18 @@ export default function usePromise(
       setLoading(true);
 
       try {
-        setData(await promiseFn(...args));
+        const result = await promiseFn(...args);
+        setData(result);
         setError(null);
+        setLoading(false);
+        return result;
       } catch (error) {
+        setLoading(false);
         if (!onError || !onError(error)) {
           setError(error);
         } else {
           throw error;
         }
-      } finally {
-        setLoading(false);
       }
     },
     [promiseFn, onError],

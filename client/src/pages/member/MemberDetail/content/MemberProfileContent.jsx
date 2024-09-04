@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useCallback, useEffect, useLayoutEffect } from "react";
+import { Link } from "react-router-dom";
 
 import PaginationNav from "components/util/PaginationNav";
 import { UndrawTasting, UndrawBarbecue } from "components/asset";
-import { usePageResponse } from "hooks";
+import { usePageResponse, usePromise, useSearchParamState } from "hooks";
 import { initialPagination, cn, axios, defaultErrorHandler } from "utils";
 import { useProfileDetail } from "stores/context";
 
@@ -112,58 +112,42 @@ function TabHeader({ tab, setTab }) {
 
 export default function MemberProfileContent() {
   const profile = useProfileDetail();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [tab, setTabState] = useState(searchParams.get("tab") | 0);
-  const initialPage = searchParams.get("page") | 0;
+  const [tab, setTab] = useSearchParamState("tab", 0);
+  const [page, setPage] = useSearchParamState("page", 0);
   const { content, setContent, pagination, setPageResponse } = usePageResponse(
-    [],
-    initialPagination(initialPage),
+    null,
+    initialPagination(parseInt(page)),
   );
 
-  // 탭 변경 시 페이지를 0으로 초기화하기 위한 함수
-  const setTab = (newTab) => {
-    if (tab === newTab) return;
-
-    setSearchParams((prev) => ({
-      ...prev,
-      page: 0,
-    }));
-    setContent([]);
-    setTabState(newTab);
-  };
-
-  const onSelectPage = useCallback(
-    (page) =>
+  const fetchContent = useCallback(
+    (page) => {
+      setContent(null);
       axios
-        .get(TAB_LIST[tab].api.replace("%s", profile.id), {
+        .get(TAB_LIST[tab | 0].api.replace("%s", profile.id), {
           params: { page, size: 12 },
         })
         .then((result) => setPageResponse(result.data))
-        .catch(defaultErrorHandler),
-    [setPageResponse, tab, profile.id],
+        .catch(defaultErrorHandler);
+    },
+    [setContent, setPageResponse, tab, profile.id],
   );
 
-  // 탭 혹은 페이지 변경 시 URL 변경
   useEffect(() => {
-    setSearchParams({
-      ...(tab ? { tab } : {}),
-      ...(pagination.page ? { page: pagination.page } : {}),
-    });
+    fetchContent(page | 0);
+  }, [fetchContent, page]);
 
-    //eslint-disable-next-line
-  }, [pagination.page, tab]);
+  // TODO: 탭 변경 시 fetch 재요청하는 문제 해결 필요
+  useLayoutEffect(() => {
+    setPage(0);
 
-  useEffect(() => {
-    onSelectPage(initialPage);
-
-    //eslint-disable-next-line
-  }, [onSelectPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
 
   return (
     <div className="flex flex-col flex-1 w-full h-full">
-      <TabHeader tab={tab} setTab={setTab} />
-      {TAB_LIST[tab].component({ content })}
-      <PaginationNav pagination={pagination} onSelectPage={onSelectPage} />
+      <TabHeader tab={parseInt(tab)} setTab={setTab} />
+      {TAB_LIST[parseInt(tab)].component({ content: content || [] })}
+      <PaginationNav pagination={pagination} onSelectPage={setPage} />
     </div>
   );
 }
