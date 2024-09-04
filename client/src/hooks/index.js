@@ -1,3 +1,4 @@
+export { default as useDelayedSkeleton } from "./useDelayedSkeleton";
 export { default as useInfiniteScroll } from "./useInfiniteScroll";
 export { default as useInputs } from "./useInputs";
 export { default as useInput } from "./useInput";

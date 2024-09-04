@@ -1,11 +1,17 @@
-import { useState, useLayoutEffect, useCallback, useEffect } from "react";
+import { useState, useLayoutEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { ErrorRender, NoContentRender } from "layouts/fallback";
 import { MemberRankItem } from "components";
 import { axios, cn, defaultErrorHandler } from "utils";
-import { useInfiniteScroll, usePromise, usePromiseThrottle } from "hooks";
+import {
+  useInfiniteScroll,
+  usePromise,
+  usePromiseThrottle,
+  useDelayedSkeleton,
+} from "hooks";
 
+// 카테고리 상수 정의
 const CATEGORY_BRAND = "brand";
 const CATEGORY_ORGANIC = "organic";
 const CATEGORY_MALL = "mall";
@@ -21,11 +27,15 @@ const size = 50;
 /** 한번 요청 시 보여줄 스켈레톤 개수 */
 const skeletonCount = size / 3;
 
+/**
+ * 브랜드 목록을 표시하는 컴포넌트
+ * @returns {JSX.Element} 브랜드 목록 컴포넌트
+ */
 export default function BrandList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
-  const [fetchBrand, recentContent, isLoading, error] = usePromise(
+  const [fetchBrand, recentContent, isFetching, error] = usePromise(
     null,
     useCallback(async (page) => {
       /** @type {{data: PageResponse<User>}} */
@@ -36,6 +46,7 @@ export default function BrandList() {
       return response.data;
     }, []),
   );
+  const showSkeleton = useDelayedSkeleton(isFetching);
 
   const category = searchParams.get("category") || CATEGORY_BRAND;
 
@@ -59,10 +70,17 @@ export default function BrandList() {
     },
   );
 
-  // 클릭된 카테고리에 따라 쿼리 파라미터 설정
+  /**
+   * 클릭된 카테고리에 따라 쿼리 파라미터 설정
+   * @param {string} category - 선택된 카테고리
+   */
   const handleTabClick = (category) => setSearchParams({ category });
 
-  // 필터링 로직
+  /**
+   * 필터링 로직
+   * @param {Object} member - 멤버 객체
+   * @returns {boolean} 필터링 결과
+   */
   const filterContent = content.filter(function (member) {
     // TODO: 카테고리 별 필터링 로직 추가
     // 임시로 임의의 값으로 필터링
@@ -78,19 +96,6 @@ export default function BrandList() {
         return true;
     }
   });
-
-  const [showSkeleton, setShowSkeleton] = useState(false);
-
-  useEffect(() => {
-    let timer;
-
-    if (isLoading) {
-      timer = setTimeout(() => setShowSkeleton(true), 200);
-    } else {
-      setShowSkeleton(false);
-    }
-    return () => clearTimeout(timer);
-  }, [isLoading]);
 
   return error ? (
     <ErrorRender error={error} />
