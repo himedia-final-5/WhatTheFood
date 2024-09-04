@@ -59,9 +59,9 @@ public class MemberService {
      * @return 레시피 조회수 랭킹
      */
     public Page<MemberRankingSummary> getDailyViewsRanking(Pageable pageable) {
-        LocalDate today = LocalDate.now();
-        Timestamp startOfDay = Timestamp.valueOf(today.atStartOfDay());
-        Timestamp endOfDay = Timestamp.valueOf(today.atTime(LocalTime.MAX));
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+        Timestamp startOfDay = Timestamp.valueOf(yesterday.atStartOfDay());
+        Timestamp endOfDay = Timestamp.valueOf(yesterday.atTime(LocalTime.MAX));
 
         return memberRepository.findAllOrderByTotalViews(startOfDay, endOfDay, pageable);
     }
