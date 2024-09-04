@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { initialPagination } from "utils";
 
 /**
@@ -21,12 +21,15 @@ export default function usePageResponse(content, pagination) {
   /**
    * @type {React.Dispatch<React.SetStateAction<T[]>>}
    */
-  const setContent = (newContent) => {
-    setPageResponseState((prevState) => ({
-      ...prevState,
-      content: newContent,
-    }));
-  };
+  const setContent = useCallback(
+    (newContent) => {
+      setPageResponseState((prevState) => ({
+        ...prevState,
+        content: newContent,
+      }));
+    },
+    [setPageResponseState],
+  );
 
   /**
    * @type {React.Dispatch<React.SetStateAction<Pagination>>}
