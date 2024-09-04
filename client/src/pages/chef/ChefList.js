@@ -1,8 +1,11 @@
-import { useState, useEffect, useCallback, useLayoutEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useCallback, useLayoutEffect, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import "./Chef.css";
-import { axios, defaultErrorHandler } from "utils";
+import { ErrorRender, NoContentRender } from "layouts/fallback";
+import { MemberRankItem } from "components";
+import { axios, cn } from "utils";
+import { usePromise, useDelayedSkeleton } from "hooks";
 
 const CATEGORY_DAY = "d";
 const CATEGORY_WEEK = "w";
@@ -13,10 +16,12 @@ const CATEGORIES = [
   [CATEGORY_MONTH, "월간"],
 ];
 
+/** 한번의 요청으로 가져올 데이터 개수 */
+const size = 50;
+
 export default function ChefList() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [rankingData, setRankingData] = useState([]);
-  const category = searchParams.get("category");
+  const category = searchParams.get("category") || CATEGORY_DAY;
 
   // 카테고리가 없으면 기본값으로 설정
   useLayoutEffect(() => {
@@ -25,74 +30,68 @@ export default function ChefList() {
     }
   }, [category, setSearchParams]);
 
-  // 서버에서 순위 데이터를 가져오는 함수
-  const fetchRankingData = useCallback(async () => {
-    try {
+  const [fetchRanking, rankingData, isLoading, error] = usePromise(
+    null,
+    useCallback(async () => {
       const response = await axios.get(`/api/members`, {
-        params: { period: category, size: 30 },
+        params: { period: category, size },
       });
+      return response.data.content;
+    }, [category]),
+  );
+  const showSkeleton = useDelayedSkeleton(isLoading);
 
-      setRankingData(response.data.content);
-    } catch (error) {
-      defaultErrorHandler(error);
-    }
-  }, [category]);
+  const handlePeriodChange = useCallback(
+    (newCategory) => {
+      setSearchParams({ category: newCategory });
+    },
+    [setSearchParams],
+  );
 
   // 카테고리 변경 시 순위 데이터 갱신
   useEffect(() => {
-    fetchRankingData();
-  }, [fetchRankingData]);
+    fetchRanking();
+  }, [fetchRanking]);
 
-  const handlePeriodChange = (newCategory) => {
-    setSearchParams({ category: newCategory });
-  };
+  return error ? (
+    <ErrorRender error={error} />
+  ) : (
+    <div className="flex flex-col w-full max-w-screen-lg mx-auto">
+      <nav className="relative flex justify-center w-full text-lg border-b mb-8">
+        {CATEGORIES.map(([key, name]) => (
+          <button
+            key={key}
+            onClick={() => handlePeriodChange(key)}
+            className={cn(
+              "cursor-pointer px-6 py-2 rounded-t transition-all duration-300 ease-in-out hover:font-bold",
+              category === key ? "font-bold border border-b-white -mb-px" : "",
+            )}
+            disabled={isLoading || category === key}
+          >
+            {name}
+          </button>
+        ))}
+      </nav>
 
-  return (
-    <div className="chef_wrap">
-      <div className="chef_inner_container">
-        <ul className="chef_inner_category">
-          {CATEGORIES.map(([key, name]) => (
-            <li
-              key={key}
-              onClick={() => handlePeriodChange(key)}
-              className={`border px-6 py-2 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:font-bold hover:shadow-lg `}
-            >
-              {name}
-            </li>
-          ))}
-        </ul>
-        <div className="chef_banner_wrap">
-          {rankingData.length > 0 ? (
-            rankingData.map((member, index) => (
-              <div key={index} className="chef_container">
-                <p className="chef_num">
-                  <b>{index + 1}</b>
-                </p>
-                <Link to={`/members/${member.id}`}>
-                  <div className="chef_imageUrl">
-                    <img
-                      className="rounded-full size-28"
-                      src={member.profileImage}
-                      alt="member_profileImage"
-                    />
-                  </div>
-                </Link>
-                <div className="flex justify-center py-2 text-base font-bold">
-                  <p>{member.nickname}</p>
-                </div>
-              </div>
+      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center">
+        {showSkeleton
+          ? Array.from({ length: size }).map((_, index) => (
+              <li key={`loading-${index}`}>
+                <MemberRankItem isLoading={true} />
+              </li>
             ))
-          ) : (
-            <div>
-              <img
-                src="/images/suprize.png"
-                alt="recipe_surchImage"
-                style={{ width: "100px", height: "100px" }}
-              />
-            </div>
-          )}
+          : rankingData &&
+            rankingData.map((member, index) => (
+              <li key={member.id}>
+                <MemberRankItem member={member} rank={index + 1} />
+              </li>
+            ))}
+      </ul>
+      {rankingData && rankingData.length === 0 && (
+        <div className="flex justify-center items-center">
+          <NoContentRender message="랭킹에 등록된 요리사가 없습니다" />
         </div>
-      </div>
+      )}
     </div>
   );
 }
