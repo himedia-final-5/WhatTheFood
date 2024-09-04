@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { initialPagination, defaultErrorHandler } from "utils";
 
 /**
@@ -12,6 +12,7 @@ export default function useInfiniteScroll(
 ) {
   /** @type {React.RefObject<HTMLElement>} */
   const ref = useRef(null);
+  /** @type {[T[], React.Dispatch<React.SetStateAction<T[]>>]} */
   const [content, setContent] = useState([]);
   const [pagination, setPagination] = useState(initialPagination(-1));
   const [isFetching, setIsFetching] = useState(false);

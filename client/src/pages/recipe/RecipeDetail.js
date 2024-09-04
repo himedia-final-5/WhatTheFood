@@ -53,7 +53,10 @@ export default function RecipeDetail() {
     if (!isLoading && (recipe == null || recipe?.id !== id)) {
       fetchRecipe();
       fetchComments();
-      fetchFavorite();
+
+      if (user) {
+        fetchFavorite();
+      }
     }
 
     //eslint-disable-next-line
@@ -231,7 +234,7 @@ export default function RecipeDetail() {
           <p>
             <img
               src={recipe.member.profileImage}
-              alt="Profile Image"
+              alt="Profile"
               style={{
                 width: "30px",
                 height: "30px",

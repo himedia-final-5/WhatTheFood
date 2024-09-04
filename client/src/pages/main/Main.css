@@ -276,7 +276,7 @@
   margin: 0 auto;
 }
 
-.chef_container {
+.main_chef .chef_container {
   width: 90%;
   height: 100px;
   display: flex;

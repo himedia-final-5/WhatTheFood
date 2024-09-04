@@ -37,31 +37,6 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="footer-bottom hidden xs:block">
-          <div className="footer-social">
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/images/facebook.png" alt="Facebook" />
-            </a>
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/images/instagram.png" alt="Instagram" />
-            </a>
-            <a
-              href="https://www.youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/images/utube.png" alt="YouTube" />
-            </a>
-          </div>
-        </div>
         <div className="footer-info">
           <p>
             책임자1 : 김현재&nbsp;&nbsp;|&nbsp;&nbsp; 책임자2 : 조준서
