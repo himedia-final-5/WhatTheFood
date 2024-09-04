@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { ErrorRender } from "layouts/fallback";
+import { ErrorRender, NoContentRender } from "layouts/fallback";
 import { MemberRankItem } from "components";
 import { axios, cn, defaultErrorHandler } from "utils";
 import { useInfiniteScroll, usePromise, usePromiseThrottle } from "hooks";
@@ -25,7 +25,7 @@ export default function BrandList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
-  const [fetchBrand, , isLoading, error] = usePromise(
+  const [fetchBrand, recentContent, isLoading, error] = usePromise(
     null,
     useCallback(async (page) => {
       /** @type {{data: PageResponse<User>}} */
@@ -112,6 +112,11 @@ export default function BrandList() {
           ))}
       </ul>
       <div aria-label="scroll-trigger" ref={ref} />
+      {recentContent !== null && filterContent.length === 0 && (
+        <div className="flex justify-center items-center">
+          <NoContentRender message="등록된 브랜드가 없습니다" />
+        </div>
+      )}
     </div>
   );
 }
