@@ -1,11 +1,10 @@
-import { useCallback, useLayoutEffect, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useCallback, useEffect } from "react";
 
 import "./Chef.css";
 import { ErrorRender, NoContentRender } from "layouts/fallback";
 import { MemberRankItem } from "components";
 import { axios, cn } from "utils";
-import { usePromise, useDelayedSkeleton } from "hooks";
+import { usePromise, useDelayedSkeleton, useSearchParamState } from "hooks";
 
 const CATEGORY_DAY = "d";
 const CATEGORY_WEEK = "w";
@@ -20,16 +19,7 @@ const CATEGORIES = [
 const size = 50;
 
 export default function ChefList() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const category = searchParams.get("category") || CATEGORY_DAY;
-
-  // 카테고리가 없으면 기본값으로 설정
-  useLayoutEffect(() => {
-    if (!category) {
-      setSearchParams({ category: CATEGORY_DAY });
-    }
-  }, [category, setSearchParams]);
-
+  const [category, setCategory] = useSearchParamState("category", CATEGORY_DAY);
   const [fetchRanking, rankingData, isLoading, error] = usePromise(
     null,
     useCallback(async () => {
@@ -40,13 +30,6 @@ export default function ChefList() {
     }, [category]),
   );
   const showSkeleton = useDelayedSkeleton(isLoading);
-
-  const handlePeriodChange = useCallback(
-    (newCategory) => {
-      setSearchParams({ category: newCategory });
-    },
-    [setSearchParams],
-  );
 
   // 카테고리 변경 시 순위 데이터 갱신
   useEffect(() => {
@@ -61,7 +44,7 @@ export default function ChefList() {
         {CATEGORIES.map(([key, name]) => (
           <button
             key={key}
-            onClick={() => handlePeriodChange(key)}
+            onClick={() => setCategory(key)}
             className={cn(
               "cursor-pointer px-6 py-2 rounded-t transition-all duration-300 ease-in-out hover:font-bold",
               category === key ? "font-bold border border-b-white -mb-px" : "",

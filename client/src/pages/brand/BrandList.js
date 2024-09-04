@@ -1,10 +1,10 @@
-import { useState, useLayoutEffect, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState, useCallback } from "react";
 
 import { ErrorRender, NoContentRender } from "layouts/fallback";
 import { MemberRankItem } from "components";
 import { axios, cn, defaultErrorHandler } from "utils";
 import {
+  useSearchParamState,
   useInfiniteScroll,
   usePromise,
   usePromiseThrottle,
@@ -32,7 +32,10 @@ const skeletonCount = size / 3;
  * @returns {JSX.Element} 브랜드 목록 컴포넌트
  */
 export default function BrandList() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [category, setCategory] = useSearchParamState(
+    "category",
+    CATEGORY_BRAND,
+  );
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
   const [fetchBrand, recentContent, isFetching, error] = usePromise(
@@ -48,15 +51,6 @@ export default function BrandList() {
   );
   const showSkeleton = useDelayedSkeleton(isFetching);
 
-  const category = searchParams.get("category") || CATEGORY_BRAND;
-
-  // 카테고리가 없으면 기본값으로 설정
-  useLayoutEffect(() => {
-    if (!category) {
-      setSearchParams({ category: CATEGORY_BRAND });
-    }
-  }, [category, setSearchParams]);
-
   // 무한 스크롤 및 데이터 가져오기
   const { ref, content } = useInfiniteScroll(
     throttle(async (page) => {
@@ -69,12 +63,6 @@ export default function BrandList() {
       defaultErrorHandler(error);
     },
   );
-
-  /**
-   * 클릭된 카테고리에 따라 쿼리 파라미터 설정
-   * @param {string} category - 선택된 카테고리
-   */
-  const handleTabClick = (category) => setSearchParams({ category });
 
   /**
    * 필터링 로직
@@ -109,7 +97,7 @@ export default function BrandList() {
               "cursor-pointer px-6 py-2 rounded-t",
               category === key ? "font-bold border border-b-white -mb-px" : "",
             )}
-            onClick={() => handleTabClick(key)}
+            onClick={() => setCategory(key)}
           >
             {name}
           </li>
