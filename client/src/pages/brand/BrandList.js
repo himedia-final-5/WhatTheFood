@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useCallback } from "react";
+import { useState, useLayoutEffect, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { ErrorRender, NoContentRender } from "layouts/fallback";
@@ -79,6 +79,19 @@ export default function BrandList() {
     }
   });
 
+  const [showSkeleton, setShowSkeleton] = useState(false);
+
+  useEffect(() => {
+    let timer;
+
+    if (isLoading) {
+      timer = setTimeout(() => setShowSkeleton(true), 200);
+    } else {
+      setShowSkeleton(false);
+    }
+    return () => clearTimeout(timer);
+  }, [isLoading]);
+
   return error ? (
     <ErrorRender error={error} />
   ) : (
@@ -104,7 +117,7 @@ export default function BrandList() {
             <MemberRankItem member={member} rank={index + 1} />
           </li>
         ))}
-        {isLoading &&
+        {showSkeleton &&
           Array.from({ length: skeletonCount }).map((_, index) => (
             <li key={`loading-${index}`}>
               <MemberRankItem isLoading={true} />
