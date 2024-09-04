@@ -133,8 +133,8 @@ export default function RecipeDetail() {
         title: recipe.title,
         imageUrl: imageUrl,
         link: {
-          mobileWebUrl: `http://yorijori.recipes/recipes/${recipe.id}`,
-          webUrl: `http://yorijori.recipes/recipes/${recipe.id}`,
+          mobileWebUrl: `https://yorijori.recipes/recipes/${recipe.id}`,
+          webUrl: `https://yorijori.recipes/recipes/${recipe.id}`,
         },
       },
       social: {
@@ -146,15 +146,15 @@ export default function RecipeDetail() {
         {
           title: "웹으로 보기",
           link: {
-            mobileWebUrl: `http://yorijori.recipes/recipes/${recipe.id}`,
-            webUrl: `http://yorijori.recipes/recipes/${recipe.id}`,
+            mobileWebUrl: `https://yorijori.recipes/recipes/${recipe.id}`,
+            webUrl: `https://yorijori.recipes/recipes/${recipe.id}`,
           },
         },
         {
           title: "앱으로 보기",
           link: {
-            mobileWebUrl: `http://yorijori.recipes/recipes/${recipe.id}`,
-            webUrl: `http://yorijori.recipes/recipes/${recipe.id}`,
+            mobileWebUrl: `https://yorijori.recipes/recipes/${recipe.id}`,
+            webUrl: `https://yorijori.recipes/recipes/${recipe.id}`,
           },
         },
       ],
