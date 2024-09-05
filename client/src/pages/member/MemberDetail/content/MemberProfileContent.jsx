@@ -23,7 +23,7 @@ function RecipeTab({ content }) {
       <span className="text-lg font-bold">작성한 레시피가 없습니다.</span>
     </div>
   ) : (
-    <div className="grid gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-2">
+    <div className="grid gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 p-2">
       {content.map((item, index) => (
         <RecipeCard key={index} item={item} />
       ))}
