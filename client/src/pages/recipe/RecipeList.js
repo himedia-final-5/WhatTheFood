@@ -99,7 +99,7 @@ export default function RecipeList() {
       <div aria-label="scroll-trigger" ref={ref} />
       {!isFetching && content.length === 0 && (
         <div className="flex w-full justify-center items-center">
-          <NoContentRender message="레시피가 없습니다." />
+          {/*<NoContentRender message="레시피가 없습니다." />*/}
         </div>
       )}
     </div>
