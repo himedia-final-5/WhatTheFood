@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-import { useMediaQuery, useToggle } from "@reactuses/core";
+import { useMediaQuery } from "@reactuses/core";
 
 import {
   Dialog,
@@ -34,7 +33,7 @@ import cn from "utils/cn";
 
 export default function AuthModal() {
   const [open, setOpen] = useState(false);
-  const [isSignIn, toggleSignIn] = useToggle(true);
+  const [isSignIn, setIsSignIn] = useState(true);
   const modeText = isSignIn ? "로그인" : "회원가입";
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -56,7 +55,7 @@ export default function AuthModal() {
           <PartOfContent
             setOpen={setOpen}
             isSignIn={isSignIn}
-            toggleSignIn={toggleSignIn}
+            toggleSignIn={() => setIsSignIn(!isSignIn)}
             modeText={modeText}
           />
         </DialogContent>
@@ -82,7 +81,7 @@ export default function AuthModal() {
           isDrawer
           setOpen={setOpen}
           isSignIn={isSignIn}
-          toggleSignIn={toggleSignIn}
+          toggleSignIn={() => setIsSignIn(!isSignIn)}
           modeText={modeText}
         />
         {/*
