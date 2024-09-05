@@ -1,11 +1,18 @@
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, useCallback, memo, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./RecipeList.css";
 import RecipeFavoriteButton from "components/features/recipe/RecipeFavoriteButton";
 import UserFeature from "components/util/UserFeature";
+import { ErrorRender, NoContentRender } from "layouts/fallback";
 import { axios, defaultErrorHandler } from "utils";
-import { useInfiniteScroll, usePromiseThrottle } from "hooks";
+import {
+  useInfiniteScroll,
+  usePromiseThrottle,
+  useDelayedSkeleton,
+  usePromise,
+} from "hooks";
+import { IconPhotoFilled } from "@tabler/icons-react";
 
 const category = [
   { name: "전체", query: "" },
@@ -18,6 +25,9 @@ const category = [
   { name: "베이킹", query: "베이킹" },
 ];
 
+/** 한번의 요청으로 가져올 데이터 개수 */
+const size = 4;
+
 export default function RecipeList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(category[0].query);
@@ -26,46 +36,49 @@ export default function RecipeList() {
   const location = useLocation();
   const navigate = useNavigate();
   const searchTerm = location.state?.searchTerm || "";
-
-  // 페이지 번호와 카테고리/검색어에 따라 레시피 목록을 서버에서 가져옵니다.
-  const fetchPage = useCallback(
-    async (page) => {
-      let response = await axios.get(`/api/recipes`, {
-        params: {
-          page: 0,
-          size: 8,
-          category: selectedCategory,
-          term: searchTerm,
-        },
-      });
-      setThrottleInterval(0);
-      return response.data;
-    },
-    [searchTerm, selectedCategory],
+  const [fetchRecipe, , isFetching, error] = usePromise(
+    null,
+    useCallback(
+      async (page) => {
+        let response = await axios.get(`/api/recipes`, {
+          params: {
+            page,
+            size,
+            category: selectedCategory,
+            term: searchTerm,
+          },
+        });
+        return response.data;
+      },
+      [selectedCategory, searchTerm],
+    ),
   );
 
   // 무한 스크롤 기능
   const { ref, content, reset } = useInfiniteScroll(
-    throttle(fetchPage),
+    throttle(fetchRecipe),
     (error) => {
       setThrottleInterval(3000);
       defaultErrorHandler(error);
     },
   );
+
   // 카테고리 및 레시피 클릭 이벤트
   const handleCategoryClick = async (query) => {
     setSelectedCategory(query);
     navigate("/recipes", { state: { searchTerm: "" } });
-
-    reset();
   };
+
+  const showSkeleton = useDelayedSkeleton(isFetching, 50);
 
   // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
   useEffect(() => {
     reset();
   }, [selectedCategory, searchTerm, reset]);
 
-  return (
+  return error ? (
+    <ErrorRender error={error} />
+  ) : (
     <div className="recipeList_wrap">
       <div className="recipe_category_wrap">
         <div className="category_filter">
@@ -87,44 +100,48 @@ export default function RecipeList() {
       </div>
 
       <div className="recipe_banner_wrap">
-        {content.length > 0 ? (
-          content.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          ))
-        ) : (
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "absolute",
-            }}
-          >
-            <br></br>
-            <div>
-              <img
-                src="/images/suprize.png"
-                alt="recipe_surchImage"
-                style={{ width: "100px", height: "100px" }}
-              />
-            </div>
-            <br></br>
-            <div style={{ fontSize: "170%", textAlign: "center" }}>
-              "{searchTerm}"<br />
-              검색 결과가 없습니다.
-            </div>
-          </div>
-        )}
+        {content.map((recipe) => (
+          <RecipeCard key={recipe.id} recipe={recipe} />
+        ))}
+        {showSkeleton &&
+          Array.from({ length: size }).map((_, index) => (
+            <RecipeCardSkeleton key={`skeleton-${index}`} />
+          ))}
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
       <div aria-label="scroll-trigger" ref={ref} />
+      {!isFetching && content.length === 0 && (
+        <div className="flex w-full justify-center items-center">
+          <NoContentRender message="레시피가 없습니다." />
+        </div>
+      )}
     </div>
   );
 }
+
+// 스켈레톤 UI 컴포넌트
+const RecipeCardSkeleton = () => (
+  <div className="flex flex-col rounded-md overflow-hidden border border-neutral-200 animate-pulse bg-neutral-200">
+    <div className="p-3 bg-neutral-100">
+      <div className="w-full h-[28.8px] mb-2">
+        <div className="w-4/5 h-full rounded-md bg-neutral-300" />
+      </div>
+      <div className="flex gap-2 items-end">
+        <div className="inline-block size-7 rounded-full object-cover bg-neutral-300" />
+        <div className="inline-block w-1/5 h-5 rounded-md bg-neutral-300" />
+        <div className="inline-block w-1/6 h-5 rounded-md bg-neutral-300" />
+        <div className="inline-block w-1/6 h-5 rounded-md bg-neutral-300" />
+        <div className="inline-block w-1/5 h-5 rounded-md bg-neutral-300" />
+      </div>
+    </div>
+    <div className="relative">
+      <svg
+        className="w-full aspect-square"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      <IconPhotoFilled className="absolute size-2/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square text-neutral-300" />
+    </div>
+  </div>
+);
 
 const RecipeCard = memo(({ recipe }) => {
   // 레시피를 클릭하면 해당 레시피의 조회수를 증가시킵니다.
@@ -149,12 +166,7 @@ const RecipeCard = memo(({ recipe }) => {
           <img
             src={recipe.member.profileImage}
             alt={`${recipe.member.nickname}'s profile`}
-            style={{
-              width: "30px",
-              height: "30px",
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
+            className="size-7 rounded-full object-cover"
           />
         </span>
         <span className="recipe_state_viewcount">{recipe.member.nickname}</span>
