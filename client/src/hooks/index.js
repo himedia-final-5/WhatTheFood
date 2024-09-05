@@ -1,7 +1,8 @@
 export { default as useDelayedSkeleton } from "./useDelayedSkeleton";
 export { default as useInfiniteScroll } from "./useInfiniteScroll";
-export { default as useInputs } from "./useInputs";
 export { default as useInput } from "./useInput";
+export { default as useInputs } from "./useInputs";
+export { default as useMediaQuery } from "./useMediaQuery";
 export { default as usePageResponse } from "./usePageResponse";
 export { default as usePromise } from "./usePromise";
 export { default as usePromiseThrottle } from "./usePromiseThrottle";

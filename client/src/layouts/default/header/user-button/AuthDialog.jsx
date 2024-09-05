@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useMediaQuery } from "@reactuses/core";
 
 import {
   Dialog,
@@ -11,10 +10,8 @@ import {
 } from "components/shadcn/ui/dialog";
 import {
   Drawer,
-  //DrawerClose,
   DrawerContent,
   DrawerDescription,
-  //DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -29,6 +26,7 @@ import {
   LogoGoogle,
   LogoNaver,
 } from "components/asset";
+import { useMediaQuery } from "hooks";
 import cn from "utils/cn";
 
 export default function AuthModal() {

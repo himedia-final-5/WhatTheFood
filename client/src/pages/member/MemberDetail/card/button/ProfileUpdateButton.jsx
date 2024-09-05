@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useMediaQuery } from "@reactuses/core";
 import { toast } from "react-toastify";
 import {
   IconReload,
@@ -35,7 +34,7 @@ import {
 import cn from "utils/cn";
 import axios from "utils/jwtUtil";
 import { useDispatch, updateProfile } from "stores";
-import { useInput } from "hooks";
+import { useInput, useMediaQuery } from "hooks";
 import { useProfileDetail, useProfileFetch } from "stores/context";
 
 export default function ProfileUpdateButton() {
