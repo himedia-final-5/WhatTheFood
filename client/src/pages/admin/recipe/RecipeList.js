@@ -21,7 +21,7 @@ function RecipeList() {
   const navigate = useNavigate();
 
   const [selectedCategory, setSelectedCategory] = useState(category[0].query);
-  const { content, pagination, setPageResponse } = usePageResponse();
+  const { content, pagination, handlePageResponse } = usePageResponse();
   const [page, setPage] = useState(0);
   const [word, setWord] = useState("");
 
@@ -31,9 +31,9 @@ function RecipeList() {
         .get(`/api/recipes`, {
           params: { page, category: selectedCategory },
         })
-        .then((result) => setPageResponse(result.data))
+        .then(handlePageResponse)
         .catch(defaultErrorHandler),
-    [selectedCategory, setPageResponse],
+    [selectedCategory, handlePageResponse],
   );
 
   useEffect(() => {
