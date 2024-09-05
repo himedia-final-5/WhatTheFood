@@ -14,7 +14,7 @@ import {
 } from "hooks";
 import { IconPhotoFilled } from "@tabler/icons-react";
 
-const category = [
+const CATEGORY_MAP = [
   { name: "전체", query: "" },
   { name: "한식", query: "한식" },
   { name: "양식", query: "양식" },
@@ -30,29 +30,26 @@ const size = 4;
 
 export default function RecipeList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(category[0].query);
-
   const throttle = usePromiseThrottle(throttleInterval);
   const location = useLocation();
   const navigate = useNavigate();
-  const searchTerm = location.state?.searchTerm || "";
+  const [category, setCategory] = useState("");
+  const term = location.state?.searchTerm || "";
+
   const [fetchRecipe, , isFetching, error] = usePromise(
     null,
     useCallback(
       async (page) => {
         let response = await axios.get(`/api/recipes`, {
-          params: {
-            page,
-            size,
-            category: selectedCategory,
-            term: searchTerm,
-          },
+          params: { page, size, category, term },
         });
         return response.data;
       },
-      [selectedCategory, searchTerm],
+      [category, term],
     ),
   );
+
+  const showSkeleton = useDelayedSkeleton(isFetching, 50);
 
   // 무한 스크롤 기능
   const { ref, content, reset } = useInfiniteScroll(
@@ -65,16 +62,14 @@ export default function RecipeList() {
 
   // 카테고리 및 레시피 클릭 이벤트
   const handleCategoryClick = async (query) => {
-    setSelectedCategory(query);
+    setCategory(query);
     navigate("/recipes", { state: { searchTerm: "" } });
   };
-
-  const showSkeleton = useDelayedSkeleton(isFetching, 50);
 
   // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
   useEffect(() => {
     reset();
-  }, [selectedCategory, searchTerm, reset]);
+  }, [category, term, reset]);
 
   return error ? (
     <ErrorRender error={error} />
@@ -87,13 +82,13 @@ export default function RecipeList() {
               게시글쓰기
             </Link>
           </UserFeature>
-          {category.map((cat) => (
+          {CATEGORY_MAP.map(({ query, name }) => (
             <button
-              key={cat.query}
-              onClick={() => handleCategoryClick(cat.query)}
-              className={`category_button ${selectedCategory === cat.query ? "active" : ""}`}
+              key={query}
+              onClick={() => handleCategoryClick(query)}
+              className={`category_button ${category === query ? "active" : ""}`}
             >
-              {cat.name}
+              {name}
             </button>
           ))}
         </div>
@@ -138,7 +133,7 @@ const RecipeCardSkeleton = () => (
         className="w-full aspect-square"
         xmlns="http://www.w3.org/2000/svg"
       />
-      <IconPhotoFilled className="absolute size-2/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square text-neutral-300" />
+      <IconPhotoFilled className="absolute size-2/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-300" />
     </div>
   </div>
 );
