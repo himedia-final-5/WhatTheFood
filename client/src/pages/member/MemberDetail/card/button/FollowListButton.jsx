@@ -1,6 +1,5 @@
 import { forwardRef, memo, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useMediaQuery } from "@reactuses/core";
 
 import {
   Dialog,
@@ -19,7 +18,7 @@ import {
   DrawerTitle,
 } from "components/shadcn/ui/drawer";
 
-import { usePageResponse } from "hooks";
+import { usePageResponse, useMediaQuery } from "hooks";
 import PaginationNav from "components/util/PaginationNav";
 import { axios, cn, defaultErrorHandler } from "utils";
 import TextFollowButton from "./TextFollowButton";
