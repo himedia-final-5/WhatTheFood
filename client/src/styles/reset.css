@@ -136,7 +136,7 @@ select {
 
 /* 선택 스타일 지정 */
 ::selection {
-  background-color: #b5fcb3;
+  background-color: #ff4f2222;
   text-shadow: none;
 }
 
