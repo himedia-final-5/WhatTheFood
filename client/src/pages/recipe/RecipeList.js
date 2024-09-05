@@ -48,7 +48,7 @@ export default function RecipeList() {
     ),
   );
 
-  const showSkeleton = useDelayedSkeleton(isFetching, 50);
+  const showSkeleton = useDelayedSkeleton(isFetching, 300);
 
   // 무한 스크롤 기능
   const { ref, content, reset } = useInfiniteScroll(
@@ -148,7 +148,7 @@ const RecipeCard = memo(({ recipe }) => {
       className="recipe_state_wrap"
       onClick={handleRecipeClick}
     >
-      <div className="recipe_text_wrap relative">
+      <div className="recipe_text_wrap relative animate-fade-in duration-300">
         <span className="recipe_state_name">{recipe.title}</span>
         <span className="recipe_state_profileImage">
           <img
