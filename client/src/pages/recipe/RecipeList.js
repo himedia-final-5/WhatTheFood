@@ -30,16 +30,14 @@ export default function RecipeList() {
   // 페이지 번호와 카테고리/검색어에 따라 레시피 목록을 서버에서 가져옵니다.
   const fetchPage = useCallback(
     async (page) => {
-      let response = null;
-      if (searchTerm) {
-        response = await axios.get(`/api/recipes`, {
-          params: { term: searchTerm, page: 0, size: 8 },
-        });
-      } else {
-        response = await axios.get(`/api/recipes`, {
-          params: { page, size: 8, category: selectedCategory },
-        });
-      }
+      let response = await axios.get(`/api/recipes`, {
+        params: {
+          page: 0,
+          size: 8,
+          category: selectedCategory,
+          term: searchTerm,
+        },
+      });
       setThrottleInterval(0);
       return response.data;
     },
