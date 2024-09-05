@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
-import { useFirstMountState } from "@reactuses/core";
 
 import { UndrawChef } from "components/asset";
+import { useFirstMount } from "hooks";
 import { useSelector } from "stores";
 
 /**
@@ -18,7 +18,7 @@ export default function UserFeatureContainer({
   notify = true,
   ...props
 }) {
-  const isFirstMount = useFirstMountState();
+  const isFirstMount = useFirstMount();
   const user = useSelector((state) => state.user);
 
   if (!user?.role) {
