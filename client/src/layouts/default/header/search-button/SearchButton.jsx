@@ -1,21 +1,29 @@
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconSearch } from "@tabler/icons-react";
 
 import cn from "utils/cn";
-import { useInput } from "hooks";
+import useSearchParamState from "hooks/useSearchParamState";
 
 export default function SearchButton() {
   const navigate = useNavigate();
-  const [searchTerm, onTermChange, setSearchTerm] = useInput("");
+  const [searchTerm] = useSearchParamState("q", "");
+  const inputRef = useRef(null);
 
-  const handleSearch = async () => {
-    const trimTerm = searchTerm.trim();
+  const handleSearch = async (e) => {
+    e.preventDefault();
 
-    if (trimTerm) {
-      setSearchTerm("");
-      navigate(`/recipes/`, { state: { searchTerm: trimTerm } });
+    if (inputRef.current) {
+      const trimTerm = encodeURIComponent(inputRef.current.value.trim());
+      navigate(`/recipes?q=${trimTerm}`);
     }
   };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = searchTerm;
+    }
+  }, [searchTerm]);
 
   return (
     <form
@@ -25,16 +33,13 @@ export default function SearchButton() {
         "border border-neutral-600 bg-neutral-50",
         "hidden xs:flex",
       )}
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSearch();
-      }}
+      onSubmit={handleSearch}
     >
       <input
+        ref={inputRef}
         type="search"
         placeholder="레시피 검색"
-        value={searchTerm}
-        onChange={onTermChange}
+        defaultValue={searchTerm}
         className="w-full text-base p-0"
       />
       <button

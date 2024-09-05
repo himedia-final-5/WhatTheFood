@@ -1,5 +1,5 @@
 import { useState, useCallback, memo, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./RecipeList.css";
 import RecipeFavoriteButton from "components/features/recipe/RecipeFavoriteButton";
@@ -10,6 +10,7 @@ import {
   useInfiniteScroll,
   usePromiseThrottle,
   useDelayedSkeleton,
+  useSearchParamState,
   usePromise,
 } from "hooks";
 import { IconPhotoFilled } from "@tabler/icons-react";
@@ -31,21 +32,19 @@ const size = 4;
 export default function RecipeList() {
   const [throttleInterval, setThrottleInterval] = useState(0);
   const throttle = usePromiseThrottle(throttleInterval);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [category, setCategory] = useState("");
-  const term = location.state?.searchTerm || "";
+  const [category, setCategory] = useSearchParamState("category", "");
+  const [searchTerm] = useSearchParamState("q", "");
 
   const [fetchRecipe, , isFetching, error] = usePromise(
     null,
     useCallback(
       async (page) => {
         let response = await axios.get(`/api/recipes`, {
-          params: { page, size, category, term },
+          params: { page, size, category, term: searchTerm },
         });
         return response.data;
       },
-      [category, term],
+      [category, searchTerm],
     ),
   );
 
@@ -60,16 +59,10 @@ export default function RecipeList() {
     },
   );
 
-  // 카테고리 및 레시피 클릭 이벤트
-  const handleCategoryClick = async (query) => {
-    setCategory(query);
-    navigate("/recipes", { state: { searchTerm: "" } });
-  };
-
-  // selectedCategory 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
+  // category 또는 searchTerm이 변경되면 레시피 목록을 초기화하고 새로 불러옵니다.
   useEffect(() => {
     reset();
-  }, [category, term, reset]);
+  }, [category, searchTerm, reset]);
 
   return error ? (
     <ErrorRender error={error} />
@@ -85,7 +78,7 @@ export default function RecipeList() {
           {CATEGORY_MAP.map(({ query, name }) => (
             <button
               key={query}
-              onClick={() => handleCategoryClick(query)}
+              onClick={() => setCategory(query)}
               className={`category_button ${category === query ? "active" : ""}`}
             >
               {name}
