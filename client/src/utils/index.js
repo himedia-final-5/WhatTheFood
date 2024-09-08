@@ -5,3 +5,4 @@ export { default as axios } from "./jwtUtil";
 export { default as initialPagination } from "./initialPagination";
 export { default as lazyLoading } from "./lazyLoading";
 export { default as memoize } from "./memoize";
+export { default as throttle } from "./throttle";

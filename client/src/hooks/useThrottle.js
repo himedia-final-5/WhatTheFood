@@ -1,27 +1,15 @@
-import { useRef, useCallback } from "react";
+import { useCallback, useMemo } from "react";
+import { throttle } from "utils";
 
 /**
- * @param {function} fn - 쓰로틀링을 적용할 함수
- * @param {number} delay - 쓰로틀링 간격
+ * 쓰로틀링 함수 (특정 시간 동안 함수 호출을 제한)
+ *
+ * @template Args
+ * @param {(...args: Args) => any} func - 쓰로틀링할 함수
+ * @param {number} wait - 쓰로틀링 시간 (밀리초)
+ * @returns {(...args: Args) => void} 쓰로틀링된 함수
  */
-function throttle(delay) {
-  let lastCall = 0;
-
-  return function (fn, ...args) {
-    const now = new Date().getTime();
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      fn(...args);
-    }
-  };
-}
-
-/**
- * @param {function} fn - 쓰로틀링을 적용할 함수
- * @param {number} delay - 쓰로틀링 간격
- */
-export default function useThrottle(fn, delay) {
-  const throttledFn = useRef(throttle(delay));
-
-  return useCallback((...args) => throttledFn.current(fn, ...args), [fn]);
+export default function useThrottle(fn, wait) {
+  const throttledFn = useMemo(() => throttle(fn, wait), [fn, wait]);
+  return useCallback((...args) => throttledFn(...args), [throttledFn]);
 }
