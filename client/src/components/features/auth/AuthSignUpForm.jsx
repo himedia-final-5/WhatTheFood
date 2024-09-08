@@ -43,7 +43,6 @@ const formSchema = z
               return false;
             }
           }),
-          300,
         ),
         "이미 사용중인 아이디입니다",
       ),
@@ -61,7 +60,7 @@ const formSchema = z
       .max(45, "이메일은 최대 45자 이하여야 합니다"),
   })
   .refine(
-    debounce(async (data) => data.password === data.confirmPassword, 100),
+    debounce(async (data) => data.password === data.confirmPassword),
     {
       message: "비밀번호와 비밀번호 확인이 일치하지 않습니다",
       path: ["confirmPassword"],
