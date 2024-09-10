@@ -1,4 +1,4 @@
-import * as assets from "components/asset";
+import * as assets from "@components/asset";
 import { cn } from "utils";
 
 export default function TestAssets() {

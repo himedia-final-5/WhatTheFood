@@ -22,13 +22,9 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {process.env.NODE_ENV === "development" ? (
+        <StrictMode>
           <App />
-        ) : (
-          <StrictMode>
-            <App />
-          </StrictMode>
-        )}
+        </StrictMode>
       </PersistGate>
     </Provider>
   </BrowserRouter>,
