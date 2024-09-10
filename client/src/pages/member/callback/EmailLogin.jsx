@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-import { axios } from "utils";
-import store, { signinAction } from "stores";
+import { axios } from "@utils";
+import store, { signinAction } from "@stores";
 import { toast } from "react-toastify";
 
 export default function EmailLogin() {

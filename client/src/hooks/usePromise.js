@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-import { defaultErrorHandler } from "utils";
+import { defaultErrorHandler } from "@utils";
 
 /**
  * @template T

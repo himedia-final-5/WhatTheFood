@@ -1,5 +1,5 @@
-import { UndrawDonutLove } from "components/asset";
-import cn from "utils/cn";
+import { UndrawDonutLove } from "@components/asset";
+import cn from "@utils/cn";
 
 export default function NoContentRender({ message, ...props }) {
   return (

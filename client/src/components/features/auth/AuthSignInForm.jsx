@@ -12,11 +12,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "components/shadcn/ui/form";
-import { Button } from "components/shadcn/ui/button";
-import { Input } from "components/shadcn/ui/input";
-import { cn, axios } from "utils";
-import { useDispatch, signinAction } from "stores";
+} from "@components/shadcn/ui/form";
+import { Button } from "@components/shadcn/ui/button";
+import { Input } from "@components/shadcn/ui/input";
+import { cn, axios } from "@utils";
+import { useDispatch, signinAction } from "@stores";
 
 const formSchema = z.object({
   username: z

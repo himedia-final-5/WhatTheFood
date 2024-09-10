@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./Notice.css";
-import { axios, defaultErrorHandler } from "utils";
+import { axios, defaultErrorHandler } from "@utils";
 
 function UpdateNotice() {
   const [title, setTitle] = useState("");

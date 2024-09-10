@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import "./FaqView.css";
-import { axios, defaultErrorHandler } from "utils";
+import { axios, defaultErrorHandler } from "@utils";
 
 function FaqView() {
   const [faqiew, setFaqView] = useState({});

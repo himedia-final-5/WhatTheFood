@@ -3,8 +3,8 @@ import { Link2Icon } from "@radix-ui/react-icons";
 import StarFollowButton from "./button/StarFollowButton";
 import ProfileUpdateButton from "./button/ProfileUpdateButton";
 import FollowListButton from "./button/FollowListButton";
-import { useSelector } from "stores";
-import { useProfileDetail } from "stores/context";
+import { useSelector } from "@stores";
+import { useProfileDetail } from "@stores/context";
 import {
   IconBrandFlightradar24,
   IconChefHat,

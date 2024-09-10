@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import SearchButton from "./search-button/SearchButton";
 import UserButton from "./user-button/UserButton";
-import cn from "utils/cn";
-import LogoYorijoriMain from "components/asset/LogoYorijoriMain";
+import cn from "@utils/cn";
+import LogoYorijoriMain from "@components/asset/LogoYorijoriMain";
 
 const links = [
   ["/recipes", "레시피"],

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { initialPagination, defaultErrorHandler } from "utils";
+import { initialPagination, defaultErrorHandler } from "@utils";
 
 /**
  * @template T

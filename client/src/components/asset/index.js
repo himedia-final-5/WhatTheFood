@@ -1,4 +1,4 @@
-import { lazyLoading as $ } from "utils";
+import { lazyLoading as $ } from "@utils";
 
 export const LogoGoogle = $(() => import("./LogoGoogle"));
 export const LogoKakao = $(() => import("./LogoKakao"));

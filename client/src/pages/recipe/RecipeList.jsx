@@ -2,17 +2,17 @@ import { useState, useCallback, memo, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./RecipeList.css";
-import RecipeFavoriteButton from "components/features/recipe/RecipeFavoriteButton";
-import UserFeature from "components/util/UserFeature";
-import { ErrorRender, NoContentRender } from "layouts/fallback";
-import { axios, defaultErrorHandler } from "utils";
+import RecipeFavoriteButton from "@components/features/recipe/RecipeFavoriteButton";
+import UserFeature from "@components/util/UserFeature";
+import { ErrorRender, NoContentRender } from "@layouts/fallback";
+import { axios, defaultErrorHandler } from "@utils";
 import {
   useInfiniteScroll,
   usePromiseThrottle,
   useDelayedSkeleton,
   useSearchParamState,
   usePromise,
-} from "hooks";
+} from "@hooks";
 import { IconPhotoFilled } from "@tabler/icons-react";
 
 const CATEGORY_MAP = [

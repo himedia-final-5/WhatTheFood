@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./InquiryList.css";
-import { axios, defaultErrorHandler } from "utils";
-import { useSelector } from "stores";
-import { usePageResponse } from "hooks";
-import { PaginationNav, UserFeatureContainer } from "components/util";
+import { axios, defaultErrorHandler } from "@utils";
+import { useSelector } from "@stores";
+import { usePageResponse } from "@hooks";
+import { PaginationNav, UserFeatureContainer } from "@components/util";
 
 function InquiryList() {
   const user = useSelector((state) => state.user);

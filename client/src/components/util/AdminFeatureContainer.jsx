@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 
-import { UndrawChef } from "components/asset";
-import { useFirstMount } from "hooks";
-import { useSelector } from "stores";
+import { UndrawChef } from "@components/asset";
+import { useFirstMount } from "@hooks";
+import { useSelector } from "@stores";
 
 /**
  * @typedef {object} Props

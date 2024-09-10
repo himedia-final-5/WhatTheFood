@@ -3,10 +3,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./EventUpCreate.css";
-import { axios, cn, defaultErrorHandler } from "utils";
-import { AdminFeatureContainer, ImageUploadInput } from "components/util";
-import { useSelector } from "stores";
-import { useInputs } from "hooks"; //수정시 삽입 데이터 hooks
+import { axios, cn, defaultErrorHandler } from "@utils";
+import { AdminFeatureContainer, ImageUploadInput } from "@components/util";
+import { useSelector } from "@stores";
+import { useInputs } from "@hooks"; //수정시 삽입 데이터 hooks
 
 export default function EventUpdate() {
   const navigate = useNavigate();

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios, cn, defaultErrorHandler } from "utils";
-import { ImageUploadInput } from "components/util";
+import { axios, cn, defaultErrorHandler } from "@utils";
+import { ImageUploadInput } from "@components/util";
 
 function WEvent() {
   const navigate = useNavigate();

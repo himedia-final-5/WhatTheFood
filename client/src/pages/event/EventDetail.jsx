@@ -4,10 +4,10 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
 import "./EventDetail.css";
-import { AdminFeature } from "components/util";
-import { axios } from "utils";
-import { usePromise } from "hooks";
-import Popup from "components/util/PopUp";
+import { AdminFeature } from "@components/util";
+import { axios } from "@utils";
+import { usePromise } from "@hooks";
+import Popup from "@components/util/PopUp";
 
 /** @type {?EventDetail} */
 const DEFAULT_EVENT = null;

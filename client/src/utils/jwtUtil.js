@@ -1,6 +1,6 @@
 import axios from "axios";
-import store from "../stores";
-import { signinAction, signoutAction } from "../stores/userSlice";
+import store from "@stores";
+import { signinAction, signoutAction } from "@stores/userSlice";
 
 const getUser = () => store.getState().user;
 const jaxios = axios.create();

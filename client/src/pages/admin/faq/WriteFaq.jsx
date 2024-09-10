@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios, defaultErrorHandler } from "utils";
+import { axios, defaultErrorHandler } from "@utils";
 
 function WriteFaq() {
   const navigate = useNavigate();

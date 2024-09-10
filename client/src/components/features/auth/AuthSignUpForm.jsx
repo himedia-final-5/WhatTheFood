@@ -8,8 +8,8 @@ import {
   IconMailFilled,
 } from "@tabler/icons-react";
 
-import { cn, axios, debounce, memoize, defaultErrorHandler } from "utils";
-import usePromise from "hooks/usePromise";
+import { cn, axios, debounce, memoize, defaultErrorHandler } from "@utils";
+import usePromise from "@hooks/usePromise";
 
 import {
   Form,
@@ -19,9 +19,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "components/shadcn/ui/form";
-import { Button } from "components/shadcn/ui/button";
-import { Input } from "components/shadcn/ui/input";
+} from "@components/shadcn/ui/form";
+import { Button } from "@components/shadcn/ui/button";
+import { Input } from "@components/shadcn/ui/input";
 
 const formSchema = z
   .object({

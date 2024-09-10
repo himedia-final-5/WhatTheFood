@@ -6,10 +6,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 
-import "./styles/reset.css";
-import "./styles/shadcn.css";
+import "@styles/reset.css";
+import "@styles/shadcn.css";
 import App from "./App";
-import store from "stores";
+import store from "@stores";
 
 const reportWebVitals = () => {
   import("./reportWebVitals").then((module) => module.default());

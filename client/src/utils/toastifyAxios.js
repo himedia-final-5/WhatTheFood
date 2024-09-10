@@ -1,4 +1,4 @@
-import { axios, toastify } from "utils";
+import { axios, toastify } from "@utils";
 
 /** @type {[keyof import("axios").Axios]} */
 const DELEGATE_METHODS = [

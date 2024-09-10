@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { initialPagination } from "utils";
+import { initialPagination } from "@utils";
 
 /**
  * 페이지 데이터를 관리하는 훅

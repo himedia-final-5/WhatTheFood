@@ -1,4 +1,4 @@
-import { lazyLoading as $ } from "utils";
+import { lazyLoading as $ } from "@utils";
 
 export const NoticeList = $(() => import("./Notice"));
 export const NoticeDetail = $(() => import("./NoticeView"));

@@ -5,8 +5,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { DefaultLayout, EmptyLayout, AdminLayout } from "layouts";
-import { ErrorRender, NotFoundRender } from "layouts/fallback";
+import { DefaultLayout, EmptyLayout, AdminLayout } from "@layouts";
+import { ErrorRender, NotFoundRender } from "@layouts/fallback";
 import {
   AdminMain,
   AdminBrandList,
@@ -31,30 +31,30 @@ import {
   AdminRecipeList,
   AdminRecipeView,
   AdminRecipeSearchList,
-} from "pages/admin";
-import { BrandList } from "pages/brand";
-import { ChefList } from "pages/chef";
-import { EventList, EventDetail, EventWrite, EventUpdate } from "pages/event";
-import { FaqList, FaqDetail, FaqWrite } from "pages/faq";
-import { InquiryList, InquiryDetail, InquiryWrite } from "pages/inquiry";
-import { Main } from "pages/main";
-import { EmailLogin, MemberDetail, OAuth2Login } from "pages/member";
+} from "@pages/admin";
+import { BrandList } from "@pages/brand";
+import { ChefList } from "@pages/chef";
+import { EventList, EventDetail, EventWrite, EventUpdate } from "@pages/event";
+import { FaqList, FaqDetail, FaqWrite } from "@pages/faq";
+import { InquiryList, InquiryDetail, InquiryWrite } from "@pages/inquiry";
+import { Main } from "@pages/main";
+import { EmailLogin, MemberDetail, OAuth2Login } from "@pages/member";
 import {
   NoticeList,
   NoticeDetail,
   NoticeWrite,
   NoticeUpdate,
-} from "pages/notice";
-import { About, Privacy, Terms } from "pages/policy";
+} from "@pages/notice";
+import { About, Privacy, Terms } from "@pages/policy";
 import {
   RecipeDetail,
   RecipeFavorite,
   RecipeList,
   RecipeUpdate,
   RecipeWrite,
-} from "pages/recipe";
-import { SearchingStore } from "pages/store";
-import { TestAssets, TestProfileGenerator } from "pages/test";
+} from "@pages/recipe";
+import { SearchingStore } from "@pages/store";
+import { TestAssets, TestProfileGenerator } from "@pages/test";
 
 function App() {
   return (

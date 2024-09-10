@@ -2,9 +2,9 @@ import { useState, memo } from "react";
 import { Link } from "react-router-dom";
 
 import "./EventList.css";
-import { AdminFeature } from "components/util";
-import { axios, defaultErrorHandler } from "utils";
-import { useInfiniteScroll, usePromiseThrottle } from "hooks";
+import { AdminFeature } from "@components/util";
+import { axios, defaultErrorHandler } from "@utils";
+import { useInfiniteScroll, usePromiseThrottle } from "@hooks";
 
 export default function EventList() {
   const [throttleInterval, setThrottleInterval] = useState(0);

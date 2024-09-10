@@ -1,9 +1,9 @@
 import { memo, useState } from "react";
 import { toast } from "react-toastify";
 
-import { useThrottle } from "hooks";
-import { useSelector } from "stores";
-import { axios, cn, defaultErrorHandler } from "utils";
+import { useThrottle } from "@hooks";
+import { useSelector } from "@stores";
+import { axios, cn, defaultErrorHandler } from "@utils";
 
 export default memo(
   /** @param {{profile: MemberProfileSummary}} */

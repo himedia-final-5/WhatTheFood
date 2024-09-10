@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 
-import { axios } from "utils";
-import store, { signinAction } from "stores";
+import { axios } from "@utils";
+import store, { signinAction } from "@stores";
 
 export default function OAuth2LoginPopup() {
   const [searchParams] = useSearchParams();

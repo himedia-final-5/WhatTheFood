@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "./Main.css";
-import { axios, defaultErrorHandler } from "utils";
+import { axios, defaultErrorHandler } from "@utils";
 
 export default function Main() {
   const [events, setLatestEvent] = useState([]); //배열

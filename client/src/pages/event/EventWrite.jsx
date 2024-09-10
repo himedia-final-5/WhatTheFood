@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./EventUpCreate.css";
-import { axios, cn, defaultErrorHandler } from "utils";
-import { AdminFeatureContainer, ImageUploadInput } from "components/util";
-import { useSelector } from "stores";
+import { axios, cn, defaultErrorHandler } from "@utils";
+import { AdminFeatureContainer, ImageUploadInput } from "@components/util";
+import { useSelector } from "@stores";
 
 export default function EventWrite() {
   const navigate = useNavigate();

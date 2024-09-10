@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useInput } from "hooks";
+import { useInput } from "@hooks";
 
 export default function TestAssets() {
   const [prefix, onPrefixUpdate] = useInput("");

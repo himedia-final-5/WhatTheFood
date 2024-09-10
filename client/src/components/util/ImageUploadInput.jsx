@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { axios } from "utils/index";
+import { axios } from "@utils/index";
 
 /**
  * @type {(props: { onUpload: (url: string) => void, imageSrc: string } & React.HTMLAttributes<HTMLLabelElement>) => React.JSX.Element}

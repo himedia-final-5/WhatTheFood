@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import "./InquiryView.css";
-import { axios, defaultErrorHandler } from "utils";
+import { axios, defaultErrorHandler } from "@utils";
 
 function InquiryView() {
   const { id } = useParams();

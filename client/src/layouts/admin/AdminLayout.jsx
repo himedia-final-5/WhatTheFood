@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 import { IconLogout } from "@tabler/icons-react";
 
 import "./AdminLayout.css";
-import { signoutAction, useDispatch } from "stores";
-import LogoYorijoriMain from "components/asset/LogoYorijoriMain";
+import { signoutAction, useDispatch } from "@stores";
+import LogoYorijoriMain from "@components/asset/LogoYorijoriMain";
 
 export default function AdminLayout() {
   const dispatch = useDispatch();

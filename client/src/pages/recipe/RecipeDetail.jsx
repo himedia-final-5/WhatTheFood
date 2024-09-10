@@ -5,11 +5,11 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 import "./RecipeDetail.css";
-import { axios, defaultErrorHandler } from "utils";
-import { usePromise } from "hooks";
-import Popup from "components/util/PopUp";
-import { UserFeature } from "components/util";
-import RecipeFavoriteButton from "components/features/recipe/RecipeFavoriteButton";
+import { axios, defaultErrorHandler } from "@utils";
+import { usePromise } from "@hooks";
+import Popup from "@components/util/PopUp";
+import { UserFeature } from "@components/util";
+import RecipeFavoriteButton from "@components/features/recipe/RecipeFavoriteButton";
 
 /** @type {?RecipeDetail} */
 const DEFAULT_RECIPE = null;

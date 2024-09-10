@@ -17,7 +17,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "./drawer";
-import { cn } from "utils";
+import { cn } from "@utils";
 
 const Drawer = ({ shouldScaleBackground = true, ...props }) => (
   <DrawerPrimitive.Root

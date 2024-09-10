@@ -2,9 +2,9 @@ import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios, initialPagination } from "utils";
-import { usePageResponse } from "hooks";
-import { PaginationNav } from "components/util";
+import { axios, initialPagination } from "@utils";
+import { usePageResponse } from "@hooks";
+import { PaginationNav } from "@components/util";
 
 function SearchRecipeList() {
   const navigate = useNavigate();

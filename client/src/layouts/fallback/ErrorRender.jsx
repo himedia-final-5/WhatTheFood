@@ -5,8 +5,8 @@ import {
   UndrawDonutLove,
   UndrawServerDown,
   UndrawSpecialEvent,
-} from "components/asset";
-import cn from "utils/cn";
+} from "@components/asset";
+import cn from "@utils/cn";
 
 const getErrorImage = (status) => {
   switch (status) {

@@ -6,16 +6,16 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "components/shadcn/ui/avatar";
+} from "@components/shadcn/ui/avatar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "components/shadcn/ui/popover";
-import { Button } from "components/shadcn/ui/button";
-import { Separator } from "components/shadcn/ui/separator";
-import { signoutAction, useDispatch, useSelector } from "stores";
-import { axios } from "utils";
+} from "@components/shadcn/ui/popover";
+import { Button } from "@components/shadcn/ui/button";
+import { Separator } from "@components/shadcn/ui/separator";
+import { signoutAction, useDispatch, useSelector } from "@stores";
+import { axios } from "@utils";
 
 export default function ProfilePopover() {
   const navigate = useNavigate();

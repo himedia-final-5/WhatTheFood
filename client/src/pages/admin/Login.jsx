@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import AuthSignInForm from "components/features/auth/AuthSignInForm";
+import AuthSignInForm from "@components/features/auth/AuthSignInForm";
 
 function Login() {
   const navigate = useNavigate();

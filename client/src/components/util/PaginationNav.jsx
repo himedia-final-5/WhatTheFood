@@ -1,6 +1,6 @@
-import cn from "utils/cn";
-import PaginationLeft from "components/asset/PaginationLeft";
-import PaginationRight from "components/asset/PaginationRight";
+import cn from "@utils/cn";
+import PaginationLeft from "@components/asset/PaginationLeft";
+import PaginationRight from "@components/asset/PaginationRight";
 
 /**
  * @typedef {object} Props

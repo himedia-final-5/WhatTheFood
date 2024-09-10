@@ -1,5 +1,5 @@
 import * as assets from "@components/asset";
-import { cn } from "utils";
+import { cn } from "@utils";
 
 export default function TestAssets() {
   const assetEntries = Object.entries(assets);

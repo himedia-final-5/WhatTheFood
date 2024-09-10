@@ -1,15 +1,15 @@
 import { useState, useCallback } from "react";
 
-import { ErrorRender, NoContentRender } from "layouts/fallback";
-import { MemberRankItem } from "components";
-import { axios, cn, defaultErrorHandler } from "utils";
+import { ErrorRender, NoContentRender } from "@layouts/fallback";
+import { MemberRankItem } from "@components";
+import { axios, cn, defaultErrorHandler } from "@utils";
 import {
   useSearchParamState,
   useInfiniteScroll,
   usePromise,
   usePromiseThrottle,
   useDelayedSkeleton,
-} from "hooks";
+} from "@hooks";
 
 // 카테고리 상수 정의
 const CATEGORY_BRAND = "brand";

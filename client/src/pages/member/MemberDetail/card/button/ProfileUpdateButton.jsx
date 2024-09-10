@@ -13,7 +13,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "components/shadcn/ui/dialog";
+} from "@components/shadcn/ui/dialog";
 import {
   Drawer,
   DrawerTrigger,
@@ -21,7 +21,7 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from "components/shadcn/ui/drawer";
+} from "@components/shadcn/ui/drawer";
 import {
   ImageUploadProvider,
   ImageUploadInput,
@@ -29,13 +29,13 @@ import {
   ImageUploadPreview,
   ImageUploadProgressBar,
   ImageUploadFallback,
-} from "components/util/ImageUpload";
+} from "@components/util/ImageUpload";
 
-import cn from "utils/cn";
-import axios from "utils/jwtUtil";
-import { useDispatch, updateProfile } from "stores";
-import { useInput, useMediaQuery } from "hooks";
-import { useProfileDetail, useProfileFetch } from "stores/context";
+import cn from "@utils/cn";
+import axios from "@utils/jwtUtil";
+import { useDispatch, updateProfile } from "@stores";
+import { useInput, useMediaQuery } from "@hooks";
+import { useProfileDetail, useProfileFetch } from "@stores/context";
 
 export default function ProfileUpdateButton() {
   const [open, setOpen] = useState(false);

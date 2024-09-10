@@ -2,9 +2,9 @@ import { memo, useState } from "react";
 import { toast } from "react-toastify";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 
-import { useSelector } from "stores";
-import { axios, cn, defaultErrorHandler } from "utils";
-import { useThrottle } from "hooks";
+import { useSelector } from "@stores";
+import { axios, cn, defaultErrorHandler } from "@utils";
+import { useThrottle } from "@hooks";
 
 export default memo(({ id, following: initialFollowing }) => {
   const [following, setFollowing] = useState(initialFollowing);

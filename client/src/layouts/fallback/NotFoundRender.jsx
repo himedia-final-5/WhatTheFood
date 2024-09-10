@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import UndrawDonutLove from "components/asset/UndrawDonutLove";
+import UndrawDonutLove from "@components/asset/UndrawDonutLove";
 
 const NOT_FOUND_MESSAGES = [
   "여긴 저도 처음 와봐요!",

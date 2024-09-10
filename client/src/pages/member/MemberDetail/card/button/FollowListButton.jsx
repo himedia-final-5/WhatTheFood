@@ -8,7 +8,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "components/shadcn/ui/dialog";
+} from "@components/shadcn/ui/dialog";
 import {
   Drawer,
   DrawerTrigger,
@@ -16,11 +16,11 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from "components/shadcn/ui/drawer";
+} from "@components/shadcn/ui/drawer";
 
-import { usePageResponse, useMediaQuery } from "hooks";
-import PaginationNav from "components/util/PaginationNav";
-import { axios, cn, defaultErrorHandler } from "utils";
+import { usePageResponse, useMediaQuery } from "@hooks";
+import PaginationNav from "@components/util/PaginationNav";
+import { axios, cn, defaultErrorHandler } from "@utils";
 import TextFollowButton from "./TextFollowButton";
 import {
   useProfileDetail,
@@ -28,7 +28,7 @@ import {
   FollowDialogActionContext,
   useFollowDialogValue,
   useFollowDialogAction,
-} from "stores/context";
+} from "@stores/context";
 
 export default function FollowListButton() {
   const profile = useProfileDetail();

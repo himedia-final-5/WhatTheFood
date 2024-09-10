@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "components/shadcn/ui/dialog";
+} from "@components/shadcn/ui/dialog";
 import {
   Drawer,
   DrawerContent,
@@ -15,19 +15,19 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "components/shadcn/ui/drawer";
-import { Button } from "components/shadcn/ui/button";
+} from "@components/shadcn/ui/drawer";
+import { Button } from "@components/shadcn/ui/button";
 
-import AuthSignInForm from "components/features/auth/AuthSignInForm";
-import AuthSignUpForm from "components/features/auth/AuthSignUpForm";
+import AuthSignInForm from "@components/features/auth/AuthSignInForm";
+import AuthSignUpForm from "@components/features/auth/AuthSignUpForm";
 import {
   UndrawEatingTogether,
   LogoKakao,
   LogoGoogle,
   LogoNaver,
-} from "components/asset";
-import { useMediaQuery } from "hooks";
-import cn from "utils/cn";
+} from "@components/asset";
+import { useMediaQuery } from "@hooks";
+import cn from "@utils/cn";
 
 export default function AuthModal() {
   const [open, setOpen] = useState(false);

@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios, defaultErrorHandler } from "utils";
-import { usePageResponse } from "hooks";
-import { PaginationNav } from "components/util";
+import { axios, defaultErrorHandler } from "@utils";
+import { usePageResponse } from "@hooks";
+import { PaginationNav } from "@components/util";
 
 const category = [
   { name: "전체", query: "" },

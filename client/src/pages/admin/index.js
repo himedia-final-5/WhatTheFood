@@ -1,4 +1,4 @@
-import { lazyLoading as $ } from "utils";
+import { lazyLoading as $ } from "@utils";
 
 // admin main
 export const AdminMain = $(() => import("./Login"));

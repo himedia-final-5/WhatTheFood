@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 
-import PaginationNav from "components/util/PaginationNav";
-import { UndrawTasting, UndrawBarbecue } from "components/asset";
-import { usePageResponse, useSearchParamState } from "hooks";
-import { cn, axios, defaultErrorHandler } from "utils";
-import { useProfileDetail } from "stores/context";
+import PaginationNav from "@components/util/PaginationNav";
+import { UndrawTasting, UndrawBarbecue } from "@components/asset";
+import { usePageResponse, useSearchParamState } from "@hooks";
+import { cn, axios, defaultErrorHandler } from "@utils";
+import { useProfileDetail } from "@stores/context";
 
 const TAB_LIST = [
   { name: "레시피", api: "/api/recipes?memberId=%s", component: RecipeTab },

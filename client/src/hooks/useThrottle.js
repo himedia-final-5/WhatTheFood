@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { throttle } from "utils";
+import { throttle } from "@utils";
 
 /**
  * 쓰로틀링 함수 (특정 시간 동안 함수 호출을 제한)

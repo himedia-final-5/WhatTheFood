@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import SubMenu from "../SubMenu";
-import { axios, cn, defaultErrorHandler } from "utils";
-import { ImageUploadInput } from "components/util";
-import { useInputs } from "hooks";
+import { axios, cn, defaultErrorHandler } from "@utils";
+import { ImageUploadInput } from "@components/util";
+import { useInputs } from "@hooks";
 
 function EUpdate() {
   const navigate = useNavigate();

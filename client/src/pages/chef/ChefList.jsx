@@ -1,10 +1,10 @@
 import { useCallback, useEffect } from "react";
 
 import "./Chef.css";
-import { ErrorRender, NoContentRender } from "layouts/fallback";
-import { MemberRankItem } from "components";
-import { axios, cn } from "utils";
-import { usePromise, useDelayedSkeleton, useSearchParamState } from "hooks";
+import { ErrorRender, NoContentRender } from "@layouts/fallback";
+import { MemberRankItem } from "@components";
+import { axios, cn } from "@utils";
+import { usePromise, useDelayedSkeleton, useSearchParamState } from "@hooks";
 
 const CATEGORY_DAY = "d";
 const CATEGORY_WEEK = "w";

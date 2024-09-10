@@ -1,6 +1,6 @@
 import { useState, createContext, useContext, useCallback } from "react";
 
-import { axios, cn } from "utils/index";
+import { axios, cn } from "@utils/index";
 
 /** @type {React.Context<{handleUpload: (file: File) => Promise<void>, setImage: React.Dispatch<?string>}>} */
 const ImageUploadActionContext = createContext();

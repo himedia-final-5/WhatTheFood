@@ -1,10 +1,10 @@
 import { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { LoadingRender, NotFoundRender } from "layouts/fallback";
-import { axios, cn } from "utils";
-import { usePromise } from "hooks";
-import { ProfileDetailContext, ProfileFetchContext } from "stores/context";
+import { LoadingRender, NotFoundRender } from "@layouts/fallback";
+import { axios, cn } from "@utils";
+import { usePromise } from "@hooks";
+import { ProfileDetailContext, ProfileFetchContext } from "@stores/context";
 
 import MemberProfileCard from "./card/MemberProfileCard";
 import MemberProfileContent from "./content/MemberProfileContent";

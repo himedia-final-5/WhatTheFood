@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 
-import { cn } from "utils";
+import { cn } from "@utils";
 
 const MemberRankItem = memo(({ member, rank, isLoading }) => (
   <div

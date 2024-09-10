@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./InquiryWriteForm.css";
-import { axios, defaultErrorHandler } from "utils";
-import { useSelector } from "stores";
+import { axios, defaultErrorHandler } from "@utils";
+import { useSelector } from "@stores";
 
 function InquiryWriteForm() {
   const user = useSelector((state) => state.user);

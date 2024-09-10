@@ -2,9 +2,9 @@ import { useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import "./Faq.css";
-import { axios, defaultErrorHandler } from "utils";
-import { usePageResponse } from "hooks";
-import { PaginationNav } from "components/util";
+import { axios, defaultErrorHandler } from "@utils";
+import { usePageResponse } from "@hooks";
+import { PaginationNav } from "@components/util";
 
 function Faq() {
   const { content, pagination, handlePageResponse } = usePageResponse();

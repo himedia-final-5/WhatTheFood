@@ -1,4 +1,4 @@
-import { lazyLoading as $ } from "utils";
+import { lazyLoading as $ } from "@utils";
 
 export const ErrorRender = $(() => import("./ErrorRender"));
 export const LoadingRender = $(() => import("./LoadingRender"));

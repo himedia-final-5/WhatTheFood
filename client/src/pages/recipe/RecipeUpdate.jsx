@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import "./RecipeUpWrite.css";
-import { axios, cn, defaultErrorHandler } from "utils";
-import { UserFeatureContainer, ImageUploadInput } from "components/util";
-import { useSelector } from "stores";
-import { useInputs } from "hooks";
+import { axios, cn, defaultErrorHandler } from "@utils";
+import { UserFeatureContainer, ImageUploadInput } from "@components/util";
+import { useSelector } from "@stores";
+import { useInputs } from "@hooks";
 
 const categories = [
   { name: "전체", query: "" },

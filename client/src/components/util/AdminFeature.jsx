@@ -1,4 +1,4 @@
-import { useSelector } from "stores";
+import { useSelector } from "@stores";
 
 /**
  * @typedef {object} Props
