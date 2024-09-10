@@ -3,9 +3,6 @@ import { lazyLoading as $ } from "@utils";
 // admin main
 export const AdminMain = $(() => import("./Login"));
 
-// brand
-export const AdminBrandList = $(() => import("./brand/BrandList"));
-
 // event
 export const AdminEventList = $(() => import("./event/EventList"));
 export const AdminEventView = $(() => import("./event/EventView"));

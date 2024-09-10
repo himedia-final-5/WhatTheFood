@@ -9,7 +9,6 @@ function SubMenu() {
       <Link to="/noticeList">공지사항</Link>
       <Link to="/faqList">FAQ</Link>
       <Link to="/eList">이벤트</Link>
-      {/* <Link to="/brandList">브랜드</Link> */}
     </div>
   );
 }

@@ -10,7 +10,6 @@ const links = [
   ["/recipes", "레시피"],
   ["/chefs", "쉐프"],
   ["/brands", "브랜드"],
-  ["/store", "오프라인 매장"],
   ["/events", "이벤트"],
 ];
 

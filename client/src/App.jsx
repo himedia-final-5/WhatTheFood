@@ -9,7 +9,6 @@ import { DefaultLayout, EmptyLayout, AdminLayout } from "@layouts";
 import { ErrorRender, NotFoundRender } from "@layouts/fallback";
 import {
   AdminMain,
-  AdminBrandList,
   AdminEventList,
   AdminEventView,
   AdminEventWrite,
@@ -53,7 +52,6 @@ import {
   RecipeUpdate,
   RecipeWrite,
 } from "@pages/recipe";
-import { SearchingStore } from "@pages/store";
 import { TestAssets, TestProfileGenerator } from "@pages/test";
 
 function App() {
@@ -96,8 +94,6 @@ function App() {
               <Route path="/chefs" element={<ChefList />} />
               <Route path="/brands" element={<BrandList />} />
 
-              <Route path="/store" element={<SearchingStore />} />
-
               <Route path="/test/assets" element={<TestAssets />} />
               <Route path="/test/profile" element={<TestProfileGenerator />} />
             </Route>
@@ -130,7 +126,6 @@ function App() {
               <Route path="/fView/:id" element={<AdminFaqView />} />
               <Route path="/writeFaq" element={<AdminFaqWrite />} />
               <Route path="/faqUpdate/:id" element={<AdminFaqUpdate />} />
-              <Route path="/brandList" element={<AdminBrandList />} />
               <Route path="/eList" element={<AdminEventList />} />
               <Route path="/eView/:id" element={<AdminEventView />} />
               <Route path="/wEvent" element={<AdminEventWrite />} />
