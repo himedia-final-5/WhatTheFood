@@ -8,5 +8,5 @@
     "vite.config.js"
   ],
   "ext": "js,ts,json,css,html,jsx",
-  "exec": "npm run build:fast"
+  "exec": "npm run build"
 }
