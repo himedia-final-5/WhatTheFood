@@ -1,6 +1,7 @@
 {
   "name": "yorijori-client",
   "version": "0.1.0",
+  "type": "module",
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
