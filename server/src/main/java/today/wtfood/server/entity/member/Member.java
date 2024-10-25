@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Entity
+@Entity //Db table과 연결되는 anotation
 @Table(name = "member")
 @DynamicInsert
 @DynamicUpdate
